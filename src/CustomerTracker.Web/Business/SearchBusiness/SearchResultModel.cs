@@ -4,7 +4,7 @@
     {
         public string Title { get; set; }
 
-        public int SearchResultId { get; set; }
+        public string Url { get; set; }
 
         public string Summary { get; set; }
     }
