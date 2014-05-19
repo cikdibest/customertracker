@@ -87,7 +87,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
 
         public virtual TObject Find(Expression<Func<TObject, bool>> predicate)
         {
-            return DbSet.FirstOrDefault(predicate);
+            return SelectAll().FirstOrDefault(predicate);
         }
 
         public virtual TObject Create(TObject TObject)
