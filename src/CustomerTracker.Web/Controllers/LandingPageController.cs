@@ -15,7 +15,7 @@ namespace CustomerTracker.Web.Controllers
 
         public LandingPageController()
         {
-            _searchEngine = default(ISearchEngine);
+            _searchEngine = new IndexSearchEngine(ConfigurationHelper.UnitOfWorkInstance);
         }
 
         public ActionResult Index()
@@ -24,20 +24,20 @@ namespace CustomerTracker.Web.Controllers
         }
 
 
-        public ActionResult Search(string criteria, string searchType)
+        public ActionResult Search(string searchCriteria, string searchType)
         {
             IPagedList<SearchResultModel> resultModels;
        
             switch (searchType)
             {
                 case "customer":
-                  resultModels=  _searchEngine.SearchCustomers(criteria, 0, "Id", false);
+                    resultModels = _searchEngine.SearchCustomers(searchCriteria, 0, "Id", false);
                     break;
                 case "communication":
-                    resultModels = _searchEngine.SearchRemoteComputers(criteria, 0, "Id", false);
+                    resultModels = _searchEngine.SearchRemoteComputers(searchCriteria, 0, "Id", false);
                     break;
                 case "remotecomputer":
-                    resultModels = _searchEngine.SearchRemoteComputers(criteria, 0, "Id", false);
+                    resultModels = _searchEngine.SearchRemoteComputers(searchCriteria, 0, "Id", false);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
