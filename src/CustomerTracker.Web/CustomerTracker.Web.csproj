@@ -186,6 +186,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Business\AccountBusiness\AccountMapper.cs" />
     <Compile Include="Business\AccountBusiness\PasswordCreater.cs" />
+    <Compile Include="Business\SearchBusiness\IndexSearchEngine.cs" />
+    <Compile Include="Business\SearchBusiness\ISearchEngine.cs" />
+    <Compile Include="Business\SearchBusiness\SearchResultModel.cs" />
     <Compile Include="Business\UserBusiness\UserUtility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
