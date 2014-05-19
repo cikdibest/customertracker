@@ -230,15 +230,15 @@ namespace CustomerTracker.Web.Controllers
 
         private void SendMail(RegisterModel registerModel)
         {
-            //var sendToUserAfterRegistration = new SendToUserAfterRegistrationMailViewModel()
-            //{
-            //    FullName = registerModel.FirstName + " " + registerModel.LastName,
-                
-            //};
+            var sendToUserAfterRegistration = new SendToUserAfterRegistrationMailViewModel()
+            {
+                FullName = registerModel.FirstName + " " + registerModel.LastName,
 
-            //var mailMessageForUser = _mailBuilder.BuildMailMessageForSendToUserAfterRegistration(sendToUserAfterRegistration);
+            };
 
-            //_mailSenderUtility.SendEmailAsync(mailMessageForUser);
+            var mailMessageForUser = _mailBuilder.BuildMailMessageForSendToUserAfterRegistration(sendToUserAfterRegistration);
+
+            _mailSenderUtility.SendEmailAsync(mailMessageForUser);
 
         }
 

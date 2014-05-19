@@ -7,6 +7,8 @@ namespace CustomerTracker.Web.Infrastructure.Tasks
         public void AddSendMailTask(MailMessage mail)
         {
             TaskExecutor.ExcuteLater(new SendEmailTask(mail));
+
+         
         }
 
         

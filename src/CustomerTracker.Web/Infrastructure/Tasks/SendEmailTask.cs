@@ -29,4 +29,6 @@ namespace CustomerTracker.Web.Infrastructure.Tasks
             throw e;
         }
     }
+
+     
 }

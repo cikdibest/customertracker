@@ -22,8 +22,8 @@ namespace CustomerTracker.Web.Utilities
 
         public void SendEmail(MailMessage message)
         {
-            //var smtpSetting = (SmtpSetting) Infrastructure.Services.DistributedCacheService.SingletonDistributedCacheService.DistributedCacheService.GetEntry("SmtpSetting");
-             
+            //var smtpSetting = (SmtpSetting)Infrastructure.Services.DistributedCacheService.SingletonDistributedCacheService.DistributedCacheService.GetEntry("SmtpSetting");
+
             //using (var smtpClient = new SmtpClient()
             //{
             //    Host = smtpSetting.Host,
