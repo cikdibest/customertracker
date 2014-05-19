@@ -35,7 +35,7 @@ namespace CustomerTracker.Web.Controllers
                     resultModels = _searchEngine.SearchCustomers(searchCriteria, 0, "Id", false);
                     break;
                 case "communication":
-                    resultModels = _searchEngine.SearchRemoteComputers(searchCriteria, 0, "Id", false);
+                    resultModels = _searchEngine.SearchCommunications(searchCriteria, 0, "Id", false);
                     break;
                 case "remotecomputer":
                     resultModels = _searchEngine.SearchRemoteComputers(searchCriteria, 0, "Id", false);

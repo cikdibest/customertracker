@@ -34,8 +34,11 @@
         <ul>
             @foreach (var item in Model)
             {
-                <li>@item.Title<br />
-                    @item.Summary</li>
+                <a href="@item.Url">
+                    <li>@item.Title
+                        <br />
+                        @item.Summary</li>
+                </a>
             }
         </ul>
     }
