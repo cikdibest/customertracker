@@ -204,6 +204,14 @@
     <Compile Include="Infrastructure\Tasks\AsyncTaskService.cs" />
     <Compile Include="Infrastructure\Tasks\SendEmailTask.cs" />
     <Compile Include="Infrastructure\Tasks\TaskExecutor.cs" />
+    <Compile Include="Migrations\201405191812535_frst.migartion.cs" />
+    <Compile Include="Migrations\201405191812535_frst.migartion.Designer.cs">
+      <DependentUpon>201405191812535_frst.migartion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405191813410_dummy_data.cs" />
+    <Compile Include="Migrations\201405191813410_dummy_data.Designer.cs">
+      <DependentUpon>201405191813410_dummy_data.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
     <Compile Include="Models\Attributes\HiddenItemAttribute.cs" />
@@ -670,6 +678,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201405191812535_frst.migartion.resx">
+      <DependentUpon>201405191812535_frst.migartion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405191813410_dummy_data.resx">
+      <DependentUpon>201405191813410_dummy_data.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

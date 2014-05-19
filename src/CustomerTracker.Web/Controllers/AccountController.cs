@@ -89,7 +89,7 @@ namespace CustomerTracker.Web.Controllers
             {
                 try
                 {
-                    WebSecurity.CreateUser(registerModel, ConfigurationHelper.RoleAnonymous);
+                    WebSecurity.CreateUser(registerModel, ConfigurationHelper.RolePersonel);
 
                     SendMail(registerModel);
 

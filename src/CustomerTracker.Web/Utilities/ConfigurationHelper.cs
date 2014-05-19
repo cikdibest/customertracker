@@ -51,9 +51,9 @@ namespace CustomerTracker.Web.Utilities
 
         public static string RoleAdmin = "Admin";
 
-        public static string RoleAnonymous = "Anonymous";
+        public static string RolePersonel = "Personel";
 
-    
+        public static string RoleCustomer = "Customer";
          
        
     }
