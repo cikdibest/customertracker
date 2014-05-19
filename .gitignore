@@ -273,3 +273,4 @@ UpgradeLog*.XML
 src/Gtud.Web/App_Data/GtudData.sdf
 src/Gtud.Web/App_Data/GtudData.sdf
 /src/Gtud.Web/App_Data/GtudData.sdf
+/src/packages
