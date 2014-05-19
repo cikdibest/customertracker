@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
 using CustomerTracker.Web.App_Start;
+using CustomerTracker.Web.Controllers;
 using CustomerTracker.Web.Infrastructure.Membership;
 using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Infrastructure.Services.DistributedCacheService;
@@ -75,7 +76,7 @@ namespace CustomerTracker.Web
 
            // HibernatingRhinos.Profiler.Appender.EntityFramework.EntityFrameworkProfiler.Initialize();
 
-            
+            //ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
 
             AreaRegistration.RegisterAllAreas();
 

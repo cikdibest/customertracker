@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Web.DynamicData;
 using System.Web.Mvc;
+using System.Web.Routing;
+using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business;
 using CustomerTracker.Web.Business.SearchBusiness;
+using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Utilities;
 using MvcPaging;
+using Ninject;
 
 namespace CustomerTracker.Web.Controllers
 {
@@ -15,15 +19,15 @@ namespace CustomerTracker.Web.Controllers
 
         public LandingPageController()
         {
-            _searchEngine = new IndexSearchEngine(ConfigurationHelper.UnitOfWorkInstance);
+            _searchEngine = NinjectWebCommon.GetKernel.Get<ISearchEngine>();
+
         }
 
         public ActionResult Index(object searchResultModels = null)
-        { 
+        {
             return View(searchResultModels as IPagedList<SearchResultModel>);
-             
-        }
 
+        }
 
         public ActionResult Search(string searchCriteria, string searchType)
         {
@@ -49,4 +53,16 @@ namespace CustomerTracker.Web.Controllers
             return View("Index", resultModels);
         }
     }
+
+    //public class NinjectControllerFactory : DefaultControllerFactory
+    //{
+    //    protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
+    //    { 
+    //        return controllerType == null
+    //               ? null
+    //               : (IController)NinjectWebCommon.GetKernel.Get(controllerType);
+
+    //        //return base.GetControllerInstance(requestContext, controllerType);
+    //    }
+    //}
 }

@@ -1,3 +1,4 @@
+using System.Web.Mvc;
 using CustomerTracker.Web.Business;
 using CustomerTracker.Web.Business.SearchBusiness;
 using CustomerTracker.Web.Controllers;
@@ -20,7 +21,7 @@ namespace CustomerTracker.Web.App_Start
     public static class NinjectWebCommon 
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
-
+      
         /// <summary>
         /// Starts the application
         /// </summary>
@@ -29,8 +30,8 @@ namespace CustomerTracker.Web.App_Start
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             var kernel = CreateKernel();
-            kernel.Bind<IUnitOfWork>().ToConstant(ConfigurationHelper.UnitOfWorkInstance);
-            kernel.Bind<ISearchEngine>().To<IndexSearchEngine>().InSingletonScope();
+            kernel.Bind<IUnitOfWork>().ToMethod(context => { return ConfigurationHelper.UnitOfWorkInstance; });
+            kernel.Bind<ISearchEngine>().To<IndexSearchEngine>();
             bootstrapper.Initialize(() => { return kernel; });
         }
         
@@ -70,6 +71,16 @@ namespace CustomerTracker.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-        }        
+        }
+
+        public static IKernel GetKernel
+        {
+            get
+            {
+                return bootstrapper.Kernel;
+            }
+        }
+
+
     }
 }
