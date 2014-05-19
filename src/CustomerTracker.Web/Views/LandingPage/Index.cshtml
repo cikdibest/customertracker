@@ -1,7 +1,39 @@
-﻿ 
-
-@{
+﻿@{
     ViewBag.Title = "title"; 
 }
 
-<h2>title</h2>
+<div class="row">
+    <form action="@Url.Action("Search")">
+        @Html.Hidden("searchType")
+        <div class="col-lg-4 pull-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default" onclick="SetSearchType(this)" id="buttonCustomer" value="customer">Customer</button>
+                <button type="button" class="btn btn-default" onclick="SetSearchType(this)" id="buttonCommunication" value="communication">Communication</button>
+                <button type="button" class="btn btn-default" onclick="SetSearchType(this)" id="buttonTemoteComputer" value="remotecomputer">Remote Computer</button>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="col-lg-11">
+                <input class="form-control" style="width: 100%" name="searchCriteria" />
+            </div>
+            <div class="col-lg-1">
+                <button type="submit" id="s" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>
+<hr />
+<div class="row col-lg-offset-1">
+</div>
+<script>
+    SetSearchType($('#buttonCustomer'));
+    
+    function SetSearchType(targetButton) {
+        $('#searchType').val($(targetButton).val());
+        $('.btn').removeClass("btn-danger");
+        $(targetButton).addClass("btn-danger");
+    }
+</script>

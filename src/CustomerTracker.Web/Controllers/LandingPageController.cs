@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using CustomerTracker.Web.Utilities;
 using MvcPaging;
@@ -20,12 +21,35 @@ namespace CustomerTracker.Web.Controllers
             return View();
         }
 
-      
+
+        public ActionResult Search(string criteria, string searchType)
+        {
+            IPagedList<SearchResultModel> resultModels;
+       
+            switch (searchType)
+            {
+                case "customer":
+                  resultModels=  _searchEngine.SearchCustomers(criteria, 0, "Id", false);
+                    break;
+                case "communication":
+                    resultModels = _searchEngine.SearchRemoteComputers(criteria, 0, "Id", false);
+                    break;
+                case "remotecomputer":
+                    resultModels = _searchEngine.SearchRemoteComputers(criteria, 0, "Id", false);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+                    break;
+                     
+            }
+
+            return View("Index");
+        }
     }
 
     public interface ISearchEngine
     {
-        IPagedList<SearchResultModel> SearchCustomers(string criteria,int currentPageIndex,  string sorting, bool isAscending);
+        IPagedList<SearchResultModel> SearchCustomers(string criteria, int currentPageIndex, string sorting, bool isAscending);
 
         IPagedList<SearchResultModel> SearchCommunications(string criteria, int currentPageIndex, string sorting, bool isAscending);
 
