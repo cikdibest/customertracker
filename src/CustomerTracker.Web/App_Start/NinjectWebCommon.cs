@@ -1,3 +1,4 @@
+using CustomerTracker.Web.Controllers;
 using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Utilities;
 
@@ -27,6 +28,7 @@ namespace CustomerTracker.Web.App_Start
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             var kernel = CreateKernel();
             kernel.Bind<IUnitOfWork>().ToConstant(ConfigurationHelper.UnitOfWorkInstance);
+            kernel.Bind<ISearchEngine>().To<IndexSearchEngine>().InSingletonScope();
             bootstrapper.Initialize(() => { return kernel; });
         }
         
