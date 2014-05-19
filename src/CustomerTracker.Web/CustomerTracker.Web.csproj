@@ -133,6 +133,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\BaseEntity.cs" />
+    <Compile Include="Models\Entities\City.cs" />
+    <Compile Include="Models\Entities\Communication.cs" />
+    <Compile Include="Models\Entities\Customer.cs" />
+    <Compile Include="Models\Entities\Product.cs" />
+    <Compile Include="Models\Entities\RemoteComputer.cs" />
+    <Compile Include="Models\Entities\Title.cs" />
+    <Compile Include="Models\Entities\User.cs" />
+    <Compile Include="Models\Enums\Gender.cs" />
+    <Compile Include="Models\Enums\RemoteConnectionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -223,7 +233,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <Folder Include="Models\Attributes\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
