@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "title";
+
+} 
+
+<div class="footer-bar"  style="background:#00A8ED">
+    @if (Request.IsAuthenticated)
+    {
+     
+        <a class="dropdown-toggle" data-toggle="dropdown" title="Manage" href="#">@User.Identity.Name<b class="caret"></b></a>
+         
+        <a id="btnLogout" href="@Url.Action("LogOff", "Account")" >Çıkış</a> 
+           
+     
+    }
+    else
+    {  
+        <li>@Html.ActionLink("Giriş", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li> 
+    }
+
+</div>

@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+}
+
+@if (Request.IsAuthenticated)
+{
+    <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" title = "Manage" href="#">@User.Identity.Name<b class="caret"></b></a>
+
+        <ul class="dropdown-menu">
+            <li><a id="btnUserInformation" href="#">Üyelik Bilgilerim</a></li> 
+            <li><a id="btnUserMessages" href="#">Mesajlarım</a></li>
+            <li><a id="btnLogout" href="@Url.Action("LogOff", "Account")" >Çıkış</a></li>
+            @*@if (User.IsInRole("Admin"))
+            {
+                <li>@Html.ActionLink("Admin", "Dashboard", "Home", new { Area = "Admin" }, new { })</li>
+            }*@
+        </ul>
+    </li>
+}
+else
+{ 
+    <li>@Html.ActionLink("Kayıt Ol", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Giriş", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li> 
+}

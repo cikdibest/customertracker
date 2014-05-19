@@ -1,0 +1,15 @@
+﻿<div class="row">
+    <div class="span9"></div>
+    <div class="span9" align="center">
+        <span class="icon-fast-backward" data-bind="click: firstPage, style: { cursor: pageIndex() > 1 ? 'pointer' : '' }"></span>
+        <span class="icon-backward" data-bind="click: previousPage, style: { cursor: pageIndex() > 1 ? 'pointer' : '' }"></span>
+        <input type="text" style="width: 30px;" class="search-query" data-bind="value: pageIndex" />
+        <span data-bind="text: pageMessage"></span>
+        <select style="width: 60px;" class="search-query" data-bind="options: pageSizes, value: pageSize"></select>
+        <span class="icon-forward" data-bind="click: nextPage, style: { cursor: pageIndex() < pageCount() ? 'pointer' : '' }"></span>
+        <span class="icon-fast-forward" data-bind="click: lastPage, style: { cursor: pageIndex() < pageCount() ? 'pointer' : '' }"></span>
+    </div>
+    <div class="span9" align="right">
+        <span data-bind="text: recordMessage"></span>
+    </div>
+</div>

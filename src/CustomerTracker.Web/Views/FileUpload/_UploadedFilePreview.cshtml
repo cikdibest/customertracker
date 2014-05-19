@@ -1,0 +1,78 @@
+﻿ 
+@using CustomerTracker.Web.Controllers
+@model List<CustomerTracker.Web.Controllers.UploadFileListViewModel>
+
+@functions {
+    private decimal _imageCountOnLine = 1;
+}
+
+<div class="row-fluid">
+
+    @foreach (var uploadFileListViewModel in Model)
+    {
+        if (_imageCountOnLine == 1)
+        {
+        @Html.Raw("<div class='row'>")
+        }
+      
+        <div class="span1">
+            <a href="#" class="copy-button" data-clipboard-text="@Url.Content("http://www.hizliadimproje.com/Uploads/" + @uploadFileListViewModel.FilePath)" title="Resim adresini kopyala">Kopyala</a>
+            <input value="@uploadFileListViewModel.FileName"  class="span12" disabled="disabled"/>
+            @*<a href="@Url.Action("DeleteImage", "FileUpload", new { @imageName = imageName })" class="pull-right"><i class="icon-remove"></i></a>*@
+            @if (uploadFileListViewModel.UploadFileType == UploadFileType.Image)
+            {
+                <img src="@Url.Content("~/Uploads/" + uploadFileListViewModel.FilePath)" width="80" height="80"/>
+            }
+            else
+            {
+                <img src="http://www.zoho.com/docs/images/document-management-software.png" width="80" height="80" />
+            }
+        </div>
+
+            _imageCountOnLine++;
+
+            if (_imageCountOnLine == 12)
+            { 
+        @Html.Raw("</div> <hr/>")
+                _imageCountOnLine = 1;
+            }
+    }
+
+
+
+</div>
+
+
+<script src="@Url.Content("~/Scripts/ZeroClipboard.min.js")"></script>
+<script>
+    $(function () {
+        var clip = new ZeroClipboard(document.getElementsByClassName("copy-button"), {
+            moviePath: "/Scripts/ZeroClipboard.swf"
+        });
+
+        clip.on('load', function (client) {
+            // alert("movie is loaded" );
+        });
+
+        clip.on('complete', function (client, args) {
+            //alert("Resim adresi kopyalandı");
+        });
+
+        clip.on('mouseover', function (client) {
+            // alert("mouse over");
+        });
+
+        clip.on('mouseout', function (client) {
+            // alert("mouse out");
+        });
+
+        clip.on('mousedown', function (client) {
+
+            // alert("mouse down");
+        });
+
+        clip.on('mouseup', function (client) {
+            // alert("mouse up");
+        });
+    });
+</script>
