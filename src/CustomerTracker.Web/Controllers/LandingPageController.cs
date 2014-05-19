@@ -18,23 +18,24 @@ namespace CustomerTracker.Web.Controllers
             _searchEngine = new IndexSearchEngine(ConfigurationHelper.UnitOfWorkInstance);
         }
 
-        public ActionResult Index()
-        {
-            return View();
+        public ActionResult Index(object searchResultModels = null)
+        { 
+            return View(searchResultModels as IPagedList<SearchResultModel>);
+             
         }
 
 
         public ActionResult Search(string searchCriteria, string searchType)
         {
             IPagedList<SearchResultModel> resultModels;
-       
+
             switch (searchType)
             {
                 case "customer":
                     resultModels = _searchEngine.SearchCustomers(searchCriteria, 0, "Id", false);
                     break;
                 case "communication":
-                    resultModels = _searchEngine.SearchRemoteComputers(searchCriteria, 0, "Id", false);
+                    resultModels = _searchEngine.SearchCommunications(searchCriteria, 0, "Id", false);
                     break;
                 case "remotecomputer":
                     resultModels = _searchEngine.SearchRemoteComputers(searchCriteria, 0, "Id", false);
@@ -42,10 +43,10 @@ namespace CustomerTracker.Web.Controllers
                 default:
                     throw new ArgumentOutOfRangeException();
                     break;
-                     
+
             }
 
-            return View("Index");
+            return View("Index", resultModels);
         }
     }
 }
