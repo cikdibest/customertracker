@@ -56,19 +56,19 @@ namespace CustomerTracker.Web.Infrastructure.Repository
           
         public virtual IQueryable<TObject> SelectAll()
         {
-            return DbSet.AsQueryable();
+            return DbSet.AsQueryable().Where(p=>!p.IsDeleted);
         }
 
         public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> predicate)
         {
-            return DbSet.Where(predicate).AsQueryable<TObject>();
+            return SelectAll().Where(predicate).AsQueryable<TObject>();
         }
 
         public virtual IQueryable<TObject> Filter<TKey>(Expression<Func<TObject, bool>> filter, out int total, int index = 0, int size = 50)
         {
             int skipCount = index * size;
-            var resetSet = filter != null ? DbSet.Where(filter).AsQueryable() :
-                DbSet.AsQueryable();
+            var resetSet = filter != null ? SelectAll().Where(filter).AsQueryable() :
+                SelectAll().AsQueryable();
             resetSet = skipCount == 0 ? resetSet.Take(size) :
                 resetSet.Skip(skipCount).Take(size);
             total = resetSet.Count();

@@ -13,7 +13,6 @@ namespace CustomerTracker.Web.Infrastructure.Repository
     {
         IRepositoryGeneric<TSet> GetRepository<TSet>() where TSet : BaseEntity;
 
-        IRepositoryType GetRepository(Type type);
 
         DbTransaction BeginTransaction();
 
@@ -63,17 +62,6 @@ namespace CustomerTracker.Web.Infrastructure.Repository
             return repository;
         }
 
-        public IRepositoryType GetRepository(Type entityType)
-        {
-            if (_repositoriesType.Keys.Contains(entityType))
-                return _repositoriesType[entityType] as IRepositoryType;
-
-            var repository = new RepositoryType(_ctx, entityType);
-
-            _repositoriesType.Add(entityType, repository);
-
-            return repository;
-        }
 
         public DbTransaction BeginTransaction()
         {

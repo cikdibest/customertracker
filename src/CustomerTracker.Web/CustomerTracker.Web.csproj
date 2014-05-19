@@ -207,7 +207,6 @@
     <Compile Include="Infrastructure\Membership\WebSecurity.cs" />
     <Compile Include="Infrastructure\Repository\CustomerTrackerDataContext.cs" />
     <Compile Include="Infrastructure\Repository\RepositoryGeneric.cs" />
-    <Compile Include="Infrastructure\Repository\RepositoryType.cs" />
     <Compile Include="Infrastructure\Repository\UnitOfWork.cs" />
     <Compile Include="Infrastructure\Services\DistributedCacheService\CachingService.cs" />
     <Compile Include="Infrastructure\Services\DistributedCacheService\DateTimeProvider.cs" />
