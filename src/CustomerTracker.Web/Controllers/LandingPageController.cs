@@ -18,16 +18,17 @@ namespace CustomerTracker.Web.Controllers
             _searchEngine = new IndexSearchEngine(ConfigurationHelper.UnitOfWorkInstance);
         }
 
-        public ActionResult Index()
-        {
-            return View();
+        public ActionResult Index(object searchResultModels = null)
+        { 
+            return View(searchResultModels as IPagedList<SearchResultModel>);
+             
         }
 
 
         public ActionResult Search(string searchCriteria, string searchType)
         {
             IPagedList<SearchResultModel> resultModels;
-       
+
             switch (searchType)
             {
                 case "customer":
@@ -42,10 +43,10 @@ namespace CustomerTracker.Web.Controllers
                 default:
                     throw new ArgumentOutOfRangeException();
                     break;
-                     
+
             }
 
-            return View("Index");
+            return View("Index", resultModels);
         }
     }
 }

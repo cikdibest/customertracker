@@ -18,6 +18,10 @@ namespace CustomerTracker.Web.Utilities
         {
             get
             {
+                if (HttpContext.Current==null)
+                {
+                    return null;
+                }
 
                 return (IUnitOfWork)HttpContext.Current.Items["UnitOfWorkInstance"];
             }
