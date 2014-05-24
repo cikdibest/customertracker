@@ -1,0 +1,1 @@
+1. jquery-1.9.1.min.map olduðu halde jquery.min.map not found hatasý oluyordu.Bu yüzden bu isimde yeniden kaydettik map dosyasýný.

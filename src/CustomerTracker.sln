@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerTracker.Web", "CustomerTracker.Web\CustomerTracker.Web.csproj", "{BFA5BFFE-1D13-4DF4-8D0E-904C02B78321}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BB73DE9-B316-4C82-AE89-6FD12D674CD9}"
+	ProjectSection(SolutionItems) = preProject
+		notes.txt = notes.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
