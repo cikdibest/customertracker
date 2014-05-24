@@ -7,11 +7,11 @@ using MvcPaging;
 
 namespace CustomerTracker.Web.Business.SearchBusiness
 {
-    public class IndexSearchEngine : ISearchEngine
+    public class SearchEngine : ISearchEngine
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public IndexSearchEngine(IUnitOfWork unitOfWork)
+        public SearchEngine(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
