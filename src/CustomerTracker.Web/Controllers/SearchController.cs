@@ -13,11 +13,11 @@ using Ninject;
 namespace CustomerTracker.Web.Controllers
 {
     [Authorize(Roles = "Personel,Admin")]
-    public class LandingPageController : Controller
+    public class SearchController : Controller
     {
         private ISearchEngine _searchEngine;
 
-        public LandingPageController()
+        public SearchController()
         {
             _searchEngine = NinjectWebCommon.GetKernel.Get<ISearchEngine>();
 
