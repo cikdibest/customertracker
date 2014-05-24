@@ -61,8 +61,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
 
             return repository;
         }
-
-
+         
         public DbTransaction BeginTransaction()
         {
             if (_transaction == null)
@@ -118,4 +117,5 @@ namespace CustomerTracker.Web.Infrastructure.Repository
         #endregion
     }
 
+    
 }

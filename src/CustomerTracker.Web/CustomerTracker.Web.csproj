@@ -186,7 +186,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Business\AccountBusiness\AccountMapper.cs" />
     <Compile Include="Business\AccountBusiness\PasswordCreater.cs" />
-    <Compile Include="Business\SearchBusiness\IndexSearchEngine.cs" />
+    <Compile Include="Business\SearchBusiness\SearchEngine.cs" />
     <Compile Include="Business\SearchBusiness\ISearchEngine.cs" />
     <Compile Include="Business\SearchBusiness\SearchResultModel.cs" />
     <Compile Include="Business\UserBusiness\UserUtility.cs" />
@@ -637,6 +637,7 @@
     <Content Include="Scripts\ckeditor\themes\default\theme.js" />
     <Content Include="Scripts\components\bootstrap-fileupload.min.css" />
     <Content Include="Scripts\components\bootstrap-fileupload.min.js" />
+    <Content Include="Scripts\domain\appControllers.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -646,6 +647,7 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\jquery.min.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />

@@ -31,7 +31,7 @@ namespace CustomerTracker.Web.App_Start
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             var kernel = CreateKernel();
             kernel.Bind<IUnitOfWork>().ToMethod(context => { return ConfigurationHelper.UnitOfWorkInstance; });
-            kernel.Bind<ISearchEngine>().To<IndexSearchEngine>();
+            kernel.Bind<ISearchEngine>().To<SearchEngine>();
             bootstrapper.Initialize(() => { return kernel; });
         }
         

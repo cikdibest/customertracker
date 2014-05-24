@@ -3,58 +3,55 @@
 @{
     ViewBag.Title = "title"; 
 }
- 
-<div class="row">
-    <form action="@Url.Action("Search")">
+<div id="divMain" ng-controller="landingIndexController">
+    <div class="row">
         @Html.Hidden("searchType")
         <div class="col-lg-4 pull-right">
             <div class="btn-group">
-                <button type="button" class="btn btn-default" onclick="SetSearchType(this)" id="buttonCustomer" value="customer">Customer</button>
-                <button type="button" class="btn btn-default" onclick="SetSearchType(this)" id="buttonCommunication" value="communication">Communication</button>
-                <button type="button" class="btn btn-default" onclick="SetSearchType(this)" id="buttonTemoteComputer" value="remotecomputer">Remote Computer</button>
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" value="Customer">
+                    <span ng-bind="activeSearchType"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" ng-click="setSearchType('customer')">Customer</a></li>
+                    <li><a href="#" ng-click="setSearchType('communication')">Communication</a></li>
+                    <li><a href="#" ng-click="setSearchType('remotecomputer')">Remote Computer</a></li>
+                </ul>
             </div>
         </div>
         <div class="col-lg-8">
             <div class="col-lg-11">
-                <input class="form-control" style="width: 100%" name="searchCriteria" />
+                <input class="form-control" style="width: 100%" ng-model="searchCriteria" />
             </div>
             <div class="col-lg-1">
-                <button type="submit" id="s" class="btn btn-default">
+                <button class="btn btn-default" ng-click="searchClicked()">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
-
         </div>
-    </form>
+    </div>
+    <hr />
+    <div class="row col-lg-10">
+        <div class="list-group" ng-repeat="result in searchResults">
+            <a href="{{result.Url}}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{result.Title}}</h4>
+                <p class="list-group-item-text">{{result.Summary}}</p>
+            </a> 
+        </div>
+    </div>
+
+
 </div>
-<hr />
-<div class="row col-lg-offset-1">
-     @if (Model != null)
-    { 
-        <ul>
-            @foreach (var item in Model)
-            {
-                <a href="@item.Url">
-                    <li>@item.Title
-                        <br />
-                        @item.Summary</li>
-                </a>
-            }
-        </ul>
-    }
-</div>
- 
- 
- 
+
+
 <script>
-    SetSearchType($('#buttonCustomer'));
 
-    function SetSearchType(targetButton) {
-        $('#searchType').val($(targetButton).val());
-        $('.btn').removeClass("btn-danger");
-        $(targetButton).addClass("btn-danger");
-    }
+    $(document).keypress(function (e) {
+        if (e.which == 13) {
+            var scope = angular.element(document.getElementById("divMain")).scope();
 
- 
+            scope.searchClicked();
+        }
+    });
 
 </script>

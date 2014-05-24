@@ -29,7 +29,7 @@ namespace CustomerTracker.Web.Controllers
 
         }
 
-        public ActionResult Search(string searchCriteria, string searchType)
+        public JsonResult Search(string searchCriteria, string searchType)
         {
             IPagedList<SearchResultModel> resultModels;
 
@@ -50,7 +50,7 @@ namespace CustomerTracker.Web.Controllers
 
             }
 
-            return View("Index", resultModels);
+            return Json(resultModels, JsonRequestBehavior.AllowGet);
         }
     }
 
