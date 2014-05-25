@@ -5,41 +5,48 @@
 }
 <div id="divMain" ng-controller="landingIndexController">
     <div class="row">
-        @Html.Hidden("searchType")
-        <div class="col-lg-4 pull-right">
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" value="Customer">
-                    <span ng-bind="activeSearchType"></span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#" ng-click="setSearchType('customer')">Customer</a></li>
-                    <li><a href="#" ng-click="setSearchType('communication')">Communication</a></li>
-                    <li><a href="#" ng-click="setSearchType('remotemachine')">Remote Machine</a></li>
-                </ul>
+        <div class="col-lg-4">
+            <div class="row"> 
+                <div class="col-lg-4 pull-right">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" value="Customer">
+                            <span ng-bind="activeSearchType"></span>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" ng-click="setSearchType('customer')">Customer</a></li>
+                            <li><a href="#" ng-click="setSearchType('communication')">Communication</a></li>
+                            <li><a href="#" ng-click="setSearchType('remotemachine')">Remote Machine</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="col-lg-11">
+                        <input class="form-control" style="width: 100%" ng-model="searchCriteria" required />
+                    </div>
+                    <div class="col-lg-1">
+                        <button class="btn btn-default" ng-click="searchClicked()" ng-disabled="!searchCriteria.length">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row col-lg-10">
+                <div class="list-group" ng-repeat="result in searchResults">
+                    <a href="#" ng-click="loadDetail(result)" class="list-group-item">
+                        <h4 class="list-group-item-heading">{{result.Title}}</h4>
+                        <p class="list-group-item-text">{{result.Summary}}</p>
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="col-lg-11">
-                <input class="form-control" style="width: 100%" ng-model="searchCriteria" required />
-            </div>
-            <div class="col-lg-1">
-                <button class="btn btn-default" ng-click="searchClicked()" ng-disabled="!searchCriteria.length">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </div>
+        <div class="col-lg-7"> 
+           <div  ng-bind-html="detailView"></div>
         </div>
     </div>
-    <hr />
-    <div class="row col-lg-10">
-        <div class="list-group" ng-repeat="result in searchResults">
-            <a href="{{result.Url}}" class="list-group-item">
-                <h4 class="list-group-item-heading">{{result.Title}}</h4>
-                <p class="list-group-item-text">{{result.Summary}}</p>
-            </a> 
-        </div>
-    </div>
- 
+
+
 
 </div>
 

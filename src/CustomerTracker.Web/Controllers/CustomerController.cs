@@ -15,8 +15,7 @@ namespace CustomerTracker.Web.Controllers
         
          
         public ActionResult Detail(int customerId)
-        {
-            
+        { 
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext()
                  .Set<Customer>()
                  .Include("City")
@@ -25,7 +24,7 @@ namespace CustomerTracker.Web.Controllers
 
             var customerDetailModel = Mapper.Map<CustomerDetailModel>(customer);
 
-            return View(customerDetailModel);
+            return PartialView("Detail", customerDetailModel);
         }
     }
 

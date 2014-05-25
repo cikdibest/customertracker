@@ -4,13 +4,11 @@
     ViewBag.Title = "title";
 }
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
-<!-- JavaScrip Search Plugin -->
-<script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
+@*<script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>*@
 <link href="~/Content/customerdetail.css" rel="stylesheet" />
 
 <nav class="navbar navbar-inverse container" role="navigation">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -20,10 +18,7 @@
             </button>
             <a class="navbar-brand" href="#">@Model.CustomerTitle</a>
         </div>
-
-
     </div>
-    <!-- /.container-fluid -->
 </nav>
 
 
@@ -65,10 +60,10 @@
                                     <tr>
                                         <td>Ürünler</td>
                                         <td>
-                                           @foreach (var product in @Model.Products)
-                                           {
+                                            @foreach (var product in @Model.Products)
+                                            { 
                                                 <button type="button" class="btn btn-danger">@product.Name</button>
-                                           }
+                                            }
                                         </td>
                                     </tr>
                                 </tbody>
@@ -190,8 +185,6 @@
                 </ul>
             </div>
         </div>
-        <!-- tab content -->
-
     </div>
 
 </div>
@@ -199,21 +192,21 @@
 <link href="~/Content/chosen.css" rel="stylesheet" />
 <script src="~/Scripts/chosen.jquery.min.js"></script>
 <script>
-    
 
-    $(function () {
 
-        $('#contact-list').searchable({
-            searchField: '#contact-list-search',
-            selector: 'li',
-            childSelector: '.col-xs-12',
-            show: function (elem) {
-                elem.slideDown(100);
-            },
-            hide: function (elem) {
-                elem.slideUp(100);
-            }
-        });
-    });
+    //$(function () {
+
+    //    $('#contact-list').searchable({
+    //        searchField: '#contact-list-search',
+    //        selector: 'li',
+    //        childSelector: '.col-xs-12',
+    //        show: function (elem) {
+    //            elem.slideDown(100);
+    //        },
+    //        hide: function (elem) {
+    //            elem.slideUp(100);
+    //        }
+    //    });
+    //});
 
 </script>
