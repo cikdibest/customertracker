@@ -3,6 +3,12 @@
 @{
     ViewBag.Title = "title"; 
 }
+<style>
+    .sel {
+      
+        background-color: #3982C1
+}
+</style>
 <div id="divMain" ng-controller="landingIndexController">
  
     <div class="row">
@@ -23,7 +29,7 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="col-lg-11">
-                        <input class="form-control" style="width: 100%" ng-model="searchCriteria" required />
+                        <input class="form-control" style="width: 100%" ng-model="searchCriteria" required id="searchInput" />
                     </div>
                     <div class="col-lg-1">
                         <button class="btn btn-default" ng-click="searchClicked()" ng-disabled="!searchCriteria.length">
@@ -34,8 +40,10 @@
             </div>
             <hr />
             <div class="row col-lg-10">
+               
                 <div class="list-group" ng-repeat="result in searchResults">
-                    <a href="#" ng-click="loadDetail(result)" class="list-group-item">
+               
+                    <a href="#" ng-click="loadDetail(result,$index)" class="list-group-item" ng-class="{sel: $index == selectedIndex}">
                         <h4 class="list-group-item-heading">{{result.Title}}</h4>
                         <p class="list-group-item-text">{{result.Summary}}</p>
                     </a>
@@ -54,6 +62,9 @@
 <script>
 
     $(document).keypress(function (e) {
+
+        $("#searchInput").focus();
+
         if (e.which == 13) {
             var scope = angular.element(document.getElementById("divMain")).scope();
 

@@ -8,6 +8,7 @@ namespace CustomerTracker.Web.Models
 {
     public class CustomerDetailModel
     {
+        public int Id { get; set; }
         public string CustomerTitle { get; set; }
         public string CityName { get; set; }
         public string Explanation { get; set; }
@@ -34,6 +35,8 @@ namespace CustomerTracker.Web.Models
         public string CustomerTitle { get; set; }
 
         public string RemoteConnectionType { get; set; }
+
+        public string LogoName { get; set; }
         
     }
 

@@ -53,7 +53,7 @@ namespace CustomerTracker.Web.App_Start
 
 
             var repositoryCustomer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 400; i++)
             {
                 var customer = fixture.Create<Customer>();
                 repositoryCustomer.Create(customer);
@@ -77,12 +77,13 @@ namespace CustomerTracker.Web.App_Start
             fixture.Register<RemoteMachine>(() =>
             {
                 var random = new Random();
+                var remoteConnectionType = ((RemoteConnectionType) random.Next(1, 5));
                 var remoteMachine = new RemoteMachine()
                 {
-                    Name = "TeamViewer",
+                    Name = remoteConnectionType.ToString(),
                     Password = "123",
                     RemoteAddress = "192.180.10.1",
-                    RemoteConnectionTypeId = ((RemoteConnectionType)random.Next(1, 5)).GetHashCode(),
+                    RemoteConnectionTypeId = remoteConnectionType.GetHashCode(),
                     Explanation = Guid.NewGuid().ToString().Substring(0, 20) + " " + Guid.NewGuid().ToString().Substring(0, 20),
                     Username = Guid.NewGuid().ToString().Substring(0, 5),
                     IsActive = true,

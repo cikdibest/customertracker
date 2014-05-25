@@ -12,6 +12,8 @@ customerApp.controller('landingIndexController', function ($scope, $http, $sce) 
  
     $scope.selectedCustomer = null;
 
+    $scope.selectedIndex = null;
+     
     $scope.setSearchType = function (searchType) {
         $scope.activeSearchType = searchType;
     };
@@ -19,6 +21,8 @@ customerApp.controller('landingIndexController', function ($scope, $http, $sce) 
     $scope.searchClicked = function (item, events) {
         
         $scope.selectedCustomer = null;
+        
+        $scope.selectedIndex = null;
 
         var response = $http.post('/search/search', { searchCriteria: $scope.searchCriteria, searchType: $scope.activeSearchType });
 
@@ -31,7 +35,10 @@ customerApp.controller('landingIndexController', function ($scope, $http, $sce) 
 
     };
 
-    $scope.loadDetail = function(item,events) {
+    $scope.loadDetail = function (item, index) {
+
+        $scope.selectedIndex = index;
+
         var response = $http.get(item.Url);
 
         response.success(function (data, status, headers, config) {

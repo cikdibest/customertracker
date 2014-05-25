@@ -11,7 +11,7 @@ namespace CustomerTracker.Web.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201405251403325_firstmigration"; }
+            get { return "201405252024337_firstmigration"; }
         }
         
         string IMigrationMetadata.Source

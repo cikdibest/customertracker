@@ -11,6 +11,7 @@ namespace CustomerTracker.Web.App_Start
         public static void Map()
         {
             Mapper.CreateMap<Customer, CustomerDetailModel>()
+                .ForMember(dest => dest.Id, src => src.MapFrom(q => q.Id))
                 .ForMember(dest => dest.CustomerTitle, src => src.MapFrom(q => q.Title))
                 .ForMember(dest => dest.CityName, src => src.MapFrom(q => q.City.Name))
                 .ForMember(dest => dest.Explanation, src => src.MapFrom(q => q.Explanation))  ;
@@ -29,7 +30,8 @@ namespace CustomerTracker.Web.App_Start
                 .ForMember(dest => dest.Password, src => src.MapFrom(q => q.Password))
                 .ForMember(dest => dest.CustomerTitle, src => src.MapFrom(q => q.Customer.Title))
                 .ForMember(dest => dest.Explanation, src => src.MapFrom(q => q.Explanation))
-                .ForMember(dest => dest.RemoteAddress, src => src.MapFrom(q => q.RemoteAddress));
+                .ForMember(dest => dest.RemoteAddress, src => src.MapFrom(q => q.RemoteAddress))
+                .ForMember(dest => dest.LogoName, src => src.MapFrom(q => string.Format("content/images/remoteconnectiontype/{0}.jpg", q.RemoteConnectionType.ToString())));
 
             Mapper.CreateMap<Product, ProductModel>()
            .ForMember(dest => dest.Id, src => src.MapFrom(q => q.Id))

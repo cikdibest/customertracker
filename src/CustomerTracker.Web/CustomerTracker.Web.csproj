@@ -234,9 +234,9 @@
     <Compile Include="Infrastructure\Tasks\AsyncTaskService.cs" />
     <Compile Include="Infrastructure\Tasks\SendEmailTask.cs" />
     <Compile Include="Infrastructure\Tasks\TaskExecutor.cs" />
-    <Compile Include="Migrations\201405251403325_firstmigration.cs" />
-    <Compile Include="Migrations\201405251403325_firstmigration.Designer.cs">
-      <DependentUpon>201405251403325_firstmigration.cs</DependentUpon>
+    <Compile Include="Migrations\201405252024337_firstmigration.cs" />
+    <Compile Include="Migrations\201405252024337_firstmigration.Designer.cs">
+      <DependentUpon>201405252024337_firstmigration.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
@@ -279,6 +279,11 @@
     <Content Include="Content\chosen-sprite.png" />
     <Content Include="Content\chosen.css" />
     <Content Include="Content\customerdetail.css" />
+    <Content Include="Content\images\remoteconnectiontype\alpemix.jpg" />
+    <Content Include="Content\images\remoteconnectiontype\ammyy.jpg" />
+    <Content Include="Content\images\remoteconnectiontype\remotedesktop.jpg" />
+    <Content Include="Content\images\remoteconnectiontype\teamviewer.jpg" />
+    <Content Include="Content\images\remoteconnectiontype\vpn.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -988,8 +993,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201405251403325_firstmigration.resx">
-      <DependentUpon>201405251403325_firstmigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201405252024337_firstmigration.resx">
+      <DependentUpon>201405252024337_firstmigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
