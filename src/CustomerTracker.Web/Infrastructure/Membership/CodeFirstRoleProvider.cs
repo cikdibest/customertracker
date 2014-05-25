@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web.Security;
+using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business.UserBusiness;
+using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
+using Ninject;
 
 namespace CustomerTracker.Web.Infrastructure.Membership
 {
     public class CodeFirstRoleProvider : RoleProvider
     {
         private IUserUtility _userUtility;
-
+         
         public CodeFirstRoleProvider()
         {
-            _userUtility = new UserUtility();
-        }
+            _userUtility = NinjectWebCommon.GetKernel.Get<IUserUtility>();
+     }
 
         public override string ApplicationName
         {
             get
             {
-                return this.GetType().Assembly.GetName().Name.ToString();
+                return this.GetType().Assembly.GetName().Name;
             }
             set
             {
-                this.ApplicationName = this.GetType().Assembly.GetName().Name.ToString();
+                this.ApplicationName = this.GetType().Assembly.GetName().Name;
             }
         }
 

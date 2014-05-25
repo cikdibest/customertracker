@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
+using Ninject;
 
 namespace CustomerTracker.Web.Models.Validations
 {

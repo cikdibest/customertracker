@@ -2,12 +2,14 @@
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Security;
+using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business.AccountBusiness;
 using CustomerTracker.Web.Business.UserBusiness;
 using CustomerTracker.Web.Infrastructure.Membership;
 using CustomerTracker.Web.Models.ViewModels;
 using CustomerTracker.Web.Utilities;
 using Microsoft.Web.WebPages.OAuth;
+using Ninject;
 
 namespace CustomerTracker.Web.Controllers
 {
@@ -35,7 +37,7 @@ namespace CustomerTracker.Web.Controllers
 
             _securityEncoder = new SecurityEncoder();
 
-            _userUtility = new UserUtility();
+            _userUtility = NinjectWebCommon.GetKernel.Get < IUserUtility>();
 
             _accountMapper = new AccountMapper(_securityEncoder);
 
@@ -49,6 +51,8 @@ namespace CustomerTracker.Web.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            //DummyDataGenerate.Generate();
+
             ViewBag.ReturnUrl = returnUrl;
 
             return View();
@@ -71,7 +75,7 @@ namespace CustomerTracker.Web.Controllers
         {
             WebSecurity.Logout();
 
-            return RedirectToAction("Index", "LandingPage");
+            return RedirectToLocal(null);
         }
 
         [AllowAnonymous]
@@ -95,7 +99,7 @@ namespace CustomerTracker.Web.Controllers
 
                     WebSecurity.Login(registerModel.UserName, registerModel.Password);
 
-                    return RedirectToAction("Index", "LandingPage");
+                    return RedirectToLocal(null);
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -233,7 +237,7 @@ namespace CustomerTracker.Web.Controllers
             var sendToUserAfterRegistration = new SendToUserAfterRegistrationMailViewModel()
             {
                 FullName = registerModel.FirstName + " " + registerModel.LastName,
-
+                UserMailAdress = registerModel.Email 
             };
 
             var mailMessageForUser = _mailBuilder.BuildMailMessageForSendToUserAfterRegistration(sendToUserAfterRegistration);
@@ -286,7 +290,7 @@ namespace CustomerTracker.Web.Controllers
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
 
-            return RedirectToAction("Index", "LandingPage");
+            return RedirectToAction("Index", "Search");
         }
 
         public enum ManageMessageId

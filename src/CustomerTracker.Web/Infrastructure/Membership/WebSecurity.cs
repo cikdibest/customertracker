@@ -5,10 +5,13 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business.UserBusiness;
+using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.ViewModels;
 using CustomerTracker.Web.Utilities;
+using Ninject;
 
 namespace CustomerTracker.Web.Infrastructure.Membership
 {
@@ -50,11 +53,11 @@ namespace CustomerTracker.Web.Infrastructure.Membership
 
         //    if (createStatus == MembershipCreateStatus.Success)
         //    {
-        //        var _unitOfWork = new UnitOfWork<JewelryDataContext>();
+        //        var ConfigurationHelper.UnitOfWorkInstance = new UnitOfWork<JewelryDataContext>();
 
-        //        var repositoryUser = _unitOfWork.GetRepository<User>();
+        //        var repositoryUser = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>();
 
-        //        using (_unitOfWork)
+        //        using (ConfigurationHelper.UnitOfWorkInstance)
         //        {
         //            var user = repositoryUser.SelectAll().FirstOrDefault(usr => usr.Username == username);
 
@@ -62,7 +65,7 @@ namespace CustomerTracker.Web.Infrastructure.Membership
 
         //            user.LastName = lastName;
 
-        //            _unitOfWork.Save();
+        //            ConfigurationHelper.UnitOfWorkInstance.Save();
         //        }
 
         //        if (isApproved)
@@ -168,7 +171,7 @@ namespace CustomerTracker.Web.Infrastructure.Membership
 
         public static User CreateUser(RegisterModel registerModel, string roleName)
         {
-            var userUtility = new UserUtility();
+            var userUtility = NinjectWebCommon.GetKernel.Get<IUserUtility>();
 
             var user = userUtility.MapUserFromRegisterModel(registerModel);
 

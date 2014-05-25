@@ -6,11 +6,13 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Security;
+using CustomerTracker.Web.App_Start;
 using DotNetOpenAuth.AspNet;
 using CustomerTracker.Web.Business.UserBusiness;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 using Microsoft.Web.WebPages.OAuth;
+using Ninject;
 
 namespace CustomerTracker.Web.Infrastructure.Membership
 {
@@ -26,7 +28,7 @@ namespace CustomerTracker.Web.Infrastructure.Membership
         {
             _applicationEnvironment = new AspnetEnvironment();
 
-            _userUtility = new UserUtility();
+            _userUtility = NinjectWebCommon.GetKernel.Get<IUserUtility>();
 
         }
 

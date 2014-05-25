@@ -11,7 +11,7 @@ using CustomerTracker.Web.Utilities;
 namespace CustomerTracker.Web.Business.UserBusiness
 {
     public class UserUtility : IUserUtility
-    { 
+    {  
         public void AddSocialAccountToUser(string provider, string providerUserId, string userName)
         {
             var repositoryUser = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>();
@@ -168,5 +168,7 @@ namespace CustomerTracker.Web.Business.UserBusiness
         User CreateUser(User user);
 
         User FindUserByEmail(string email);
+
+        User MapUserFromRegisterModel(RegisterModel registerModel);
     }
 }

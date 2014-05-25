@@ -4,20 +4,25 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Web;
 using System.Web.Security;
+using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business.UserBusiness;
+using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.ViewModels;
 using CustomerTracker.Web.Utilities;
+using Ninject;
 
 namespace CustomerTracker.Web.Infrastructure.Membership
 {
     public class CodeFirstMembershipProvider : MembershipProvider
     {
         private IUserUtility _userUtility;
-
+         
         public CodeFirstMembershipProvider()
         {
-            _userUtility = new UserUtility();
+            _userUtility = NinjectWebCommon.GetKernel.Get<IUserUtility>();
+
+            
         }
 
         #region Properties

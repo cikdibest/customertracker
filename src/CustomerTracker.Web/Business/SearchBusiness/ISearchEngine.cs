@@ -9,7 +9,7 @@ namespace CustomerTracker.Web.Business.SearchBusiness
 
         IPagedList<SearchResultModel> SearchCommunications(string criteria, int currentPageIndex, string sorting, bool isAscending);
 
-        IPagedList<SearchResultModel> SearchRemoteComputers(string criteria, int currentPageIndex, string sorting, bool isAscending);
+        IPagedList<SearchResultModel> SearchRemoteMachines(string criteria, int currentPageIndex, string sorting, bool isAscending);
 
     }
 
@@ -39,7 +39,7 @@ namespace CustomerTracker.Web.Business.SearchBusiness
             }, currentPageIndex, 20);
         }
 
-        public IPagedList<SearchResultModel> SearchRemoteComputers(string criteria, int currentPageIndex, string sorting, bool isAscending)
+        public IPagedList<SearchResultModel> SearchRemoteMachines(string criteria, int currentPageIndex, string sorting, bool isAscending)
         {
             return new PagedList<SearchResultModel>(new List<SearchResultModel>()
             {

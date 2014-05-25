@@ -7,16 +7,20 @@ namespace CustomerTracker.Web.Models.Entities
     public class Customer : BaseEntity
     {
         [StringLength(100)]
-        public string Name { get; set; }
-
+        public string Title { get; set; }
+         
         public int CityId { get; set; }
 
         public City City { get; set; }
 
         [StringLength(4000)]
         public string Explanation { get; set; }
-
+         
         public virtual List<Communication> Communications { get; set; }
+
+        public virtual List<RemoteMachine> RemoteMachines { get; set; }
+
+        public virtual List<Product> Products { get; set; }
     }
      
     public class Communication : BaseEntity
@@ -37,9 +41,9 @@ namespace CustomerTracker.Web.Models.Entities
 
         public Customer Customer { get; set; }
 
-        public int TitleId { get; set; }
+        public int DepartmentId { get; set; }
 
-        public Title Title { get; set; }
+        public Department Department { get; set; }
 
         public int GenderId { get; set; }
 
@@ -50,9 +54,17 @@ namespace CustomerTracker.Web.Models.Entities
                 return (EnumGender)GenderId;
             }
         }
+
+        public string FullName
+        {
+            get
+            {
+                return this.FirstName + " " + this.LastName;
+            }
+        }
     }
 
-    public class RemoteComputer : BaseEntity
+    public class RemoteMachine : BaseEntity
     {
         [StringLength(100)]
         public string Name { get; set; }
@@ -70,13 +82,12 @@ namespace CustomerTracker.Web.Models.Entities
         public string RemoteAddress { get; set; }
 
         public int RemoteConnectionTypeId { get; set; }
-
-        [StringLength(200)]
-        public string ProductTags { get; set; }
-
+         
         public Customer Customer { get; set; }
 
         public int CustomerId { get; set; }
+
+        public virtual List<Product> Products { get; set; }
 
         public RemoteConnectionType RemoteConnectionType
         {
@@ -86,8 +97,7 @@ namespace CustomerTracker.Web.Models.Entities
             }
         }
     }
-   
-   
+    
     public class City : BaseEntity
     {
         [StringLength(50)]
@@ -98,9 +108,8 @@ namespace CustomerTracker.Web.Models.Entities
 
         public virtual List<Customer> Customers { get; set; }
     }
-
-
-    public class Title : BaseEntity
+     
+    public class Department : BaseEntity
     {
         [StringLength(100)]
         public string Name { get; set; }
@@ -113,7 +122,18 @@ namespace CustomerTracker.Web.Models.Entities
         [StringLength(100)]
         public string Name { get; set; }
 
+        public int? ParentProductId { get; set; }
+        
+        public virtual Product ParentProduct { get; set; }
+         
         [StringLength(4000)]
         public string Explanation { get; set; }
+
+        public virtual ICollection<Product> SubProducts { get; set; }
+
+        public virtual ICollection<Customer> Customers { get; set; }
+
+        public virtual ICollection<RemoteMachine> RemoteMachines { get; set; }
+
     }
 }

@@ -15,16 +15,16 @@
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#" ng-click="setSearchType('customer')">Customer</a></li>
                     <li><a href="#" ng-click="setSearchType('communication')">Communication</a></li>
-                    <li><a href="#" ng-click="setSearchType('remotecomputer')">Remote Computer</a></li>
+                    <li><a href="#" ng-click="setSearchType('remotemachine')">Remote Machine</a></li>
                 </ul>
             </div>
         </div>
         <div class="col-lg-8">
             <div class="col-lg-11">
-                <input class="form-control" style="width: 100%" ng-model="searchCriteria" />
+                <input class="form-control" style="width: 100%" ng-model="searchCriteria" required />
             </div>
             <div class="col-lg-1">
-                <button class="btn btn-default" ng-click="searchClicked()">
+                <button class="btn btn-default" ng-click="searchClicked()" ng-disabled="!searchCriteria.length">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
@@ -39,7 +39,7 @@
             </a> 
         </div>
     </div>
-
+ 
 
 </div>
 

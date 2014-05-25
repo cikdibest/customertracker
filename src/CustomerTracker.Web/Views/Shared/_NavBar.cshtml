@@ -2,39 +2,7 @@
 @{
     Layout = null;
 }
-@*
  
-<div class="navbar">
-    <div class="navbar-inner">
-        <div class="container">
-
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
-
-            <a class="brand" href="#">Sb</a>
-
-            <div class="nav-collapse">
-                <ul class="nav">
-                    <li>@Html.ActionLink("Anasayfa", "Index", "LandingPage")</li>
-                          <li>@Html.ActionLink("İletişim", "Index", "Contact")</li>
-                </ul>
-                <form action="#" class="navbar-search pull-left">
-                    <input type="text" name="q" class="search-query" placeholder="Arama yapınız...">
-                </form>
-
-                <ul class="nav pull-right">
-                    <li class="divider-vertical"></li>
-
-                  
-                     
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>*@
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -45,7 +13,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+             
+            @Html.ActionLink("Anasayfa","Index","Search",null,new{@class="navbar-brand"})
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

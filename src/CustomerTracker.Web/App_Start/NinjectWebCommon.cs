@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using CustomerTracker.Web.Business;
 using CustomerTracker.Web.Business.SearchBusiness;
+using CustomerTracker.Web.Business.UserBusiness;
 using CustomerTracker.Web.Controllers;
 using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Utilities;
@@ -31,7 +32,10 @@ namespace CustomerTracker.Web.App_Start
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             var kernel = CreateKernel();
             kernel.Bind<IUnitOfWork>().ToMethod(context => { return ConfigurationHelper.UnitOfWorkInstance; });
-            kernel.Bind<ISearchEngine>().To<SearchEngine>();
+           // kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
+            kernel.Bind<ISearchEngine>().To<SearchEngine>().InSingletonScope();
+            kernel.Bind<IUserUtility>().To<UserUtility>().InSingletonScope();
+            
             bootstrapper.Initialize(() => { return kernel; });
         }
         

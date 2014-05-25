@@ -13,12 +13,12 @@ namespace CustomerTracker.Web.Utilities
 {
     public class ConfigurationHelper
     {
-       
+
         public static IUnitOfWork UnitOfWorkInstance
         {
             get
             {
-                if (HttpContext.Current==null)
+                if (HttpContext.Current == null)
                 {
                     return null;
                 }
@@ -39,7 +39,7 @@ namespace CustomerTracker.Web.Utilities
 
                 if (user == null)
                 {
-                    throw new ArgumentNullException("user is null");
+                    return null;
                 }
 
                 return user as UserPrincipal;

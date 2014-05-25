@@ -8,27 +8,27 @@ using CustomerTracker.Web.Models.Entities;
 namespace CustomerTracker.Web.Infrastructure.Repository
 {
     public interface IRepositoryGeneric<T> : IDisposable where T : BaseEntity
-    { 
+    {
         IQueryable<T> SelectAll();
-         
+
         IQueryable<T> Filter(Expression<Func<T, bool>> predicate);
-         
+
         IQueryable<T> Filter<TKey>(Expression<Func<T, bool>> filter, out int total, int index = 0, int size = 50);
-         
+
         bool Contains(Expression<Func<T, bool>> predicate);
-         
+
         T Find(params object[] keys);
-         
-        T Find(Expression<Func<T, bool>> predicate);
-         
+
+        T Find(Expression<Func<T, bool>> wherePredicate);
+
         T Create(T t);
-         
+
         int Delete(T t);
-         
+
         int Delete(Expression<Func<T, bool>> predicate);
-         
+
         int Update(T t);
-         
+
         int Count { get; }
 
         void CreateOrUpdate(T t);
@@ -53,10 +53,10 @@ namespace CustomerTracker.Web.Infrastructure.Repository
             _context = context;
 
         }
-          
+
         public virtual IQueryable<TObject> SelectAll()
         {
-            return DbSet.AsQueryable().Where(q=>!q.IsDeleted);
+            return DbSet.AsQueryable().Where(q => !q.IsDeleted);
         }
 
         public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> predicate)
@@ -85,9 +85,9 @@ namespace CustomerTracker.Web.Infrastructure.Repository
             return DbSet.Find(keys);
         }
 
-        public virtual TObject Find(Expression<Func<TObject, bool>> predicate)
-        {
-            return SelectAll().FirstOrDefault(predicate);
+        public virtual TObject Find(Expression<Func<TObject, bool>> wherePredicate)
+        { 
+            return SelectAll().SingleOrDefault(wherePredicate);
         }
 
         public virtual TObject Create(TObject TObject)

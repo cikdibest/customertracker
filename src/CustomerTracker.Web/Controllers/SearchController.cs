@@ -30,7 +30,7 @@ namespace CustomerTracker.Web.Controllers
         }
 
         public JsonResult Search(string searchCriteria, string searchType)
-        {
+        { 
             IPagedList<SearchResultModel> resultModels;
 
             switch (searchType)
@@ -41,8 +41,8 @@ namespace CustomerTracker.Web.Controllers
                 case "communication":
                     resultModels = _searchEngine.SearchCommunications(searchCriteria, 0, "Id", false);
                     break;
-                case "remotecomputer":
-                    resultModels = _searchEngine.SearchRemoteComputers(searchCriteria, 0, "Id", false);
+                case "remotemachine":
+                    resultModels = _searchEngine.SearchRemoteMachines(searchCriteria, 0, "Id", false);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

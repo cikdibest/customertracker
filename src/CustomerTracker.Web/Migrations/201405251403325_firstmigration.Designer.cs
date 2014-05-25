@@ -5,13 +5,13 @@ namespace CustomerTracker.Web.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class dummy_data : IMigrationMetadata
+    public sealed partial class firstmigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dummy_data));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(firstmigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201405191813410_dummy_data"; }
+            get { return "201405251403325_firstmigration"; }
         }
         
         string IMigrationMetadata.Source

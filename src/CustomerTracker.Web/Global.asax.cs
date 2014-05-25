@@ -13,6 +13,7 @@ using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Infrastructure.Services.DistributedCacheService;
 using CustomerTracker.Web.Infrastructure.Tasks;
 using CustomerTracker.Web.Utilities;
+using Ninject;
 
 namespace CustomerTracker.Web
 {
@@ -40,10 +41,12 @@ namespace CustomerTracker.Web
         private void OnBeginRequest()
         {
             ConfigurationHelper.UnitOfWorkInstance = new UnitOfWork();
+
+        
         }
 
         private void OnEndRequest(HttpServerUtility server)
-        {
+        { 
             using (var unitOfWork = ConfigurationHelper.UnitOfWorkInstance)
             {
                 if (unitOfWork == null)
@@ -52,7 +55,7 @@ namespace CustomerTracker.Web
                 if (server.GetLastError() != null)
                     return;
 
-                //unitOfWork.Save();
+                unitOfWork.Save();
             }
         }
 
@@ -74,7 +77,7 @@ namespace CustomerTracker.Web
         protected void Application_Start()
         {
 
-           // HibernatingRhinos.Profiler.Appender.EntityFramework.EntityFrameworkProfiler.Initialize();
+            // HibernatingRhinos.Profiler.Appender.EntityFramework.EntityFrameworkProfiler.Initialize();
 
             //ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
 
@@ -90,13 +93,16 @@ namespace CustomerTracker.Web
 
             AuthConfig.RegisterAuth();
 
+            AutoMapperConfiguration.Map();
+
             DatabaseConfiguration.StartMigration();
 
             CachingService.StartCaching();
+
         }
 
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
-        { 
+        {
             HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
 
             if (authCookie == null) return;

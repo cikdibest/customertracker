@@ -16,7 +16,7 @@ customerApp.controller('landingIndexController', function ($scope, $http) {
 
     $scope.searchClicked = function (item, events) {
           
-        var response = $http.post('/landingpage/search', { searchCriteria: $scope.searchCriteria, searchType: $scope.activeSearchType });
+        var response = $http.post('/search/search', { searchCriteria: $scope.searchCriteria, searchType: $scope.activeSearchType });
 
         response.success(function (data, status, headers, config) {
             $scope.searchResults = data;

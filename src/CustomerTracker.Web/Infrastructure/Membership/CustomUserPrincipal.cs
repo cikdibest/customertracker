@@ -2,8 +2,11 @@
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
+using CustomerTracker.Web.App_Start;
+using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
+using Ninject;
 
 namespace CustomerTracker.Web.Infrastructure.Membership
 {
@@ -23,14 +26,14 @@ namespace CustomerTracker.Web.Infrastructure.Membership
     public class UserPrincipal : IUserPrincipal
     {
         public bool IsInRole(string roleName)
-        { 
+        {
             var repositoryUser = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>();
 
             User user = repositoryUser.SelectAll().FirstOrDefault(usr => usr.Username == this.UserName);
 
-            if (user==null)
+            if (user == null)
                 return false;
-             
+
             var role = user.Roles.FirstOrDefault(rl => rl.RoleName == roleName);
 
             return role != null && user.Roles.Contains(role);
