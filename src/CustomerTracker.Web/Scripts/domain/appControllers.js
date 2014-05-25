@@ -9,15 +9,17 @@ customerApp.controller('landingIndexController', function ($scope, $http, $sce) 
     $scope.searchCriteria = '';
 
     $scope.activeSearchType = 'customer';
-
-    $scope.detailView = '<strong>seyhan</strong>';
+ 
+    $scope.selectedCustomer = null;
 
     $scope.setSearchType = function (searchType) {
         $scope.activeSearchType = searchType;
     };
 
     $scope.searchClicked = function (item, events) {
-          
+        
+        $scope.selectedCustomer = null;
+
         var response = $http.post('/search/search', { searchCriteria: $scope.searchCriteria, searchType: $scope.activeSearchType });
 
         response.success(function (data, status, headers, config) {
@@ -33,16 +35,12 @@ customerApp.controller('landingIndexController', function ($scope, $http, $sce) 
         var response = $http.get(item.Url);
 
         response.success(function (data, status, headers, config) {
-            $scope.detailView = $sce.trustAsHtml(data);
+            $scope.selectedCustomer = data;
         });
         response.error(function (data, status, headers, config) {
             alert("AJAX failed!");
         });
     };
 
-    $scope.body = '<div style="width:200px; height:200px; border:1px solid blue;"></div>';
-     
-    $scope.renderHtml = function (html_code) {
-        return $sce.trustAsHtml(html_code);
-    };
+  
 });

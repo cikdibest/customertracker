@@ -929,7 +929,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Customer\Detail.cshtml" />
+    <Content Include="Views\Shared\_CustomerDetail.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -982,6 +982,7 @@
     <Folder Include="Uploads\images\" />
     <Folder Include="Uploads\others\" />
     <Folder Include="Uploads\videos\" />
+    <Folder Include="Views\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

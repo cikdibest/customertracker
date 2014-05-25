@@ -24,7 +24,7 @@ namespace CustomerTracker.Web.Controllers
 
             var customerDetailModel = Mapper.Map<CustomerDetailModel>(customer);
 
-            return PartialView("Detail", customerDetailModel);
+            return Json(customerDetailModel, JsonRequestBehavior.AllowGet);
         }
     }
 
