@@ -14,12 +14,13 @@ namespace CustomerTracker.Web.Utilities.Helpers
             return (T)Enum.Parse(typeof(T), value);
         }
         
-        public static IList<T> GetValues<T>()
+        public static Dictionary<int,string> ToDictionary<T>()
         {
-            IList<T> list = new List<T>();
-            foreach (var value in Enum.GetValues(typeof(T)))
-                list.Add((T)value);
-            return list;
+            var dict = Enum.GetValues(typeof(T))
+               .Cast<Enum>()
+               .ToDictionary(t => t.GetHashCode(), t => t.GetDescription());
+
+            return dict;
         }
 
         public static T GetAttributeOfType<T>(Enum enumVal) where T : System.Attribute

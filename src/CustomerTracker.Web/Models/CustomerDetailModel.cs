@@ -15,6 +15,7 @@ namespace CustomerTracker.Web.Models
         public List<CommunicationModel> Communications { get; set; }
         public List<RemoteMachineModel> RemoteMachines { get; set; }
         public List<ProductModel> Products { get; set; }
+        
   
     }
 

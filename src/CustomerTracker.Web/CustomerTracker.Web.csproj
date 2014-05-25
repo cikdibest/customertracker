@@ -248,6 +248,7 @@
     <Compile Include="Models\Entities\User.cs" />
     <Compile Include="Models\Enums\EnumGender.cs" />
     <Compile Include="Models\Enums\RemoteConnectionType.cs" />
+    <Compile Include="Models\Enums\SearchType.cs" />
     <Compile Include="Models\Enums\SubjectType.cs" />
     <Compile Include="Models\Enums\PageType.cs" />
     <Compile Include="Models\SliderViewModel.cs" />

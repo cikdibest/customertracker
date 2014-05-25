@@ -2,29 +2,29 @@
 
 var customerApp = angular.module('customerApp', []);
 
-customerApp.controller('landingIndexController', function ($scope, $http, $sce) {
+customerApp.controller('landingIndexController', function ($scope, $http) {
 
     $scope.searchResults = {};
 
     $scope.searchCriteria = '';
 
-    $scope.activeSearchType = 'customer';
+    $scope.activeSearchType = {  };
  
     $scope.selectedCustomer = null;
 
-    $scope.selectedIndex = null;
+    $scope.selectedResultIndex = null;
      
-    $scope.setSearchType = function (searchType) {
-        $scope.activeSearchType = searchType;
+    $scope.setSearchType = function (key,value) {
+        $scope.activeSearchType = { Key: key, Value: value };
     };
 
     $scope.searchClicked = function (item, events) {
         
         $scope.selectedCustomer = null;
         
-        $scope.selectedIndex = null;
+        $scope.selectedResultIndex = null;
 
-        var response = $http.post('/search/search', { searchCriteria: $scope.searchCriteria, searchType: $scope.activeSearchType });
+        var response = $http.post('/search/search', { searchCriteria: $scope.searchCriteria, searchTypeId: $scope.activeSearchType.Key });
 
         response.success(function (data, status, headers, config) {
             $scope.searchResults = data;
@@ -35,9 +35,9 @@ customerApp.controller('landingIndexController', function ($scope, $http, $sce) 
 
     };
 
-    $scope.loadDetail = function (item, index) {
+    $scope.loadCustomerDetail = function (item, index) {
 
-        $scope.selectedIndex = index;
+        $scope.selectedResultIndex = index;
 
         var response = $http.get(item.Url);
 
@@ -49,5 +49,10 @@ customerApp.controller('landingIndexController', function ($scope, $http, $sce) 
         });
     };
 
-  
+    $scope.init = function() {
+        $scope.setSearchType(1, "Customer");
+
+    };
+
+    $scope.init();
 });

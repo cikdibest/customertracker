@@ -5,25 +5,27 @@
 }
 <style>
     .sel {
-      
-        background-color: #3982C1
-}
+        background-color: #3982C1;
+    }
 </style>
 <div id="divMain" ng-controller="landingIndexController">
- 
+
     <div class="row">
         <div class="col-lg-4">
-            <div class="row"> 
+            <div class="row">
                 <div class="col-lg-4 pull-right">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" value="Customer">
-                            <span ng-bind="activeSearchType"></span>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span>{{activeSearchType.Value}}</span>
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#" ng-click="setSearchType('customer')">Customer</a></li>
-                            <li><a href="#" ng-click="setSearchType('communication')">Communication</a></li>
-                            <li><a href="#" ng-click="setSearchType('remotemachine')">Remote Machine</a></li>
+                            @foreach (KeyValuePair<int, string> item in ViewBag.SearchTypes)
+                            {
+                                <li><a href="#" ng-click="setSearchType(@item.Key,'@item.Value')">@item.Value</a></li>    
+                            }
+
+
                         </ul>
                     </div>
                 </div>
@@ -40,26 +42,41 @@
             </div>
             <hr />
             <div class="row col-lg-10">
-               
-                <div class="list-group" ng-repeat="result in searchResults">
-               
-                    <a href="#" ng-click="loadDetail(result,$index)" class="list-group-item" ng-class="{sel: $index == selectedIndex}">
+                <div class="list-group" ng-repeat="result in searchResults" ng-if="result.SearchTypeId=='1'">
+                    <a href="#" ng-click="loadCustomerDetail(result,$index)" class="list-group-item" ng-class="{sel: $index == selectedResultIndex}">
                         <h4 class="list-group-item-heading">{{result.Title}}</h4>
                         <p class="list-group-item-text">{{result.Summary}}</p>
                     </a>
                 </div>
+                <div class="list-group" ng-repeat="result in searchResults" ng-if="result.SearchTypeId=='2'" ng-class="{sel: $index == selectedResultIndex}">
+                    <span class="name">{{result.Title}}</span><br />
+                    <table class="table table-condensed table-responsive table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>Görev</td>
+                                <td>{{result.Summary}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="#" ng-click="loadCustomerDetail(result,$index)">Müşteri'ye git</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
-
-        <div class="col-lg-7" data-ng-show="selectedCustomer!=null"> 
+        <div class="col-lg-7" data-ng-show="selectedCustomer!=null">
             @{Html.RenderPartial("_CustomerDetail");}
         </div>
-    </div>
-     
+    </div> 
 </div>
 
 
+
 <script>
+
 
     $(document).keypress(function (e) {
 
