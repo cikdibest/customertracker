@@ -2,6 +2,7 @@
 using CustomerTracker.Web.Controllers;
 using CustomerTracker.Web.Models;
 using CustomerTracker.Web.Models.Entities;
+using CustomerTracker.Web.Utilities;
 using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.App_Start
@@ -31,7 +32,7 @@ namespace CustomerTracker.Web.App_Start
                 .ForMember(dest => dest.CustomerTitle, src => src.MapFrom(q => q.Customer.Title))
                 .ForMember(dest => dest.Explanation, src => src.MapFrom(q => q.Explanation))
                 .ForMember(dest => dest.RemoteAddress, src => src.MapFrom(q => q.RemoteAddress))
-                .ForMember(dest => dest.LogoName, src => src.MapFrom(q => string.Format("content/images/remoteconnectiontype/{0}.jpg", q.RemoteConnectionType.ToString())));
+                .ForMember(dest => dest.LogoName, src => src.MapFrom(q => string.Format("{0}/remoteconnectiontype/{1}.jpg",ConfigurationHelper.RemoteConnectionLogoPath ,q.RemoteConnectionType.ToString())));
 
             Mapper.CreateMap<Product, ProductModel>()
            .ForMember(dest => dest.Id, src => src.MapFrom(q => q.Id))

@@ -15,7 +15,7 @@ using Ninject;
 
 namespace CustomerTracker.Web.Controllers
 {
-    [Authorize(Roles = "Personel,Admin")]
+    [Authorize(Roles = "Admin,Personel")]
     public class SearchController : Controller
     {
         private ISearchEngine _searchEngine;

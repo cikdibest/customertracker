@@ -10,6 +10,7 @@ using Ninject;
 
 namespace CustomerTracker.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Personel")]
     public class CustomerController : Controller
     {
         

@@ -4,6 +4,7 @@ using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ContactController : Controller
     {
         private readonly IMailSenderUtility _mailSenderUtility;

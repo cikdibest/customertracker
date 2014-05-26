@@ -11,7 +11,7 @@ using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class FileUploadController : Controller
     {
         public ActionResult Index()

@@ -1,5 +1,4 @@
 ﻿
-
 var customerApp = angular.module('customerApp', []);
 
 customerApp.controller('landingIndexController', function ($scope, $http) {
@@ -24,7 +23,7 @@ customerApp.controller('landingIndexController', function ($scope, $http) {
         
         $scope.selectedResultIndex = null;
 
-        var response = $http.post('/search/search', { searchCriteria: $scope.searchCriteria, searchTypeId: $scope.activeSearchType.Key });
+        var response = $http.post(searchCustomerOrCommunicationOnLandingPage, { searchCriteria: $scope.searchCriteria, searchTypeId: $scope.activeSearchType.Key });
 
         response.success(function (data, status, headers, config) {
             $scope.searchResults = data;
