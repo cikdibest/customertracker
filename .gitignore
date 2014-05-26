@@ -275,3 +275,4 @@ src/Gtud.Web/App_Data/GtudData.sdf
 /src/Gtud.Web/App_Data/GtudData.sdf
 /src/packages
 src/CustomerTracker.v11.suo
+/src/CustomerTracker.Web/Properties/PublishProfiles/*.pubxml

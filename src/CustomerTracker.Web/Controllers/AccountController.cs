@@ -37,7 +37,7 @@ namespace CustomerTracker.Web.Controllers
 
             _securityEncoder = new SecurityEncoder();
 
-            _userUtility = NinjectWebCommon.GetKernel.Get < IUserUtility>();
+            _userUtility = NinjectWebCommon.GetKernel.Get<IUserUtility>();
 
             _accountMapper = new AccountMapper(_securityEncoder);
 
@@ -237,7 +237,7 @@ namespace CustomerTracker.Web.Controllers
             var sendToUserAfterRegistration = new SendToUserAfterRegistrationMailViewModel()
             {
                 FullName = registerModel.FirstName + " " + registerModel.LastName,
-                UserMailAdress = registerModel.Email 
+                UserMailAdress = registerModel.Email
             };
 
             var mailMessageForUser = _mailBuilder.BuildMailMessageForSendToUserAfterRegistration(sendToUserAfterRegistration);
@@ -361,6 +361,18 @@ namespace CustomerTracker.Web.Controllers
             }
         }
         #endregion
+
+
+        [AllowAnonymous]
+        public ActionResult GenerateData(string pass)
+        {
+            if (pass != "seyhan*-")
+                return Content("pass is wrong");
+
+            DummyDataGenerate.Generate();
+
+            return Content("OK");
+        }
     }
 }
 
