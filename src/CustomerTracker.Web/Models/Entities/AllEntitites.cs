@@ -108,7 +108,7 @@ namespace CustomerTracker.Web.Models.Entities
         [StringLength(10)]
         public string Code { get; set; }
 
-        public virtual List<Customer> Customers { get; set; }
+      
     }
      
     public class Department : BaseEntity

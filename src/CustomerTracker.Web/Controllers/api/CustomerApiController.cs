@@ -14,40 +14,44 @@ using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
 {
-    public class DepartmentApiController : ApiController
+    public class CustomerApiController : ApiController
     {
-        public IEnumerable<Department> GetDepartments()
+        public IEnumerable<Customer> GetCustomers()
         {
-            var departments = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().SelectAll().ToList();
+            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
+             
+            var customers = customerTrackerDataContext.Customers.Include("City").ToList();
 
-            return departments;
+            return customers;
         }
 
-        public Department GetDepartment(int id)
+        public Customer GetCustomer(int id)
         {
-            var department = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().Find(id);
+            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
             
-            if (department==null)
+            var customer = customerTrackerDataContext.Customers.Include("City").SingleOrDefault(q => q.Id == id);
+            
+            if (customer==null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return department;
+            return customer;
         }
 
-        public HttpResponseMessage PutDepartment(int id, Department department)
+        public HttpResponseMessage PutCustomer(int id, Customer customer)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            if (id != department.Id)
+            if (id != customer.Id)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().Update(department);
+            ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Update(customer);
 
             try
             {
@@ -61,17 +65,17 @@ namespace CustomerTracker.Web.Controllers.api
             return Request.CreateResponse(HttpStatusCode.OK); 
         }
 
-        public HttpResponseMessage PostDepartment(Department department)
+        public HttpResponseMessage PostCustomer(Customer customer)
         {
             if (ModelState.IsValid)
             {
-                ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().Create(department);
+                ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Create(customer);
                 
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, department);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, customer);
                 
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = department.Id }));
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = customer.Id }));
                 
                 return response;
             }
@@ -81,16 +85,16 @@ namespace CustomerTracker.Web.Controllers.api
             } 
         }
    
-        public HttpResponseMessage DeletePerson(int id)
+        public HttpResponseMessage DeleteCustomer(int id)
         {
-            var department = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().Find(id);
+            var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Find(id);
             
-            if (department == null)
+            if (customer == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().Delete(department);
+            ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Delete(customer);
 
             try
             {
@@ -101,7 +105,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, department); 
+            return Request.CreateResponse(HttpStatusCode.OK, customer); 
         }
     }
 }

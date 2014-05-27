@@ -1,6 +1,9 @@
 ﻿
-var departmentApiUrl = '/api/DepartmentApi/';
+var departmentApiUrl = '/api/departmentapi/';
+var customerApiUrl = '/api/customerapi/';
 var searchMaterialUrl = '/searchmaterial/search/';
+var getCitiesUrl = '/api/cityapi/';
+ 
 
 var customerApp = angular.module('customerApp', []);
 
@@ -55,6 +58,26 @@ customerApp.factory('baseControllerFactory', function (notificationFactory) {
     };
 });
 
+customerApp.factory('customerFactory', function ($http) {
+    return {
+        getCustomers: function () {
+            return $http.get(customerApiUrl);
+        },
+        addCustomer: function (customer) {
+            return $http.post(customerApiUrl, customer);
+        },
+        deleteCustomer: function (customer) {
+            return $http.delete(customerApiUrl + customer.Id);
+        },
+        updateCustomer: function (customer) {
+            return $http.put(customerApiUrl + customer.Id, customer);
+        },
+        getCities: function () {
+            return $http.get(getCitiesUrl);
+        }
+
+    };
+});
 
 
 
@@ -146,6 +169,62 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
 
     $scope.init = function () {
         departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.init();
+});
+
+customerApp.controller('customerController', function ($scope, customerFactory, notificationFactory, baseControllerFactory) {
+
+    var getCustomersSuccessCallback = function (data, status) {
+        $scope.customers = data;
+    };
+
+    var successPostCallback = function (data, status, headers, config) {
+        successCallback(data, status, headers, config).success(function () {
+            $scope.toggleAddMode();
+            $scope.customer = {};
+        });
+    };
+
+    var successCallback = function (data, status, headers, config) {
+        notificationFactory.success();
+
+        return customerFactory.getCustomers().success(getCustomersSuccessCallback).error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.customers = [];
+    
+    $scope.cities = [];
+
+    $scope.addMode = false;
+
+    $scope.toggleAddMode = function () {
+        $scope.addMode = !$scope.addMode;
+    };
+
+    $scope.toggleEditMode = function (customer) {
+        customer.editMode = !customer.editMode;
+    };
+
+    $scope.addCustomer = function () {
+        customerFactory.addCustomer($scope.customer).success(successPostCallback).error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.deleteCustomer = function (customer) {
+        customerFactory.deleteCustomer(customer).success(successCallback).error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.updateCustomer = function (customer) {
+        customerFactory.updateCustomer(customer).success(successCallback).error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.init = function () {
+        customerFactory.getCustomers().success(getCustomersSuccessCallback).error(baseControllerFactory.errorCallback);
+
+        customerFactory.getCities().success(function(data) {
+            $scope.cities = data;
+        }).error(baseControllerFactory.errorCallback);
     };
 
     $scope.init();

@@ -206,6 +206,8 @@
     <Compile Include="Business\SearchBusiness\SearchResultModel.cs" />
     <Compile Include="Business\UserBusiness\UserUtility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\CityApiController.cs" />
+    <Compile Include="Controllers\api\CustomerApiController.cs" />
     <Compile Include="Controllers\api\DepartmentApiController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CrudViewController.cs" />
@@ -942,6 +944,7 @@
     <Content Include="Views\Shared\_CustomerDetail.cshtml" />
     <Content Include="Scripts\toastr.min.js.map" />
     <Content Include="Views\CrudView\Department.cshtml" />
+    <Content Include="Views\CrudView\Customer.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

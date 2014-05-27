@@ -24,12 +24,11 @@ namespace CustomerTracker.Web.App_Start
             defaults: new { id=RouteParameter.Optional}
         );
 
-
             var json = config.Formatters.JsonFormatter;
-            json.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; 
 
-
+        
         }
     }
 }
