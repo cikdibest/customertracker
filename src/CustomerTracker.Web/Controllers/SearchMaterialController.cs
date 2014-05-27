@@ -16,11 +16,11 @@ using Ninject;
 namespace CustomerTracker.Web.Controllers
 {
     [Authorize(Roles = "Admin,Personel")]
-    public class SearchController : Controller
+    public class SearchMaterialController : Controller
     {
         private ISearchEngine _searchEngine;
 
-        public SearchController()
+        public SearchMaterialController()
         {
             _searchEngine = NinjectWebCommon.GetKernel.Get<ISearchEngine>();
 
@@ -29,6 +29,7 @@ namespace CustomerTracker.Web.Controllers
         public ActionResult Index()
         {
             Dictionary<int, string> searchTypes = EnumHelper.ToDictionary<SearchType>();
+  
             ViewBag.SearchTypes = searchTypes;
 
             return View();

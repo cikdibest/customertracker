@@ -1,62 +1,8 @@
 ﻿
 var departmentApiUrl = '/api/DepartmentApi/';
+var searchMaterialUrl = '/searchmaterial/search/';
 
 var customerApp = angular.module('customerApp', []);
-
-customerApp.controller('searchController', function ($scope, $http) {
-
-    $scope.searchResults = {};
-
-    $scope.searchCriteria = '';
-
-    $scope.activeSearchType = {  };
- 
-    $scope.selectedCustomer = null;
-
-    $scope.selectedResultIndex = null;
-     
-    $scope.setSearchType = function (key,value) {
-        $scope.activeSearchType = { Key: key, Value: value };
-    };
-
-    $scope.searchClicked = function (item, events) {
-        
-        $scope.selectedCustomer = null;
-        
-        $scope.selectedResultIndex = null;
-
-        var response = $http.post(searchCustomerOrCommunicationOnLandingPage, { searchCriteria: $scope.searchCriteria, searchTypeId: $scope.activeSearchType.Key });
-
-        response.success(function (data, status, headers, config) {
-            $scope.searchResults = data;
-        });
-        response.error(function (data, status, headers, config) {
-            alert("AJAX failed!");
-        });
-
-    };
-
-    $scope.loadCustomerDetail = function (item, index) {
-
-        $scope.selectedResultIndex = index;
-
-        var response = $http.get(item.Url);
-
-        response.success(function (data, status, headers, config) {
-            $scope.selectedCustomer = data;
-        });
-        response.error(function (data, status, headers, config) {
-            alert("AJAX failed!");
-        });
-    };
-
-    $scope.init = function() {
-        $scope.setSearchType(1, "Customer");
-
-    };
-
-    $scope.init();
-});
 
 customerApp.factory('notificationFactory', function () {
 
@@ -70,9 +16,22 @@ customerApp.factory('notificationFactory', function () {
     };
 });
 
-customerApp.factory('departmentFactory', function($http) {
+customerApp.factory('searchMaterialFactory', function ($http) {
     return {
-        getDepartments: function() {
+        getMaterials: function (data) {
+            return $http.post(searchMaterialUrl, data);
+        },
+
+        getCustomer: function (url) {
+            return $http.get(url);
+        }
+
+    };
+});
+
+customerApp.factory('departmentFactory', function ($http) {
+    return {
+        getDepartments: function () {
             return $http.get(departmentApiUrl);
         },
         addDepartment: function (department) {
@@ -81,59 +40,114 @@ customerApp.factory('departmentFactory', function($http) {
         deleteDepartment: function (department) {
             return $http.delete(departmentApiUrl + department.Id);
         },
-        updateDepartment: function(department) {
+        updateDepartment: function (department) {
             return $http.put(departmentApiUrl + department.Id, department);
         }
 
-};
+    };
+});
+ 
+customerApp.factory('baseControllerFactory', function (notificationFactory) {
+    return {
+        errorCallback: function(data, status, haders, config) {
+            notificationFactory.error(data.ExceptionMessage);
+        }
+    };
 });
 
-customerApp.controller('departmentController', function ($scope, departmentFactory, notificationFactory) {
 
-    $scope.departments = [];
-    
-    $scope.addMode = false;
 
-    $scope.toggleAddMode = function () {
-        $scope.addMode = !$scope.addMode;
-    };
-    
-    $scope.toggleEditMode = function (department) {
-        department.editMode = !department.editMode;
-    };
+
+customerApp.controller('searchMaterialController', function ($scope, searchMaterialFactory, notificationFactory, baseControllerFactory) {
      
+    $scope.foundMaterials = {};
+
+    $scope.searchCriteria = '';
+
+    $scope.activeSearchType = {};
+
+    $scope.selectedCustomer = null;
+
+    $scope.selectedMaterialIndex = null;
+
+    $scope.setActiveSearchType = function (key, value) {
+        $scope.activeSearchType = { Key: key, Value: value };
+    };
+
+    $scope.searchMaterials = function () {
+        $scope.selectedCustomer = null;
+
+        $scope.selectedMaterialIndex = null;
+
+        searchMaterialFactory.getMaterials({ searchCriteria: $scope.searchCriteria, searchTypeId: $scope.activeSearchType.Key })
+                             .success(function (data) { $scope.foundMaterials = data; })
+                             .error(baseControllerFactory.errorCallback);
+
+    };
+
+    $scope.loadCustomer = function (item, index) {
+         
+        searchMaterialFactory.getCustomer(item.Url)
+                             .success(function (data) { $scope.selectedCustomer = data; $scope.selectedMaterialIndex = index; })
+                             .error(baseControllerFactory.errorCallback);
+         
+    };
+
+    $scope.init = function () {
+        $scope.setActiveSearchType(1, "Customer");
+
+    };
+
+    $scope.init();
+});
+
+customerApp.controller('departmentController', function ($scope, departmentFactory, notificationFactory, baseControllerFactory) {
+
     var getDepartmentsSuccessCallback = function (data, status) {
         $scope.departments = data;
     };
-     
-    var successCallback = function(data, status, headers, config) {
-        notificationFactory.success();
 
-        return departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(errorCallback);
-    };
-
-    var successPostCallback = function(data, status, headers, config) {
-        successCallback(data, status, headers, config).success(function() {
+    var successPostCallback = function (data, status, headers, config) {
+        successCallback(data, status, headers, config).success(function () {
             $scope.toggleAddMode();
             $scope.department = {};
         });
     };
 
-    var errorCallback = function(data,status,haders,config) {
-        notificationFactory.error(data.ExceptionMessage);
+    var successCallback = function (data, status, headers, config) {
+        notificationFactory.success();
+
+        return departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(baseControllerFactory.errorCallback);
+    };
+     
+    $scope.departments = [];
+
+    $scope.addMode = false;
+
+    $scope.toggleAddMode = function () {
+        $scope.addMode = !$scope.addMode;
     };
 
-    departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(errorCallback);
-
-    $scope.addDepartment = function() {
-        departmentFactory.addDepartment($scope.department).success(successPostCallback).error(errorCallback);
+    $scope.toggleEditMode = function (department) {
+        department.editMode = !department.editMode;
     };
-    
+
+    $scope.addDepartment = function () {
+        departmentFactory.addDepartment($scope.department).success(successPostCallback).error(baseControllerFactory.errorCallback);
+    };
+
     $scope.deleteDepartment = function (department) {
-        departmentFactory.deleteDepartment(department).success(successCallback).error(errorCallback);
+        departmentFactory.deleteDepartment(department).success(successCallback).error(baseControllerFactory.errorCallback);
     };
-    
+
     $scope.updateDepartment = function (department) {
-        departmentFactory.updateDepartment(department).success(successCallback).error(errorCallback);
+        departmentFactory.updateDepartment(department).success(successCallback).error(baseControllerFactory.errorCallback);
     };
+
+    $scope.init = function () {
+        departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.init();
 });
+

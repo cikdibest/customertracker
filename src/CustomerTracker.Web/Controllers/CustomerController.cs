@@ -20,7 +20,8 @@ namespace CustomerTracker.Web.Controllers
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext()
                  .Set<Customer>()
                  .Include("City")
-                 .Include("Communications.Department") 
+                 .Include("Communications.Department")
+                 .Include("RemoteMachines") 
                  .SingleOrDefault(q => q.Id == customerId);
 
             var customerDetailModel = Mapper.Map<CustomerDetailModel>(customer);

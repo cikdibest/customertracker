@@ -36,7 +36,7 @@ namespace CustomerTracker.Web.Business.SearchBusiness
                     foreach (var customer in results)
                     {
                         var castedCustomer = customer as Customer;
-                        searchResultList.Add(new SearchResultModel() { SearchTypeId = SearchType.Customer.GetHashCode(), Url = string.Format("{0}?customerId={1}", ConfigurationHelper.DetailCustomer, customer.Id), Summary = castedCustomer.Explanation, Title = castedCustomer.Title + "-" + castedCustomer.City.Name });
+                        searchResultList.Add(new SearchResultModel() { SearchTypeId = SearchType.Customer.GetHashCode(), Url = string.Format("{0}?customerId={1}", "customer/detail", customer.Id), Summary = castedCustomer.Explanation, Title = castedCustomer.Title + "-" + castedCustomer.City.Name });
                     }
                     return searchResultList.ToPagedList(pageIndex, pageSize);
 
@@ -47,7 +47,7 @@ namespace CustomerTracker.Web.Business.SearchBusiness
                         searchResultList.Add(new SearchResultModel()
                         {
                             SearchTypeId = SearchType.Communication.GetHashCode(),
-                            Url = string.Format("{0}?customerId={1}",ConfigurationHelper.DetailCustomer, castedCommunication.Customer.Id),
+                            Url = string.Format("{0}?customerId={1}", "customer/detail", castedCommunication.Customer.Id),
                             Summary =
                                 castedCommunication.Customer.Title + "-" + castedCommunication.Customer.City.Name +
                                 "Tel : " + castedCommunication.PhoneNumber + "Email :" + castedCommunication.Email,

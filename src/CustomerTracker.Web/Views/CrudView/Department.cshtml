@@ -10,7 +10,7 @@
                 <th style="width: 100px;">
                     <div class="btn-toolbar"><i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()"></i></div>
                 </th>
-                <th style="width: 50px;">Id</th>
+
                 <th>Name</th>
             </tr>
             <tr ng-show="addMode">
@@ -22,9 +22,10 @@
                         </div>
                     </div>
                 </td>
-                <td></td>
+               
                 <td>
-                    <input ng-model="department.Name" /></td>
+                    <input ng-model="department.Name" />
+                </td>
             </tr>
             <tr ng-repeat="department in departments | orderBy:'Id':true">
                 <td>
@@ -41,7 +42,7 @@
                         </div>
                     </div>
                 </td>
-                <td>{{department.Id}}</td>
+
                 <td>
                     <span ng-show="department.editMode == null || department.editMode == false">{{department.Name}}</span>
                     <input ng-model="department.Name" ng-show="department.editMode == true" />

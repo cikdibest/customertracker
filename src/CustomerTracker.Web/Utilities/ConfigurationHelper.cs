@@ -53,11 +53,7 @@ namespace CustomerTracker.Web.Utilities
 
         public static string FromMailAddressForUserRegistration { get { return ConfigurationManager.AppSettings["FromMailAddressForUserRegistration"]; } }
 
-        public static string DetailCustomer { get { return ConfigurationManager.AppSettings["DetailCustomer"]; } }
-        public static string SearchCustomerOrCommunication { get { return ConfigurationManager.AppSettings["SearchCustomerOrCommunication"]; } }
-        public static string RemoteConnectionLogoPath{ get { return ConfigurationManager.AppSettings["RemoteConnectionLogoPath"]; } }
-
-        
+       
 
 
         public static string RoleAdmin = "Admin";

@@ -8,7 +8,7 @@
         background-color: #3982C1;
     }
 </style>
-<div id="divMain" ng-controller="searchController">
+<div id="divMain" ng-controller="searchMaterialController">
 
     <div class="row">
         <div class="col-lg-4">
@@ -22,7 +22,7 @@
                         <ul class="dropdown-menu" role="menu">
                             @foreach (KeyValuePair<int, string> item in ViewBag.SearchTypes)
                             {
-                                <li><a href="#" ng-click="setSearchType(@item.Key,'@item.Value')">@item.Value</a></li>    
+                                <li><a href="#" ng-click="setActiveSearchType(@item.Key,'@item.Value')">@item.Value</a></li>    
                             }
 
 
@@ -34,7 +34,7 @@
                         <input class="form-control" style="width: 100%" ng-model="searchCriteria" required id="searchInput" />
                     </div>
                     <div class="col-lg-1">
-                        <button class="btn btn-default" ng-click="searchClicked()" ng-disabled="!searchCriteria.length">
+                        <button class="btn btn-default" ng-click="searchMaterials()" ng-disabled="!searchCriteria.length">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
                     </div>
@@ -42,23 +42,23 @@
             </div>
             <hr />
             <div class="row col-lg-10">
-                <div class="list-group" ng-repeat="result in searchResults" ng-if="result.SearchTypeId=='1'">
-                    <a href="#" ng-click="loadCustomerDetail(result,$index)" class="list-group-item" ng-class="{sel: $index == selectedResultIndex}">
-                        <h4 class="list-group-item-heading">{{result.Title}}</h4>
-                        <p class="list-group-item-text">{{result.Summary}}</p>
+                <div class="list-group" ng-repeat="material in foundMaterials" ng-if="material.SearchTypeId=='1'">
+                    <a href="#" ng-click="loadCustomer(material,$index)" class="list-group-item" ng-class="{sel: $index == selectedMaterialIndex}">
+                        <h4 class="list-group-item-heading">{{material.Title}}</h4>
+                        <p class="list-group-item-text">{{material.Summary}}</p>
                     </a>
                 </div>
-                <div class="list-group" ng-repeat="result in searchResults" ng-if="result.SearchTypeId=='2'" ng-class="{sel: $index == selectedResultIndex}">
-                    <span class="name">{{result.Title}}</span><br />
+                <div class="list-group" ng-repeat="material in foundMaterials" ng-if="material.SearchTypeId=='2'" ng-class="{sel: $index == selectedMaterialIndex}">
+                    <span class="name">{{material.Title}}</span><br />
                     <table class="table table-condensed table-responsive table-user-information">
                         <tbody>
                             <tr>
                                 <td>Görev</td>
-                                <td>{{result.Summary}}</td>
+                                <td>{{material.Summary}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="#" ng-click="loadCustomerDetail(result,$index)">Müşteri'ye git</a>
+                                    <a href="#" ng-click="loadCustomer(material,$index)">Müşteri'ye git</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -85,7 +85,7 @@
         if (e.which == 13) {
             var scope = angular.element(document.getElementById("divMain")).scope();
 
-            scope.searchClicked();
+            scope.searchMaterials();
         }
     });
 

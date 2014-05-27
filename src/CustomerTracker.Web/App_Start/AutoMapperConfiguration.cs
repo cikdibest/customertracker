@@ -32,7 +32,7 @@ namespace CustomerTracker.Web.App_Start
                 .ForMember(dest => dest.CustomerTitle, src => src.MapFrom(q => q.Customer.Title))
                 .ForMember(dest => dest.Explanation, src => src.MapFrom(q => q.Explanation))
                 .ForMember(dest => dest.RemoteAddress, src => src.MapFrom(q => q.RemoteAddress))
-                .ForMember(dest => dest.LogoName, src => src.MapFrom(q => string.Format("{0}/remoteconnectiontype/{1}.jpg",ConfigurationHelper.RemoteConnectionLogoPath ,q.RemoteConnectionType.ToString())));
+                .ForMember(dest => dest.LogoName, src => src.MapFrom(q => string.Format("{0}/remoteconnectiontype/{1}.jpg", "content/images", q.RemoteConnectionType.ToString())));
 
             Mapper.CreateMap<Product, ProductModel>()
            .ForMember(dest => dest.Id, src => src.MapFrom(q => q.Id))
