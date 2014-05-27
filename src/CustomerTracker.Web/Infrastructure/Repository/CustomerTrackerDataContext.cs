@@ -13,7 +13,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
         public CustomerTrackerDataContext()
             : base("CustomerTrackerDataContext")
         {
-               
+            Configuration.LazyLoadingEnabled = false;
         }
 
         //public JewelryDataContext(string connectionString)

@@ -27,9 +27,9 @@ namespace CustomerTracker.Web.Infrastructure.Membership
     {
         public bool IsInRole(string roleName)
         {
-            var repositoryUser = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>();
+            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
 
-            User user = repositoryUser.SelectAll().FirstOrDefault(usr => usr.Username == this.UserName);
+            User user = customerTrackerDataContext.Users.Include("Roles").SingleOrDefault(usr => usr.Username == this.UserName);
 
             if (user == null)
                 return false;

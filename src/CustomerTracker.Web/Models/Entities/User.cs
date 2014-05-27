@@ -4,11 +4,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using CustomerTracker.Web.Infrastructure.Membership;
 using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.Models.Entities
-{
+{ 
     public class SocialAccount : BaseEntity
     {
         public int UserId { get; set; }
@@ -31,6 +32,7 @@ namespace CustomerTracker.Web.Models.Entities
             return false;
         }
     }
+     
     public class Role : BaseEntity
     {
         [Required]
@@ -42,6 +44,7 @@ namespace CustomerTracker.Web.Models.Entities
 
         public virtual ICollection<User> Users { get; set; }
     }
+     
     public class User : BaseEntity
     {
         [Required]

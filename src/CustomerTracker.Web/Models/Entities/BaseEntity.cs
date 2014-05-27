@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace CustomerTracker.Web.Models.Entities
-{
+{ 
     public class BaseEntity
     { 
         public int Id { get; set; }

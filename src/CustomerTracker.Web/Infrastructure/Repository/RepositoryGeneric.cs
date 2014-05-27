@@ -58,7 +58,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
         {
             return DbSet.AsQueryable().Where(q => !q.IsDeleted);
         }
-
+         
         public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> predicate)
         {
             return SelectAll().Where(predicate).AsQueryable<TObject>();

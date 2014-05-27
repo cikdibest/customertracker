@@ -1,7 +1,9 @@
 ﻿
+var departmentApiUrl = '/api/DepartmentApi/';
+
 var customerApp = angular.module('customerApp', []);
 
-customerApp.controller('landingIndexController', function ($scope, $http) {
+customerApp.controller('searchController', function ($scope, $http) {
 
     $scope.searchResults = {};
 
@@ -54,4 +56,84 @@ customerApp.controller('landingIndexController', function ($scope, $http) {
     };
 
     $scope.init();
+});
+
+customerApp.factory('notificationFactory', function () {
+
+    return {
+        success: function () {
+            toastr.success("Success");
+        },
+        error: function (text) {
+            toastr.error(text, "Error!");
+        }
+    };
+});
+
+customerApp.factory('departmentFactory', function($http) {
+    return {
+        getDepartments: function() {
+            return $http.get(departmentApiUrl);
+        },
+        addDepartment: function (department) {
+            return $http.post(departmentApiUrl, department);
+        },
+        deleteDepartment: function (department) {
+            return $http.delete(departmentApiUrl + department.Id);
+        },
+        updateDepartment: function(department) {
+            return $http.put(departmentApiUrl + department.Id, department);
+        }
+
+};
+});
+
+customerApp.controller('departmentController', function ($scope, departmentFactory, notificationFactory) {
+
+    $scope.departments = [];
+    
+    $scope.addMode = false;
+
+    $scope.toggleAddMode = function () {
+        $scope.addMode = !$scope.addMode;
+    };
+    
+    $scope.toggleEditMode = function (department) {
+        department.editMode = !department.editMode;
+    };
+     
+    var getDepartmentsSuccessCallback = function (data, status) {
+        $scope.departments = data;
+    };
+     
+    var successCallback = function(data, status, headers, config) {
+        notificationFactory.success();
+
+        return departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(errorCallback);
+    };
+
+    var successPostCallback = function(data, status, headers, config) {
+        successCallback(data, status, headers, config).success(function() {
+            $scope.toggleAddMode();
+            $scope.department = {};
+        });
+    };
+
+    var errorCallback = function(data,status,haders,config) {
+        notificationFactory.error(data.ExceptionMessage);
+    };
+
+    departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(errorCallback);
+
+    $scope.addDepartment = function() {
+        departmentFactory.addDepartment($scope.department).success(successPostCallback).error(errorCallback);
+    };
+    
+    $scope.deleteDepartment = function (department) {
+        departmentFactory.deleteDepartment(department).success(successCallback).error(errorCallback);
+    };
+    
+    $scope.updateDepartment = function (department) {
+        departmentFactory.updateDepartment(department).success(successCallback).error(errorCallback);
+    };
 });
