@@ -4,8 +4,8 @@ var customerApiUrl = '/api/customerapi/';
 var searchMaterialUrl = '/searchmaterial/search/';
 var getCitiesUrl = '/api/cityapi/';
  
-
-var customerApp = angular.module('customerApp', []);
+ 
+var customerApp = angular.module('customerApp', ['ui.bootstrap']);
 
 customerApp.factory('notificationFactory', function () {
 
@@ -78,8 +78,25 @@ customerApp.factory('customerFactory', function ($http) {
 
     };
 });
+ 
 
 
+customerApp.controller('paginationController', function($scope) {
+      
+    $scope.setPage = function(pageNo) {
+        $scope.currentPage = pageNo;
+    };
+
+    $scope.pageChanged = function() {
+        console.log('Page changed to: ' + $scope.currentPage);
+    };
+
+    $scope.maxSize = 10;
+    
+    $scope.totalItems = 175;
+
+    $scope.currentPage = 1;
+});
 
 customerApp.controller('searchMaterialController', function ($scope, searchMaterialFactory, notificationFactory, baseControllerFactory) {
      
@@ -175,6 +192,7 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
 });
 
 customerApp.controller('customerController', function ($scope, customerFactory, notificationFactory, baseControllerFactory) {
+
 
     var getCustomersSuccessCallback = function (data, status) {
         $scope.customers = data;
