@@ -213,7 +213,7 @@
     <Compile Include="Controllers\CrudViewController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
-    <Compile Include="Controllers\SearchMaterialController.cs" />
+    <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -670,6 +670,12 @@
     <Content Include="Scripts\domain\appControllers.js" />
     <Content Include="Scripts\domain\common\directives.js" />
     <Content Include="Scripts\domain\common\filters.js" />
+    <Content Include="Scripts\domain\customer\customerController.js" />
+    <Content Include="Scripts\domain\customer\customerFactory.js" />
+    <Content Include="Scripts\domain\department\departmentFactory.js" />
+    <Content Include="Scripts\domain\department\departmentController.js" />
+    <Content Include="Scripts\domain\material\materialController.js" />
+    <Content Include="Scripts\domain\material\materialFactory.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -941,7 +947,7 @@
     <Content Include="Views\Shared\EditorTemplates\Html.cshtml" />
     <Content Include="Views\FileUpload\Index.cshtml" />
     <Content Include="Views\FileUpload\_UploadedFilePreview.cshtml" />
-    <Content Include="Views\SearchMaterial\Index.cshtml" />
+    <Content Include="Views\Material\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -999,9 +1005,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\FilterModels\" />
     <Folder Include="Models\ReportModels\" />
-    <Folder Include="Scripts\domain\customer\" />
-    <Folder Include="Scripts\domain\department\" />
-    <Folder Include="Scripts\domain\searchmaterial\" />
     <Folder Include="Uploads\docs\" />
     <Folder Include="Uploads\images\" />
     <Folder Include="Uploads\others\" />
