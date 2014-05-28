@@ -290,7 +290,7 @@ namespace CustomerTracker.Web.Controllers
             if (Url.IsLocalUrl(returnUrl))
                 return Redirect(returnUrl);
 
-            return RedirectToAction("Index", "Search");
+            return RedirectToAction("Index", "SearchMaterial");
         }
 
         public enum ManageMessageId

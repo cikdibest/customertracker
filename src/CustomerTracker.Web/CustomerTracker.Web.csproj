@@ -668,6 +668,8 @@
     <Content Include="Scripts\components\bootstrap-fileupload.min.css" />
     <Content Include="Scripts\components\bootstrap-fileupload.min.js" />
     <Content Include="Scripts\domain\appControllers.js" />
+    <Content Include="Scripts\domain\common\directives.js" />
+    <Content Include="Scripts\domain\common\filters.js" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular-touch.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
@@ -997,6 +999,9 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\FilterModels\" />
     <Folder Include="Models\ReportModels\" />
+    <Folder Include="Scripts\domain\customer\" />
+    <Folder Include="Scripts\domain\department\" />
+    <Folder Include="Scripts\domain\searchmaterial\" />
     <Folder Include="Uploads\docs\" />
     <Folder Include="Uploads\images\" />
     <Folder Include="Uploads\others\" />

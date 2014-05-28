@@ -3,8 +3,8 @@ var departmentApiUrl = '/api/departmentapi/';
 var customerApiUrl = '/api/customerapi/';
 var searchMaterialUrl = '/searchmaterial/search/';
 var getCitiesUrl = '/api/cityapi/';
- 
- 
+
+
 var customerApp = angular.module('customerApp', ['ui.bootstrap']);
 
 customerApp.factory('notificationFactory', function () {
@@ -49,10 +49,10 @@ customerApp.factory('departmentFactory', function ($http) {
 
     };
 });
- 
+
 customerApp.factory('baseControllerFactory', function (notificationFactory) {
     return {
-        errorCallback: function(data, status, haders, config) {
+        errorCallback: function (data, status, haders, config) {
             notificationFactory.error(data.ExceptionMessage);
         }
     };
@@ -60,8 +60,8 @@ customerApp.factory('baseControllerFactory', function (notificationFactory) {
 
 customerApp.factory('customerFactory', function ($http) {
     return {
-        getCustomers: function () {
-            return $http.get(customerApiUrl);
+        getCustomers: function (pageNumber, pageSize, sortBy, sortDir) {
+            return $http.get(customerApiUrl, { params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir } });
         },
         addCustomer: function (customer) {
             return $http.post(customerApiUrl, customer);
@@ -78,28 +78,55 @@ customerApp.factory('customerFactory', function ($http) {
 
     };
 });
- 
 
+customerApp.factory('eventFactory', function ($rootScope) {
+    var eventFactory = {};
 
-customerApp.controller('paginationController', function($scope) {
-      
-    $scope.setPage = function(pageNo) {
-        $scope.currentPage = pageNo;
+    eventFactory.pagingModel = { currentPageNumber: null, totalCount: null, pageSize: null };
+
+    eventFactory.firePagingModelInitiliaze = function (pagingModel) {
+        this.pagingModel = pagingModel;
+
+        $rootScope.$broadcast('pagingModelInitiliazeEventHandler');
     };
 
-    $scope.pageChanged = function() {
-        console.log('Page changed to: ' + $scope.currentPage);
+    eventFactory.firePageChanged = function (pageChangedModel) {
+        this.pagingModel.currentPageNumber = pageChangedModel.currentPageNumber;
+
+        $rootScope.$broadcast('pageChangedEventHandler');
     };
 
-    $scope.maxSize = 10;
-    
-    $scope.totalItems = 175;
+    return eventFactory;
+});
 
-    $scope.currentPage = 1;
+
+
+customerApp.controller('paginationController', function ($scope, eventFactory) {
+
+    $scope.pageSize = null;
+
+    $scope.totalCount = null;
+
+    $scope.currentPageNumber = 1;
+
+    $scope.setPageNumber = function (pageNo) {
+        $scope.currentPageNumber = pageNo;
+    };
+
+    $scope.pageChanged = function () {
+        eventFactory.firePageChanged({ currentPageNumber: $scope.currentPageNumber });
+    };
+
+    $scope.$on('pagingModelInitiliazeEventHandler', function () {
+        $scope.totalCount = eventFactory.pagingModel.totalCount;
+
+        $scope.pageSize = eventFactory.pagingModel.pageSize;
+    });
+
 });
 
 customerApp.controller('searchMaterialController', function ($scope, searchMaterialFactory, notificationFactory, baseControllerFactory) {
-     
+
     $scope.foundMaterials = {};
 
     $scope.searchCriteria = '';
@@ -126,11 +153,11 @@ customerApp.controller('searchMaterialController', function ($scope, searchMater
     };
 
     $scope.loadCustomer = function (item, index) {
-         
+
         searchMaterialFactory.getCustomer(item.Url)
                              .success(function (data) { $scope.selectedCustomer = data; $scope.selectedMaterialIndex = index; })
                              .error(baseControllerFactory.errorCallback);
-         
+
     };
 
     $scope.init = function () {
@@ -159,7 +186,7 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
 
         return departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(baseControllerFactory.errorCallback);
     };
-     
+
     $scope.departments = [];
 
     $scope.addMode = false;
@@ -191,11 +218,12 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
     $scope.init();
 });
 
-customerApp.controller('customerController', function ($scope, customerFactory, notificationFactory, baseControllerFactory) {
-
+customerApp.controller('customerController', function ($scope, customerFactory, notificationFactory, baseControllerFactory, eventFactory) {
 
     var getCustomersSuccessCallback = function (data, status) {
-        $scope.customers = data;
+        $scope.customers = data.customers;
+
+        eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
     };
 
     var successPostCallback = function (data, status, headers, config) {
@@ -208,11 +236,24 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     var successCallback = function (data, status, headers, config) {
         notificationFactory.success();
 
-        return customerFactory.getCustomers().success(getCustomersSuccessCallback).error(baseControllerFactory.errorCallback);
+        return $scope.init1();
     };
 
+    $scope.$on('pageChangedEventHandler', function () {
+        $scope.filterCriteria.pageNumber = eventFactory.pagingModel.currentPageNumber;
+
+        $scope.init1();
+    });
+
     $scope.customers = [];
-    
+
+    $scope.filterCriteria = {
+        pageNumber: 1,
+        pageSize: 10,
+        sortedBy: 'id',
+        sortDir: 'asc',
+    };
+
     $scope.cities = [];
 
     $scope.addMode = false;
@@ -237,14 +278,19 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
         customerFactory.updateCustomer(customer).success(successCallback).error(baseControllerFactory.errorCallback);
     };
 
-    $scope.init = function () {
-        customerFactory.getCustomers().success(getCustomersSuccessCallback).error(baseControllerFactory.errorCallback);
-
-        customerFactory.getCities().success(function(data) {
-            $scope.cities = data;
-        }).error(baseControllerFactory.errorCallback);
+    $scope.init1 = function () {
+        return customerFactory.getCustomers($scope.filterCriteria.pageNumber, $scope.filterCriteria.pageSize, $scope.filterCriteria.sortedBy, $scope.filterCriteria.sortDir)
+                         .success(getCustomersSuccessCallback)
+                         .error(baseControllerFactory.errorCallback);
     };
 
-    $scope.init();
+    $scope.init2 = function () {
+        customerFactory.getCities()
+                       .success(function (data) { $scope.cities = data; })
+                       .error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.init1();
+    $scope.init2();
 });
 

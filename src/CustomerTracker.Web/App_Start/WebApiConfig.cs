@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using System.Web.Mvc;
 
 namespace CustomerTracker.Web.App_Start
 {
@@ -22,7 +23,14 @@ namespace CustomerTracker.Web.App_Start
             name: "ApiByActionAndId",
             routeTemplate: "api/{controller}/{action}/{id}",
             defaults: new { id=RouteParameter.Optional}
-        );
+            );
+
+         
+            //config.Routes.MapHttpRoute(
+            //    null, 
+            //    "api/{controller}/{pageNumber}/{sortBy}/{sortDir}",
+            //    new { pageNumber = UrlParameter.Optional, sortBy = UrlParameter.Optional, Action = "Get" });
+
 
             var json = config.Formatters.JsonFormatter;
             config.Formatters.Remove(config.Formatters.XmlFormatter);

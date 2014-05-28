@@ -8,6 +8,10 @@
         background-color: #3982C1;
     }
 </style>
+
+
+
+
 <div id="divMain" ng-controller="searchMaterialController">
 
     <div class="row">
@@ -70,17 +74,16 @@
         <div class="col-lg-7" data-ng-show="selectedCustomer!=null">
             @{Html.RenderPartial("_CustomerDetail");}
         </div>
-    </div> 
+    </div>
 </div>
 
 
 
 <script>
 
-
+    $("#searchInput").focus();
+    
     $(document).keypress(function (e) {
-
-        $("#searchInput").focus();
 
         if (e.which == 13) {
             var scope = angular.element(document.getElementById("divMain")).scope();

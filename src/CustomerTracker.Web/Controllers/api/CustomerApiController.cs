@@ -16,22 +16,29 @@ namespace CustomerTracker.Web.Controllers.api
 {
     public class CustomerApiController : ApiController
     {
-        public IEnumerable<Customer> GetCustomers()
+        public dynamic GetCustomers(int pageNumber, int pageSize, string sortBy, string sortDir)
         {
-            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
-             
-            var customers = customerTrackerDataContext.Customers.Include("City").ToList();
+            var skippedRow = (pageNumber - 1) * pageSize;
 
-            return customers;
+            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
+
+            var customers = customerTrackerDataContext.Customers;
+
+            var pageCustomers = customers.Include("City").OrderBy(q => q.Id)
+                .Skip(skippedRow)
+                .Take(pageSize)
+                .ToList();
+
+            return new { customers = pageCustomers, totalCount = customers.Count() };
         }
 
         public Customer GetCustomer(int id)
         {
             var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
-            
+
             var customer = customerTrackerDataContext.Customers.Include("City").SingleOrDefault(q => q.Id == id);
-            
-            if (customer==null)
+
+            if (customer == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
@@ -62,7 +69,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK); 
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         public HttpResponseMessage PostCustomer(Customer customer)
@@ -70,25 +77,25 @@ namespace CustomerTracker.Web.Controllers.api
             if (ModelState.IsValid)
             {
                 ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Create(customer);
-                
+
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, customer);
-                
+
                 response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = customer.Id }));
-                
+
                 return response;
             }
             else
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            } 
+            }
         }
-   
+
         public HttpResponseMessage DeleteCustomer(int id)
         {
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Find(id);
-            
+
             if (customer == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -105,7 +112,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, customer); 
+            return Request.CreateResponse(HttpStatusCode.OK, customer);
         }
     }
 }
