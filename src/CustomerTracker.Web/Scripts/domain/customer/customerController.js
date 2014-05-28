@@ -9,16 +9,16 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     var successPostCallback = function (data, status, headers, config) {
-        successCallback(data, status, headers, config).success(function () {
+        successCallbackWhenFormEdit(data, status, headers, config).success(function () {
             $scope.toggleAddMode();
             $scope.customer = {};
         });
     };
 
-    var successCallback = function (data, status, headers, config) {
+    var successCallbackWhenFormEdit = function (data, status, headers, config) {
         notificationFactory.success();
 
-        return $scope.init1();
+        return $scope.loadCustomers();
     };
 
     $scope.$on('pageChangedEventHandler', function () {
@@ -53,25 +53,31 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.deleteCustomer = function (customer) {
-        customerFactory.deleteCustomer(customer).success(successCallback).error(baseControllerFactory.errorCallback);
+        customerFactory.deleteCustomer(customer).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
     };
 
     $scope.updateCustomer = function (customer) {
-        customerFactory.updateCustomer(customer).success(successCallback).error(baseControllerFactory.errorCallback);
+        customerFactory.updateCustomer(customer).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
     };
 
-    $scope.init1 = function () {
+    $scope.loadCustomers = function () {
         return customerFactory.getCustomers($scope.filterCriteria.pageNumber, $scope.filterCriteria.pageSize, $scope.filterCriteria.sortedBy, $scope.filterCriteria.sortDir)
                          .success(getCustomersSuccessCallback)
                          .error(baseControllerFactory.errorCallback);
     };
 
-    $scope.init2 = function () {
+    $scope.loadCities = function () {
         customerFactory.getCities()
                        .success(function (data) { $scope.cities = data; })
                        .error(baseControllerFactory.errorCallback);
     };
 
-    $scope.init1();
-    $scope.init2();
+    $scope.init = function() {
+        $scope.loadCustomers();
+
+        $scope.loadCities();
+    };
+
+    $scope.init();
+
 });

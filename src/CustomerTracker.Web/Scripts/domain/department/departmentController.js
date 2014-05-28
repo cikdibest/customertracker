@@ -6,16 +6,16 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
     };
 
     var successPostCallback = function (data, status, headers, config) {
-        successCallback(data, status, headers, config).success(function () {
+        successCallbackWhenFormEdit(data, status, headers, config).success(function () {
             $scope.toggleAddMode();
             $scope.department = {};
         });
     };
 
-    var successCallback = function (data, status, headers, config) {
+    var successCallbackWhenFormEdit = function (data, status, headers, config) {
         notificationFactory.success();
 
-        return departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(baseControllerFactory.errorCallback);
+        return $scope.loadDepartments();
     };
 
     $scope.departments = [];
@@ -35,15 +35,19 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
     };
 
     $scope.deleteDepartment = function (department) {
-        departmentFactory.deleteDepartment(department).success(successCallback).error(baseControllerFactory.errorCallback);
+        departmentFactory.deleteDepartment(department).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
     };
 
     $scope.updateDepartment = function (department) {
-        departmentFactory.updateDepartment(department).success(successCallback).error(baseControllerFactory.errorCallback);
+        departmentFactory.updateDepartment(department).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
     };
 
-    $scope.init = function () {
-        departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(baseControllerFactory.errorCallback);
+    $scope.loadDepartments = function () {
+       return  departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.init = function() {
+        $scope.loadDepartments();
     };
 
     $scope.init();
