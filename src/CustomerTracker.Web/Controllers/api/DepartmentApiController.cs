@@ -70,8 +70,8 @@ namespace CustomerTracker.Web.Controllers.api
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, department);
-                
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = department.Id }));
+
+                response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = department.Id }));
                 
                 return response;
             }
@@ -80,8 +80,8 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             } 
         }
-   
-        public HttpResponseMessage DeletePerson(int id)
+
+        public HttpResponseMessage DeleteDepartment(int id)
         {
             var department = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().Find(id);
             

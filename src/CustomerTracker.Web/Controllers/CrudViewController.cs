@@ -13,5 +13,10 @@ namespace CustomerTracker.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult RemoteMachine()
+        {
+            return View();
+        }
     }
 }

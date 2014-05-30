@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using CustomerTracker.Web.Models.Enums;
+using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.Models.Entities
 { 
@@ -98,7 +99,9 @@ namespace CustomerTracker.Web.Models.Entities
                 return (RemoteConnectionType)RemoteConnectionTypeId;
             }
         }
-    }
+
+        public string RemoteConnectionTypeName {get { return RemoteConnectionType.GetDescription(); }}
+     }
  
     public class City : BaseEntity
     {

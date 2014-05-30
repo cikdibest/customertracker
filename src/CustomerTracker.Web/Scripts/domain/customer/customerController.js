@@ -24,7 +24,7 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     $scope.$on('pageChangedEventHandler', function () {
         $scope.filterCriteria.pageNumber = eventFactory.pagingModel.currentPageNumber;
 
-        $scope.init1();
+        $scope.loadCustomers();
     });
 
     $scope.customers = [];

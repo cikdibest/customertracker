@@ -206,7 +206,8 @@
     <Compile Include="Business\SearchBusiness\SearchResultModel.cs" />
     <Compile Include="Business\UserBusiness\UserUtility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\api\CityApiController.cs" />
+    <Compile Include="Controllers\api\RemoteMachineApiController.cs" />
+    <Compile Include="Controllers\api\SharedDataApiController.cs" />
     <Compile Include="Controllers\api\CustomerApiController.cs" />
     <Compile Include="Controllers\api\DepartmentApiController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
@@ -670,6 +671,8 @@
     <Content Include="Scripts\domain\appControllers.js" />
     <Content Include="Scripts\domain\common\directives.js" />
     <Content Include="Scripts\domain\common\filters.js" />
+    <Content Include="Scripts\domain\remotemachine\remoteMachineController.js" />
+    <Content Include="Scripts\domain\remotemachine\remoteMachineFactory.js" />
     <Content Include="Scripts\domain\customer\customerController.js" />
     <Content Include="Scripts\domain\customer\customerFactory.js" />
     <Content Include="Scripts\domain\department\departmentFactory.js" />
@@ -957,6 +960,7 @@
     <Content Include="Scripts\toastr.min.js.map" />
     <Content Include="Views\CrudView\Department.cshtml" />
     <Content Include="Views\CrudView\Customer.cshtml" />
+    <Content Include="Views\CrudView\RemoteMachine.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

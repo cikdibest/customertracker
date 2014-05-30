@@ -1,8 +1,9 @@
-﻿
+﻿var materialSearchUrl = '/material/search/';
+var sharedDataApiUrl = '/api/shareddataapi/';
+var remoteMachineApiUrl = '/api/remotemachineapi/';
 var departmentApiUrl = '/api/departmentapi/';
-var customerApiUrl = '/api/customerapi/';
-var materialSearchUrl = '/material/search/';
-var getCitiesUrl = '/api/cityapi/';
+var customerApiUrl = '/api/customerapi/'; 
+
 
 
 var customerApp = angular.module('customerApp', ['ui.bootstrap']);

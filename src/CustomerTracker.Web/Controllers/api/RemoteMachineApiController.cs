@@ -1,64 +1,59 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Helpers;
 using System.Web.Http;
-using System.Web.Mvc;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
 {
-    public class CustomerApiController : ApiController
+    public class RemoteMachineApiController : ApiController
     {
-        public dynamic GetCustomers(int pageNumber, int pageSize, string sortBy, string sortDir)
+        public dynamic GetRemoteMachines(int pageNumber, int pageSize, string sortBy, string sortDir)
         {
             var skippedRow = (pageNumber - 1) * pageSize;
 
-            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
+            var remoteMachineTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
 
-            var customers = customerTrackerDataContext.Customers;
+            var remoteMachines = remoteMachineTrackerDataContext.RemoteMachines;
 
-            var pageCustomers = customers.Include("City").OrderBy(q => q.Id)
+            var pageRemoteMachines = remoteMachines.Include("Customer").OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)
                 .ToList();
 
-            return new { customers = pageCustomers, totalCount = customers.Count() };
+            return new { remoteMachines = pageRemoteMachines, totalCount = remoteMachines.Count() };
         }
 
-        public Customer GetCustomer(int id)
+        public RemoteMachine GetRemoteMachine(int id)
         {
-            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
+            var remoteMachineTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
 
-            var customer = customerTrackerDataContext.Customers.Include("City").SingleOrDefault(q => q.Id == id);
+            var remoteMachine = remoteMachineTrackerDataContext.RemoteMachines.Include("Customer").SingleOrDefault(q => q.Id == id);
 
-            if (customer == null)
+            if (remoteMachine == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return customer;
+            return remoteMachine;
         }
-
-        public HttpResponseMessage PutCustomer(int id, Customer customer)
+         
+        public HttpResponseMessage PutRemoteMachine(int id, RemoteMachine remoteMachine)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            if (id != customer.Id)
+            if (id != remoteMachine.Id)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Update(customer);
+            ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Update(remoteMachine);
 
             try
             {
@@ -71,18 +66,18 @@ namespace CustomerTracker.Web.Controllers.api
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-
-        public HttpResponseMessage PostCustomer(Customer customer)
+         
+        public HttpResponseMessage PostRemoteMachine(RemoteMachine remoteMachine)
         {
             if (ModelState.IsValid)
             {
-                ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Create(customer);
+                ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Create(remoteMachine);
 
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, customer);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, remoteMachine);
 
-                response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = customer.Id }));
+                response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = remoteMachine.Id }));
 
                 return response;
             }
@@ -92,16 +87,16 @@ namespace CustomerTracker.Web.Controllers.api
             }
         }
 
-        public HttpResponseMessage DeleteCustomer(int id)
+        public HttpResponseMessage DeleteRemoteMachine(int id)
         {
-            var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Find(id);
+            var remoteMachine = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Find(id);
 
-            if (customer == null)
+            if (remoteMachine == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Delete(customer);
+            ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Delete(remoteMachine);
 
             try
             {
@@ -112,7 +107,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, customer);
+            return Request.CreateResponse(HttpStatusCode.OK, remoteMachine);
         }
     }
 }
