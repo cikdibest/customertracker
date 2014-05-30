@@ -1,16 +1,16 @@
 ﻿customerApp.factory('departmentFactory', function ($http) {
     return {
         getDepartments: function () {
-            return $http.get(departmentApiUrl + 'getDepartments');
+            return $http.get(departmentApiUrl.getdepartments);
         },
         addDepartment: function (department) {
-            return $http.post(departmentApiUrl + 'postDepartment', department);
+            return $http.post(departmentApiUrl.postdepartment , department);
         },
         deleteDepartment: function (department) {
-            return $http.delete(departmentApiUrl + 'deleteDepartment/' + department.Id);
+            return $http.delete(departmentApiUrl.deletedepartment  + department.Id);
         },
         updateDepartment: function (department) {
-            return $http.put(departmentApiUrl + 'putDepartment/' + department.Id, department);
+            return $http.put(departmentApiUrl.putdepartment + department.Id, department);
         }
 
     };

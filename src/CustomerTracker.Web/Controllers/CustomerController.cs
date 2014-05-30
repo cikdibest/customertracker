@@ -12,9 +12,7 @@ namespace CustomerTracker.Web.Controllers
 {
     [Authorize(Roles = "Admin,Personel")]
     public class CustomerController : Controller
-    {
-        
-         
+    { 
         public ActionResult Detail(int customerId)
         { 
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext()

@@ -289,7 +289,10 @@
     <Content Include="Content\customerdetail.css" />
     <Content Include="Content\images\remoteconnectiontype\alpemix.jpg" />
     <Content Include="Content\images\remoteconnectiontype\ammyy.jpg" />
+    <Content Include="Content\images\remoteconnectiontype\fileserver.jpg" />
+    <Content Include="Content\images\remoteconnectiontype\other.jpg" />
     <Content Include="Content\images\remoteconnectiontype\remotedesktop.jpg" />
+    <Content Include="Content\images\remoteconnectiontype\sqlserver.jpg" />
     <Content Include="Content\images\remoteconnectiontype\teamviewer.jpg" />
     <Content Include="Content\images\remoteconnectiontype\vpn.jpg" />
     <Content Include="Content\toastr.css" />

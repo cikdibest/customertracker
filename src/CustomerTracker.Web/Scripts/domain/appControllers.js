@@ -1,9 +1,35 @@
-﻿var materialSearchUrl = '/material/search/';
-var sharedDataApiUrl = '/api/shareddataapi/';
-var remoteMachineApiUrl = '/api/remotemachineapi/';
-var departmentApiUrl = '/api/departmentapi/';
-var customerApiUrl = '/api/customerapi/'; 
+﻿ 
+var materialSearchUrl = '/material/search/getMaterials';
 
+ 
+var sharedDataApiUrl = {
+    getcities: '/api/shareddataapi/getcities/',
+    getremoteconnectiontypes: '/api/shareddataapi/getremoteconnectiontypes/',
+};
+
+var remoteMachineApiUrl = {
+    getremotemachines: '/api/remotemachineapi/getremotemachines/',
+    getremotemachine: '/api/remotemachineapi/getremotemachine/',
+    putremotemachine: '/api/remotemachineapi/putremotemachine/',
+    postremotemachine: '/api/remotemachineapi/postremotemachine/',
+    deleteremotemachine: '/api/remotemachineapi/deleteremotemachine/',
+};
+
+var departmentApiUrl = {
+    getdepartments:   '/api/departmentapi/getdepartments/',
+    getdepartment:  '/api/departmentapi/getdepartment/',
+    putdepartment:   '/api/departmentapi/putdepartment/',
+    postdepartment:  '/api/departmentapi/postdepartment/',
+    deletedepartment:   '/api/departmentapi/deletedepartment/',
+};
+
+var customerApiUrl = {
+    getcustomers: '/api/customerapi/getcustomers/',
+    getcustomer: '/api/customerapi/getcustomer/',
+    putcustomer: '/api/customerapi/putcustomer/',
+    postcustomer: '/api/customerapi/postcustomer/',
+    deletecustomer: '/api/customerapi/deletecustomer/',
+};
 
 
 var customerApp = angular.module('customerApp', ['ui.bootstrap']);
@@ -19,7 +45,7 @@ customerApp.factory('notificationFactory', function () {
         }
     };
 });
- 
+
 customerApp.factory('baseControllerFactory', function (notificationFactory) {
     return {
         errorCallback: function (data, status, haders, config) {
@@ -71,6 +97,4 @@ customerApp.controller('paginationController', function ($scope, eventFactory) {
     });
 
 });
-
-
 

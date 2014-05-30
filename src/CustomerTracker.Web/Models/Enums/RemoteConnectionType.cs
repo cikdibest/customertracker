@@ -7,7 +7,7 @@ namespace CustomerTracker.Web.Models.Enums
         [Description("Teamviewer")]
         TeamViewer = 1,
 
-        [Description("Uzak Masaüstü Bağlantısı")]
+        [Description("Remote Desktop")]
         RemoteDesktop = 2,
 
         [Description("Ammyy")]
@@ -17,6 +17,15 @@ namespace CustomerTracker.Web.Models.Enums
         Alpemix = 4,
 
         [Description("Vpn")]
-        Vpn = 5
+        Vpn = 5,
+
+        [Description("File Server")]
+        FileServer = 6,
+
+        [Description("Sql server")]
+        SqlServer = 7,
+
+        [Description("Other")]
+        Other = 8,
     };
 }
