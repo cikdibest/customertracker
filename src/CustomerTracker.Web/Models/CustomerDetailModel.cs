@@ -20,16 +20,16 @@ namespace CustomerTracker.Web.Models
     }
 
     public class RemoteMachineModel
-    { 
-        public string Name { get; set; }
-         
-        public string Username { get; set; }
-         
-        public string Password { get; set; }
-         
+    {
+        public string DecryptedName { get; set; }
+
+        public string DecryptedUsername { get; set; }
+
+        public string DecryptedPassword { get; set; }
+
+        public string DecryptedRemoteAddress { get; set; }
+
         public string Explanation { get; set; }
-         
-        public string RemoteAddress { get; set; }
 
         public List<ProductModel> ProductModels { get; set; }
   

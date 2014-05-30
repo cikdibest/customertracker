@@ -25,13 +25,13 @@ namespace CustomerTracker.Web.App_Start
             .ForMember(dest => dest.DepartmentName, src => src.MapFrom(q => q.Department.Name));
 
             Mapper.CreateMap<RemoteMachine, RemoteMachineModel>()
-                .ForMember(dest => dest.Name, src => src.MapFrom(q => q.Name))
-                .ForMember(dest => dest.Username, src => src.MapFrom(q => q.Username))
+                .ForMember(dest => dest.DecryptedName, src => src.MapFrom(q => q.DecryptedName))
+                .ForMember(dest => dest.DecryptedUsername, src => src.MapFrom(q => q.DecryptedUsername))
                 .ForMember(dest => dest.RemoteConnectionType, src => src.MapFrom(q => q.RemoteConnectionType.GetDescription()))
-                .ForMember(dest => dest.Password, src => src.MapFrom(q => q.Password))
+                .ForMember(dest => dest.DecryptedPassword, src => src.MapFrom(q => q.DecryptedPassword))
                 .ForMember(dest => dest.CustomerTitle, src => src.MapFrom(q => q.Customer.Title))
                 .ForMember(dest => dest.Explanation, src => src.MapFrom(q => q.Explanation))
-                .ForMember(dest => dest.RemoteAddress, src => src.MapFrom(q => q.RemoteAddress))
+                .ForMember(dest => dest.DecryptedRemoteAddress, src => src.MapFrom(q => q.DecryptedRemoteAddress))
                 .ForMember(dest => dest.LogoName, src => src.MapFrom(q => string.Format("{0}/remoteconnectiontype/{1}.jpg", "content/images", q.RemoteConnectionType.ToString())));
 
             Mapper.CreateMap<Product, ProductModel>()

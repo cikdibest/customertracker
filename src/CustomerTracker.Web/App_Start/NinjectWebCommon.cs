@@ -35,6 +35,7 @@ namespace CustomerTracker.Web.App_Start
            // kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
             kernel.Bind<ISearchEngine>().To<SearchEngine>().InSingletonScope();
             kernel.Bind<IUserUtility>().To<UserUtility>().InSingletonScope();
+            kernel.Bind<IEncrypt>().To<AesEncryption>().InSingletonScope();
             
             bootstrapper.Initialize(() => { return kernel; });
         }
@@ -87,4 +88,6 @@ namespace CustomerTracker.Web.App_Start
 
 
     }
+
+    
 }

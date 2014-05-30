@@ -31,14 +31,14 @@ namespace CustomerTracker.Web.Infrastructure.Repository
         public DbSet<Department> Titles { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<SocialAccount> SocialAccounts { get; set; }
-        
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
- 
+
             base.OnModelCreating(modelBuilder);
-             
+
         }
 
         public override int SaveChanges()
@@ -49,7 +49,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
             foreach (var baseEntity in addedEntries.Select(entry => (BaseEntity)entry.Entity))
             {
                 baseEntity.CreationDate = DateTime.Now;
-                 
+
                 baseEntity.CreationPersonelId = ConfigurationHelper.CurrentUser != null
                                                     ? ConfigurationHelper.CurrentUser.UserId
                                                     : (int?)null;
@@ -67,6 +67,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
             }
 
             return base.SaveChanges();
+
 
         }
 

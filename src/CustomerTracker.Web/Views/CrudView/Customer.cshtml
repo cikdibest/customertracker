@@ -39,7 +39,7 @@
                     <input ng-model="customer.Explanation" class="col-md-12" />
                 </td>
             </tr>
-            <tr ng-repeat="customer in customers | orderBy:'Id':true">
+            <tr ng-repeat="customer in customers | orderBy:'Id':false">
                 <td>
                     <div class="btn-toolbar" ng-show="customer.editMode == null || customer.editMode == false">
                         <div class="btn-group">

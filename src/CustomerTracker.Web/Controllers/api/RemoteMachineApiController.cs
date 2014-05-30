@@ -19,9 +19,10 @@ namespace CustomerTracker.Web.Controllers.api
 
             var remoteMachines = remoteMachineTrackerDataContext.RemoteMachines;
 
-            var pageRemoteMachines = remoteMachines.Include("Customer").OrderBy(q => q.Id)
+            var pageRemoteMachines = remoteMachines.Include("Customer")
+                .OrderBy(q => q.Id)
                 .Skip(skippedRow)
-                .Take(pageSize)
+                .Take(pageSize) 
                 .ToList();
 
             return new { remoteMachines = pageRemoteMachines, totalCount = remoteMachines.Count() };

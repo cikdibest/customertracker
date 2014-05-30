@@ -41,22 +41,22 @@
                     <select ng-model="remoteMachine.RemoteConnectionTypeId" ng-options="remoteConnectionType.Key as remoteConnectionType.Value for remoteConnectionType in remoteConnectionTypes"></select>
                 </td>
                 <td>
-                    <input ng-model="remoteMachine.Name" class="col-md-12" />
+                    <input ng-model="remoteMachine.DecryptedName" class="col-md-12" />
                 </td>
                 <td>
-                    <input ng-model="remoteMachine.RemoteAddress" class="col-md-12" />
+                    <input ng-model="remoteMachine.DecryptedRemoteAddress" class="col-md-12" />
                 </td>
                 <td>
-                    <input ng-model="remoteMachine.Username" class="col-md-12" />
+                    <input ng-model="remoteMachine.DecryptedUsername" class="col-md-12" />
                 </td>
                 <td>
-                    <input ng-model="remoteMachine.Password" class="col-md-12" />
+                    <input ng-model="remoteMachine.DecryptedPassword" class="col-md-12" />
                 </td>
                 <td>
                     <input ng-model="remoteMachine.Explanation" class="col-md-12" />
                 </td>
             </tr>  
-            <tr ng-repeat="remoteMachine in remoteMachines | orderBy:'Id':true">
+            <tr ng-repeat="remoteMachine in remoteMachines | orderBy:'Id':false">
                 <td>
                     <div class="btn-toolbar" ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">
                         <div class="btn-group">
@@ -81,20 +81,20 @@
                     <select ng-model="remoteMachine.RemoteConnectionTypeId" ng-options="remoteConnectionType.Key as remoteConnectionType.Value for remoteConnectionType in remoteConnectionTypes" ng-show="remoteMachine.editMode == true"></select>
                 </td>
                 <td>
-                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.Name}}</span>
-                    <input ng-model="remoteMachine.Name" ng-show="remoteMachine.editMode == true" class="col-md-12" />
+                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.DecryptedName}}</span>
+                    <input ng-model="remoteMachine.DecryptedName" ng-show="remoteMachine.editMode == true" class="col-md-12" />
                 </td>
                 <td>
-                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.RemoteAddress}}</span>
-                    <input ng-model="remoteMachine.RemoteAddress" ng-show="remoteMachine.editMode == true" class="col-md-12" />
+                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.DecryptedRemoteAddress}}</span>
+                    <input ng-model="remoteMachine.DecryptedRemoteAddress" ng-show="remoteMachine.editMode == true" class="col-md-12" />
                 </td>
                 <td>
-                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.Username}}</span>
-                    <input ng-model="remoteMachine.Username" ng-show="remoteMachine.editMode == true" class="col-md-12" />
+                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.DecryptedUsername}}</span>
+                    <input ng-model="remoteMachine.DecryptedUsername" ng-show="remoteMachine.editMode == true" class="col-md-12" />
                 </td>
                 <td>
-                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.Password}}</span>
-                    <input ng-model="remoteMachine.Password" ng-show="remoteMachine.editMode == true" class="col-md-12" />
+                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.DecryptedPassword}}</span>
+                    <input ng-model="remoteMachine.DecryptedPassword" ng-show="remoteMachine.editMode == true" class="col-md-12" />
                 </td>
                 <td>
                     <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.Explanation}}</span>

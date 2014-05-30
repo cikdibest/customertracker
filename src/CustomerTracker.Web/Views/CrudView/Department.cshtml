@@ -28,7 +28,7 @@
                     <input ng-model="department.Name" />
                 </td>
             </tr>
-            <tr ng-repeat="department in departments | orderBy:'Id':true">
+            <tr ng-repeat="department in departments | orderBy:'Id':false">
                 <td>
                     <div class="btn-toolbar" ng-show="department.editMode == null || department.editMode == false">
                         <div class="btn-group">

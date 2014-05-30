@@ -21,7 +21,7 @@ namespace CustomerTracker.Web.Controllers
         private ISearchEngine _searchEngine;
 
         public MaterialController()
-        {
+        { 
             _searchEngine = NinjectWebCommon.GetKernel.Get<ISearchEngine>();
 
         }

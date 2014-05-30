@@ -147,7 +147,7 @@
                             <img data-ng-src="{{remoteMachine.LogoName}}" alt="Scott Stevens" class="img-responsive img-circle" />
                         </div>
                         <div class="col-xs-12 col-sm-9">
-                            <span class="name">{{remoteMachine.Name}}</span><br />
+                            <span class="name">{{remoteMachine.DecryptedName}}</span><br />
                             <table class="table table-condensed table-responsive table-user-information">
                                 <tbody>
                                     <tr>
@@ -156,15 +156,15 @@
                                     </tr>
                                     <tr>
                                         <td>Adres(ip/url)</td>
-                                        <td>{{remoteMachine.RemoteAddress}}</td>
+                                        <td>{{remoteMachine.DecryptedRemoteAddress}}</td>
                                     </tr>
                                     <tr>
                                         <td>Kullanıcı Adı</td>
-                                        <td>{{remoteMachine.Username}}</td>
+                                        <td>{{remoteMachine.DecryptedUsername}}</td>
                                     </tr>
                                     <tr>
                                         <td>Şifre</td>
-                                        <td>{{remoteMachine.Password}}</td>
+                                        <td>{{remoteMachine.DecryptedPassword}}</td>
                                     </tr>
                                     <tr>
                                         <td>Açıklama</td>
