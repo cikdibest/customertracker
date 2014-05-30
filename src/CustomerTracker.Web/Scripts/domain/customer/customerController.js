@@ -1,6 +1,6 @@
 ﻿
 
-customerApp.controller('customerController', function ($scope, customerFactory, notificationFactory, baseControllerFactory, eventFactory) {
+customerApp.controller('customerController', function ($scope, customerFactory, notificationFactory, baseControllerFactory, eventFactory, modalService) {
 
     var getCustomersSuccessCallback = function (data, status) {
         $scope.customers = data.customers;
@@ -53,7 +53,19 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.deleteCustomer = function (customer) {
-        customerFactory.deleteCustomer(customer).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
+        var modalOptions = {
+            closeButtonText: 'Cancel',
+            actionButtonText: 'Delete Row',
+            headerText: 'Delete ' + customer.Title + '?',
+            bodyText: 'Are you sure you want to delete this row?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+            if (result != 'ok') return;
+
+            customerFactory.deleteCustomer(customer).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
+        });
+     
     };
 
     $scope.updateCustomer = function (customer) {

@@ -954,6 +954,7 @@
     <Content Include="Scripts\ZeroClipboard.min.js" />
     <Content Include="Scripts\ZeroClipboard.swf" />
     <Content Include="Views\Contact\Index.cshtml" />
+    <Content Include="modal.html" />
     <Content Include="Views\Shared\EditorTemplates\Html.cshtml" />
     <Content Include="Views\FileUpload\Index.cshtml" />
     <Content Include="Views\FileUpload\_UploadedFilePreview.cshtml" />

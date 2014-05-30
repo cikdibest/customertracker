@@ -1,5 +1,5 @@
 ﻿
-customerApp.controller('departmentController', function ($scope, departmentFactory, notificationFactory, baseControllerFactory) {
+customerApp.controller('departmentController', function ($scope, departmentFactory, notificationFactory, baseControllerFactory, modalService) {
 
     var getDepartmentsSuccessCallback = function (data, status) {
         $scope.departments = data;
@@ -35,7 +35,19 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
     };
 
     $scope.deleteDepartment = function (department) {
-        departmentFactory.deleteDepartment(department).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
+        var modalOptions = {
+            closeButtonText: 'Cancel',
+            actionButtonText: 'Delete Row',
+            headerText: 'Delete ' + department.Name + '?',
+            bodyText: 'Are you sure you want to delete this row?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+            if (result != 'ok') return;
+            departmentFactory.deleteDepartment(department).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
+        });
+
+        
     };
 
     $scope.updateDepartment = function (department) {

@@ -1,6 +1,6 @@
 ﻿
 
-customerApp.controller('remoteMachineController', function ($scope, remoteMachineFactory, notificationFactory, baseControllerFactory, eventFactory) {
+customerApp.controller('remoteMachineController', function ($scope, remoteMachineFactory, notificationFactory, baseControllerFactory, eventFactory, modalService) {
 
     var getRemoteMachinesSuccessCallback = function (data, status) {
         $scope.remoteMachines = data.remoteMachines;
@@ -21,13 +21,13 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
         return $scope.loadRemoteMachines();
     };
 
-    $scope.$on('pageChangedEventHandler', function () {
-        $scope.filterCriteria.pageNumber = eventFactory.pagingModel.currentPageNumber;
-
-        $scope.loadRemoteMachines();
-    });
-
     $scope.remoteMachines = [];
+
+    $scope.customers = [];
+
+    $scope.remoteConnectionTypes = [];
+
+    $scope.addMode = false;
 
     $scope.filterCriteria = {
         pageNumber: 1,
@@ -36,11 +36,12 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
         sortDir: 'asc',
     };
 
-    $scope.customers = [];
 
-    $scope.remoteConnectionTypes = [];
+    $scope.$on('pageChangedEventHandler', function () {
+        $scope.filterCriteria.pageNumber = eventFactory.pagingModel.currentPageNumber;
 
-    $scope.addMode = false;
+        $scope.loadRemoteMachines();
+    });
 
     $scope.toggleAddMode = function () {
         $scope.addMode = !$scope.addMode;
@@ -55,7 +56,20 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     };
 
     $scope.deleteRemoteMachine = function (remoteMachine) {
-        remoteMachineFactory.deleteRemoteMachine(remoteMachine).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
+
+        var modalOptions = {
+            closeButtonText: 'Cancel',
+            actionButtonText: 'Delete Row',
+            headerText: 'Delete ' + remoteMachine.DecryptedName + '?',
+            bodyText: 'Are you sure you want to delete this row?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+            if (result != 'ok') return;
+
+            remoteMachineFactory.deleteRemoteMachine(remoteMachine).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);
+        });
+         
     };
 
     $scope.updateRemoteMachine = function (remoteMachine) {
@@ -75,9 +89,9 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     };
 
     $scope.loadRemoteConnectionTypes = function () {
-        remoteMachineFactory.getRemoteConnectionTypes()  
-                       .success(function(data) {
-                            $scope.remoteConnectionTypes = data;
+        remoteMachineFactory.getRemoteConnectionTypes()
+                       .success(function (data) {
+                           $scope.remoteConnectionTypes = data;
                        })
                        .error(baseControllerFactory.errorCallback);
     };
