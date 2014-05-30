@@ -30,9 +30,7 @@ var customerApiUrl = {
     deletecustomer: '/api/customerapi/deletecustomer/',
 };
 
-
-
-var customerApp = angular.module('customerApp', ['ui.bootstrap']);
+var customerApp = angular.module('customerApp', ['ui.bootstrap', 'requestHandler']);
 
 var modalService = function ($modal) {
 

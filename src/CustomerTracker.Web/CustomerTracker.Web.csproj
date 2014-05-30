@@ -678,6 +678,7 @@
     <Content Include="Scripts\domain\appControllers.js" />
     <Content Include="Scripts\domain\common\directives.js" />
     <Content Include="Scripts\domain\common\filters.js" />
+    <Content Include="Scripts\domain\common\modules\requestHandler.js" />
     <Content Include="Scripts\domain\remotemachine\remoteMachineController.js" />
     <Content Include="Scripts\domain\remotemachine\remoteMachineFactory.js" />
     <Content Include="Scripts\domain\customer\customerController.js" />

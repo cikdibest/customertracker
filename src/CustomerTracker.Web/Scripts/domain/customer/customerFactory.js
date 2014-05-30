@@ -1,18 +1,37 @@
 ﻿
 
-customerApp.factory('customerFactory', function ($http) {
+customerApp.factory('customerFactory', function ($http, requestHandler) {
     return {
         getCustomers: function (pageNumber, pageSize, sortBy, sortDir) {
-            return $http.get(customerApiUrl.getcustomers, { params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir } });
+            return requestHandler({
+                method: 'GET',
+                url: customerApiUrl.getcustomers,
+                params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir } 
+            });
+            //return $http.get(customerApiUrl.getcustomers, { params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir } });
         },
         addCustomer: function (customer) {
-            return $http.post(customerApiUrl.postcustomer, customer);
+            return requestHandler({
+                method: 'POST',
+                url: customerApiUrl.postcustomer,
+                data: customer
+            });
+            //return $http.post(customerApiUrl.postcustomer, customer);
         },
         deleteCustomer: function (customer) {
-            return $http.delete(customerApiUrl.deletecustomer + customer.Id);
+            return requestHandler({
+                method: 'DELETE',
+                url: customerApiUrl.deletecustomer + customer.Id
+            });
+            //return $http.delete(customerApiUrl.deletecustomer + customer.Id);
         },
         updateCustomer: function (customer) {
-            return $http.put(customerApiUrl.putcustomer + customer.Id, customer);
+            return requestHandler({
+                method: 'PUT',
+                url: customerApiUrl.putcustomer + customer.Id,
+                data: customer
+            });
+            //return $http.put(customerApiUrl.putcustomer + customer.Id, customer);
         },
         getCities: function () {
             return $http.get(sharedDataApiUrl.getcities);
