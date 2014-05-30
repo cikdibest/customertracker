@@ -1,8 +1,22 @@
 ﻿
 
 customerApp.controller('customerController', function ($scope, customerFactory, notificationFactory, baseControllerFactory, eventFactory, modalService) {
+     
+    $scope.customers = [];
 
+    $scope.filterCriteria = {
+        pageNumber: 1,
+        pageSize: 10,
+        sortedBy: 'id',
+        sortDir: 'asc',
+    };
+
+    $scope.cities = [];
+
+    $scope.addMode = false;
+    
     var getCustomersSuccessCallback = function (data, status) {
+        
         $scope.customers = data.customers;
 
         eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
@@ -26,20 +40,7 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
 
         $scope.loadCustomers();
     });
-
-    $scope.customers = [];
-
-    $scope.filterCriteria = {
-        pageNumber: 1,
-        pageSize: 10,
-        sortedBy: 'id',
-        sortDir: 'asc',
-    };
-
-    $scope.cities = [];
-
-    $scope.addMode = false;
-
+     
     $scope.toggleAddMode = function () {
         $scope.addMode = !$scope.addMode;
     };
