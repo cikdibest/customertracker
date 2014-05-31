@@ -30,7 +30,7 @@ namespace CustomerTracker.Web.App_Start
     { 
         public static void Generate()
         {
-            Fixture fixture = ConfigureFixture();
+            //Fixture fixture = ConfigureFixture();
 
             var repositoryDepartment = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>();
             repositoryDepartment.Create(new Department() { IsActive = true, IsDeleted = false, Name = "Muhasebeci" });
@@ -40,34 +40,37 @@ namespace CustomerTracker.Web.App_Start
             remoteMachineConnectionType.Create(new RemoteMachineConnectionType() { IsActive = true, IsDeleted = false, Name = "Teamviewer" });
             remoteMachineConnectionType.Create(new RemoteMachineConnectionType() { IsActive = true, IsDeleted = false, Name = "Remote Desktop" });
             remoteMachineConnectionType.Create(new RemoteMachineConnectionType() { IsActive = true, IsDeleted = false, Name = "Vpn" });
-            
-
-            var repositoryProduct = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Product>();
-            var productLibrid = new Product() { IsActive = true, IsDeleted = false, Name = "Librid" };
-            productLibrid.SubProducts = new Collection<Product>();
-            productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Sirkülasyon Masaüstü" });
-            productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Selfcheck Kiosk" });
-            productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Otomasyon Web" });
-            productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Opac Web" });
-            repositoryProduct.Create(productLibrid);
-          
-            var repositoryCity = ConfigurationHelper.UnitOfWorkInstance.GetRepository<City>();
-            repositoryCity.Create(new City() { IsActive = true, IsDeleted = false, Name = "Adana", Code = "01" });
-
-            ConfigurationHelper.UnitOfWorkInstance.Save();
-
-
-            var repositoryCustomer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>();
-            for (int i = 0; i < 400; i++)
-            {
-                var customer = fixture.Create<Customer>();
-                repositoryCustomer.Create(customer);
-            }
+            remoteMachineConnectionType.Create(new RemoteMachineConnectionType() { IsActive = true, IsDeleted = false, Name = "Ammyy" });
 
             var repositoryRole = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>();
             repositoryRole.Create(new Role() { IsActive = true, IsDeleted = false, RoleName = ConfigurationHelper.RoleAdmin });
             repositoryRole.Create(new Role() { IsActive = true, IsDeleted = false, RoleName = ConfigurationHelper.RolePersonel });
             repositoryRole.Create(new Role() { IsActive = true, IsDeleted = false, RoleName = ConfigurationHelper.RoleCustomer });
+
+
+            //var repositoryProduct = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Product>();
+            //var productLibrid = new Product() { IsActive = true, IsDeleted = false, Name = "Librid" };
+            //productLibrid.SubProducts = new Collection<Product>();
+            //productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Sirkülasyon Masaüstü" });
+            //productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Selfcheck Kiosk" });
+            //productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Otomasyon Web" });
+            //productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Opac Web" });
+            //repositoryProduct.Create(productLibrid);
+          
+            //var repositoryCity = ConfigurationHelper.UnitOfWorkInstance.GetRepository<City>();
+            //repositoryCity.Create(new City() { IsActive = true, IsDeleted = false, Name = "Adana", Code = "01" });
+
+            ConfigurationHelper.UnitOfWorkInstance.Save();
+
+
+            //var repositoryCustomer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>();
+            //for (int i = 0; i < 400; i++)
+            //{
+            //    var customer = fixture.Create<Customer>();
+            //    repositoryCustomer.Create(customer);
+            //}
+
+         
              
         }
          
