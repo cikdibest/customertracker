@@ -36,7 +36,7 @@
                 </div>
                 <div>
                     <div class="span3">
-                        <img class="img-circle" ng-src="selectedCustomer.LogoImageUrl" alt="User Pic">
+                        <img class="img-circle" data-ng-src="{{selectedCustomer.AvatarImageUrl}}" alt="User Pic">
                     </div>
                     <div>
                         <br />
@@ -44,12 +44,16 @@
                             <tbody>
                                 <tr>
                                     <td>Ünvan:</td>
-                                    <td>{{selectedCustomer.CustomerTitle}}</td>
+                                    <td>{{selectedCustomer.Name}}</td>
                                 </tr>
                                 <tr>
                                     <td>Şehir</td>
-                                    <td>{{selectedCustomer.CityName}}</td>
+                                    <td>{{selectedCustomer.City.Name}}</td>
                                 </tr>
+                                 <tr>
+                                    <td>Keywords</td>
+                                    <td>{{selectedCustomer.Keywords}}</td>
+                                </tr>c 
                                 <tr>
                                     <td>Açıklama</td>
                                     <td>{{selectedCustomer.Explanation}}</td>
@@ -90,7 +94,7 @@
 
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
-                            <img ng-src="communication.LogoImageUrl" alt="Scott Stevens" class="img-responsive img-circle" />
+                            <img data-ng-src="{{communication.AvatarImageUrl}}" alt="Scott Stevens" class="img-responsive img-circle" />
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <span class="name">{{communication.FullName}}</span><br />
@@ -98,15 +102,19 @@
                                 <tbody>
                                     <tr>
                                         <td>Görev</td>
-                                        <td>{{communication.DepartmentName}}</td>
+                                        <td>{{communication.Department.Name}}</td>
                                     </tr>
                                     <tr>
                                         <td>Cinsiyet</td>
                                         <td>{{communication.GenderName}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Telefon</td>
-                                        <td>{{communication.PhoneNumber}}</td>
+                                        <td>Home Phone</td>
+                                        <td>{{communication.HomePhoneNumber}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile Phone</td>
+                                        <td>{{communication.MobilePhoneNumber}}</td>
                                     </tr>
                                     <tr>
                                         <td>Email</td>
@@ -143,7 +151,7 @@
 
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
-                            <img data-ng-src="{{remoteMachine.LogoImageUrl}}" alt="Scott Stevens" class="img-responsive img-circle" />
+                            <img data-ng-src="{{remoteMachine.RemoteMachineConnectionType.AvatarImageUrl}}" alt="Scott Stevens" class="img-responsive img-circle" />
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <span class="name">{{remoteMachine.DecryptedName}}</span><br />
@@ -151,7 +159,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Bağlantı Tipi</td>
-                                        <td>{{remoteMachine.RemoteConnectionType}}</td>
+                                        <td>{{remoteMachine.RemoteMachineConnectionType.Name}}</td>
                                     </tr>
                                     <tr>
                                         <td>Adres(ip/url)</td>
@@ -176,7 +184,7 @@
                     </li>
                 </ul>
             </div>
-        </div> 
+        </div>
         <div class="tab-pane" id="tab_e">
             <div class="panel panel-primary">
                 <div class="panel-heading c-list">
@@ -198,7 +206,7 @@
 
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
-                            <img data-ng-src="dataMaster.LogoImageUrl" alt="Scott Stevens" class="img-responsive img-circle" />
+                            <img data-ng-src="{{dataMaster.AvatarImageUrl}}" alt="Scott Stevens" class="img-responsive img-circle" />
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <span class="name">{{dataMaster.Name}}</span><br />
@@ -206,8 +214,8 @@
                                 <tbody ng-repeat="dataDetail in dataMaster.DataDetails">
                                     <tr>
                                         <td>{{dataDetail.Key}}</td>
-                                        <td>{{dataDetail.Value}}</td>
-                                    </tr> 
+                                        <td>{{dataDetail.DecryptedValue}}</td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>

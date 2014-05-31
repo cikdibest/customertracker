@@ -15,7 +15,7 @@ namespace CustomerTracker.Web.Business.SearchBusiness
         public IPagedList<SearchResultModel> SearchCustomers(string criteria, int currentPageIndex, string sorting, bool isAscending)
         {
             var results = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().SelectAll().Include(cu=>cu.City)
-                .Where(c => c.Title.Contains(criteria));
+                .Where(c => c.Name.Contains(criteria));
             return ToPagedSearchResultModel<Customer>(results,currentPageIndex,20);
         }
 
@@ -36,7 +36,13 @@ namespace CustomerTracker.Web.Business.SearchBusiness
                     foreach (var customer in results)
                     {
                         var castedCustomer = customer as Customer;
-                        searchResultList.Add(new SearchResultModel() { SearchTypeId = SearchType.Customer.GetHashCode(), Url = string.Format("{0}?customerId={1}", "api/customerapi/getcustomeradvanceddetail", customer.Id), Summary = castedCustomer.Explanation, Title = castedCustomer.Title + "-" + castedCustomer.City.Name });
+                        searchResultList.Add(new SearchResultModel()
+                        {
+                            SearchTypeId = SearchType.Customer.GetHashCode(), 
+                            Url = string.Format("{0}?customerId={1}", "api/customerapi/getcustomeradvanceddetail", customer.Id), 
+                            Summary = castedCustomer.Explanation,
+                            Title = castedCustomer.Name + "-" + castedCustomer.City.Name
+                        });
                     }
                     return searchResultList.ToPagedList(pageIndex, pageSize);
 
@@ -49,8 +55,8 @@ namespace CustomerTracker.Web.Business.SearchBusiness
                             SearchTypeId = SearchType.Communication.GetHashCode(),
                             Url = string.Format("{0}?customerId={1}", "api/customerapi/getcustomeradvanceddetail", castedCommunication.Customer.Id),
                             Summary =
-                                castedCommunication.Customer.Title + "-" + castedCommunication.Customer.City.Name +
-                                "Tel : " + castedCommunication.PhoneNumber + "Email :" + castedCommunication.Email,
+                                castedCommunication.Customer.Name + "-" + castedCommunication.Customer.City.Name +
+                                "Tel : " + castedCommunication.MobilePhoneNumber + "Email :" + castedCommunication.Email,
                             Title = castedCommunication.FirstName + castedCommunication.LastName
                         });
                     }

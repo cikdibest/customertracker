@@ -35,6 +35,11 @@ namespace CustomerTracker.Web.App_Start
             var repositoryDepartment = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>();
             repositoryDepartment.Create(new Department() { IsActive = true, IsDeleted = false, Name = "Muhasebeci" });
             repositoryDepartment.Create(new Department() { IsActive = true, IsDeleted = false, Name = "Güvenlik Görevlisi" });
+
+            var remoteMachineConnectionType = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachineConnectionType>();
+            remoteMachineConnectionType.Create(new RemoteMachineConnectionType() { IsActive = true, IsDeleted = false, Name = "Teamviewer" });
+            remoteMachineConnectionType.Create(new RemoteMachineConnectionType() { IsActive = true, IsDeleted = false, Name = "Remote Desktop" });
+            remoteMachineConnectionType.Create(new RemoteMachineConnectionType() { IsActive = true, IsDeleted = false, Name = "Vpn" });
             
 
             var repositoryProduct = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Product>();
@@ -77,13 +82,13 @@ namespace CustomerTracker.Web.App_Start
             fixture.Register<RemoteMachine>(() =>
             {
                 var random = new Random();
-                var remoteConnectionType = ((RemoteConnectionType) random.Next(1, 5));
+               
                 var remoteMachine = new RemoteMachine()
                 {
-                    Name = remoteConnectionType.ToString(),
+                    Name = Guid.NewGuid().ToString().Substring(0, 10),
                     Password = "123",
                     RemoteAddress = "192.180.10.1",
-                    RemoteConnectionTypeId = remoteConnectionType.GetHashCode(),
+                    RemoteMachineConnectionTypeId = random.Next(1, 3),
                     Explanation = Guid.NewGuid().ToString().Substring(0, 20) + " " + Guid.NewGuid().ToString().Substring(0, 20),
                     Username = Guid.NewGuid().ToString().Substring(0, 5),
                     IsActive = true,
@@ -102,7 +107,8 @@ namespace CustomerTracker.Web.App_Start
                     FirstName = persons[communicationCount].GivenName,
                     LastName = persons[communicationCount].Surname,
                     Email = persons[communicationCount].EmailAddress,
-                    PhoneNumber = persons[communicationCount].TelephoneNumber,
+                    MobilePhoneNumber = persons[communicationCount].TelephoneNumber,
+                    HomePhoneNumber = persons[communicationCount].TelephoneNumber,
                     GenderId = persons[communicationCount].Gender == "male" ? EnumGender.Male.GetHashCode() : EnumGender.Female.GetHashCode(),
                     IsActive = true,
                     IsDeleted = false,
@@ -120,7 +126,8 @@ namespace CustomerTracker.Web.App_Start
                 var customer = new Customer()
                 {
                     CityId = 1,
-                    Title = persons[companyCount].Company,
+                    Name = persons[companyCount].Company,
+                    Abbreviation = persons[companyCount].Company.Substring(0,3),
                     Explanation = Guid.NewGuid().ToString().Substring(0, 20) + " " + Guid.NewGuid().ToString().Substring(0, 20),
                     IsActive = true,
                     IsDeleted = false,

@@ -16,17 +16,22 @@ namespace CustomerTracker.Web.Models.Entities
     public class Customer : BaseEntity
     {
         [StringLength(100)]
-        public string Title { get; set; }
+        public string Name { get; set; }
 
-        public int CityId { get; set; }
+        [StringLength(20)]
+        public string Abbreviation { get; set; }
 
-        public City City { get; set; }
+        [StringLength(100)]
+        public string Keywords { get; set; }
 
         [StringLength(4000)]
         public string Explanation { get; set; }
 
-        [StringLength(100)]
-        public string LogoImageUrl { get; set; }
+        [StringLength(250)]
+        public string AvatarImageUrl { get; set; }
+
+        public int CityId { get; set; }
+        public City City { get; set; }
 
         public virtual List<Communication> Communications { get; set; }
 
@@ -49,21 +54,21 @@ namespace CustomerTracker.Web.Models.Entities
         public string Email { get; set; }
 
         [StringLength(100)]
-        public string PhoneNumber { get; set; }
+        public string HomePhoneNumber { get; set; }
+
+        [StringLength(100)]
+        public string MobilePhoneNumber { get; set; }
+
+        [StringLength(250)]
+        public string AvatarImageUrl { get; set; }
 
         public int CustomerId { get; set; }
-
         public virtual Customer Customer { get; set; }
 
         public int DepartmentId { get; set; }
-
         public Department Department { get; set; }
 
         public int GenderId { get; set; }
-
-        [StringLength(100)]
-        public string LogoImageUrl { get; set; }
-
         public EnumGender Gender
         {
             get
@@ -98,23 +103,13 @@ namespace CustomerTracker.Web.Models.Entities
         [StringLength(4000)]
         public string Explanation { get; set; }
 
-        public int RemoteConnectionTypeId { get; set; }
-
+        public int CustomerId { get; set; }
         public Customer Customer { get; set; }
 
-        public int CustomerId { get; set; }
+        public int RemoteMachineConnectionTypeId { get; set; }
+        public virtual RemoteMachineConnectionType RemoteMachineConnectionType { get; set; }
 
         public virtual List<Product> Products { get; set; }
-
-        public RemoteConnectionType RemoteConnectionType
-        {
-            get
-            {
-                return (RemoteConnectionType)RemoteConnectionTypeId;
-            }
-        }
-
-        public string RemoteConnectionTypeName { get { return RemoteConnectionType.GetDescription(); } }
 
         [StringLength(100)]
         [NotMapped]
@@ -174,6 +169,16 @@ namespace CustomerTracker.Web.Models.Entities
 
     }
 
+    public class RemoteMachineConnectionType : BaseEntity
+    {
+        [StringLength(100)]
+        public string Name { get; set; }
+
+        [StringLength(250)]
+        public string AvatarImageUrl { get; set; }
+
+    }
+
     public class City : BaseEntity
     {
         [StringLength(50)]
@@ -198,16 +203,18 @@ namespace CustomerTracker.Web.Models.Entities
         [StringLength(100)]
         public string Name { get; set; }
 
-        public int? ParentProductId { get; set; }
-
-        public virtual Product ParentProduct { get; set; }
-
         [StringLength(4000)]
         public string Explanation { get; set; }
 
-        [StringLength(100)]
-        public string LogoImageUrl { get; set; }
+        [StringLength(250)]
+        public string AvatarImageUrl { get; set; }
 
+        [StringLength(100)]
+        public string Keywords { get; set; }
+
+        public int? ParentProductId { get; set; }
+        public virtual Product ParentProduct { get; set; }
+          
         public virtual ICollection<Product> SubProducts { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
@@ -222,11 +229,11 @@ namespace CustomerTracker.Web.Models.Entities
         public string Name { get; set; }
 
         [StringLength(100)]
-        public string LogoImageUrl { get; set; }
+        public string AvatarImageUrl { get; set; }
 
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
-         
+
         public ICollection<DataDetail> DataDetails { get; set; }
     }
 
@@ -237,11 +244,23 @@ namespace CustomerTracker.Web.Models.Entities
 
         [StringLength(4000)]
         public string Value { get; set; }
-
-        public bool IsRequiredEncrypted { get; set; }
-         
+          
         public int DataMasterId { get; set; }
         public virtual DataMaster DataMaster { get; set; }
+         
+        [StringLength(4000)]
+        [NotMapped]
+        public string DecryptedValue
+        {
+            get
+            {
+                return this.Value.Decrypt();
+            }
+            set
+            {
+                this.Value = value.Encrypt();
+            }
+        }
 
     }
 

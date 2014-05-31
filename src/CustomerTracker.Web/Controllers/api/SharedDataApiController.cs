@@ -8,21 +8,26 @@ using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.Controllers.api
 {
+#warning ilgili apiler oluştuurlunca bu methotlar taşınacak
     [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
     public class SharedDataApiController : ApiController
-    { 
-        public IEnumerable<City> GetCities()
+    {
+        public IEnumerable<KeyValuePair<int, string>> GetSelectorCities()
         {
-            var cities = ConfigurationHelper.UnitOfWorkInstance.GetRepository<City>().SelectAll();
+            var cities = ConfigurationHelper.UnitOfWorkInstance.GetRepository<City>()
+                .SelectAll()
+                 .Select(q => new KeyValuePair<int, string>(q.Id, q.Name));
 
             return cities;
         }
-         
-        public IEnumerable<KeyValuePair<int,string>> GetRemoteConnectionTypes()
-        {
-            var remoteConnectionTypes = EnumHelper.ToDictionary<RemoteConnectionType>();
 
-            return remoteConnectionTypes.ToList();
+        public IEnumerable<KeyValuePair<int, string>> GetSelectorRemoteMachineConnectionTypes()
+        {
+            var remoteMachineConnectionTypes = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachineConnectionType>()
+                .SelectAll()
+                .Select(q => new KeyValuePair<int, string>(q.Id, q.Name));
+
+            return remoteMachineConnectionTypes;
         }
     }
 }

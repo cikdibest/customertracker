@@ -5,13 +5,13 @@ namespace CustomerTracker.Web.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    public sealed partial class modifty_entities : IMigrationMetadata
+    public sealed partial class first_migration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(modifty_entities));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(first_migration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201405302354084_modifty_entities"; }
+            get { return "201405311202365_first_migration"; }
         }
         
         string IMigrationMetadata.Source

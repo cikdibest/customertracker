@@ -15,8 +15,7 @@
             <tr>
                 <th style="width: 75px;">
                     <div class="btn-toolbar"><i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()"></i></div>
-                </th>
-
+                </th> 
                 <th>Customer</th>
                 <th>Remote Connection Type</th>
                 <th>Name</th>
@@ -38,7 +37,8 @@
                     <select ng-model="remoteMachine.CustomerId" ng-options="customer.Id as customer.Title for customer in customers"></select>
                 </td>
                 <td>
-                    <select ng-model="remoteMachine.RemoteConnectionTypeId" ng-options="remoteConnectionType.Key as remoteConnectionType.Value for remoteConnectionType in remoteConnectionTypes"></select>
+                    <select ng-model="remoteMachine.RemoteMachineConnectionTypeId" 
+                        ng-options="remoteMachineConnectionType.Key as remoteMachineConnectionType.Value for remoteMachineConnectionType in remoteMachineConnectionTypes"></select>
                 </td>
                 <td>
                     <input ng-model="remoteMachine.DecryptedName" class="col-md-12" />
@@ -77,8 +77,9 @@
                     <select ng-model="remoteMachine.CustomerId" ng-options="customer.Id as customer.Title for customer in customers" ng-show="remoteMachine.editMode == true"></select>
                 </td>
                 <td> 
-                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.RemoteConnectionTypeName}}</span>
-                    <select ng-model="remoteMachine.RemoteConnectionTypeId" ng-options="remoteConnectionType.Key as remoteConnectionType.Value for remoteConnectionType in remoteConnectionTypes" ng-show="remoteMachine.editMode == true"></select>
+                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.RemoteMachineConnectionType.Name}}</span>
+                    <select ng-model="remoteMachine.RemoteMachineConnectionTypeId" ng-options="remoteMachineConnectionType.Key as remoteMachineConnectionType.Value for remoteMachineConnectionType in remoteMachineConnectionTypes" 
+                        ng-show="remoteMachine.editMode == true"></select>
                 </td>
                 <td>
                     <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.DecryptedName}}</span>

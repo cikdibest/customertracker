@@ -3,7 +3,7 @@ namespace CustomerTracker.Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class firstmigration : DbMigration
+    public partial class first_migration : DbMigration
     {
         public override void Up()
         {
@@ -77,9 +77,12 @@ namespace CustomerTracker.Web.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Title = c.String(maxLength: 100),
-                        CityId = c.Int(nullable: false),
+                        Name = c.String(maxLength: 100),
+                        Abbreviation = c.String(maxLength: 20),
+                        Keywords = c.String(maxLength: 100),
                         Explanation = c.String(maxLength: 4000),
+                        AvatarImageUrl = c.String(maxLength: 250),
+                        CityId = c.Int(nullable: false),
                         CreationDate = c.DateTime(),
                         CreationPersonelId = c.Int(),
                         UpdatedDate = c.DateTime(),
@@ -115,7 +118,9 @@ namespace CustomerTracker.Web.Migrations
                         FirstName = c.String(maxLength: 100),
                         LastName = c.String(maxLength: 100),
                         Email = c.String(maxLength: 100),
-                        PhoneNumber = c.String(maxLength: 100),
+                        HomePhoneNumber = c.String(maxLength: 100),
+                        MobilePhoneNumber = c.String(maxLength: 100),
+                        AvatarImageUrl = c.String(maxLength: 250),
                         CustomerId = c.Int(nullable: false),
                         DepartmentId = c.Int(nullable: false),
                         GenderId = c.Int(nullable: false),
@@ -155,9 +160,67 @@ namespace CustomerTracker.Web.Migrations
                         Name = c.String(maxLength: 100),
                         Username = c.String(maxLength: 100),
                         Password = c.String(maxLength: 500),
-                        Explanation = c.String(maxLength: 4000),
                         RemoteAddress = c.String(maxLength: 100),
-                        RemoteConnectionTypeId = c.Int(nullable: false),
+                        Explanation = c.String(maxLength: 4000),
+                        CustomerId = c.Int(nullable: false),
+                        RemoteMachineConnectionTypeId = c.Int(nullable: false),
+                        CreationDate = c.DateTime(),
+                        CreationPersonelId = c.Int(),
+                        UpdatedDate = c.DateTime(),
+                        UpdatedPersonelId = c.Int(),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Customers", t => t.CustomerId)
+                .ForeignKey("dbo.RemoteMachineConnectionTypes", t => t.RemoteMachineConnectionTypeId)
+                .Index(t => t.CustomerId)
+                .Index(t => t.RemoteMachineConnectionTypeId);
+            
+            CreateTable(
+                "dbo.RemoteMachineConnectionTypes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 100),
+                        AvatarImageUrl = c.String(maxLength: 250),
+                        CreationDate = c.DateTime(),
+                        CreationPersonelId = c.Int(),
+                        UpdatedDate = c.DateTime(),
+                        UpdatedPersonelId = c.Int(),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Products",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 100),
+                        Explanation = c.String(maxLength: 4000),
+                        AvatarImageUrl = c.String(maxLength: 250),
+                        Keywords = c.String(maxLength: 100),
+                        ParentProductId = c.Int(),
+                        CreationDate = c.DateTime(),
+                        CreationPersonelId = c.Int(),
+                        UpdatedDate = c.DateTime(),
+                        UpdatedPersonelId = c.Int(),
+                        IsActive = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Products", t => t.ParentProductId)
+                .Index(t => t.ParentProductId);
+            
+            CreateTable(
+                "dbo.DataMasters",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(maxLength: 100),
+                        AvatarImageUrl = c.String(maxLength: 100),
                         CustomerId = c.Int(nullable: false),
                         CreationDate = c.DateTime(),
                         CreationPersonelId = c.Int(),
@@ -171,13 +234,13 @@ namespace CustomerTracker.Web.Migrations
                 .Index(t => t.CustomerId);
             
             CreateTable(
-                "dbo.Products",
+                "dbo.DataDetails",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(maxLength: 100),
-                        ParentProductId = c.Int(),
-                        Explanation = c.String(maxLength: 4000),
+                        Key = c.String(maxLength: 50),
+                        Value = c.String(maxLength: 4000),
+                        DataMasterId = c.Int(nullable: false),
                         CreationDate = c.DateTime(),
                         CreationPersonelId = c.Int(),
                         UpdatedDate = c.DateTime(),
@@ -186,8 +249,8 @@ namespace CustomerTracker.Web.Migrations
                         IsDeleted = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Products", t => t.ParentProductId)
-                .Index(t => t.ParentProductId);
+                .ForeignKey("dbo.DataMasters", t => t.DataMasterId)
+                .Index(t => t.DataMasterId);
             
             CreateTable(
                 "dbo.RoleUsers",
@@ -238,7 +301,10 @@ namespace CustomerTracker.Web.Migrations
             DropIndex("dbo.ProductCustomers", new[] { "Product_Id" });
             DropIndex("dbo.RoleUsers", new[] { "User_Id" });
             DropIndex("dbo.RoleUsers", new[] { "Role_Id" });
+            DropIndex("dbo.DataDetails", new[] { "DataMasterId" });
+            DropIndex("dbo.DataMasters", new[] { "CustomerId" });
             DropIndex("dbo.Products", new[] { "ParentProductId" });
+            DropIndex("dbo.RemoteMachines", new[] { "RemoteMachineConnectionTypeId" });
             DropIndex("dbo.RemoteMachines", new[] { "CustomerId" });
             DropIndex("dbo.Communications", new[] { "DepartmentId" });
             DropIndex("dbo.Communications", new[] { "CustomerId" });
@@ -250,7 +316,10 @@ namespace CustomerTracker.Web.Migrations
             DropForeignKey("dbo.ProductCustomers", "Product_Id", "dbo.Products");
             DropForeignKey("dbo.RoleUsers", "User_Id", "dbo.Users");
             DropForeignKey("dbo.RoleUsers", "Role_Id", "dbo.Roles");
+            DropForeignKey("dbo.DataDetails", "DataMasterId", "dbo.DataMasters");
+            DropForeignKey("dbo.DataMasters", "CustomerId", "dbo.Customers");
             DropForeignKey("dbo.Products", "ParentProductId", "dbo.Products");
+            DropForeignKey("dbo.RemoteMachines", "RemoteMachineConnectionTypeId", "dbo.RemoteMachineConnectionTypes");
             DropForeignKey("dbo.RemoteMachines", "CustomerId", "dbo.Customers");
             DropForeignKey("dbo.Communications", "DepartmentId", "dbo.Departments");
             DropForeignKey("dbo.Communications", "CustomerId", "dbo.Customers");
@@ -259,7 +328,10 @@ namespace CustomerTracker.Web.Migrations
             DropTable("dbo.ProductRemoteMachines");
             DropTable("dbo.ProductCustomers");
             DropTable("dbo.RoleUsers");
+            DropTable("dbo.DataDetails");
+            DropTable("dbo.DataMasters");
             DropTable("dbo.Products");
+            DropTable("dbo.RemoteMachineConnectionTypes");
             DropTable("dbo.RemoteMachines");
             DropTable("dbo.Departments");
             DropTable("dbo.Communications");

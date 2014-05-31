@@ -5,7 +5,7 @@
 <script src="~/Scripts/domain/customer/customerController.js"></script>
 <div ng-controller="customerController" ng-cloak>
     <div ng-controller="paginationController">
-     
+
         <pagination total-items="totalCount" ng-model="currentPageNumber" max-size="pageSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged()"></pagination>
         <pre>Page: {{currentPageNumber}} / {{numPages}}</pre>
     </div>
@@ -15,9 +15,11 @@
                 <th style="width: 75px;">
                     <div class="btn-toolbar"><i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()"></i></div>
                 </th>
-
+                <th style="width: 75px;">Avatar</th>
                 <th>Name</th>
+                <th>Abbreviation</th>
                 <th>City</th>
+                <th>Keywords</th>
                 <th style="width: 350px">Explanation</th>
             </tr>
             <tr ng-show="addMode">
@@ -30,10 +32,19 @@
                     </div>
                 </td>
                 <td>
-                    <input ng-model="customer.Title" class="col-md-12" />
+                    <input ng-model="customer.AvatarImageUrl" class="col-md-12" />
+                </td>
+                <td>
+                    <input ng-model="customer.Name" class="col-md-12" />
+                </td>
+                <td>
+                    <input ng-model="customer.Abbreviation" class="col-md-12" />
                 </td>
                 <td>
                     <select ng-model="customer.CityId" ng-options="city.Id as city.Name for city in cities"></select>
+                </td>
+                <td>
+                    <input ng-model="customer.Keywords" class="col-md-12" />
                 </td>
                 <td>
                     <input ng-model="customer.Explanation" class="col-md-12" />
@@ -54,14 +65,25 @@
                         </div>
                     </div>
                 </td>
-
                 <td>
-                    <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Title}}</span>
-                    <input ng-model="customer.Title" ng-show="customer.editMode == true" class="col-md-12" />
+                    <img ng-show="customer.editMode == null || customer.editMode == false" data-ng-src="{{customer.AvatarImageUrl}}" class="img-circle" width="50px" height="50px">
+                    <input ng-model="customer.AvatarImageUrl" ng-show="customer.editMode == true" class="col-md-12" />
+                </td>
+                <td>
+                    <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Name}}</span>
+                    <input ng-model="customer.Name" ng-show="customer.editMode == true" class="col-md-12" />
+                </td>
+                <td>
+                    <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Abbreviation}}</span>
+                    <input ng-model="customer.Abbreviation" ng-show="customer.editMode == true" class="col-md-12" />
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.City.Name}}</span>
                     <select ng-model="customer.CityId" ng-options="city.Id as city.Name for city in cities" ng-show="customer.editMode == true"></select>
+                </td>
+                <td>
+                    <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Keywords}}</span>
+                    <input ng-model="customer.Keywords" ng-show="customer.editMode == true" class="col-md-12" />
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Explanation}}</span>
