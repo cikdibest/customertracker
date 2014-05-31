@@ -74,14 +74,6 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.loadCustomers = function () {
-      //return  requestHandler({
-      //      method: 'GET',
-      //      url: customerApiUrl.getcustomers,
-      //      params: { pageNumber: $scope.filterCriteria.pageNumber, pageSize: $scope.filterCriteria.pageSize, sortBy: $scope.filterCriteria.sortedBy, sortDir: $scope.filterCriteria.sortDir }
-      //      // stopNotification: true // will stop the notification from being displayed.
-      //}).success(getCustomersSuccessCallback)
-      // .error(baseControllerFactory.errorCallback);
-
         return customerFactory.getCustomers($scope.filterCriteria.pageNumber, $scope.filterCriteria.pageSize, $scope.filterCriteria.sortedBy, $scope.filterCriteria.sortDir)
                          .success(getCustomersSuccessCallback)
                          .error(baseControllerFactory.errorCallback);

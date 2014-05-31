@@ -83,8 +83,8 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     };
 
     $scope.loadCustomers = function () {
-        customerFactory.getCustomers(1, 100, '', '')
-                       .success(function (data) { $scope.customers = data.customers; })
+        customerFactory.getSelectorCustomers()
+                       .success(function (data) { $scope.customers = data; })
                        .error(baseControllerFactory.errorCallback);
     };
 

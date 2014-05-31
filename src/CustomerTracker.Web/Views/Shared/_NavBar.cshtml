@@ -3,33 +3,48 @@
     Layout = null;
 }
 
-
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
+<nav class="navbar navbar-default" role="navigation">
+    <div>
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button> 
-            @Html.ActionLink("Mainpage", "Index", "Material", null, new { @class = "navbar-brand" })
-            @Html.ActionLink("Departments", "Department", "CrudView", null, new { @class = "navbar-brand" })
-            @Html.ActionLink("Customers", "Customer", "CrudView", null, new { @class = "navbar-brand" })
-            @Html.ActionLink("RemoteMachines", "RemoteMachine", "CrudView", null, new { @class = "navbar-brand" })
-            @Html.ActionLink("File Upload", "Index", "FileUpload", null, new { @class = "navbar-brand" })
+            </button>
+            @Html.ActionLink("Ansayfa", "Index", "Material", null, new { @class = "navbar-brand" })
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-
-                @Html.Partial("_LoginPartial")
-
-
-
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                @*     <li><a href="#">Link</a></li>*@
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Genel Tanımlamalar <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Customers", "Customer", "CrudView")</li>
+                        <li>@Html.ActionLink("RemoteMachines", "RemoteMachine", "CrudView")</li>
+                        <li><a href="#">Uzak Bağlantı Tipi</a></li>
+                        <li><a href="#">İletişim(Bağlantı)</a></li>
+                        <li>@Html.ActionLink("Departman", "Department", "CrudView")</li>
+                        <li><a href="#">Ürün</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Sistem Kullanıcıları</a></li>
+                        <li>@Html.ActionLink("File Upload", "Index", "FileUpload")</li>
+                    </ul>
+                </li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button class="btn btn-default glyphicon glyphicon-search">Ara</button>
             </form>
+            <ul class="nav navbar-nav navbar-right">
+                @Html.Partial("_LoginPartial")
+            </ul>
         </div>
+        <!-- /.navbar-collapse -->
     </div>
-</div>
+    <!-- /.container-fluid -->
+</nav>
+

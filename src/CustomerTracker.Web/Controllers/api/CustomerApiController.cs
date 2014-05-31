@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -130,6 +131,17 @@ namespace CustomerTracker.Web.Controllers.api
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, customer);
+        }
+
+        public List<KeyValuePair<int, string>> GetSelectorCustomers()
+        {
+            var customers = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>()
+                .SelectAll()
+                .AsEnumerable()
+                .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
+                .ToList();
+             
+            return customers;
         }
     }
 }
