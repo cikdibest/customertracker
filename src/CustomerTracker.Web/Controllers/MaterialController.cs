@@ -35,26 +35,26 @@ namespace CustomerTracker.Web.Controllers
             return View();
         }
 
-        public JsonResult Search(string searchCriteria, int searchTypeId)
-        { 
-            IPagedList<SearchResultModel> resultModels;
+        //public JsonResult Search(string searchCriteria, int searchTypeId)
+        //{ 
+        //    IPagedList<SearchResultModel> resultModels;
 
-            switch ((SearchType)searchTypeId)
-            {
-                case SearchType.Customer:
-                    resultModels = _searchEngine.SearchCustomers(searchCriteria, 0, "Id", false);
-                    break;
-                case SearchType.Communication:
-                    resultModels = _searchEngine.SearchCommunications(searchCriteria, 0, "Id", false);
-                    break; 
-                default:
-                    throw new ArgumentOutOfRangeException();
-                    break;
+        //    switch ((SearchType)searchTypeId)
+        //    {
+        //        case SearchType.Customer:
+        //            resultModels = _searchEngine.SearchCustomers(searchCriteria, 0, "Id", false);
+        //            break;
+        //        case SearchType.Communication:
+        //            resultModels = _searchEngine.SearchCommunications(searchCriteria, 0, "Id", false);
+        //            break; 
+        //        default:
+        //            throw new ArgumentOutOfRangeException();
+        //            break;
 
-            }
+        //    }
 
-            return Json(resultModels, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(resultModels, JsonRequestBehavior.AllowGet);
+        //}
     }
 
     //public class NinjectControllerFactory : DefaultControllerFactory

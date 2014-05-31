@@ -12,20 +12,25 @@ namespace CustomerTracker.Web.Controllers.api
     [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
     public class SharedDataApiController : ApiController
     {
-        public IEnumerable<KeyValuePair<int, string>> GetSelectorCities()
+        public List<KeyValuePair<int, string>> GetSelectorCities()
         {
             var cities = ConfigurationHelper.UnitOfWorkInstance.GetRepository<City>()
-                .SelectAll()
-                 .Select(q => new KeyValuePair<int, string>(q.Id, q.Name));
+                 .SelectAll()
+                 .AsEnumerable()
+                 .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
+                 .ToList();
 
             return cities;
         }
 
-        public IEnumerable<KeyValuePair<int, string>> GetSelectorRemoteMachineConnectionTypes()
+        public List<KeyValuePair<int, string>> GetSelectorRemoteMachineConnectionTypes()
         {
             var remoteMachineConnectionTypes = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachineConnectionType>()
                 .SelectAll()
-                .Select(q => new KeyValuePair<int, string>(q.Id, q.Name));
+                .AsEnumerable()
+                .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
+                .ToList();
+
 
             return remoteMachineConnectionTypes;
         }

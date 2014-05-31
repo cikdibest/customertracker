@@ -1,9 +1,14 @@
 ﻿
-var materialSearchUrl = '/material/search/getMaterials';
+//var materialSearchUrl = '/material/search/getMaterials';
+
+var materialApiUrl = {
+    searchmaterials: '/api/materialapi/searchmaterials/',
+   
+};
 
 var sharedDataApiUrl = {
-    getcities: '/api/shareddataapi/getcities/',
-    getremoteconnectiontypes: '/api/shareddataapi/getremoteconnectiontypes/',
+    getselectorcities: '/api/shareddataapi/getselectorcities/',
+    getselectorremotemachineconnectiontypes: '/api/shareddataapi/getselectorremotemachineconnectiontypes/',
 };
 
 var remoteMachineApiUrl = {

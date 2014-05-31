@@ -93,6 +93,8 @@ namespace CustomerTracker.Web
 
             AuthConfig.RegisterAuth();
 
+           DummyDataGenerate.Generate();
+
             AutoMapperConfiguration.Map();
 
             DatabaseConfiguration.StartMigration();

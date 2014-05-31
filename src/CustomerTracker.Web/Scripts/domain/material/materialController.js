@@ -21,7 +21,7 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
 
         $scope.selectedMaterialIndex = null;
 
-        materialFactory.getMaterials({ searchCriteria: $scope.searchCriteria, searchTypeId: $scope.activeSearchType.Key })
+        materialFactory.searchMaterials({ searchCriteria: $scope.searchCriteria, searchTypeId: $scope.activeSearchType.Key })
                              .success(function (data) { $scope.foundMaterials = data; })
                              .error(baseControllerFactory.errorCallback);
 
@@ -30,7 +30,7 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
     //bu methot buradan taşınmalı..get customer cutomerctonollerin sorumlluğudur
     $scope.loadCustomer = function (item, index) {
 
-        materialFactory.getCustomer(item.Url)
+        materialFactory.getMaterialDetail(item.Url)
                              .success(function (data) {
                                  $scope.selectedCustomer = data;
                                  $scope.selectedMaterialIndex = index;

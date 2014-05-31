@@ -1,10 +1,10 @@
 ﻿customerApp.factory('materialFactory', function ($http) {
     return {
-        getMaterials: function (data) {
-            return $http.post(materialSearchUrl, data);
+        searchMaterials: function (data) {
+            return $http.post(materialApiUrl.searchmaterials, data);
         },
-
-        getCustomer: function (url) {
+        //dynamic url , by searchengine implementation
+        getMaterialDetail: function (url) {
             return $http.get(url);
         }
 

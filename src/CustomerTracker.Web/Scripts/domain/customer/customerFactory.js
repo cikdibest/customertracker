@@ -32,10 +32,8 @@ customerApp.factory('customerFactory', function ($http, requestHandler) {
                 data: customer
             });
             //return $http.put(customerApiUrl.putcustomer + customer.Id, customer);
-        },
-        getCities: function () {
-            return $http.get(sharedDataApiUrl.getcities);
         }
+      
 
     };
 });

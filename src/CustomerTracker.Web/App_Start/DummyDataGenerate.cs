@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using CsvHelper;
+using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.Enums;
 using CustomerTracker.Web.Utilities;
@@ -31,6 +32,14 @@ namespace CustomerTracker.Web.App_Start
         public static void Generate()
         {
             //Fixture fixture = ConfigureFixture();
+            if (ConfigurationHelper.UnitOfWorkInstance==null)
+            {
+                ConfigurationHelper.UnitOfWorkInstance=new UnitOfWork();
+            }
+            if (ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>().Count>1)
+            {
+                return;
+            }
 
             var repositoryDepartment = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>();
             repositoryDepartment.Create(new Department() { IsActive = true, IsDeleted = false, Name = "Muhasebeci" });

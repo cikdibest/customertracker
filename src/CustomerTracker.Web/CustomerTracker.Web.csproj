@@ -209,6 +209,7 @@
     <Compile Include="Business\SearchBusiness\SearchResultModel.cs" />
     <Compile Include="Business\UserBusiness\UserUtility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\MaterialApiController.cs" />
     <Compile Include="Controllers\api\RemoteMachineApiController.cs" />
     <Compile Include="Controllers\api\SharedDataApiController.cs" />
     <Compile Include="Controllers\api\CustomerApiController.cs" />
@@ -667,9 +668,11 @@
     <Content Include="Scripts\components\bootstrap-fileupload.min.css" />
     <Content Include="Scripts\components\bootstrap-fileupload.min.js" />
     <Content Include="Scripts\domain\appControllers.js" />
+    <Content Include="Scripts\domain\city\cityFactory.js" />
     <Content Include="Scripts\domain\common\directives.js" />
     <Content Include="Scripts\domain\common\filters.js" />
     <Content Include="Scripts\domain\common\modules\requestHandler.js" />
+    <Content Include="Scripts\domain\remotemachineconnectiontype\remoteMachineConnectionTypeFactory.js" />
     <Content Include="Scripts\domain\remotemachine\remoteMachineController.js" />
     <Content Include="Scripts\domain\remotemachine\remoteMachineFactory.js" />
     <Content Include="Scripts\domain\customer\customerController.js" />

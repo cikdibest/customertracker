@@ -20,7 +20,9 @@ namespace CustomerTracker.Web.Controllers.api
 
             var customers = customerTrackerDataContext.Customers;
 
-            var pageCustomers = customers.Include("City").OrderBy(q => q.Id)
+            var pageCustomers = customers
+                .Include("City")
+                .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)
                 .ToList();
@@ -50,7 +52,7 @@ namespace CustomerTracker.Web.Controllers.api
                  .Include("Communications.Department")
                  .Include("RemoteMachines")
                  .Include("DataMasters")
-                  .Include("DataMasters.DataDetails")
+                 .Include("DataMasters.DataDetails")
                  .SingleOrDefault(q => q.Id == customerId);
 
             if (customer == null)

@@ -1,6 +1,6 @@
 ﻿
 
-customerApp.controller('remoteMachineController', function ($scope, remoteMachineFactory, notificationFactory, baseControllerFactory, eventFactory, modalService) {
+customerApp.controller('remoteMachineController', function ($scope, remoteMachineFactory, customerFactory,remoteMachineConnectionTypeFactory, notificationFactory, baseControllerFactory, eventFactory, modalService) {
 
     var getRemoteMachinesSuccessCallback = function (data, status) {
         $scope.remoteMachines = data.remoteMachines;
@@ -83,13 +83,13 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     };
 
     $scope.loadCustomers = function () {
-        remoteMachineFactory.getCustomers(1, 100, '', '')
+        customerFactory.getCustomers(1, 100, '', '')
                        .success(function (data) { $scope.customers = data.customers; })
                        .error(baseControllerFactory.errorCallback);
     };
 
-    $scope.loadRemoteConnectionTypes = function () {
-        remoteMachineFactory.getRemoteConnectionTypes()
+    $scope.loadRemoteMachineConnectionTypes = function () {
+        remoteMachineConnectionTypeFactory.getSelectorRemoteMachineConnectionTypes()
                        .success(function (data) {
                            $scope.remoteConnectionTypes = data;
                        })
@@ -101,7 +101,7 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
 
         $scope.loadCustomers();
 
-        $scope.loadRemoteConnectionTypes();
+        $scope.loadRemoteMachineConnectionTypes();
     };
 
     $scope.init();
