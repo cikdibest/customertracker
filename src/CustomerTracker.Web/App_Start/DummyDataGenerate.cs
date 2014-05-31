@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.OleDb;
 using System.IO;
 using System.Linq;
 using CsvHelper;
@@ -28,15 +30,16 @@ namespace CustomerTracker.Web.App_Start
 
     }
     public static class DummyDataGenerate
-    { 
+    {
         public static void Generate()
         {
             //Fixture fixture = ConfigureFixture();
-            if (ConfigurationHelper.UnitOfWorkInstance==null)
+            if (ConfigurationHelper.UnitOfWorkInstance == null)
             {
-                ConfigurationHelper.UnitOfWorkInstance=new UnitOfWork();
+                ConfigurationHelper.UnitOfWorkInstance = new UnitOfWork();
             }
-            if (ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>().Count>1)
+#warning bu code daha sonra kalkacak..çok kritik
+            if (ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>().Count > 1)
             {
                 return;
             }
@@ -44,6 +47,8 @@ namespace CustomerTracker.Web.App_Start
             var repositoryDepartment = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>();
             repositoryDepartment.Create(new Department() { IsActive = true, IsDeleted = false, Name = "Muhasebeci" });
             repositoryDepartment.Create(new Department() { IsActive = true, IsDeleted = false, Name = "Güvenlik Görevlisi" });
+            repositoryDepartment.Create(new Department() { IsActive = true, IsDeleted = false, Name = "Bilgi İşlem" });
+            repositoryDepartment.Create(new Department() { IsActive = true, IsDeleted = false, Name = "Kontak" });
 
             var remoteMachineConnectionType = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachineConnectionType>();
             remoteMachineConnectionType.Create(new RemoteMachineConnectionType() { IsActive = true, IsDeleted = false, Name = "Teamviewer" });
@@ -65,7 +70,7 @@ namespace CustomerTracker.Web.App_Start
             //productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Otomasyon Web" });
             //productLibrid.SubProducts.Add(new Product() { IsActive = true, IsDeleted = false, Name = "Opac Web" });
             //repositoryProduct.Create(productLibrid);
-          
+
             //var repositoryCity = ConfigurationHelper.UnitOfWorkInstance.GetRepository<City>();
             //repositoryCity.Create(new City() { IsActive = true, IsDeleted = false, Name = "Adana", Code = "01" });
 
@@ -79,22 +84,22 @@ namespace CustomerTracker.Web.App_Start
             //    repositoryCustomer.Create(customer);
             //}
 
-         
-             
+
+
         }
-         
+
         private static Fixture ConfigureFixture()
         {
             var path = @AppDomain.CurrentDomain.BaseDirectory + "persons.csv";
             var csv = new CsvReader(File.OpenText(path));
             var persons = csv.GetRecords<Person>().ToList();
 
-           
+
             var fixture = new Fixture();
             fixture.Register<RemoteMachine>(() =>
             {
                 var random = new Random();
-               
+
                 var remoteMachine = new RemoteMachine()
                 {
                     Name = Guid.NewGuid().ToString().Substring(0, 10),
@@ -139,7 +144,7 @@ namespace CustomerTracker.Web.App_Start
                 {
                     CityId = 1,
                     Name = persons[companyCount].Company,
-                    Abbreviation = persons[companyCount].Company.Substring(0,3),
+                    Abbreviation = persons[companyCount].Company.Substring(0, 3),
                     Explanation = Guid.NewGuid().ToString().Substring(0, 20) + " " + Guid.NewGuid().ToString().Substring(0, 20),
                     IsActive = true,
                     IsDeleted = false,
@@ -164,6 +169,117 @@ namespace CustomerTracker.Web.App_Start
 
             return fixture;
         }
-     
+
+        public static void GenerateBilgiIslem()
+        {
+            var loadDataSetFromExcel = LoadDataSetFromExcel("c:\\bilgiislem.xlsx", "sheet1");
+
+            foreach (var source in loadDataSetFromExcel.Tables[0].Rows.Cast<DataRow>())
+            {
+                var musteri = source["MÜŞTERİ"].ToString().Trim();
+                var adsoyad = source["BİLGİ İŞLEM"].ToString().Trim();
+                var sabittelefon = source["TELEFON"].ToString().Replace("/", "").Trim();
+                var ceptelefon = source["CEP TELEFONU"].ToString().Replace("/", "").Trim();
+                var mail = source["MAİL"].ToString().Replace("/", "").Trim();
+
+                var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Filter(q => q.Name == musteri).SingleOrDefault();
+
+                if (customer == null)
+                    throw new ArgumentNullException();
+
+                var customerId = customer.Id;
+
+                var department = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().Filter(q => q.Name == "Bilgi İşlem").SingleOrDefault();
+
+                if (department == null)
+                    throw new ArgumentNullException();
+
+                var communication = new Communication
+                {
+                    CustomerId = customerId,
+                    HomePhoneNumber = sabittelefon,
+                    MobilePhoneNumber = ceptelefon,
+                    Email = mail,
+                    DepartmentId = department.Id,
+                    FirstName = adsoyad,
+                    GenderId = EnumGender.Male.GetHashCode(),
+                    IsActive = true
+                };
+
+                ConfigurationHelper.UnitOfWorkInstance.GetRepository<Communication>().Create(communication);
+
+            } 
+
+            ConfigurationHelper.UnitOfWorkInstance.Save();
+        }
+
+        public static void GenerateBilgiKontak()
+        {
+            var loadDataSetFromExcel = LoadDataSetFromExcel("c:\\kontak.xlsx", "sheet1");
+
+            foreach (var source in loadDataSetFromExcel.Tables[0].Rows.Cast<DataRow>())
+            {
+                var musteri = source["MÜŞTERİ"].ToString().Trim();
+                var adsoyad = source["KONTAK"].ToString().Trim();
+                var sabittelefon = source["TELEFON"].ToString().Replace("/", "").Trim();
+                var ceptelefon = source["CEP TELEFONU"].ToString().Replace("/", "").Trim();
+                var mail = source["MAİL"].ToString().Replace("/", "").Trim();
+
+                var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Filter(q => q.Name == musteri).SingleOrDefault();
+
+                if (customer == null)
+                    throw new ArgumentNullException();
+
+                var customerId = customer.Id;
+
+                var department = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>().Filter(q => q.Name == "Kontak").SingleOrDefault();
+
+                if (department == null)
+                    throw new ArgumentNullException();
+
+                var communication = new Communication
+                {
+                    CustomerId = customerId,
+                    HomePhoneNumber = sabittelefon,
+                    MobilePhoneNumber = ceptelefon,
+                    Email = mail,
+                    DepartmentId = department.Id,
+                    FirstName = adsoyad,
+                    GenderId = EnumGender.Male.GetHashCode(),
+                    IsActive = true
+                };
+
+                ConfigurationHelper.UnitOfWorkInstance.GetRepository<Communication>().Create(communication);
+
+            }
+
+            ConfigurationHelper.UnitOfWorkInstance.Save();
+
+        }
+
+        private static DataSet LoadDataSetFromExcel(string fileName, string sheetName)
+        {
+            String sConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileName + ";" + "Extended Properties=\"Excel 8.0;HDR=YES;IMEX=1ReadOnly=False\"";
+
+            var objConn = new OleDbConnection(sConnectionString);
+
+            objConn.Open();
+
+            var objCmdSelect = new OleDbCommand("SELECT * FROM [" + sheetName + "$]", objConn);
+
+            var objAdapter1 = new OleDbDataAdapter();
+
+            objAdapter1.SelectCommand = objCmdSelect;
+
+            var dsExcelContent = new DataSet();
+
+            objAdapter1.Fill(dsExcelContent);
+
+            objConn.Close();
+
+            return dsExcelContent;
+        }
+
+
     }
 }

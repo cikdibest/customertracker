@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using CustomerTracker.Web.App_Start;
 
 namespace CustomerTracker.Web.Controllers
 {

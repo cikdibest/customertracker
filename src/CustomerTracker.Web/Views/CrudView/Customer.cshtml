@@ -67,7 +67,7 @@
                     </div>
                 </td>
                 <td>
-                    <img ng-show="customer.editMode == null || customer.editMode == false" data-ng-src="{{customer.AvatarImageUrl}}" class="img-circle" width="50px" height="50px">
+                    <img ng-show="customer.editMode == null || customer.editMode == false" data-ng-src="{{customer.AvatarImageUrl}}" class="img-circle" width="25px" height="25px" style="margin-left: 33%">
                     <input ng-model="customer.AvatarImageUrl" ng-show="customer.editMode == true" class="col-md-12" />
                 </td>
                 <td>
@@ -80,7 +80,7 @@
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.City.Name}}</span>
-                    <select ng-model="customer.CityId" ng-options="city.Id as city.Name for city in cities" ng-show="customer.editMode == true"></select>
+                    <select ng-model="customer.CityId" ng-options="city.Key as city.Value for city in cities" ng-show="customer.editMode == true"></select>
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Keywords}}</span>
