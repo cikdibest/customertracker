@@ -671,7 +671,7 @@
     <Content Include="Scripts\domain\city\cityFactory.js" />
     <Content Include="Scripts\domain\common\directives.js" />
     <Content Include="Scripts\domain\common\filters.js" />
-    <Content Include="Scripts\domain\common\modules\requestHandler.js" />
+    <Content Include="Scripts\domain\common\modules\__requestHandler.js" />
     <Content Include="Scripts\domain\remotemachineconnectiontype\remoteMachineConnectionTypeFactory.js" />
     <Content Include="Scripts\domain\remotemachine\remoteMachineController.js" />
     <Content Include="Scripts\domain\remotemachine\remoteMachineFactory.js" />
