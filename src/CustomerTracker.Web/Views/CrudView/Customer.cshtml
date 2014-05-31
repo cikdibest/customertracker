@@ -16,9 +16,9 @@
                   <th style="width: 5%;">
                     <div class="btn-toolbar"><i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()"></i></div>
                 </th>
-                <th style="width: 75px;">Avatar</th>
+                <th style="width: 5%;">Avatar</th>
                 <th>Name</th>
-                <th>Abbreviation</th>
+                <th style="width: 5%">Abbreviation</th>
                 <th>City</th>
                 <th>Keywords</th>
                 <th style="width: 350px">Explanation</th>
@@ -39,7 +39,7 @@
                     <input ng-model="customer.Name" class="col-md-12" />
                 </td>
                 <td>
-                    <input ng-model="customer.Abbreviation" class="col-md-12" />
+                    <input ng-model="customer.Abbreviation" class="col-md-12"   />
                 </td>
                 <td>
                     <select ng-model="customer.CityId" ng-options="city.Key as city.Value for city in cities"></select>

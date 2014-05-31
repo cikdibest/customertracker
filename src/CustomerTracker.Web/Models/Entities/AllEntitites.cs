@@ -76,6 +76,13 @@ namespace CustomerTracker.Web.Models.Entities
                 return (EnumGender)GenderId;
             }
         }
+        public string GenderName
+        {
+            get
+            {
+                return Gender.GetDescription();
+            }
+        }
 
         public string FullName
         {
