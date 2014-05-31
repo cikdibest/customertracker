@@ -42,11 +42,11 @@ namespace CustomerTracker.Web
         {
             ConfigurationHelper.UnitOfWorkInstance = new UnitOfWork();
 
-        
+
         }
 
         private void OnEndRequest(HttpServerUtility server)
-        { 
+        {
             using (var unitOfWork = ConfigurationHelper.UnitOfWorkInstance)
             {
                 if (unitOfWork == null)
@@ -92,8 +92,6 @@ namespace CustomerTracker.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             AuthConfig.RegisterAuth();
-
-           DummyDataGenerate.Generate();
 
             AutoMapperConfiguration.Map();
 

@@ -363,16 +363,7 @@ namespace CustomerTracker.Web.Controllers
         #endregion
 
 
-        [AllowAnonymous]
-        public ActionResult GenerateData(string pass)
-        {
-            if (pass != "seyhan*-")
-                return Content("pass is wrong");
-
-            DummyDataGenerate.Generate();
-
-            return Content("OK");
-        }
+        
     }
 }
 

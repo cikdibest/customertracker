@@ -6,6 +6,14 @@ GO
             INSERT INTO ROLES (RoleName,IsActive,IsDeleted) VALUES('Personel',1,0)
             INSERT INTO ROLES (RoleName,IsActive,IsDeleted) VALUES('Customer',1,0)
 
+			
+SET IDENTITY_INSERT [dbo].[RemoteMachineConnectionTypes] ON
+INSERT [dbo].[RemoteMachineConnectionTypes] ([Id], [Name], [AvatarImageUrl], [CreationDate], [CreationPersonelId], [UpdatedDate], [UpdatedPersonelId], [IsActive], [IsDeleted]) VALUES (1, N'Teamviewer', NULL, NULL, NULL, NULL, NULL, 1, 0)
+INSERT [dbo].[RemoteMachineConnectionTypes] ([Id], [Name], [AvatarImageUrl], [CreationDate], [CreationPersonelId], [UpdatedDate], [UpdatedPersonelId], [IsActive], [IsDeleted]) VALUES (2, N'Remote Desktop', NULL,NULL, NULL, NULL, NULL, 1, 0)
+INSERT [dbo].[RemoteMachineConnectionTypes] ([Id], [Name], [AvatarImageUrl], [CreationDate], [CreationPersonelId], [UpdatedDate], [UpdatedPersonelId], [IsActive], [IsDeleted]) VALUES (3, N'Vpn', NULL, NULL, NULL, NULL, NULL, 1, 0)
+INSERT [dbo].[RemoteMachineConnectionTypes] ([Id], [Name], [AvatarImageUrl], [CreationDate], [CreationPersonelId], [UpdatedDate], [UpdatedPersonelId], [IsActive], [IsDeleted]) VALUES (4, N'Ammyy', NULL, NULL, NULL, NULL, NULL, 1, 0)
+SET IDENTITY_INSERT [dbo].[RemoteMachineConnectionTypes] OFF
+
 
 SET IDENTITY_INSERT [dbo].[Cities] ON
 INSERT [dbo].[Cities] ([Id], [Name], [Code], [CreationDate], [CreationPersonelId], [UpdatedDate], [UpdatedPersonelId], [IsActive], [IsDeleted]) VALUES (1, N'Adana', NULL, NULL, NULL, NULL, NULL, 1, 0)
