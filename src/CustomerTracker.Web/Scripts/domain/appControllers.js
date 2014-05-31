@@ -36,7 +36,7 @@ var customerApiUrl = {
     getselectorcustomers: '/api/customerapi/getselectorcustomers/',
 };
 
-var customerApp = angular.module('customerApp', ['ui.bootstrap', 'requestHandler']);
+var customerApp = angular.module('customerApp', ['ui.bootstrap']);
 
 var modalService = function ($modal) {
 

@@ -42,7 +42,7 @@
                     <input ng-model="customer.Abbreviation" class="col-md-12" />
                 </td>
                 <td>
-                    <select ng-model="customer.CityId" ng-options="city.Id as city.Name for city in cities"></select>
+                    <select ng-model="customer.CityId" ng-options="city.Key as city.Value for city in cities"></select>
                 </td>
                 <td>
                     <input ng-model="customer.Keywords" class="col-md-12" />
