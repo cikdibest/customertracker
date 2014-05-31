@@ -26,8 +26,7 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
                              .error(baseControllerFactory.errorCallback);
 
     };
-
-    //bu methot buradan taşınmalı..get customer cutomerctonollerin sorumlluğudur
+     
     $scope.loadCustomer = function (item, index) {
 
         materialFactory.getMaterialDetail(item.Url)
