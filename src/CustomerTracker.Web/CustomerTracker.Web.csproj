@@ -302,6 +302,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\customerdetail.css" />
+    <Content Include="Content\images\document-management-software.png" />
     <Content Include="Content\images\remoteconnectiontype\alpemix.jpg" />
     <Content Include="Content\images\remoteconnectiontype\ammyy.jpg" />
     <Content Include="Content\images\remoteconnectiontype\fileserver.jpg" />

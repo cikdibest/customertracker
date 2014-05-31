@@ -9,6 +9,7 @@ using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
 {
+    [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
     public class RemoteMachineApiController : ApiController
     {
         public dynamic GetRemoteMachines(int pageNumber, int pageSize, string sortBy, string sortDir)

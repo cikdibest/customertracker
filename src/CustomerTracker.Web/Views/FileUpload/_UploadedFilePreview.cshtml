@@ -6,7 +6,7 @@
     private decimal _imageCountOnLine = 1;
 }
 
-<div class="row-fluid">
+<div class="row">
 
     @foreach (var uploadFileListViewModel in Model)
     {
@@ -15,8 +15,9 @@
         @Html.Raw("<div class='row'>")
         }
       
-        <div class="span1">
-            <a href="#" class="copy-button" data-clipboard-text="@Url.Content("http://www.hizliadimproje.com/Uploads/" + @uploadFileListViewModel.FilePath)" title="Resim adresini kopyala">Kopyala</a>
+        <div class="col-lg-1">
+           
+            <a href="#" class="copy-button" data-clipboard-text="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~/Uploads/" + uploadFileListViewModel.FilePath))" title="Resim adresini kopyala">Kopyala</a>
             <input value="@uploadFileListViewModel.FileName"  class="span12" disabled="disabled"/>
             @*<a href="@Url.Action("DeleteImage", "FileUpload", new { @imageName = imageName })" class="pull-right"><i class="icon-remove"></i></a>*@
             @if (uploadFileListViewModel.UploadFileType == UploadFileType.Image)
@@ -24,8 +25,8 @@
                 <img src="@Url.Content("~/Uploads/" + uploadFileListViewModel.FilePath)" width="80" height="80"/>
             }
             else
-            {
-                <img src="http://www.zoho.com/docs/images/document-management-software.png" width="80" height="80" />
+            {<img src="~/Content/images/document-management-software.png" width="80" height="80" />
+                 
             }
         </div>
 

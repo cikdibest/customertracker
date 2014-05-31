@@ -1,21 +1,15 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Helpers;
 using System.Web.Http;
-using System.Web.Mvc;
-using AutoMapper;
-using CustomerTracker.Web.Models;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
-{
+{ 
+    [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
     public class CustomerApiController : ApiController
     {
         public dynamic GetCustomers(int pageNumber, int pageSize, string sortBy, string sortDir)
@@ -58,7 +52,7 @@ namespace CustomerTracker.Web.Controllers.api
                  .Include("DataMasters")
                   .Include("DataMasters.DataDetails")
                  .SingleOrDefault(q => q.Id == customerId);
-             
+
             if (customer == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));

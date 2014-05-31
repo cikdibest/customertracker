@@ -8,6 +8,7 @@ using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.Controllers.api
 {
+    [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
     public class SharedDataApiController : ApiController
     { 
         public IEnumerable<City> GetCities()

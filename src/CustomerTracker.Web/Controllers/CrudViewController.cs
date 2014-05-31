@@ -2,6 +2,7 @@
 
 namespace CustomerTracker.Web.Controllers
 {
+    [Authorize(Roles = "Admin,Personel")]
     public class CrudViewController : Controller
     {
         public ActionResult Department()

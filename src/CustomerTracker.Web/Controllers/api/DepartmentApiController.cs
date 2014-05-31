@@ -14,6 +14,7 @@ using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
 {
+    [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
     public class DepartmentApiController : ApiController
     {
         public IEnumerable<Department> GetDepartments()
