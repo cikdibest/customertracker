@@ -25,6 +25,7 @@
         <li class="active"><a href="#tab_a" data-toggle="pill">Ön Bilgi</a></li>
         <li><a href="#tab_c" data-toggle="pill">İletişim</a></li>
         <li><a href="#tab_d" data-toggle="pill">Uzak Bağlantı</a></li>
+        <li><a href="#tab_e" data-toggle="pill">Diğer Bilgiler</a></li>
     </ul>
     <div class="tab-content col-md-10 well">
         <div class="tab-pane active" id="tab_a">
@@ -35,9 +36,7 @@
                 </div>
                 <div>
                     <div class="span3">
-                        <img class="img-circle"
-                            src="http://ankaref-mikrobilgi-egitim-calistayi.com/images/ankareflogo.png"
-                            alt="User Pic">
+                        <img class="img-circle" ng-src="selectedCustomer.LogoImageUrl" alt="User Pic">
                     </div>
                     <div>
                         <br />
@@ -91,7 +90,7 @@
 
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
-                            <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Scott Stevens" class="img-responsive img-circle" />
+                            <img ng-src="communication.LogoImageUrl" alt="Scott Stevens" class="img-responsive img-circle" />
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <span class="name">{{communication.FullName}}</span><br />
@@ -139,12 +138,12 @@
                         </div>
                     </div>
                 </div>
-       
+
                 <ul class="list-group" id="contact-list" ng-repeat="remoteMachine in selectedCustomer.RemoteMachines">
 
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
-                            <img data-ng-src="{{remoteMachine.LogoName}}" alt="Scott Stevens" class="img-responsive img-circle" />
+                            <img data-ng-src="{{remoteMachine.LogoImageUrl}}" alt="Scott Stevens" class="img-responsive img-circle" />
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <span class="name">{{remoteMachine.DecryptedName}}</span><br />
@@ -177,8 +176,47 @@
                     </li>
                 </ul>
             </div>
+        </div> 
+        <div class="tab-pane" id="tab_e">
+            <div class="panel panel-primary">
+                <div class="panel-heading c-list">
+                    <span class="title">Diğer Bilgiler</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group c-search">
+                            <input type="text" class="form-control" id="contact-list-search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="list-group" id="contact-list" ng-repeat="dataMaster in selectedCustomer.DataMasters">
+
+                    <li class="list-group-item">
+                        <div class="col-xs-12 col-sm-3">
+                            <img data-ng-src="dataMaster.LogoImageUrl" alt="Scott Stevens" class="img-responsive img-circle" />
+                        </div>
+                        <div class="col-xs-12 col-sm-9">
+                            <span class="name">{{dataMaster.Name}}</span><br />
+                            <table class="table table-condensed table-responsive table-user-information">
+                                <tbody ng-repeat="dataDetail in dataMaster.DataDetails">
+                                    <tr>
+                                        <td>{{dataDetail.Key}}</td>
+                                        <td>{{dataDetail.Value}}</td>
+                                    </tr> 
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div> 
+    </div>
 </div>
 
 <script>

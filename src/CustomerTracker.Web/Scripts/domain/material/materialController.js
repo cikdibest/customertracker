@@ -27,10 +27,14 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
 
     };
 
+    //bu methot buradan taşınmalı..get customer cutomerctonollerin sorumlluğudur
     $scope.loadCustomer = function (item, index) {
 
         materialFactory.getCustomer(item.Url)
-                             .success(function (data) { $scope.selectedCustomer = data; $scope.selectedMaterialIndex = index; })
+                             .success(function (data) {
+                                 $scope.selectedCustomer = data;
+                                 $scope.selectedMaterialIndex = index;
+                             })
                              .error(baseControllerFactory.errorCallback);
 
     };

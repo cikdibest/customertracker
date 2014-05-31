@@ -25,11 +25,16 @@ namespace CustomerTracker.Web.Models.Entities
         [StringLength(4000)]
         public string Explanation { get; set; }
 
+        [StringLength(100)]
+        public string LogoImageUrl { get; set; }
+
         public virtual List<Communication> Communications { get; set; }
 
         public virtual List<RemoteMachine> RemoteMachines { get; set; }
 
         public virtual List<Product> Products { get; set; }
+
+        public virtual List<DataMaster> DataMasters { get; set; }
     }
 
     public class Communication : BaseEntity
@@ -56,6 +61,9 @@ namespace CustomerTracker.Web.Models.Entities
 
         public int GenderId { get; set; }
 
+        [StringLength(100)]
+        public string LogoImageUrl { get; set; }
+
         public EnumGender Gender
         {
             get
@@ -74,19 +82,19 @@ namespace CustomerTracker.Web.Models.Entities
     }
 
     public class RemoteMachine : BaseEntity
-    { 
+    {
         [StringLength(100)]
         public string Name { get; set; }
-         
+
         [StringLength(100)]
         public string Username { get; set; }
-         
+
         [StringLength(500)]
         public string Password { get; set; }
-         
+
         [StringLength(100)]
-        public string RemoteAddress   { get; set; }
-         
+        public string RemoteAddress { get; set; }
+
         [StringLength(4000)]
         public string Explanation { get; set; }
 
@@ -163,11 +171,8 @@ namespace CustomerTracker.Web.Models.Entities
                 this.RemoteAddress = value.Encrypt();
             }
         }
-         
+
     }
-
-
-
 
     public class City : BaseEntity
     {
@@ -200,6 +205,9 @@ namespace CustomerTracker.Web.Models.Entities
         [StringLength(4000)]
         public string Explanation { get; set; }
 
+        [StringLength(100)]
+        public string LogoImageUrl { get; set; }
+
         public virtual ICollection<Product> SubProducts { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
@@ -208,5 +216,34 @@ namespace CustomerTracker.Web.Models.Entities
 
     }
 
-  
+    public class DataMaster : BaseEntity
+    {
+        [StringLength(100)]
+        public string Name { get; set; }
+
+        [StringLength(100)]
+        public string LogoImageUrl { get; set; }
+
+        public int CustomerId { get; set; }
+        public virtual Customer Customer { get; set; }
+         
+        public ICollection<DataDetail> DataDetails { get; set; }
+    }
+
+    public class DataDetail : BaseEntity
+    {
+        [StringLength(50)]
+        public string Key { get; set; }
+
+        [StringLength(4000)]
+        public string Value { get; set; }
+
+        public bool IsRequiredEncrypted { get; set; }
+         
+        public int DataMasterId { get; set; }
+        public virtual DataMaster DataMaster { get; set; }
+
+    }
+
+
 }

@@ -9,6 +9,8 @@ using System.Net.Http;
 using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Mvc;
+using AutoMapper;
+using CustomerTracker.Web.Models;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
@@ -38,6 +40,25 @@ namespace CustomerTracker.Web.Controllers.api
 
             var customer = customerTrackerDataContext.Customers.Include("City").SingleOrDefault(q => q.Id == id);
 
+            if (customer == null)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+            }
+
+            return customer;
+        }
+
+        public Customer GetCustomerAdvancedDetail(int customerId)
+        {
+            var customer = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext()
+                 .Set<Customer>()
+                 .Include("City")
+                 .Include("Communications.Department")
+                 .Include("RemoteMachines")
+                 .Include("DataMasters")
+                  .Include("DataMasters.DataDetails")
+                 .SingleOrDefault(q => q.Id == customerId);
+             
             if (customer == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));

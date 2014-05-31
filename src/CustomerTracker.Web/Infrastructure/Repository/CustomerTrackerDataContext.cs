@@ -31,6 +31,8 @@ namespace CustomerTracker.Web.Infrastructure.Repository
         public DbSet<Department> Titles { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<SocialAccount> SocialAccounts { get; set; }
+        public DbSet<DataMaster> DataMasters { get; set; }
+        public DbSet<DataDetail> DataDetails { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

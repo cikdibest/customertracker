@@ -215,7 +215,6 @@
     <Compile Include="Controllers\api\DepartmentApiController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\CrudViewController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Global.asax.cs">
@@ -246,6 +245,22 @@
     <Compile Include="Migrations\201405252024337_firstmigration.cs" />
     <Compile Include="Migrations\201405252024337_firstmigration.Designer.cs">
       <DependentUpon>201405252024337_firstmigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405302332180_added_customdata.cs" />
+    <Compile Include="Migrations\201405302332180_added_customdata.Designer.cs">
+      <DependentUpon>201405302332180_added_customdata.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405302334339_modifty_Datamaster.cs" />
+    <Compile Include="Migrations\201405302334339_modifty_Datamaster.Designer.cs">
+      <DependentUpon>201405302334339_modifty_Datamaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405302354084_modifty_entities.cs" />
+    <Compile Include="Migrations\201405302354084_modifty_entities.Designer.cs">
+      <DependentUpon>201405302354084_modifty_entities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201405310933518_logoimagename.cs" />
+    <Compile Include="Migrations\201405310933518_logoimagename.Designer.cs">
+      <DependentUpon>201405310933518_logoimagename.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
@@ -1029,6 +1044,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201405252024337_firstmigration.resx">
       <DependentUpon>201405252024337_firstmigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405302332180_added_customdata.resx">
+      <DependentUpon>201405302332180_added_customdata.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405302334339_modifty_Datamaster.resx">
+      <DependentUpon>201405302334339_modifty_Datamaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405302354084_modifty_entities.resx">
+      <DependentUpon>201405302354084_modifty_entities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405310933518_logoimagename.resx">
+      <DependentUpon>201405310933518_logoimagename.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
