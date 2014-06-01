@@ -20,5 +20,10 @@ namespace CustomerTracker.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult DataMaster()
+        {
+            return View();
+        }
     }
 }

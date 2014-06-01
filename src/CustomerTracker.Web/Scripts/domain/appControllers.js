@@ -3,9 +3,25 @@
 
 var materialApiUrl = {
     searchmaterials: '/api/materialapi/searchmaterials/',
+ 
 
 };
- 
+
+var dataMasterApiUrl = {
+    getdatamasters: '/api/datamasterapi/getdatamasters/',
+    getdatamaster: '/api/datamasterapi/getdatamaster/',
+    putdatamaster: '/api/datamasterapi/putdatamaster/',
+    postdatamaster: '/api/datamasterapi/postdatamaster/',
+    deletedatamaster: '/api/datamasterapi/deletedatamaster/',
+};
+
+var dataDetailApiUrl = {
+    getdatadetails: '/api/datadetailapi/getdatadetails/',
+    getdatadetail: '/api/datadetailapi/getdatadetail/',
+    putdatadetail: '/api/datadetailapi/putdatadetail/',
+    postdatadetail: '/api/datadetailapi/postdatadetail/',
+    deletedatadetail: '/api/datadetailapi/deletedatadetail/',
+};
 
 var sharedDataApiUrl = {
     getselectorcities: '/api/shareddataapi/getselectorcities/',

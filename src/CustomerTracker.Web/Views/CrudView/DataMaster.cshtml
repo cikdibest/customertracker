@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "title";
+    
+}
+<script src="~/Scripts/domain/datadetail/dataDetailFactory.js"></script>
+<script src="~/Scripts/domain/customer/customerFactory.js"></script>
+<script src="~/Scripts/domain/datamaster/dataMasterFactory.js"></script>
+<script src="~/Scripts/domain/datamaster/dataMasterController.js"></script>
+<div ng-controller="dataMasterController" ng-cloak>
+
+    <div class="col-lg-6">
+        <table class="table table-striped table-bordered table-condensed table-hover">
+            <tr>
+                <th style="width: 15%">
+                    <div class="btn-toolbar">
+                        <i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()"></i>
+                    </div>
+                </th>
+                <th style="width: 5%;">Logo</th>
+                <th>Name</th>
+                <th>Müşteri</th>
+
+
+            </tr>
+            <tr ng-show="addMode">
+                <td>
+                    <div class="btn-toolbar">
+                        <div class="btn-group">
+                            <i class="btn glyphicon glyphicon-save" ng-click="addDataMaster()"></i>
+                            <i class="btn glyphicon glyphicon-remove" ng-click="toggleAddMode()"></i>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <input ng-model="dataMaster.AvatarImageUrl" />
+                </td>
+                <td>
+                    <input ng-model="dataMaster.Name" />
+                </td>
+                <td>
+                    <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers"></select>
+                </td>
+            </tr>
+            <tr ng-repeat="dataMaster in dataMasters | orderBy:'Id':false">
+
+                <td>
+                    <div class="btn-toolbar" ng-show="dataMaster.editMode == null || dataMaster.editMode == false">
+                        <div class="btn-group">
+                            <i class="btn glyphicon glyphicon-edit" ng-click="toggleEditMode(dataMaster)"></i>
+                            <i class="btn glyphicon glyphicon-trash" ng-click="deleteDataMaster(dataMaster)"></i>
+                            <i class="btn glyphicon glyphicon-expand" ng-click="setActiveDataMaster(dataMaster)"></i>
+                        </div>
+                    </div>
+                    <div class="btn-toolbar" ng-show="dataMaster.editMode == true">
+                        <div class="btn-group">
+                            <i class="btn glyphicon glyphicon-save" ng-click="updateDataMaster(dataMaster)"></i>
+                            <i class="btn glyphicon glyphicon-remove" ng-click="toggleEditMode(dataMaster)"></i>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <img ng-show="dataMaster.editMode == null || dataMaster.editMode == false" data-ng-src="{{dataMaster.AvatarImageUrl}}" class="img-circle" width="25px" height="25px" style="margin-left: 33%">
+                    <input ng-model="dataMaster.AvatarImageUrl" ng-show="dataMaster.editMode == true" />
+                </td>
+
+                <td>
+                    <span ng-show="dataMaster.editMode == null || dataMaster.editMode == false">{{dataMaster.Name}}</span>
+                    <input ng-model="dataMaster.Name" ng-show="dataMaster.editMode == true" />
+                </td>
+                <td>
+                    <span ng-show="dataMaster.editMode == null || dataMaster.editMode == false">{{dataMaster.Customer.Name}}</span>
+                    <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="dataMaster.editMode == true"></select>
+                </td>
+
+
+            </tr>
+        </table>
+    </div>
+
+    <div class="col-lg-6" ng-show="activeDataMaster!=null">
+        <table>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>
+                    <input ng-model="dataDetail.Key" /></td>
+                <td>
+                    <input ng-model="dataDetail.DecryptedValue" /></td>
+                <td><i class="glyphicon glyphicon-plus" data-ng-click="addDataDetail()"></i></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <br />
+                </td>
+            </tr>
+            <tr ng-repeat="dataDetail in activeDataMaster.DataDetails">
+                <td>
+                    <input ng-model="dataDetail.Key" /></td>
+                <td>
+                    <input ng-model="dataDetail.DecryptedValue" /></td>
+                <td>
+                    <i class="glyphicon glyphicon-save" data-ng-click="updateDataDetail(dataDetail)"></i>
+                    <i class="glyphicon glyphicon-remove" data-ng-click="deleteDataDetail(dataDetail)"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

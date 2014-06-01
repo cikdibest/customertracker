@@ -210,6 +210,8 @@
     <Compile Include="Business\UserBusiness\UserUtility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\CommunicationApiController.cs" />
+    <Compile Include="Controllers\api\DataDetailApiController.cs" />
+    <Compile Include="Controllers\api\DataMasterApiController.cs" />
     <Compile Include="Controllers\api\RemoteMachineConnectionTypeApiController.cs" />
     <Compile Include="Controllers\api\MaterialApiController.cs" />
     <Compile Include="Controllers\api\RemoteMachineApiController.cs" />
@@ -323,6 +325,10 @@
     <Content Include="Scripts\components\bootstrap-fileupload.min.css" />
     <Content Include="Scripts\components\bootstrap-fileupload.min.js" />
     <Content Include="Scripts\domain\appControllers.js" />
+    <Content Include="Scripts\domain\datadetail\dataDetailController.js" />
+    <Content Include="Scripts\domain\datadetail\dataDetailFactory.js" />
+    <Content Include="Scripts\domain\datamaster\dataMasterController.js" />
+    <Content Include="Scripts\domain\datamaster\dataMasterFactory.js" />
     <Content Include="Scripts\domain\shared\sharedFactory.js" />
     <Content Include="Scripts\domain\common\directives.js" />
     <Content Include="Scripts\domain\common\filters.js" />
@@ -621,6 +627,7 @@
     <Content Include="Views\CrudView\Department.cshtml" />
     <Content Include="Views\CrudView\Customer.cshtml" />
     <Content Include="Views\CrudView\RemoteMachine.cshtml" />
+    <Content Include="Views\CrudView\DataMaster.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
