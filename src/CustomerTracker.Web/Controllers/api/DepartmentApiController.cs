@@ -104,5 +104,16 @@ namespace CustomerTracker.Web.Controllers.api
 
             return Request.CreateResponse(HttpStatusCode.OK, department); 
         }
+         
+        public List<KeyValuePair<int, string>> GetSelectorDepartments()
+        {
+            var departments = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Department>()
+                .SelectAll()
+                .AsEnumerable()
+                .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
+                .ToList();
+
+            return departments;
+        }
     }
 }

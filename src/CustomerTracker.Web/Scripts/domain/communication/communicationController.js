@@ -12,18 +12,7 @@ customerApp.controller('communicationController', function ($scope, communicatio
     $scope.toggleEditMode = function (communication) {
         communication.editMode = !communication.editMode;
     };
-
-    var getCommunicationsSuccessCallback = function (data, status) {
-        $scope.communications = data;
-    };
-
-    var successPostCallback = function (data, status, headers, config) {
-        successCallbackWhenFormEdit(data, status, headers, config).success(function () {
-            $scope.toggleAddMode();
-            $scope.communication = {};
-        });
-    };
-
+     
     var successCallbackWhenFormEdit = function (data, status, headers, config) {
         notificationFactory.success();
 
@@ -31,7 +20,12 @@ customerApp.controller('communicationController', function ($scope, communicatio
     };
 
     $scope.addCommunication = function () {
-        communicationFactory.addCommunication($scope.communication).success(successPostCallback).error(baseControllerFactory.errorCallback);
+        communicationFactory.addCommunication($scope.communication).success(function (data, status, headers, config) {
+            successCallbackWhenFormEdit(data, status, headers, config).success(function () {
+                $scope.toggleAddMode();
+                $scope.communication = {};
+            });
+        }).error(baseControllerFactory.errorCallback);
     };
 
     $scope.deleteCommunication = function (communication) {
@@ -55,7 +49,9 @@ customerApp.controller('communicationController', function ($scope, communicatio
     };
 
     $scope.loadCommunications = function () {
-       return  communicationFactory.getCommunications().success(getCommunicationsSuccessCallback).error(baseControllerFactory.errorCallback);
+        return  communicationFactory.getCommunications().success(function (data, status) {
+            $scope.communications = data;
+        }).error(baseControllerFactory.errorCallback);
     };
 
     $scope.init = function() {

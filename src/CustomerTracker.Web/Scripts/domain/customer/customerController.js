@@ -14,21 +14,7 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     $scope.cities = [];
 
     $scope.addMode = false;
-    
-    var getCustomersSuccessCallback = function (data, status) {
-        
-        $scope.customers = data.customers;
-
-        eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
-    };
-
-    var successPostCallback = function (data, status, headers, config) {
-        successCallbackWhenFormEdit(data, status, headers, config).success(function () {
-            $scope.toggleAddMode();
-            $scope.customer = {};
-        });
-    };
-
+      
     var successCallbackWhenFormEdit = function (data, status, headers, config) {
         notificationFactory.success();
 
@@ -50,7 +36,12 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.addCustomer = function () {
-        customerFactory.addCustomer($scope.customer).success(successPostCallback).error(baseControllerFactory.errorCallback);
+        customerFactory.addCustomer($scope.customer).success(function (data, status, headers, config) {
+            successCallbackWhenFormEdit(data, status, headers, config).success(function () {
+                $scope.toggleAddMode();
+                $scope.customer = {};
+            });
+        }).error(baseControllerFactory.errorCallback);
     };
 
     $scope.deleteCustomer = function (customer) {
@@ -75,7 +66,11 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
 
     $scope.loadCustomers = function () {
         return customerFactory.getCustomers($scope.filterCriteria.pageNumber, $scope.filterCriteria.pageSize, $scope.filterCriteria.sortedBy, $scope.filterCriteria.sortDir)
-                         .success(getCustomersSuccessCallback)
+                         .success(function (data) {
+                             $scope.customers = data.customers;
+
+                             eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
+                         })
                          .error(baseControllerFactory.errorCallback);
     };
 

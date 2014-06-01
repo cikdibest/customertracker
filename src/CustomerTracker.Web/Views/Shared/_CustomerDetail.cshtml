@@ -92,50 +92,51 @@
                         <div ng-show="addCommunicationMode">
                             <table class="table table-condensed table-responsive">
                                 <tbody>
+                                    @*must set customerId from selectedCustomer*@
                                     <tr>
                                         <td>Ad</td>
                                         <td>
-                                            <input /></td>
+                                            <input ng-model="communication.FirstName" /></td>
                                     </tr>
                                     <tr>
                                         <td>Soyad</td>
                                         <td>
-                                            <input /></td>
+                                            <input ng-model="communication.LastName" /></td>
                                     </tr>
                                     <tr>
                                         <td>Mail</td>
                                         <td>
-                                            <input /></td>
+                                            <input ng-model="communication.Email" /></td>
                                     </tr>
                                     <tr>
                                         <td>Sabit telefon</td>
                                         <td>
-                                            <input /></td>
+                                            <input ng-model="communication.HomePhoneNumber" /></td>
                                     </tr>
                                     <tr>
                                         <td>Cep telefon</td>
                                         <td>
-                                            <input /></td>
+                                            <input ng-model="communication.MobilePhoneNumber" /></td>
                                     </tr>
                                     <tr>
                                         <td>Görev</td>
                                         <td>
-                                            <input /></td>
+                                            <select ng-model="communication.DepartmentId" ng-options="department.Key as department.Value for department in departments"></select></td>
                                     </tr>
                                     <tr>
                                         <td>Cinsiyet</td>
                                         <td>
-                                          <select ng-model="customer.CityId" ng-options="gender.Key as gender.Value for gender in genders"></select></td>
+                                            <select ng-model="communication.GenderId" ng-options="gender.Key as gender.Value for gender in genders"></select></td>
                                     </tr>
                                     <tr>
                                         <td>Avatar url</td>
                                         <td>
-                                            <input /></td>
+                                            <input ng-model="communication.AvatarImageUrl" /></td>
                                     </tr>
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <button>Ekle</button></td>
+                                            <button ng-click="addCommunication()">Ekle</button></td>
                                     </tr>
                                 </tbody>
                             </table>

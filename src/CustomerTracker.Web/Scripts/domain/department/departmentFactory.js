@@ -11,6 +11,9 @@
         },
         updateDepartment: function (department) {
             return $http.put(departmentApiUrl.putdepartment + department.Id, department);
+        },
+        getSelectorDepartments: function () {
+            return $http.get(departmentApiUrl.getselectordepartments);
         }
 
     };

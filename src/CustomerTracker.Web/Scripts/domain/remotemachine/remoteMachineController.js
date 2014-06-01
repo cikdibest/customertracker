@@ -15,20 +15,7 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
         sortedBy: 'id',
         sortDir: 'asc',
     };
-
-    var getRemoteMachinesSuccessCallback = function (data, status) {
-        $scope.remoteMachines = data.remoteMachines;
-
-        eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
-    };
-
-    var successPostCallback = function (data, status, headers, config) {
-        successCallbackWhenFormEdit(data, status, headers, config).success(function () {
-            $scope.toggleAddMode();
-            $scope.remoteMachine = {};
-        });
-    };
-
+      
     var successCallbackWhenFormEdit = function (data, status, headers, config) {
         notificationFactory.success();
 
@@ -50,7 +37,12 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     };
 
     $scope.addRemoteMachine = function () {
-        remoteMachineFactory.addRemoteMachine($scope.remoteMachine).success(successPostCallback).error(baseControllerFactory.errorCallback);
+        remoteMachineFactory.addRemoteMachine($scope.remoteMachine).success(function (data, status, headers, config) {
+            successCallbackWhenFormEdit(data, status, headers, config).success(function () {
+                $scope.toggleAddMode();
+                $scope.remoteMachine = {};
+            });
+        }).error(baseControllerFactory.errorCallback);
     };
 
     $scope.deleteRemoteMachine = function (remoteMachine) {
@@ -76,7 +68,11 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
 
     $scope.loadRemoteMachines = function () {
         return remoteMachineFactory.getRemoteMachines($scope.filterCriteria.pageNumber, $scope.filterCriteria.pageSize, $scope.filterCriteria.sortedBy, $scope.filterCriteria.sortDir)
-                         .success(getRemoteMachinesSuccessCallback)
+                         .success(function (data, status) {
+                             $scope.remoteMachines = data.remoteMachines;
+
+                             eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
+                         })
                          .error(baseControllerFactory.errorCallback);
     };
 

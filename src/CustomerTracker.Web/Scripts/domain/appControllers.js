@@ -30,6 +30,8 @@ var departmentApiUrl = {
     putdepartment: '/api/departmentapi/putdepartment/',
     postdepartment: '/api/departmentapi/postdepartment/',
     deletedepartment: '/api/departmentapi/deletedepartment/',
+    getselectordepartments: '/api/departmentapi/getselectordepartments/',
+    
 };
 
 var customerApiUrl = {
@@ -120,7 +122,9 @@ customerApp.factory('notificationFactory', function () {
 customerApp.factory('baseControllerFactory', function (notificationFactory) {
     return {
         errorCallback: function (data, status, haders, config) {
+            notificationFactory.error(data.Message);
             notificationFactory.error(data.ExceptionMessage);
+            
         }
     };
 });

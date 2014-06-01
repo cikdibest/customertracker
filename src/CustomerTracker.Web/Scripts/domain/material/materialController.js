@@ -1,6 +1,6 @@
 ﻿
 
-customerApp.controller('materialController', function ($scope, materialFactory, customerFactory, communicationFactory,sharedFactory ,notificationFactory, baseControllerFactory) {
+customerApp.controller('materialController', function ($scope, materialFactory, customerFactory, communicationFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
 
     $scope.searchResult = {};
 
@@ -15,6 +15,9 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
     $scope.addCommunicationMode = false;
     
     $scope.genders = {};
+    
+    $scope.departments = {};
+      
 
     $scope.setActiveSearchType = function (key, value) {
         $scope.activeSearchType = { Key: key, Value: value };
@@ -54,11 +57,34 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
             })
             .error(baseControllerFactory.errorCallback);
     };
+    
+    $scope.loadDepartments = function () {
+        departmentFactory.getSelectorDepartments()
+            .success(function (data) {
+                $scope.departments = data;
+            })
+            .error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.addCommunication = function () {
+        var customerId = $scope.selectedCustomer.Id;
+        $scope.communication.customerId = customerId;
+        communicationFactory.addCommunication($scope.communication)
+            .success(function (data, status, headers, config) {
+                $scope.toogleAddCommunicationMode();
+                $scope.communication = {};
+                notificationFactory.success();
+                return $scope.loadCustomer(customerId, 0);
+            })
+            .error(baseControllerFactory.errorCallback);
+    };
 
     $scope.init = function () {
         $scope.setActiveSearchType(1, "Customer");
 
         $scope.loadGenders();
+
+        $scope.loadDepartments();
     };
 
     $scope.init();

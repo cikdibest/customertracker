@@ -107,13 +107,13 @@ namespace CustomerTracker.Web.Controllers.api
 
         public List<KeyValuePair<int, string>> GetSelectorRemoteMachineConnectionTypes()
         {
-            var customers = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachineConnectionType>()
+            var remoteMachineConnectionType = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachineConnectionType>()
                 .SelectAll()
                 .AsEnumerable()
                 .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
                 .ToList();
 
-            return customers;
+            return remoteMachineConnectionType;
         }
     }
 }

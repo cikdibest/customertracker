@@ -1,17 +1,6 @@
 ﻿
 customerApp.controller('departmentController', function ($scope, departmentFactory, notificationFactory, baseControllerFactory, modalService) {
-
-    var getDepartmentsSuccessCallback = function (data, status) {
-        $scope.departments = data;
-    };
-
-    var successPostCallback = function (data, status, headers, config) {
-        successCallbackWhenFormEdit(data, status, headers, config).success(function () {
-            $scope.toggleAddMode();
-            $scope.department = {};
-        });
-    };
-
+      
     var successCallbackWhenFormEdit = function (data, status, headers, config) {
         notificationFactory.success();
 
@@ -31,7 +20,12 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
     };
 
     $scope.addDepartment = function () {
-        departmentFactory.addDepartment($scope.department).success(successPostCallback).error(baseControllerFactory.errorCallback);
+        departmentFactory.addDepartment($scope.department).success(function (data, status, headers, config) {
+            successCallbackWhenFormEdit(data, status, headers, config).success(function () {
+                $scope.toggleAddMode();
+                $scope.department = {};
+            });
+        }).error(baseControllerFactory.errorCallback);
     };
 
     $scope.deleteDepartment = function (department) {
@@ -55,7 +49,9 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
     };
 
     $scope.loadDepartments = function () {
-       return  departmentFactory.getDepartments().success(getDepartmentsSuccessCallback).error(baseControllerFactory.errorCallback);
+        return departmentFactory.getDepartments().success(function (data, status) {
+            $scope.departments = data;
+        }).error(baseControllerFactory.errorCallback);
     };
 
     $scope.init = function() {
