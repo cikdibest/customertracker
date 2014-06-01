@@ -45,7 +45,7 @@ namespace CustomerTracker.Web.Controllers.api
             return customer;
         }
 
-        public Customer GetCustomerAdvancedDetail(int customerId)
+        public Customer GetCustomerAdvancedDetail(int id)
         {
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext()
                  .Set<Customer>()
@@ -54,7 +54,7 @@ namespace CustomerTracker.Web.Controllers.api
                  .Include("RemoteMachines")
                  .Include("DataMasters")
                  .Include("DataMasters.DataDetails")
-                 .SingleOrDefault(q => q.Id == customerId);
+                 .SingleOrDefault(q => q.Id == id);
 
             if (customer == null)
             {

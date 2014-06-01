@@ -1,8 +1,8 @@
 ﻿
 
-customerApp.controller('materialController', function ($scope, materialFactory, notificationFactory, baseControllerFactory) {
+customerApp.controller('materialController', function ($scope, materialFactory, customerFactory,notificationFactory, baseControllerFactory) {
 
-    $scope.foundMaterials = {};
+    $scope.searchResult = {};
 
     $scope.searchCriteria = '';
 
@@ -22,14 +22,15 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
         $scope.selectedMaterialIndex = null;
 
         materialFactory.searchMaterials({ searchCriteria: $scope.searchCriteria, searchTypeId: $scope.activeSearchType.Key })
-                             .success(function (data) { $scope.foundMaterials = data; })
+                             .success(function (data) {
+                                 $scope.searchResult = data;
+                             })
                              .error(baseControllerFactory.errorCallback);
 
     };
      
-    $scope.loadCustomer = function (item, index) {
-
-        materialFactory.getMaterialDetail(item.Url)
+    $scope.loadCustomer = function (customerId, index) { 
+        customerFactory.getCustomerAdvancedDetail(customerId)
                              .success(function (data) {
                                  $scope.selectedCustomer = data;
                                  $scope.selectedMaterialIndex = index;

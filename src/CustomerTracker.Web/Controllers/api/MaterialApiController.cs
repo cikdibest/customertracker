@@ -2,6 +2,7 @@
 using System.Web.Http;
 using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business.SearchBusiness;
+using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.Enums;
 using MvcPaging;
 using Ninject;
@@ -18,19 +19,17 @@ namespace CustomerTracker.Web.Controllers.api
         }
 
         [HttpPost]
-        public IPagedList<SearchResultModel> SearchMaterials(SearchModel searchModel)
+        public dynamic SearchMaterials(SearchModel searchModel)
         {
-            ISearchEngine searchEngine = NinjectWebCommon.GetKernel.Get<ISearchEngine>();
-
-            IPagedList<SearchResultModel> resultModels = null;
-
+            var searchEngine = NinjectWebCommon.GetKernel.Get<ISearchEngine>();
+             
             switch ((SearchType)searchModel.searchTypeId)
             {
                 case SearchType.Customer:
-                    resultModels = searchEngine.SearchCustomers(searchModel.searchCriteria, 0, "Id", false);
+                    return new { materials = searchEngine.SearchCustomers(searchModel.searchCriteria, 0, "Id", false), searchTypeId = SearchType.Customer.GetHashCode() };
                     break;
                 case SearchType.Communication:
-                    resultModels = searchEngine.SearchCommunications(searchModel.searchCriteria, 0, "Id", false);
+                   return new {materials=searchEngine.SearchCommunications(searchModel.searchCriteria, 0, "Id", false),searchTypeId = SearchType.Communication.GetHashCode()};
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -38,7 +37,7 @@ namespace CustomerTracker.Web.Controllers.api
 
             }
 
-            return resultModels;
+           
 
         }
 

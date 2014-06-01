@@ -34,6 +34,7 @@ var customerApiUrl = {
     postcustomer: '/api/customerapi/postcustomer/',
     deletecustomer: '/api/customerapi/deletecustomer/',
     getselectorcustomers: '/api/customerapi/getselectorcustomers/',
+    getcustomeradvanceddetail: '/api/customerapi/getcustomeradvanceddetail/',
 };
 
 var customerApp = angular.module('customerApp', ['ui.bootstrap']);

@@ -33,15 +33,18 @@ customerApp.factory('customerFactory', function ($http) {
             //});
             return $http.put(customerApiUrl.putcustomer + customer.Id, customer);
         },
-      
+
         getSelectorCustomers: function () {
-        //return requestHandler({
-        //    method: 'GET',
-        //    url: customerApiUrl.getselectorcustomers
-        //});
+            //return requestHandler({
+            //    method: 'GET',
+            //    url: customerApiUrl.getselectorcustomers
+            //});
             return $http.get(customerApiUrl.getselectorcustomers);
-    }
-      
+        },
+        
+        getCustomerAdvancedDetail: function (customerId) {
+            return $http.get(customerApiUrl.getcustomeradvanceddetail + customerId);
+        }
 
     };
 });

@@ -5,10 +5,10 @@
 }
 <style>
     .sel {
-        background-color: #3982C1;
+        background-color: #87ceeb;
     }
 </style>
-
+<script src="~/Scripts/domain/customer/customerFactory.js"></script>
 <script src="~/Scripts/domain/material/materialFactory.js"></script>
 <script src="~/Scripts/domain/material/materialController.js"></script>
 
@@ -28,8 +28,6 @@
                             {
                                 <li><a href="#" ng-click="setActiveSearchType(@item.Key,'@item.Value')">@item.Value</a></li>    
                             }
-
-
                         </ul>
                     </div>
                 </div>
@@ -46,23 +44,42 @@
             </div>
             <hr />
             <div class="row col-lg-10">
-                <div class="list-group" ng-repeat="material in foundMaterials" ng-if="material.SearchTypeId=='1'">
-                    <a href="#" ng-click="loadCustomer(material,$index)" class="list-group-item" ng-class="{sel: $index == selectedMaterialIndex}">
-                        <h4 class="list-group-item-heading">{{material.Title}}</h4>
-                        <p class="list-group-item-text">{{material.Summary}}</p>
-                    </a>
+                <div class="list-group" ng-repeat="customer in searchResult.materials" ng-if="searchResult.searchTypeId=='1'" ng-class="{sel: $index == selectedMaterialIndex}"> 
+                    <span class="name">{{customer.Name}}</span><br />
+                    <table class="table table-condensed table-responsive table-user-information">
+                        <tbody>
+                            <tr>
+                                <td>Şehir</td>
+                                <td>{{customer.City.Name}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="#" ng-click="loadCustomer(customer.Id,$index)">Müşteri'ye git</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="list-group" ng-repeat="material in foundMaterials" ng-if="material.SearchTypeId=='2'" ng-class="{sel: $index == selectedMaterialIndex}">
-                    <span class="name">{{material.Title}}</span><br />
+                <div class="list-group" ng-repeat="communication in searchResult.materials" ng-if="searchResult.searchTypeId=='2'" ng-class="{sel: $index == selectedMaterialIndex}">
+                    <span class="name">{{communication.FullName}}</span><br />
                     <table class="table table-condensed table-responsive table-user-information">
                         <tbody>
                             <tr>
                                 <td>Görev</td>
-                                <td>{{material.Summary}}</td>
+                                <td>{{communication.Department.Name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Cep Tel</td>
+                                <td>{{communication.MobilePhoneNumber}}</td>
+                            </tr>
+
+                            <tr>
+                                <td>Mail</td>
+                                <td>{{communication.Email}}</td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="#" ng-click="loadCustomer(material,$index)">Müşteri'ye git</a>
+                                    <a href="#" ng-click="loadCustomer(communication.CustomerId,$index)">Müşteri'ye git</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -82,7 +99,7 @@
 <script>
 
     $("#searchInput").focus();
-    
+
     $(document).keypress(function (e) {
 
         if (e.which == 13) {
