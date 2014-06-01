@@ -1,6 +1,6 @@
 ﻿
 
-customerApp.controller('customerController', function ($scope, customerFactory, cityFactory,notificationFactory, baseControllerFactory, eventFactory, modalService) {
+customerApp.controller('customerController', function ($scope, customerFactory, sharedFactory,notificationFactory, baseControllerFactory, eventFactory, modalService) {
      
     $scope.customers = [];
 
@@ -80,7 +80,7 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.loadCities = function () {
-        cityFactory.getSelectorCities()
+        sharedFactory.getSelectorCities()
                        .success(function (data) { $scope.cities = data; })
                        .error(baseControllerFactory.errorCallback);
     };

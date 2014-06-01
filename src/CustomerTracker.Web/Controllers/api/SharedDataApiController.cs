@@ -23,16 +23,12 @@ namespace CustomerTracker.Web.Controllers.api
             return cities;
         }
 
-        public List<KeyValuePair<int, string>> GetSelectorRemoteMachineConnectionTypes()
+        public List<KeyValuePair<int, string>> GetSelectorGenders()
         {
-            var remoteMachineConnectionTypes = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachineConnectionType>()
-                .SelectAll()
-                .AsEnumerable()
-                .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
+            return EnumHelper.ToDictionary<EnumGender>()
+                .Select(q=>new KeyValuePair<int,string>(q.Key,q.Value))
                 .ToList();
-
-
-            return remoteMachineConnectionTypes;
+             
         }
     }
 }

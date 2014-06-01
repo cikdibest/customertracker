@@ -3,12 +3,17 @@
 
 var materialApiUrl = {
     searchmaterials: '/api/materialapi/searchmaterials/',
-   
+
 };
+ 
 
 var sharedDataApiUrl = {
     getselectorcities: '/api/shareddataapi/getselectorcities/',
-    getselectorremotemachineconnectiontypes: '/api/shareddataapi/getselectorremotemachineconnectiontypes/',
+    getselectorgenders: '/api/shareddataapi/getselectorgenders/',
+};
+
+var remoteMachineConnectionTypeApiUrl = {
+    getselectorremotemachineconnectiontypes: '/api/remotemachineconnectiontypeapi/getselectorremotemachineconnectiontypes/',
 };
 
 var remoteMachineApiUrl = {
@@ -36,6 +41,15 @@ var customerApiUrl = {
     getselectorcustomers: '/api/customerapi/getselectorcustomers/',
     getcustomeradvanceddetail: '/api/customerapi/getcustomeradvanceddetail/',
 };
+
+var communicationApiUrl = {
+    getcommunications: '/api/communicationapi/getcommunications/',
+    getcommunication: '/api/communicationapi/getcommunication/',
+    putcommunication: '/api/communicationapi/putcommunication/',
+    postcommunication: '/api/communicationapi/postcommunication/',
+    deletecommunication: '/api/communicationapi/deletecommunication/',
+};
+
 
 var customerApp = angular.module('customerApp', ['ui.bootstrap']);
 
@@ -102,7 +116,7 @@ customerApp.factory('notificationFactory', function () {
         }
     };
 });
-  
+
 customerApp.factory('baseControllerFactory', function (notificationFactory) {
     return {
         errorCallback: function (data, status, haders, config) {
