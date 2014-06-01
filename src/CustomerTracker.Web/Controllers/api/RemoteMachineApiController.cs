@@ -20,7 +20,7 @@ namespace CustomerTracker.Web.Controllers.api
 
             var remoteMachines = remoteMachineTrackerDataContext.RemoteMachines;
 
-            var pageRemoteMachines = remoteMachines.Include("Customer")
+            var pageRemoteMachines = remoteMachines.Include("Customer").Include("RemoteMachineConnectionType")
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize) 

@@ -1,6 +1,20 @@
-﻿
-
+﻿ 
 customerApp.controller('remoteMachineController', function ($scope, remoteMachineFactory, customerFactory,remoteMachineConnectionTypeFactory, notificationFactory, baseControllerFactory, eventFactory, modalService) {
+     
+    $scope.remoteMachines = [];
+
+    $scope.customers = [];
+
+    $scope.remoteConnectionTypes = [];
+
+    $scope.addMode = false;
+
+    $scope.filterCriteria = {
+        pageNumber: 1,
+        pageSize: 10,
+        sortedBy: 'id',
+        sortDir: 'asc',
+    };
 
     var getRemoteMachinesSuccessCallback = function (data, status) {
         $scope.remoteMachines = data.remoteMachines;
@@ -20,23 +34,7 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
 
         return $scope.loadRemoteMachines();
     };
-
-    $scope.remoteMachines = [];
-
-    $scope.customers = [];
-
-    $scope.remoteConnectionTypes = [];
-
-    $scope.addMode = false;
-
-    $scope.filterCriteria = {
-        pageNumber: 1,
-        pageSize: 10,
-        sortedBy: 'id',
-        sortDir: 'asc',
-    };
-
-
+    
     $scope.$on('pageChangedEventHandler', function () {
         $scope.filterCriteria.pageNumber = eventFactory.pagingModel.currentPageNumber;
 
@@ -91,7 +89,7 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     $scope.loadRemoteMachineConnectionTypes = function () {
         remoteMachineConnectionTypeFactory.getSelectorRemoteMachineConnectionTypes()
                        .success(function (data) {
-                           $scope.remoteConnectionTypes = data;
+                           $scope.remoteMachineConnectionTypes = data;
                        })
                        .error(baseControllerFactory.errorCallback);
     };

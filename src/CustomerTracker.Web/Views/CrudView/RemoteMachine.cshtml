@@ -18,13 +18,13 @@
                <th style="width: 5%;">
                     <div class="btn-toolbar"><i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()"></i></div>
                 </th> 
-                <th>Customer</th>
-                <th>Remote Connection Type</th>
-                <th>Name</th>
-                <th>Remote Adress</th>
-                <th>User Name</th>
-                <th>Password</th>
-                <th style="width: 350px">Explanation</th>
+                <th>Müşteri</th>
+                <th>Bağlantı tipi</th>
+                <th>Ad</th>
+                <th>İp(url)</th>
+                <th>Kullanıcı adı</th>
+                <th>Şifre</th>
+                <th style="width: 350px">Açıklama</th>
             </tr>
             <tr ng-show="addMode">
                 <td>
@@ -75,8 +75,8 @@
                 </td>
 
                 <td>
-                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.Customer.Title}}</span>
-                    <select ng-model="remoteMachine.CustomerId" ng-options="customer.Id as customer.Title for customer in customers" ng-show="remoteMachine.editMode == true"></select>
+                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.Customer.Name}}</span>
+                    <select ng-model="remoteMachine.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="remoteMachine.editMode == true"></select>
                 </td>
                 <td> 
                     <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.RemoteMachineConnectionType.Name}}</span>
