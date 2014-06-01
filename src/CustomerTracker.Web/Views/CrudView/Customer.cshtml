@@ -4,6 +4,8 @@
 <script src="~/Scripts/domain/city/cityFactory.js"></script>
 <script src="~/Scripts/domain/customer/customerFactory.js"></script>
 <script src="~/Scripts/domain/customer/customerController.js"></script>
+
+
 <div ng-controller="customerController" ng-cloak>
     <div ng-controller="paginationController">
 
@@ -13,15 +15,15 @@
     <div class="col-lg-12">
         <table class="table table-striped table-bordered table-condensed table-hover">
             <tr>
-                  <th style="width: 5%;">
+                <th style="width: 5%;">
                     <div class="btn-toolbar"><i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()"></i></div>
                 </th>
-                <th style="width: 5%;">Avatar</th>
-                <th>Name</th>
-                <th style="width: 5%">Abbreviation</th>
-                <th>City</th>
-                <th>Keywords</th>
-                <th style="width: 350px">Explanation</th>
+                <th style="width: 5%;">Logo</th>
+                <th>Ad</th>
+                <th style="width: 5%">Kısaltma</th>
+                <th>Şehir</th>
+                <th>Keywords<i class="glyphicon glyphicon-info-sign tooltipicon" title="Arama yapılırken bu bilgiler kullanılacaktır.Kelimeleri virgül(,) ile ayırarak giriniz."></i></th>
+                <th style="width: 350px">Açıklama</th>
             </tr>
             <tr ng-show="addMode">
                 <td>
@@ -39,7 +41,7 @@
                     <input ng-model="customer.Name" class="col-md-12" />
                 </td>
                 <td>
-                    <input ng-model="customer.Abbreviation" class="col-md-12"   />
+                    <input ng-model="customer.Abbreviation" class="col-md-12" />
                 </td>
                 <td>
                     <select ng-model="customer.CityId" ng-options="city.Key as city.Value for city in cities"></select>
@@ -85,6 +87,7 @@
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Keywords}}</span>
                     <input ng-model="customer.Keywords" ng-show="customer.editMode == true" class="col-md-12" />
+
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Explanation}}</span>
@@ -95,3 +98,6 @@
 
     </div>
 </div>
+<script>
+    $('.tooltipicon').tooltip()
+</script>
