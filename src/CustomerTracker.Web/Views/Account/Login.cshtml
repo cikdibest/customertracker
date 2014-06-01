@@ -1,14 +1,143 @@
 ﻿@model CustomerTracker.Web.Models.ViewModels.LoginModel
 
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Kullanıcı Giriş";
   
 }
-<br />
-<br />
-<br />
-<br />
-<div class="well span5 offset2">
+<style>
+    .form-signin {
+        max-width: 400px;
+        display: block;
+        background-color: #f7f7f7;
+        -moz-box-shadow: 0 0 3px 3px #888;
+        -webkit-box-shadow: 0 0 3px 3px #888;
+        box-shadow: 0 0 3px 3px #888;
+        border-radius: 2px;
+        margin-left: 33%;
+    }
+
+    .main {
+        padding: 38px;
+    }
+
+    .social-box {
+        margin: 0 auto;
+        padding: 38px;
+        border-bottom: 1px #ccc solid;
+    }
+
+        .social-box a {
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px;
+        }
+
+            .social-box a i {
+                font-weight: bold;
+                font-size: 20px;
+            }
+
+    .heading-desc {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 38px 38px 0px 38px;
+    }
+
+    .form-signin .form-signin-heading,
+    .form-signin .checkbox {
+        margin-bottom: 10px;
+    }
+
+    .form-signin .checkbox {
+        font-weight: normal;
+    }
+
+    .form-signin .form-control {
+        position: relative;
+        font-size: 16px;
+        height: 20px;
+        padding: 20px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+    .form-signin input[type="text"] {
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+
+    .login-footer {
+        background: #f0f0f0;
+        margin: 0 auto;
+        border-top: 1px solid #dadada;
+        padding: 20px;
+    }
+
+        .login-footer .left-section a {
+            font-weight: bold;
+            color: #8a8a8a;
+            line-height: 19px;
+        }
+
+    .mg-btm {
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+
+
+
+        @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
+        { <h3 class="heading-desc">Ankaref Müşteri Takip Platformu</h3>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="social-box">
+                @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+            </div>
+        }
+
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
+        {      @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <div class="main">
+
+                <input type="text" class="form-control" placeholder="Username" autofocus name="UserName" id="UserName" />
+                <input type="password" class="form-control" placeholder="Password" name="Password" id="Password" />
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="login-footer">
+                <div class="row">
+                    <div class="col-xs-6 col-md-6">
+                        <div class="left-section">
+                            <a href="">Şifremi unuttum?</a>
+                            <br />
+                            <a href="">Kayıt ol</a>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-md-6 pull-right">
+                        <button type="submit" class="btn btn-large btn-danger pull-right">Giriş</button>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+</div>
+
+@*<div class="well span5 offset2">
     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "signin" }))
     {
         @Html.AntiForgeryToken()
@@ -49,7 +178,7 @@
 
         </section>
     </div>
-</div>
+</div>*@
 
 
 

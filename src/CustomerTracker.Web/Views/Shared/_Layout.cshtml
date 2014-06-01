@@ -14,18 +14,21 @@
 
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/angular.min.js"></script> 
+    <script src="~/Scripts/angular.min.js"></script>
     <script src="~/Scripts/angular-ui/ui-bootstrap.min.js"></script>
     <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
     <script src="~/Scripts/toastr.min.js"></script>
     <script src="~/Scripts/domain/appControllers.js"></script>
-  
+
 </head>
 <body>
-     
-    @{ Html.RenderPartial("_NavBar"); }
+    @if (Request.IsAuthenticated)
+    {
+        { Html.RenderPartial("_NavBar"); }
 
-    <div class="col-lg-12"> 
+    }
+
+    <div class="col-lg-12">
         @RenderBody()
     </div>
 

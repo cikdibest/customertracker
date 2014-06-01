@@ -17,14 +17,8 @@ namespace CustomerTracker.Web.Controllers
 {
     [Authorize(Roles = "Admin,Personel")]
     public class MaterialController : Controller
-    {
-        private ISearchEngine _searchEngine;
-
-        public MaterialController()
-        { 
-            _searchEngine = NinjectWebCommon.GetKernel.Get<ISearchEngine>();
-
-        }
+    { 
+         
 
         public ActionResult Index()
         {
