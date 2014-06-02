@@ -28,8 +28,8 @@ namespace CustomerTracker.Web.Controllers.api
         public DataDetail GetDataDetail(int id)
         {
             var dataDetail = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataDetail>().Find(id);
-            
-            if (dataDetail==null)
+
+            if (dataDetail == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
@@ -37,6 +37,7 @@ namespace CustomerTracker.Web.Controllers.api
             return dataDetail;
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage PutDataDetail(int id, DataDetail dataDetail)
         {
             if (!ModelState.IsValid)
@@ -60,7 +61,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK); 
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         public HttpResponseMessage PostDataDetail(DataDetail dataDetail)
@@ -68,25 +69,26 @@ namespace CustomerTracker.Web.Controllers.api
             if (ModelState.IsValid)
             {
                 ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataDetail>().Create(dataDetail);
-                
+
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, dataDetail);
 
                 response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = dataDetail.Id }));
-                
+
                 return response;
             }
             else
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            } 
+            }
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage DeleteDataDetail(int id)
         {
             var dataDetail = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataDetail>().Find(id);
-            
+
             if (dataDetail == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -103,9 +105,9 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, dataDetail); 
+            return Request.CreateResponse(HttpStatusCode.OK, dataDetail);
         }
-         
-        
+
+
     }
 }

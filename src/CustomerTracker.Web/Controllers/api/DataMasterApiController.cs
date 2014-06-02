@@ -20,7 +20,7 @@ namespace CustomerTracker.Web.Controllers.api
     {
         public IEnumerable<DataMaster> GetDataMasters()
         {
-            var dataMasters = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>().SelectAll().Include(q=>q.Customer).Include(q=>q.DataDetails).ToList();
+            var dataMasters = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>().SelectAll().Include(q => q.Customer).Include(q => q.DataDetails).ToList();
 
             return dataMasters;
         }
@@ -28,8 +28,8 @@ namespace CustomerTracker.Web.Controllers.api
         public DataMaster GetDataMaster(int id)
         {
             var dataMaster = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>().Find(id);
-            
-            if (dataMaster==null)
+
+            if (dataMaster == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
@@ -37,6 +37,7 @@ namespace CustomerTracker.Web.Controllers.api
             return dataMaster;
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage PutDataMaster(int id, DataMaster dataMaster)
         {
             if (!ModelState.IsValid)
@@ -60,7 +61,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK); 
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         public HttpResponseMessage PostDataMaster(DataMaster dataMaster)
@@ -68,25 +69,26 @@ namespace CustomerTracker.Web.Controllers.api
             if (ModelState.IsValid)
             {
                 ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>().Create(dataMaster);
-                
+
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, dataMaster);
 
                 response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = dataMaster.Id }));
-                
+
                 return response;
             }
             else
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            } 
+            }
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage DeleteDataMaster(int id)
         {
             var dataMaster = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>().Find(id);
-            
+
             if (dataMaster == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -103,9 +105,9 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, dataMaster); 
+            return Request.CreateResponse(HttpStatusCode.OK, dataMaster);
         }
-         
+
         public List<KeyValuePair<int, string>> GetSelectorDataMasters()
         {
             var dataMasters = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>()

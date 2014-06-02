@@ -36,6 +36,7 @@ namespace CustomerTracker.Web.Controllers.api
             return remoteMachineConnectionType;
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage PutRemoteMachineConnectionType(int id, RemoteMachineConnectionType remoteMachineConnectionType)
         {
             if (!ModelState.IsValid)
@@ -82,6 +83,7 @@ namespace CustomerTracker.Web.Controllers.api
             }
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage DeleteRemoteMachineConnectionType(int id)
         {
             var remoteMachineConnectionType = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachineConnectionType>().Find(id);

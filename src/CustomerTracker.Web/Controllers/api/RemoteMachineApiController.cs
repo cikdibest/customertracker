@@ -23,7 +23,7 @@ namespace CustomerTracker.Web.Controllers.api
             var pageRemoteMachines = remoteMachines.Include("Customer").Include("RemoteMachineConnectionType")
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
-                .Take(pageSize) 
+                .Take(pageSize)
                 .ToList();
 
             return new { remoteMachines = pageRemoteMachines, totalCount = remoteMachines.Count() };
@@ -42,7 +42,8 @@ namespace CustomerTracker.Web.Controllers.api
 
             return remoteMachine;
         }
-         
+
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage PutRemoteMachine(int id, RemoteMachine remoteMachine)
         {
             if (!ModelState.IsValid)
@@ -68,7 +69,7 @@ namespace CustomerTracker.Web.Controllers.api
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-         
+
         public HttpResponseMessage PostRemoteMachine(RemoteMachine remoteMachine)
         {
             if (ModelState.IsValid)
@@ -89,6 +90,7 @@ namespace CustomerTracker.Web.Controllers.api
             }
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage DeleteRemoteMachine(int id)
         {
             var remoteMachine = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Find(id);

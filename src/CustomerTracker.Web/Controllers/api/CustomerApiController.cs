@@ -9,7 +9,7 @@ using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
-{ 
+{
     [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
     public class CustomerApiController : ApiController
     {
@@ -65,6 +65,7 @@ namespace CustomerTracker.Web.Controllers.api
             return customer;
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage PutCustomer(int id, Customer customer)
         {
             if (!ModelState.IsValid)
@@ -111,6 +112,7 @@ namespace CustomerTracker.Web.Controllers.api
             }
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage DeleteCustomer(int id)
         {
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Find(id);
@@ -141,7 +143,7 @@ namespace CustomerTracker.Web.Controllers.api
                 .AsEnumerable()
                 .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
                 .ToList();
-             
+
             return customers;
         }
     }

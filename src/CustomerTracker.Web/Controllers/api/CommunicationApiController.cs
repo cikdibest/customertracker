@@ -23,8 +23,8 @@ namespace CustomerTracker.Web.Controllers.api
         public Communication GetCommunication(int id)
         {
             var communication = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Communication>().Find(id);
-            
-            if (communication==null)
+
+            if (communication == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
@@ -32,6 +32,7 @@ namespace CustomerTracker.Web.Controllers.api
             return communication;
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage PutCommunication(int id, Communication communication)
         {
             if (!ModelState.IsValid)
@@ -55,7 +56,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, communication); 
+            return Request.CreateResponse(HttpStatusCode.OK, communication);
         }
 
         public HttpResponseMessage PostCommunication(Communication communication)
@@ -63,25 +64,26 @@ namespace CustomerTracker.Web.Controllers.api
             if (ModelState.IsValid)
             {
                 ConfigurationHelper.UnitOfWorkInstance.GetRepository<Communication>().Create(communication);
-                
+
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 
                 HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, communication);
 
                 response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = communication.Id }));
-                
+
                 return response;
             }
             else
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            } 
+            }
         }
 
+        [System.Web.Mvc.Authorize(Roles = "Admin")]
         public HttpResponseMessage DeleteCommunication(int id)
         {
             var communication = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Communication>().Find(id);
-            
+
             if (communication == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
@@ -98,7 +100,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, communication); 
+            return Request.CreateResponse(HttpStatusCode.OK, communication);
         }
     }
 }

@@ -8,7 +8,7 @@ using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.Controllers.api
 {
-#warning ilgili apiler oluştuurlunca bu methotlar taşınacak
+#warning ilgili apiler oluşturulunca bu methotlar taşınacak
     [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
     public class SharedDataApiController : ApiController
     {
