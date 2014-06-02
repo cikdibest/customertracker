@@ -291,6 +291,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\customerdetail.css" />
     <Content Include="Content\images\document-management-software.png" />
+    <Content Include="Content\images\loading.gif" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="favicon.ico" />

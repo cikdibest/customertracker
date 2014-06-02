@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Security;
 using CustomerTracker.Web.Infrastructure.Membership;
@@ -56,7 +57,7 @@ namespace CustomerTracker.Web.Business.UserBusiness
         {
             var repositoryUser = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>();
 
-            User user = repositoryUser.SelectAll().FirstOrDefault(usr => usr.Username == username);
+            User user = repositoryUser.SelectAll().Include("Roles").FirstOrDefault(usr => usr.Username == username);
 
             return user;
         }

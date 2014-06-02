@@ -9,6 +9,7 @@ using Ninject;
 
 namespace CustomerTracker.Web.Controllers.api
 {
+    [Authorize(Roles = "Admin,Personel")]
     public class MaterialApiController : ApiController
     {
         public class SearchModel
