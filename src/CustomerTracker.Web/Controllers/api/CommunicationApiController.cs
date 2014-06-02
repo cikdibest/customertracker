@@ -55,7 +55,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK); 
+            return Request.CreateResponse(HttpStatusCode.OK, communication); 
         }
 
         public HttpResponseMessage PostCommunication(Communication communication)

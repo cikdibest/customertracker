@@ -1,6 +1,6 @@
 ﻿
 
-customerApp.controller('materialController', function ($scope, materialFactory, customerFactory, communicationFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
+customerApp.controller('materialController', function ($scope, $filter, materialFactory, customerFactory, remoteMachineFactory, communicationFactory, remoteMachineConnectionTypeFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
 
     $scope.searchResult = {};
 
@@ -12,13 +12,16 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
 
     $scope.selectedMaterialIndex = null;
 
-    $scope.addCommunicationMode = false;
+    $scope.communicationAddMode = false;
+    
+    $scope.remoteMachineAddMode = false;
     
     $scope.genders = {};
     
     $scope.departments = {};
-      
 
+    $scope.remoteMachineConnectionTypes = {};
+       
     $scope.setActiveSearchType = function (key, value) {
         $scope.activeSearchType = { Key: key, Value: value };
     };
@@ -46,8 +49,20 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
 
     };
 
-    $scope.toogleAddCommunicationMode = function () {
-        $scope.addCommunicationMode = !$scope.addCommunicationMode;
+    $scope.toogleCommunicationAddMode = function () {
+        $scope.communicationAddMode = !$scope.communicationAddMode;
+    };
+
+    $scope.toggleCommunicationEditMode = function (communication) {
+        communication.editMode = !communication.editMode;
+    };
+            
+    $scope.toggleRemoteMachineAddMode = function () {
+        $scope.remoteMachineAddMode = !$scope.remoteMachineAddMode;
+    };
+           
+    $scope.toggleRemoteMachineEditMode = function (remoteMachine) {
+        remoteMachine.editMode = !remoteMachine.editMode;
     };
 
     $scope.loadGenders = function() {
@@ -65,26 +80,63 @@ customerApp.controller('materialController', function ($scope, materialFactory, 
             })
             .error(baseControllerFactory.errorCallback);
     };
+    
+    $scope.loadRemoteMachineConnectionTypes = function () {
+        remoteMachineConnectionTypeFactory.getSelectorRemoteMachineConnectionTypes()
+            .success(function (data) {
+                $scope.remoteMachineConnectionTypes = data;
+            })
+            .error(baseControllerFactory.errorCallback);
+    };
 
     $scope.addCommunication = function () {
         var customerId = $scope.selectedCustomer.Id;
-        $scope.communication.customerId = customerId;
+        $scope.communication.CustomerId = customerId;
         communicationFactory.addCommunication($scope.communication)
             .success(function (data, status, headers, config) {
-                $scope.toogleAddCommunicationMode();
+                $scope.toogleCommunicationAddMode();
                 $scope.communication = {};
                 notificationFactory.success();
                 return $scope.loadCustomer(customerId, 0);
             })
             .error(baseControllerFactory.errorCallback);
     };
+     
+    $scope.updateCommunication = function (communication) {
+        communicationFactory.updateCommunication(communication).success(function (data, status, headers, config) {
+            $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
+            notificationFactory.success();
+        }).error(baseControllerFactory.errorCallback);
+    };
+    
+    $scope.addRemoteMachine = function () {
+        var customerId = $scope.selectedCustomer.Id;
+        $scope.remoteMachine.CustomerId = customerId;
+        remoteMachineFactory.addRemoteMachine($scope.remoteMachine)
+            .success(function (data, status, headers, config) {
+                $scope.toggleRemoteMachineAddMode();
+                $scope.remoteMachine = {};
+                notificationFactory.success();
+                return $scope.loadCustomer(customerId, $scope.selectedMaterialIndex);
+            })
+            .error(baseControllerFactory.errorCallback);
+    };
 
+    $scope.updateRemoteMachine = function (remoteMachine) {
+        remoteMachineFactory.updateRemoteMachine(remoteMachine).success(function (data, status, headers, config) {
+            $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
+            notificationFactory.success();
+        }).error(baseControllerFactory.errorCallback);
+    };
+     
     $scope.init = function () {
         $scope.setActiveSearchType(1, "Customer");
 
         $scope.loadGenders();
 
         $scope.loadDepartments();
+
+        $scope.loadRemoteMachineConnectionTypes();
     };
 
     $scope.init();

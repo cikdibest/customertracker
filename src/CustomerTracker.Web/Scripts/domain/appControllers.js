@@ -151,6 +151,18 @@ var modalService = function ($modal) {
 
 };
 
+customerApp.filter('getById', function () {
+    return function(input, id) {
+        var i = 0, len = input.length;
+        for (; i < len; i++) {
+            if (+input[i].Id == +id) {
+                return input[i];
+            }
+        }
+        return null;
+    };
+});
+
 customerApp.service('modalService', ['$modal', modalService]);
 
 customerApp.factory('notificationFactory', function () {

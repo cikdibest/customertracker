@@ -4,282 +4,385 @@
 <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 @*<script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>*@
 <link href="~/Content/customerdetail.css" rel="stylesheet" />
- 
-    <nav class="navbar navbar-inverse" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">{{selectedCustomer.Name}}</a>
-            </div>
+
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">{{selectedCustomer.Name}}</a>
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <div>
-        <ul class="nav nav-pills nav-stacked col-md-2">
-            <li class="active"><a href="#tab_a" data-toggle="pill">Ön Bilgi</a></li>
-            <li><a href="#tab_c" data-toggle="pill">İletişim</a></li>
-            <li><a href="#tab_d" data-toggle="pill">Uzak Bağlantı</a></li>
-            <li><a href="#tab_e" data-toggle="pill">Diğer Bilgiler</a></li>
-        </ul>
-        <div class="tab-content col-md-10 well">
-            <div class="tab-pane active" id="tab_a">
-                <div class="panel panel-primary">
-                    <div class="panel-heading c-list">
-                        <span class="title">Ön Bilgi</span>
+<div>
+    <ul class="nav nav-pills nav-stacked col-md-2">
+        <li class="active"><a href="#tabSummary" data-toggle="pill">Ön Bilgi</a></li>
+        <li><a href="#tabCommunication" data-toggle="pill">İletişim</a></li>
+        <li><a href="#tabRemoteMachines" data-toggle="pill">Uzak Bağlantı</a></li>
+        <li><a href="#tabDataMaster" data-toggle="pill">Diğer Bilgiler</a></li>
+    </ul>
+    <div class="tab-content col-md-10 well">
+        <div class="tab-pane active" id="tabSummary">
+            <div class="panel panel-primary">
+                <div class="panel-heading c-list">
+                    <span class="title">Ön Bilgi</span>
 
+                </div>
+                <div>
+                    <div class="col-xs-12 col-sm-3">
+                        <img data-ng-src="{{selectedCustomer.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
                     </div>
                     <div>
-                        <div class="col-xs-12 col-sm-3">
-                            <img data-ng-src="{{selectedCustomer.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
-                        </div>
-                        <div>
-                            <br />
-                            <table class="table table-condensed table-responsive table-user-information">
-                                <tbody>
-                                    <tr>
-                                        <td>Ünvan:</td>
-                                        <td>{{selectedCustomer.Name}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Şehir</td>
-                                        <td>{{selectedCustomer.City.Name}}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Keywords</td>
-                                        <td>{{selectedCustomer.Keywords}}</td>
-                                    </tr>
+                        <br />
+                        <table class="table table-condensed table-responsive table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>Ünvan:</td>
+                                    <td>{{selectedCustomer.Name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Şehir</td>
+                                    <td>{{selectedCustomer.City.Name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Keywords</td>
+                                    <td>{{selectedCustomer.Keywords}}</td>
+                                </tr>
 
+                                <tr>
+                                    <td>Açıklama</td>
+                                    <td>{{selectedCustomer.Explanation}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Ürünler</td>
+                                    <td>
+                                        <header ng-repeat="product in selectedCustomer.Products">
+                                            <button type="button" class="btn btn-danger">{{product.Name}}</button>
+                                        </header>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tabCommunication">
+            <div class="panel panel-primary">
+                <div class="panel-heading c-list">
+                    <span class="title">İletişim kurulabilecek kişiler</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group c-search">
+                            <input type="text" class="form-control" id="contact-list-search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                            </span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button" data-ng-click="toogleCommunicationAddMode()"><span class="glyphicon glyphicon-plus"></span></button>
+                            </span>
+                        </div>
+                        <div ng-show="communicationAddMode">
+                            <table class="table table-condensed table-responsive">
+                                <tbody>
+                                    @*must set customerId from selectedCustomer*@
                                     <tr>
-                                        <td>Açıklama</td>
-                                        <td>{{selectedCustomer.Explanation}}</td>
+                                        <td>Ad</td>
+                                        <td>
+                                            <input ng-model="communication.FirstName" /></td>
                                     </tr>
                                     <tr>
-                                        <td>Ürünler</td>
+                                        <td>Soyad</td>
                                         <td>
-                                            <header ng-repeat="product in selectedCustomer.Products">
-                                                <button type="button" class="btn btn-danger">{{product.Name}}</button>
-                                            </header>
-                                        </td>
+                                            <input ng-model="communication.LastName" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mail</td>
+                                        <td>
+                                            <input ng-model="communication.Email" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sabit telefon</td>
+                                        <td>
+                                            <input ng-model="communication.HomePhoneNumber" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cep telefon</td>
+                                        <td>
+                                            <input ng-model="communication.MobilePhoneNumber" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Görev</td>
+                                        <td>
+                                            <select ng-model="communication.DepartmentId" ng-options="department.Key as department.Value for department in departments"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cinsiyet</td>
+                                        <td>
+                                            <select ng-model="communication.GenderId" ng-options="gender.Key as gender.Value for gender in genders"></select></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Avatar url</td>
+                                        <td>
+                                            <input ng-model="communication.AvatarImageUrl" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <button ng-click="addCommunication()">Ekle</button></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab_c">
-                <div class="panel panel-primary">
-                    <div class="panel-heading c-list">
-                        <span class="title">İletişim kurulabilecek kişiler</span>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="input-group c-search">
-                                <input type="text" class="form-control" id="contact-list-search">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
-                                </span>
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" type="button" data-ng-click="toogleAddCommunicationMode()"><span class="glyphicon glyphicon-plus"></span></button>
-                                </span>
-                            </div>
-                            <div ng-show="addCommunicationMode">
-                                <table class="table table-condensed table-responsive">
-                                    <tbody>
-                                        @*must set customerId from selectedCustomer*@
-                                        <tr>
-                                            <td>Ad</td>
-                                            <td>
-                                                <input ng-model="communication.FirstName" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Soyad</td>
-                                            <td>
-                                                <input ng-model="communication.LastName" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mail</td>
-                                            <td>
-                                                <input ng-model="communication.Email" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sabit telefon</td>
-                                            <td>
-                                                <input ng-model="communication.HomePhoneNumber" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cep telefon</td>
-                                            <td>
-                                                <input ng-model="communication.MobilePhoneNumber" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Görev</td>
-                                            <td>
-                                                <select ng-model="communication.DepartmentId" ng-options="department.Key as department.Value for department in departments"></select></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cinsiyet</td>
-                                            <td>
-                                                <select ng-model="communication.GenderId" ng-options="gender.Key as gender.Value for gender in genders"></select></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Avatar url</td>
-                                            <td>
-                                                <input ng-model="communication.AvatarImageUrl" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <button ng-click="addCommunication()">Ekle</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                <ul class="list-group" id="contact-list" ng-repeat="communication in selectedCustomer.Communications">
+                    <li class="list-group-item">
+                        <div class="col-xs-12 col-sm-3">
+                            <img ng-show="communication.editMode==null || !communication.editMode" data-ng-src="{{communication.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
+                            <input ng-show="communication.editMode" ng-model="communication.AvatarImageUrl" />
+                        </div>
+                        <div class="col-xs-12 col-sm-9">
+                            <span ng-show="communication.editMode==null || !communication.editMode" class="name">{{communication.FirstName}} {{communication.LastName}}</span><br />
+                            <input ng-show="communication.editMode" ng-model="communication.FirstName" />
+                            <input ng-show="communication.editMode" ng-model="communication.LastName" />
+                            <table class="table table-condensed table-responsive">
+                                <tbody>
+                                    <tr>
+                                        <td>Görev</td>
+                                        <td>
+                                            <span ng-show="communication.editMode==null || !communication.editMode">{{communication.Department.Name}}</span>
+                                            <select ng-show="communication.editMode" ng-model="communication.DepartmentId" ng-options="department.Key as department.Value for department in departments"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cinsiyet</td>
+                                        <td><span ng-show="communication.editMode==null || !communication.editMode">{{communication.GenderName}}</span>
+                                            <select ng-show="communication.editMode" ng-model="communication.GenderId" ng-options="gender.Key as gender.Value for gender in genders"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Home Phone</td>
+                                        <td>
+                                            <span ng-show="communication.editMode==null || !communication.editMode">{{communication.HomePhoneNumber}}</span>
+                                            <input ng-show="communication.editMode" ng-model="communication.HomePhoneNumber" />
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Mobile Phone</td>
+                                        <td>
+                                            <span ng-show="communication.editMode==null || !communication.editMode">{{communication.MobilePhoneNumber}}</span>
+                                            <input ng-show="communication.editMode" ng-model="communication.MobilePhoneNumber" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td>
+                                            <span ng-show="communication.editMode==null || !communication.editMode">{{communication.Email}}</span>
+                                            <input ng-show="communication.editMode" ng-model="communication.Email" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <i class="glyphicon glyphicon-edit" ng-show="communication.editMode==null || !communication.editMode" ng-click="toggleCommunicationEditMode(communication)">Edit</i>
+                                            &nbsp;&nbsp;&nbsp; 
+                                            <i ng-show="communication.editMode" class="glyphicon glyphicon-save" ng-click="updateCommunication(communication)">Save</i>
+                                            &nbsp;&nbsp;&nbsp; 
+                                             <i ng-show="communication.editMode" class="glyphicon glyphicon-remove" ng-click="toggleCommunicationEditMode(communication)">Cancel</i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="tab-pane" id="tabRemoteMachines">
+            <div class="panel panel-primary">
+                <div class="panel-heading c-list">
+                    <span class="title">Uzak bağlantı bilgileri</span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group c-search">
+                            <input type="text" class="form-control" id="contact-list-search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                            </span>
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button" data-ng-click="toggleRemoteMachineAddMode()"><span class="glyphicon glyphicon-plus"></span></button>
+                            </span>
+                        </div>
+                        <div ng-show="remoteMachineAddMode">
+                            <table class="table table-condensed table-responsive">
+                                <tbody>
+                                    @*must set customerId from selectedCustomer*@
+                                    <tr>
+                                        <td>Bağlantı Tipi</td>
+                                        <td>
+                                            <select ng-model="remoteMachine.RemoteMachineConnectionTypeId"
+                                                ng-options="remoteMachineConnectionType.Key as remoteMachineConnectionType.Value for remoteMachineConnectionType in remoteMachineConnectionTypes">
+                                            </select></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Ad</td>
+                                        <td>
+                                            <input ng-model="remoteMachine.DecryptedName" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adress(İp)</td>
+                                        <td>
+                                            <input ng-model="remoteMachine.DecryptedRemoteAddress" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kullanıcı Adı</td>
+                                        <td>
+                                            <input ng-model="remoteMachine.DecryptedUsername" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Şifre</td>
+                                        <td>
+                                            <input ng-model="remoteMachine.DecryptedPassword" /></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Açıklama</td>
+                                        <td>
+                                            <input ng-model="remoteMachine.Explanation" /></td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <button ng-click="addRemoteMachine()">Ekle</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-                    <ul class="list-group" id="contact-list" ng-repeat="communication in selectedCustomer.Communications">
-                        <li class="list-group-item">
-                            <div class="col-xs-12 col-sm-3">
-                                <img data-ng-src="{{communication.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
-                            </div>
-                            <div class="col-xs-12 col-sm-9">
-                                <span class="name">{{communication.FullName}}</span><br />
-                                <table class="table table-condensed table-responsive table-user-information">
-                                    <tbody>
-                                        <tr>
-                                            <td>Görev</td>
-                                            <td>{{communication.Department.Name}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cinsiyet</td>
-                                            <td>{{communication.GenderName}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Home Phone</td>
-                                            <td>{{communication.HomePhoneNumber}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mobile Phone</td>
-                                            <td>{{communication.MobilePhoneNumber}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email</td>
-                                            <td>{{communication.Email}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="clearfix"></div>
-                        </li>
-
-
-                    </ul>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab_d">
-                <div class="panel panel-primary">
-                    <div class="panel-heading c-list">
-                        <span class="title">Uzak bağlantı bilgileri</span>
-                    </div>
+                <ul class="list-group" id="contact-list" ng-repeat="remoteMachine in selectedCustomer.RemoteMachines">
 
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="input-group c-search">
-                                <input type="text" class="form-control" id="contact-list-search">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
-                                </span>
-                            </div>
+                    <li class="list-group-item">
+                        <div class="col-xs-12 col-sm-3">
+                            <img data-ng-src="{{remoteMachine.RemoteMachineConnectionType.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
+                        </div>
+                        <div class="col-xs-12 col-sm-9">
+                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" class="name">{{remoteMachine.DecryptedName}}</span><br />
+                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.DecryptedName" />
+                            <table class="table table-condensed table-responsive">
+                                <tbody>
+                                    <tr>
+                                        <td>Bağlantı Tipi</td>
+                                        <td>
+                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.RemoteMachineConnectionType.Name}}</span>
+                                            <select ng-show="remoteMachine.editMode" ng-model="remoteMachine.RemoteMachineConnectionTypeId" ng-options="remoteMachineConnectionType.Key as remoteMachineConnectionType.Value for remoteMachineConnectionType in remoteMachineConnectionTypes"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Adres(ip/url)</td>
+                                        <td>
+                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.DecryptedRemoteAddress}}</span>
+                                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.DecryptedRemoteAddress" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kullanıcı Adı</td>
+                                        <td>
+                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.DecryptedUsername}}</span>
+                                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.DecryptedUsername" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Şifre</td>
+                                        <td>
+                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.DecryptedPassword}}</span>
+                                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.DecryptedPassword" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Açıklama</td>
+                                        <td>
+                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.Explanation}}</span>
+                                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.Explanation" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <i class="glyphicon glyphicon-edit" ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" ng-click="toggleRemoteMachineEditMode(remoteMachine)">Edit</i>
+                                            &nbsp;&nbsp;&nbsp; 
+                                            <i ng-show="remoteMachine.editMode" class="glyphicon glyphicon-save" ng-click="updateRemoteMachine(remoteMachine)">Save</i>
+                                            &nbsp;&nbsp;&nbsp; 
+                                             <i ng-show="remoteMachine.editMode" class="glyphicon glyphicon-remove" ng-click="toggleRemoteMachineEditMode(remoteMachine)">Cancel</i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="tab-pane" id="tabDataMaster">
+            <div class="panel panel-primary">
+                <div class="panel-heading c-list">
+                    <span class="title">Diğer Bilgiler</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="input-group c-search">
+                            <input type="text" class="form-control" id="contact-list-search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                            </span>
                         </div>
                     </div>
-
-                    <ul class="list-group" id="contact-list" ng-repeat="remoteMachine in selectedCustomer.RemoteMachines">
-
-                        <li class="list-group-item">
-                            <div class="col-xs-12 col-sm-3">
-                                <img data-ng-src="{{remoteMachine.RemoteMachineConnectionType.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
-                            </div>
-                            <div class="col-xs-12 col-sm-9">
-                                <span class="name">{{remoteMachine.DecryptedName}}</span><br />
-                                <table class="table table-condensed table-responsive table-user-information">
-                                    <tbody>
-                                        <tr>
-                                            <td>Bağlantı Tipi</td>
-                                            <td>{{remoteMachine.RemoteMachineConnectionType.Name}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Adres(ip/url)</td>
-                                            <td>{{remoteMachine.DecryptedRemoteAddress}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kullanıcı Adı</td>
-                                            <td>{{remoteMachine.DecryptedUsername}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Şifre</td>
-                                            <td>{{remoteMachine.DecryptedPassword}}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Açıklama</td>
-                                            <td>{{remoteMachine.Explanation}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="clearfix"></div>
-                        </li>
-                    </ul>
                 </div>
-            </div>
-            <div class="tab-pane" id="tab_e">
-                <div class="panel panel-primary">
-                    <div class="panel-heading c-list">
-                        <span class="title">Diğer Bilgiler</span>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="input-group c-search">
-                                <input type="text" class="form-control" id="contact-list-search">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
-                                </span>
-                            </div>
+                <ul class="list-group" id="contact-list" ng-repeat="dataMaster in selectedCustomer.DataMasters">
+
+                    <li class="list-group-item">
+                        <div class="col-xs-12 col-sm-3">
+                            <img data-ng-src="{{dataMaster.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
                         </div>
-                    </div>
-
-                    <ul class="list-group" id="contact-list" ng-repeat="dataMaster in selectedCustomer.DataMasters">
-
-                        <li class="list-group-item">
-                            <div class="col-xs-12 col-sm-3">
-                                <img data-ng-src="{{dataMaster.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
-                            </div>
-                            <div class="col-xs-12 col-sm-9">
-                                <span class="name">{{dataMaster.Name}}</span><br />
-                                <table class="table table-condensed table-responsive table-user-information">
-                                    <tbody ng-repeat="dataDetail in dataMaster.DataDetails">
-                                        <tr>
-                                            <td>{{dataDetail.Key}}</td>
-                                            <td>{{dataDetail.DecryptedValue}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="clearfix"></div>
-                        </li>
-                    </ul>
-                </div>
+                        <div class="col-xs-12 col-sm-9">
+                            <span class="name">{{dataMaster.Name}}</span><br />
+                            <table class="table table-condensed table-responsive table-user-information">
+                                <tbody ng-repeat="dataDetail in dataMaster.DataDetails">
+                                    <tr>
+                                        <td>{{dataDetail.Key}}</td>
+                                        <td>{{dataDetail.DecryptedValue}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="clearfix"></div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
- 
+</div>
+
 <script>
 
 
