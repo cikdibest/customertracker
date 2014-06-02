@@ -27,16 +27,12 @@ namespace CustomerTracker.Web.Infrastructure.Membership
     {
         public bool IsInRole(string roleName)
         {
-            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
+            return  this.Roles.Contains(roleName);
+        }
 
-            User user = customerTrackerDataContext.Users.Include("Roles").SingleOrDefault(usr => usr.Username == this.UserName);
-
-            if (user == null)
-                return false;
-
-            var role = user.Roles.FirstOrDefault(rl => rl.RoleName == roleName);
-
-            return role != null && user.Roles.Contains(role);
+        public bool IsInRole(string[] roleNames)
+        {
+            return roleNames.Any(roleName => this.Roles.Contains(roleName));
         }
 
         public IIdentity Identity { get; private set; }
@@ -62,6 +58,7 @@ namespace CustomerTracker.Web.Infrastructure.Membership
         public string LastName
         { get; set; }
 
+        public string[] Roles { get; set; }
     }
 
     public class UserPrincipalSerializeModel
@@ -70,7 +67,7 @@ namespace CustomerTracker.Web.Infrastructure.Membership
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        public string[] Roles { get; set; }
     }
 
     //not used(optional)

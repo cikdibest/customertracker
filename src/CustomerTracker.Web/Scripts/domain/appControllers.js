@@ -180,6 +180,12 @@ customerApp.factory('notificationFactory', function () {
 customerApp.factory('baseControllerFactory', function (notificationFactory) {
     return {
         errorCallback: function (data, status, haders, config) {
+
+            if (status==403) {
+                notificationFactory.error(config.method + ' işlemi için yetkiniz yok.');
+                return;
+            }
+
             notificationFactory.error(data.Message);
             notificationFactory.error(data.ExceptionMessage);
             

@@ -103,7 +103,8 @@ namespace CustomerTracker.Web.Infrastructure.Membership
                     UserId = user.Id,
                     FirstName = user.FirstName,
                     LastName = user.LastName,
-                    UserName = user.Username
+                    UserName = user.Username,
+                    Roles = user.Roles.Select(q=>q.RoleName).ToArray()               
                 };
 
             var serializer = new JavaScriptSerializer();

@@ -252,6 +252,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
+    <Compile Include="Models\Attributes\CustomHttpAuthorizeAttribute.cs" />
     <Compile Include="Models\Attributes\HiddenItemAttribute.cs" />
     <Compile Include="Models\CustomerDetailModel.cs" />
     <Compile Include="Models\Domain\OperationStatus.cs" />

@@ -10,12 +10,13 @@ using System.Net.Http;
 using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Mvc;
+using CustomerTracker.Web.Models.Attributes;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
 {
-    [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
+    [CustomAuthorize(Roles = "Admin,Personel")]
     public class DataMasterApiController : ApiController
     {
         public IEnumerable<DataMaster> GetDataMasters()
@@ -37,7 +38,7 @@ namespace CustomerTracker.Web.Controllers.api
             return dataMaster;
         }
 
-        [System.Web.Mvc.Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         public HttpResponseMessage PutDataMaster(int id, DataMaster dataMaster)
         {
             if (!ModelState.IsValid)
@@ -84,7 +85,7 @@ namespace CustomerTracker.Web.Controllers.api
             }
         }
 
-        [System.Web.Mvc.Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         public HttpResponseMessage DeleteDataMaster(int id)
         {
             var dataMaster = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>().Find(id);

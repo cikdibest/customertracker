@@ -4,14 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CustomerTracker.Web.Models.Attributes;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
 {
-    [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
+    [CustomAuthorize(Roles = "Admin,Personel")]
     public class RemoteMachineApiController : ApiController
     {
+
         public dynamic GetRemoteMachines(int pageNumber, int pageSize, string sortBy, string sortDir)
         {
             var skippedRow = (pageNumber - 1) * pageSize;
@@ -43,7 +45,7 @@ namespace CustomerTracker.Web.Controllers.api
             return remoteMachine;
         }
 
-        [System.Web.Mvc.Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         public HttpResponseMessage PutRemoteMachine(int id, RemoteMachine remoteMachine)
         {
             if (!ModelState.IsValid)
@@ -90,7 +92,7 @@ namespace CustomerTracker.Web.Controllers.api
             }
         }
 
-        [System.Web.Mvc.Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         public HttpResponseMessage DeleteRemoteMachine(int id)
         {
             var remoteMachine = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Find(id);

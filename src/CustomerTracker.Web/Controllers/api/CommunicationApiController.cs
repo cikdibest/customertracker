@@ -5,12 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CustomerTracker.Web.Models.Attributes;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
 {
-    [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
+    [CustomAuthorize(Roles = "Admin,Personel")]
     public class CommunicationApiController : ApiController
     {
         public IEnumerable<Communication> GetCommunications()
@@ -32,7 +33,7 @@ namespace CustomerTracker.Web.Controllers.api
             return communication;
         }
 
-        [System.Web.Mvc.Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         public HttpResponseMessage PutCommunication(int id, Communication communication)
         {
             if (!ModelState.IsValid)
@@ -79,7 +80,7 @@ namespace CustomerTracker.Web.Controllers.api
             }
         }
 
-        [System.Web.Mvc.Authorize(Roles = "Admin")]
+        [CustomAuthorize(Roles = "Admin")]
         public HttpResponseMessage DeleteCommunication(int id)
         {
             var communication = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Communication>().Find(id);

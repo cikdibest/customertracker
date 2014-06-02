@@ -123,6 +123,8 @@ namespace CustomerTracker.Web
 
             newUser.LastName = serializeModel.LastName;
 
+            newUser.Roles = serializeModel.Roles;
+
             HttpContext.Current.User = newUser;
 
             //var principal = HttpContext.Current.User;

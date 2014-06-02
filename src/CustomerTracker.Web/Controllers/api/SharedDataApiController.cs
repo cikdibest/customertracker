@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using CustomerTracker.Web.Models.Attributes;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.Enums;
 using CustomerTracker.Web.Utilities;
@@ -9,7 +10,7 @@ using CustomerTracker.Web.Utilities.Helpers;
 namespace CustomerTracker.Web.Controllers.api
 {
 #warning ilgili apiler oluşturulunca bu methotlar taşınacak
-    [System.Web.Mvc.Authorize(Roles = "Admin,Personel")]
+    [CustomAuthorize(Roles = "Admin,Personel")]
     public class SharedDataApiController : ApiController
     {
         public List<KeyValuePair<int, string>> GetSelectorCities()
