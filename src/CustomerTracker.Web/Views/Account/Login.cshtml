@@ -94,94 +94,81 @@
     }
 </style>
 
-<div class="container">
-    <div class="row">
+
+@if (Request.IsAuthenticated && !(User.IsInRole("Admin") || User.IsInRole("Personel")))
+{
+    <span style="font-size: 20px; color: red">Sistem kaydınız yapıldı.İşlem yetkisi için lütfen sistem yöneticinize başvurunuz!</span>
+}
+else
+{
+    <div class="container">
+        <div class="row">
 
 
+            @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
+            { <h3 class="heading-desc">Ankaref Müşteri Takip Platformu</h3>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="social-box">
+                    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+                </div>
+            }
 
-        @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
-        { <h3 class="heading-desc">Ankaref Müşteri Takip Platformu</h3>
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
-            <div class="social-box">
-                @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-            </div>
-        }
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
+            {      @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="main">
 
-        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
-        {      @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
-            <div class="main">
+                    <input type="text" class="form-control" placeholder="Username" autofocus name="UserName" id="UserName" />
+                    <input type="password" class="form-control" placeholder="Password" name="Password" id="Password" />
 
-                <input type="text" class="form-control" placeholder="Username" autofocus name="UserName" id="UserName" />
-                <input type="password" class="form-control" placeholder="Password" name="Password" id="Password" />
-
-                <span class="clearfix"></span>
-            </div>
-            <div class="login-footer">
-                <div class="row">
-                    <div class="col-xs-6 col-md-6">
-                        <div class="left-section">
-                            <a href="">Şifremi unuttum?</a>
-                            <br />
-                            <a href="@Url.Action("Register")">Kayıt ol</a>
+                    <span class="clearfix"></span>
+                </div>
+                <div class="login-footer">
+                    <div class="row">
+                        <div class="col-xs-6 col-md-6">
+                            <div class="left-section">
+                                <a href="">Şifremi unuttum?</a>
+                                <br />
+                                <a href="@Url.Action("Register")">Kayıt ol</a>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 col-md-6 pull-right">
+                            <button type="submit" class="btn btn-large btn-danger pull-right">Giriş</button>
                         </div>
                     </div>
-                    <div class="col-xs-6 col-md-6 pull-right">
-                        <button type="submit" class="btn btn-large btn-danger pull-right">Giriş</button>
-                    </div>
-                </div>
 
-            </div>
-        }
+                </div>
+            }
+        </div>
     </div>
-</div>
-
-@*<div class="well span5 offset2">
-    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "signin" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        <fieldset>
-            <div class="row">
-                <div class="span4 section-signin">
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.UserName, new { @class = "control-label txt-label" })
-                        <div class="controls">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "span4 input-big", size = "30" })
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "control-label txt-label" })
-                        <div class="controls">
-                            @Html.PasswordFor(m => m.Password, new { @class = "span4 input-big", type = "password", size = "30" })
-                            <p class="help-block"></p>
-                        </div>
-                        <input name="user[remember_me]" type="hidden" value="0" />
-                        <input class="save" id="user_remember_me" name="user[remember_me]" type="checkbox" value="1" class="checkbox" />
-                        <label for="user_remember_me" style="display: inline-block">Beni Hatırla</label>
-                        <input class="span4 btn btn-large" name="commit" type="submit" value="Giriş" />
-                        <a href="#">Şifremi Unuttum</a>
-                    </div>
-                </div>
-
-            </div>
-
-        </fieldset>
+ 
+}
+<script>
+    var browser = {
+        chrome: false,
+        mozilla: false,
+        opera: false,
+        msie: false,
+        safari: false
+    };
+    var sUsrAg = navigator.userAgent;
+    if (sUsrAg.indexOf("Chrome") > -1) {
+        browser.chrome = true;
+    } else if (sUsrAg.indexOf("Safari") > -1) {
+        browser.safari = true;
+    } else if (sUsrAg.indexOf("Opera") > -1) {
+        browser.opera = true;
+    } else if (sUsrAg.indexOf("Firefox") > -1) {
+        browser.mozilla = true;
+    } else if (sUsrAg.indexOf("MSIE") > -1) {
+        browser.msie = true;
     }
-    <hr/>
-    <div class="span7 section-signup">
-
-        <section class="social" id="socialLoginForm">
-            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-
-        </section>
-    </div>
-</div>*@
+    if (browser.chrome == false) {
+        toastr.options.positionClass = "toast-top-full-width";
+        toastr.success('Tarayıcı olarak Google Chrome kullanmanızı öneririz!');
+    }
+</script>
 
 
-
-@*@section CustomScripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+ 
