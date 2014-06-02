@@ -5,6 +5,8 @@ GO
 			INSERT INTO ROLES (RoleName,IsActive,IsDeleted) VALUES('Admin',1,0)
             INSERT INTO ROLES (RoleName,IsActive,IsDeleted) VALUES('Personel',1,0)
             INSERT INTO ROLES (RoleName,IsActive,IsDeleted) VALUES('Customer',1,0)
+			  INSERT INTO ROLES (RoleName,IsActive,IsDeleted) VALUES('Anonymous',1,0)
+
 
 			
 SET IDENTITY_INSERT [dbo].[RemoteMachineConnectionTypes] ON

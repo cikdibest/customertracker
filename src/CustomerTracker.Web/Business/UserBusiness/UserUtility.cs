@@ -35,7 +35,7 @@ namespace CustomerTracker.Web.Business.UserBusiness
                       UserName = socialUserRegisterModel.UserName,
                       FirstName = socialUserRegisterModel.FirstName,
                       LastName = socialUserRegisterModel.LastName,
-                  },ConfigurationHelper.RolePersonel);
+                  },ConfigurationHelper.RoleAnonymous);
              
             user.AddSocialAccount(socialUserRegisterModel.Provider, socialUserRegisterModel.ProviderUserId);
 
