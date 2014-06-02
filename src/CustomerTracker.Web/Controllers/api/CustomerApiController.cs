@@ -52,6 +52,7 @@ namespace CustomerTracker.Web.Controllers.api
                  .Include("City")
                  .Include("Communications.Department")
                  .Include("RemoteMachines")
+                 .Include("RemoteMachines.RemoteMachineConnectionType")
                  .Include("DataMasters")
                  .Include("DataMasters.DataDetails")
                  .SingleOrDefault(q => q.Id == id);
