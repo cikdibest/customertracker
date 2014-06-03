@@ -1,6 +1,6 @@
 ﻿
 
-customerApp.controller('materialController', function ($scope, $filter, materialFactory, customerFactory, remoteMachineFactory, communicationFactory, remoteMachineConnectionTypeFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
+customerApp.controller('materialController', function ($scope, $filter, materialFactory, customerFactory, remoteMachineFactory, communicationFactory,modalService ,remoteMachineConnectionTypeFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
 
     $scope.searchResult = {};
 
@@ -109,6 +109,26 @@ customerApp.controller('materialController', function ($scope, $filter, material
         }).error(baseControllerFactory.errorCallback);
     };
     
+    $scope.deleteCommunication = function (communication) {
+        var modalOptions = {
+            closeButtonText: 'Cancel',
+            actionButtonText: 'Delete Row',
+            headerText: 'Delete ' + communication.FullName + '?',
+            bodyText: 'Are you sure you want to delete this row?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+            if (result != 'ok') return;
+
+            communicationFactory.deleteCommunication(communication).success(function (data, status, headers, config) {
+                $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
+                notificationFactory.success();
+            }).error(baseControllerFactory.errorCallback);
+        });
+           
+     
+    };
+    
     $scope.addRemoteMachine = function () {
         var customerId = $scope.selectedCustomer.Id;
         $scope.remoteMachine.CustomerId = customerId;
@@ -128,6 +148,27 @@ customerApp.controller('materialController', function ($scope, $filter, material
             notificationFactory.success();
         }).error(baseControllerFactory.errorCallback);
     };
+    
+    $scope.deleteRemoteMachine = function (remoteMachine) {
+        var modalOptions = {
+            closeButtonText: 'Cancel',
+            actionButtonText: 'Delete Row',
+            headerText: 'Delete ' + remoteMachine.DecryptedName + '?',
+            bodyText: 'Are you sure you want to delete this row?'
+        };
+
+        modalService.showModal({}, modalOptions).then(function (result) {
+            if (result != 'ok') return;
+
+            remoteMachineFactory.deleteRemoteMachine(remoteMachine).success(function (data, status, headers, config) {
+                $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
+                notificationFactory.success();
+            }).error(baseControllerFactory.errorCallback);
+        });
+
+
+    };
+
      
     $scope.init = function () {
         $scope.setActiveSearchType(1, "Customer");

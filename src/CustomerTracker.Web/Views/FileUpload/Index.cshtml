@@ -57,7 +57,7 @@
 
 <script>
     function GetUploadFiles(uploadFileTypeId) {
-        $.post("../FileUpload/GetUploadFiles?uploadFileTypeId=" + uploadFileTypeId, function (data) {
+        $.post("/ct/FileUpload/GetUploadFiles?uploadFileTypeId=" + uploadFileTypeId, function (data) {
             $("#result").html(data);
         });
     }

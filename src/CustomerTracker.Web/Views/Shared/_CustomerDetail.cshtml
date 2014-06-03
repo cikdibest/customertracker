@@ -147,7 +147,7 @@
                 <ul class="list-group" id="contact-list" ng-repeat="communication in selectedCustomer.Communications">
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
-                          
+
                             <img ng-show="communication.editMode==null || !communication.editMode" data-ng-src="{{ (communication.AvatarImageUrl== '' ||communication.AvatarImageUrl==null) ?  (communication.GenderId==1 ? '\\ct\\Content\\images\\boy.jpg' : '\\ct\\Content\\images\\lady.jpg') : communication.AvatarImageUrl }}" alt="Resim yok" class="img-responsive img-circle" />
                             <input ng-show="communication.editMode" ng-model="communication.AvatarImageUrl" />
                         </div>
@@ -195,11 +195,13 @@
                                     <tr>
                                         <td></td>
                                         <td>
-                                            <i class="glyphicon glyphicon-edit" ng-show="communication.editMode==null || !communication.editMode" ng-click="toggleCommunicationEditMode(communication)">Edit</i>
+                                            <i class="glyphicon glyphicon-edit" ng-show="communication.editMode==null || !communication.editMode" ng-click="toggleCommunicationEditMode(communication)">Güncelle</i>
                                             &nbsp;&nbsp;&nbsp; 
-                                            <i ng-show="communication.editMode" class="glyphicon glyphicon-save" ng-click="updateCommunication(communication)">Save</i>
+                                                  <i class="glyphicon glyphicon-trash" ng-show="communication.editMode==null || !communication.editMode" ng-click="deleteCommunication(communication)">Sil</i>
                                             &nbsp;&nbsp;&nbsp; 
-                                             <i ng-show="communication.editMode" class="glyphicon glyphicon-remove" ng-click="toggleCommunicationEditMode(communication)">Cancel</i>
+                                            <i ng-show="communication.editMode" class="glyphicon glyphicon-save" ng-click="updateCommunication(communication)">Kaydet</i>
+                                            &nbsp;&nbsp;&nbsp; 
+                                             <i ng-show="communication.editMode" class="glyphicon glyphicon-remove" ng-click="toggleCommunicationEditMode(communication)">İptal</i>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -328,6 +330,8 @@
                                         <td></td>
                                         <td>
                                             <i class="glyphicon glyphicon-edit" ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" ng-click="toggleRemoteMachineEditMode(remoteMachine)">Edit</i>
+                                               &nbsp;&nbsp;&nbsp; 
+                                                  <i class="glyphicon glyphicon-trash" ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" ng-click="deleteRemoteMachine(remoteMachine)">Sil</i>
                                             &nbsp;&nbsp;&nbsp; 
                                             <i ng-show="remoteMachine.editMode" class="glyphicon glyphicon-save" ng-click="updateRemoteMachine(remoteMachine)">Save</i>
                                             &nbsp;&nbsp;&nbsp; 

@@ -2,70 +2,70 @@
 //var materialSearchUrl = '/material/search/getMaterials';
 
 var materialApiUrl = {
-    searchmaterials: '/api/materialapi/searchmaterials/',
+    searchmaterials: '/ct/api/materialapi/searchmaterials/',
  
 
 };
 
 var dataMasterApiUrl = {
-    getdatamasters: '/api/datamasterapi/getdatamasters/',
-    getdatamaster: '/api/datamasterapi/getdatamaster/',
-    putdatamaster: '/api/datamasterapi/putdatamaster/',
-    postdatamaster: '/api/datamasterapi/postdatamaster/',
-    deletedatamaster: '/api/datamasterapi/deletedatamaster/',
+    getdatamasters: '/ct/api/datamasterapi/getdatamasters/',
+    getdatamaster: '/ct/api/datamasterapi/getdatamaster/',
+    putdatamaster: '/ct/api/datamasterapi/putdatamaster/',
+    postdatamaster: '/ct/api/datamasterapi/postdatamaster/',
+    deletedatamaster: '/ct/api/datamasterapi/deletedatamaster/',
 };
 
 var dataDetailApiUrl = {
-    getdatadetails: '/api/datadetailapi/getdatadetails/',
-    getdatadetail: '/api/datadetailapi/getdatadetail/',
-    putdatadetail: '/api/datadetailapi/putdatadetail/',
-    postdatadetail: '/api/datadetailapi/postdatadetail/',
-    deletedatadetail: '/api/datadetailapi/deletedatadetail/',
+    getdatadetails: '/ct/api/datadetailapi/getdatadetails/',
+    getdatadetail: '/ct/api/datadetailapi/getdatadetail/',
+    putdatadetail: '/ct/api/datadetailapi/putdatadetail/',
+    postdatadetail: '/ct/api/datadetailapi/postdatadetail/',
+    deletedatadetail: '/ct/api/datadetailapi/deletedatadetail/',
 };
 
 var sharedDataApiUrl = {
-    getselectorcities: '/api/shareddataapi/getselectorcities/',
-    getselectorgenders: '/api/shareddataapi/getselectorgenders/',
+    getselectorcities: '/ct/api/shareddataapi/getselectorcities/',
+    getselectorgenders: '/ct/api/shareddataapi/getselectorgenders/',
 };
 
 var remoteMachineConnectionTypeApiUrl = {
-    getselectorremotemachineconnectiontypes: '/api/remotemachineconnectiontypeapi/getselectorremotemachineconnectiontypes/',
+    getselectorremotemachineconnectiontypes: '/ct/api/remotemachineconnectiontypeapi/getselectorremotemachineconnectiontypes/',
 };
 
 var remoteMachineApiUrl = {
-    getremotemachines: '/api/remotemachineapi/getremotemachines/',
-    getremotemachine: '/api/remotemachineapi/getremotemachine/',
-    putremotemachine: '/api/remotemachineapi/putremotemachine/',
-    postremotemachine: '/api/remotemachineapi/postremotemachine/',
-    deleteremotemachine: '/api/remotemachineapi/deleteremotemachine/',
+    getremotemachines: '/ct/api/remotemachineapi/getremotemachines/',
+    getremotemachine: '/ct/api/remotemachineapi/getremotemachine/',
+    putremotemachine: '/ct/api/remotemachineapi/putremotemachine/',
+    postremotemachine: '/ct/api/remotemachineapi/postremotemachine/',
+    deleteremotemachine: '/ct/api/remotemachineapi/deleteremotemachine/',
 };
 
 var departmentApiUrl = {
-    getdepartments: '/api/departmentapi/getdepartments/',
-    getdepartment: '/api/departmentapi/getdepartment/',
-    putdepartment: '/api/departmentapi/putdepartment/',
-    postdepartment: '/api/departmentapi/postdepartment/',
-    deletedepartment: '/api/departmentapi/deletedepartment/',
-    getselectordepartments: '/api/departmentapi/getselectordepartments/',
+    getdepartments: '/ct/api/departmentapi/getdepartments/',
+    getdepartment: '/ct/api/departmentapi/getdepartment/',
+    putdepartment: '/ct/api/departmentapi/putdepartment/',
+    postdepartment: '/ct/api/departmentapi/postdepartment/',
+    deletedepartment: '/ct/api/departmentapi/deletedepartment/',
+    getselectordepartments: '/ct/api/departmentapi/getselectordepartments/',
     
 };
 
 var customerApiUrl = {
-    getcustomers: '/api/customerapi/getcustomers/',
-    getcustomer: '/api/customerapi/getcustomer/',
-    putcustomer: '/api/customerapi/putcustomer/',
-    postcustomer: '/api/customerapi/postcustomer/',
-    deletecustomer: '/api/customerapi/deletecustomer/',
-    getselectorcustomers: '/api/customerapi/getselectorcustomers/',
-    getcustomeradvanceddetail: '/api/customerapi/getcustomeradvanceddetail/',
+    getcustomers: '/ct/api/customerapi/getcustomers/',
+    getcustomer: '/ct/api/customerapi/getcustomer/',
+    putcustomer: '/ct/api/customerapi/putcustomer/',
+    postcustomer: '/ct/api/customerapi/postcustomer/',
+    deletecustomer: '/ct/api/customerapi/deletecustomer/',
+    getselectorcustomers: '/ct/api/customerapi/getselectorcustomers/',
+    getcustomeradvanceddetail: '/ct/api/customerapi/getcustomeradvanceddetail/',
 };
 
 var communicationApiUrl = {
-    getcommunications: '/api/communicationapi/getcommunications/',
-    getcommunication: '/api/communicationapi/getcommunication/',
-    putcommunication: '/api/communicationapi/putcommunication/',
-    postcommunication: '/api/communicationapi/postcommunication/',
-    deletecommunication: '/api/communicationapi/deletecommunication/',
+    getcommunications: '/ct/api/communicationapi/getcommunications/',
+    getcommunication: '/ct/api/communicationapi/getcommunication/',
+    putcommunication: '/ct/api/communicationapi/putcommunication/',
+    postcommunication: '/ct/api/communicationapi/postcommunication/',
+    deletecommunication: '/ct/api/communicationapi/deletecommunication/',
 };
 
 angular.module('SharedServices', [])
@@ -107,7 +107,7 @@ var modalService = function ($modal) {
         backdrop: true,
         keyboard: true,
         modalFade: true,
-        templateUrl: '../modal.html'
+        templateUrl: '/ct/modal.html'
     };
 
     var modalOptions = {
