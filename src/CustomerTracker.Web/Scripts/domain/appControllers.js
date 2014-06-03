@@ -107,7 +107,7 @@ var modalService = function ($modal) {
         backdrop: true,
         keyboard: true,
         modalFade: true,
-        templateUrl: '/modal.html'
+        templateUrl: '../modal.html'
     };
 
     var modalOptions = {
@@ -135,15 +135,15 @@ var modalService = function ($modal) {
         angular.extend(tempModalOptions, modalOptions, customModalOptions);
 
         if (!tempModalDefaults.controller) {
-            tempModalDefaults.controller = function ($scope, $modalInstance) {
+            tempModalDefaults.controller = function($scope, $modalInstance) {
                 $scope.modalOptions = tempModalOptions;
-                $scope.modalOptions.ok = function (result) {
+                $scope.modalOptions.ok = function(result) {
                     $modalInstance.close('ok');
                 };
-                $scope.modalOptions.close = function (result) {
+                $scope.modalOptions.close = function(result) {
                     $modalInstance.close('cancel');
                 };
-            }
+            };
         }
 
         return $modal.open(tempModalDefaults).result;
