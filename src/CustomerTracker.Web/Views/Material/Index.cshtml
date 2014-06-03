@@ -25,33 +25,34 @@
     }
 </style>
 <div id="divMain" ng-controller="materialController">
+     
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="input-group">
+                    <div class="input-group-btn search-panel">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span>{{activeSearchType.Value}}</span>
+                        </button>
 
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="row">
-                <div class="col-lg-6">
-                    <input class="form-control"   ng-model="searchCriteria" required id="searchInput" />
-                </div>
-                <div class="col-lg-3">
-                    <button class="btn btn-default" ng-click="searchMaterials()" ng-disabled="!searchCriteria.length">
-                        <span class="glyphicon glyphicon-search">Ara</span>
-                    </button>
-                </div>
-                <div class="col-lg-3 btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <span>{{activeSearchType.Value}}</span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        @foreach (KeyValuePair<int, string> item in ViewBag.SearchTypes)
-                        {
-                            <li><a href="#" ng-click="setActiveSearchType(@item.Key,'@item.Value')">@item.Value</a></li>    
-                        }
-                    </ul>
+                        <ul class="dropdown-menu" role="menu">
+                            @foreach (KeyValuePair<int, string> item in ViewBag.SearchTypes)
+                            {
+                                <li><a href="#" ng-click="setActiveSearchType(@item.Key,'@item.Value')">@item.Value</a></li>    
+                            }
+                        </ul>
+                    </div>
+
+                    <input id="searchInput" type="text" class="form-control" name="x" placeholder="Müşteri yada iletişim adı giriniz..." ng-model="searchCriteria">
+
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" ng-click="searchMaterials()" ng-disabled="!searchCriteria.length"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
                 </div>
             </div>
-            <hr />
-            <div class="row">
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-3" >
                 <div class="list-group panel panel-default" ng-repeat="customer in searchResult.materials" ng-if="searchResult.searchTypeId=='1'" ng-class="{sel: $index == selectedMaterialIndex}">
                     <div class="panel-heading panel-danger">
                         <h3 class="panel-title">{{customer.Name}}</h3>
@@ -62,11 +63,11 @@
                                 <tr>
                                     <td>Şehir</td>
                                     <td>{{customer.City.Name}}</td>
-                                     <td colspan="2" align="right">
+                                    <td colspan="2" align="right">
                                         <a href="#" ng-click="loadCustomer(customer.Id,$index)" class="btn btn-success">Müşteri'ye git</a>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -103,12 +104,13 @@
 
                 </div>
             </div>
-        </div>
-        <div class="col-lg-7 col-lg-offset-1" data-ng-show="selectedCustomer!=null">
-            @{Html.RenderPartial("_CustomerDetail");}
-        </div>
+            <div class="col-lg-7 col-lg-offset-1" data-ng-show="selectedCustomer!=null">
+                @{Html.RenderPartial("_CustomerDetail");}
+            </div>
 
-    </div>
+        </div>
+     
+
 </div>
 
 
@@ -124,6 +126,9 @@
 
             scope.searchMaterials();
         }
+
+
     });
+
 
 </script>
