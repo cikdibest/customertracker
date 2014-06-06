@@ -50,6 +50,16 @@ var departmentApiUrl = {
     
 };
 
+var productApiUrl = {
+    getproducts: '/ct/api/productapi/getproducts/',
+    getproduct: '/ct/api/productapi/getproduct/',
+    putproduct: '/ct/api/productapi/putproduct/',
+    postproduct: '/ct/api/productapi/postproduct/',
+    deleteproduct: '/ct/api/productapi/deleteproduct/', 
+
+};
+
+
 var customerApiUrl = {
     getcustomers: '/ct/api/customerapi/getcustomers/',
     getcustomer: '/ct/api/customerapi/getcustomer/',
