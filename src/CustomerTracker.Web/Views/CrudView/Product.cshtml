@@ -73,6 +73,10 @@
             border: 1px solid #94a0b4;
             color: #000;
         }
+
+        .active {
+            background-color: green
+        }
 </style>
 
 <script src="~/Scripts/domain/product/productFactory.js"></script>
@@ -84,7 +88,7 @@
     <script type="text/ng-template" id="SubProductTreeViewTemplate.html">
       
      <li> 
-        <span ng-show="(subProduct.isEditMode==null || !subProduct.isEditMode)"> {{subProduct.Name}}</span>  
+        <span ng-show="(subProduct.isEditMode==null || !subProduct.isEditMode)" ng-class="{active: subProduct.isSubProductCreateMode}"> {{subProduct.Name}}</span>  
         <input ng-show="subProduct.isEditMode" ng-model="subProduct.Name"/> 
         <i class="glyphicon glyphicon-trash" ng-show="(subProduct.isEditMode==null || !subProduct.isEditMode) && (subProduct.isSubProductCreateMode==null || !subProduct.isSubProductCreateMode)" ng-click="deleteProduct(subProduct)">Sil</i> 
         <i class="glyphicon glyphicon-edit" ng-show="(subProduct.isEditMode==null || !subProduct.isEditMode) &&  (subProduct.isSubProductCreateMode==null || !subProduct.isSubProductCreateMode)" ng-click="toggleProductEditMode(subProduct)">Güncelle</i> 
@@ -100,7 +104,7 @@
 
     <script type="text/ng-template" id="ProductTreeViewTemplate.html">
      <li>
-         <span ng-show="(product.isEditMode==null || !product.isEditMode)"> {{product.Name}}</span>  
+         <span ng-show="(product.isEditMode==null || !product.isEditMode)" ng-class="{active: product.isSubProductCreateMode}"> {{product.Name}}</span>  
         <input ng-show="product.isEditMode" ng-model="product.Name"/> 
         <i class="glyphicon glyphicon-trash" ng-show="(product.isEditMode==null || !product.isEditMode) && (product.isSubProductCreateMode==null || !product.isSubProductCreateMode)" ng-click="deleteProduct(product)">Sil</i> 
         <i class="glyphicon glyphicon-edit" ng-show="(product.isEditMode==null || !product.isEditMode) &&  (product.isSubProductCreateMode==null || !product.isSubProductCreateMode)" ng-click="toggleProductEditMode(product)">Güncelle</i> 

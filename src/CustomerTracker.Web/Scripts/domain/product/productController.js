@@ -7,7 +7,7 @@ customerApp.controller('productController', function ($scope, productFactory, no
         return $scope.loadProducts();
     };
 
-    $scope.products = [];
+    $scope.subProducts = [];
      
     $scope.filterIsParentProduct = function (product) {
         return product.ParentProductId == null;
@@ -69,7 +69,7 @@ customerApp.controller('productController', function ($scope, productFactory, no
 
     $scope.loadProducts = function () {
         return productFactory.getProducts().success(function (data, status) {
-            $scope.products = data;
+            $scope.subProducts = data;
         }).error(baseControllerFactory.errorCallback);
     };
 
