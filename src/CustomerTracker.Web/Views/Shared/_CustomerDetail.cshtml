@@ -31,11 +31,14 @@
             <div class="panel panel-primary">
                 <div class="panel-heading c-list">
                     <span class="title">Ön Bilgi</span>
-
+                    <i class="glyphicon glyphicon-edit pull-right" ng-click="toggleCustomerEditMode()" ng-show="customerEditMode">İptal</i>
+                    <i class="glyphicon glyphicon-edit pull-right" ng-click="toggleCustomerEditMode()" ng-show="customerEditMode">Kaydet</i>
+                    <i class="glyphicon glyphicon-edit pull-right" ng-click="toggleCustomerEditMode()" ng-show="!customerEditMode">Güncelle</i>
                 </div>
                 <div>
                     <div class="col-xs-12 col-sm-3">
                         <img data-ng-src="{{selectedCustomer.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
+
                     </div>
                     <div>
                         <br />
@@ -63,7 +66,11 @@
                                     <td>
                                         <header ng-repeat="product in selectedCustomer.Products">
                                             <button type="button" class="btn btn-danger">{{product.Name}}</button>
-                                        </header>
+                                            <i ng-show="customerEditMode" class="glyphicon glyphicon-trash" ng-click="removeProductFromCustomer(product)">Sil</i>
+                                        </header> 
+                                        <select  ng-show="customerEditMode"  ng-model="newProduct.Id" ng-options="product.Id as product.Name group by product.ParentProduct.Name for product in allProducts | filter: filterCanAddProductToCustomer : product">
+                                        </select>
+                                        <i class="glyphicon glyphicon-plus" ng-show="customerEditMode" ng-click="addProductToCustomer()">Ekle</i>
                                     </td>
                                 </tr>
                             </tbody>
@@ -330,7 +337,7 @@
                                         <td></td>
                                         <td>
                                             <i class="glyphicon glyphicon-edit" ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" ng-click="toggleRemoteMachineEditMode(remoteMachine)">Edit</i>
-                                               &nbsp;&nbsp;&nbsp; 
+                                            &nbsp;&nbsp;&nbsp; 
                                                   <i class="glyphicon glyphicon-trash" ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" ng-click="deleteRemoteMachine(remoteMachine)">Sil</i>
                                             &nbsp;&nbsp;&nbsp; 
                                             <i ng-show="remoteMachine.editMode" class="glyphicon glyphicon-save" ng-click="updateRemoteMachine(remoteMachine)">Save</i>
@@ -391,19 +398,19 @@
 <script>
 
 
-    //$(function () {
-
-    //    $('#contact-list').searchable({
-    //        searchField: '#contact-list-search',
-    //        selector: 'li',
-    //        childSelector: '.col-xs-12',
-    //        show: function (elem) {
-    //            elem.slideDown(100);
-    //        },
-    //        hide: function (elem) {
-    //            elem.slideUp(100);
-    //        }
-    //    });
-    //});
+    $(function () {
+        $('.selectpicker').selectpicker();
+        //$('#contact-list').searchable({
+        //    searchField: '#contact-list-search',
+        //    selector: 'li',
+        //    childSelector: '.col-xs-12',
+        //    show: function (elem) {
+        //        elem.slideDown(100);
+        //    },
+        //    hide: function (elem) {
+        //        elem.slideUp(100);
+        //    }
+        //});
+    });
 
 </script>

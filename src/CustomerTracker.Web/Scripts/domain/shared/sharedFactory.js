@@ -7,7 +7,10 @@ customerApp.factory('sharedFactory', function ($http) {
         },
         getSelectorGenders: function () {
             return $http.get(sharedDataApiUrl.getselectorgenders);
-        }
+        },
+        
 
+
+         
     };
 });

@@ -11,7 +11,10 @@
         },
         updateProduct: function (product) {
             return $http.put(productApiUrl.putproduct + product.Id, product);
-        } 
+        },
+        getSelectorSubProducts: function () {
+            return $http.get(productApiUrl.getselectorsubproducts);
+        }
         
 
     };

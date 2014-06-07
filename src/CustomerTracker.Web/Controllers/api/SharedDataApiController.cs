@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
 using CustomerTracker.Web.Models.Attributes;
@@ -27,9 +28,11 @@ namespace CustomerTracker.Web.Controllers.api
         public List<KeyValuePair<int, string>> GetSelectorGenders()
         {
             return EnumHelper.ToDictionary<EnumGender>()
-                .Select(q=>new KeyValuePair<int,string>(q.Key,q.Value))
+                .Select(q => new KeyValuePair<int, string>(q.Key, q.Value))
                 .ToList();
-             
+
         }
+
+     
     }
 }

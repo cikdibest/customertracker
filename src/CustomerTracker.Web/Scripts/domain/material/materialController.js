@@ -1,6 +1,6 @@
 ﻿
 
-customerApp.controller('materialController', function ($scope, $filter, materialFactory, customerFactory, remoteMachineFactory, communicationFactory,modalService ,remoteMachineConnectionTypeFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
+customerApp.controller('materialController', function ($scope, $filter, materialFactory, customerFactory, remoteMachineFactory, communicationFactory, modalService, productFactory, remoteMachineConnectionTypeFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
 
     $scope.searchResult = {};
 
@@ -13,15 +13,19 @@ customerApp.controller('materialController', function ($scope, $filter, material
     $scope.selectedMaterialIndex = null;
 
     $scope.communicationAddMode = false;
-    
+
     $scope.remoteMachineAddMode = false;
-    
+
+    $scope.customerEditMode = false;
+
     $scope.genders = {};
-    
+
     $scope.departments = {};
 
+    $scope.allProducts = {};
+
     $scope.remoteMachineConnectionTypes = {};
-       
+
     $scope.setActiveSearchType = function (key, value) {
         $scope.activeSearchType = { Key: key, Value: value };
     };
@@ -43,11 +47,15 @@ customerApp.controller('materialController', function ($scope, $filter, material
         customerFactory.getCustomerAdvancedDetail(customerId)
                              .success(function (data) {
                                  $scope.selectedCustomer = data;
+                                 $scope.loadProducts();
                                  $scope.selectedMaterialIndex = index;
                              })
                              .error(baseControllerFactory.errorCallback);
 
     };
+
+
+
 
     $scope.toogleCommunicationAddMode = function () {
         $scope.communicationAddMode = !$scope.communicationAddMode;
@@ -56,23 +64,30 @@ customerApp.controller('materialController', function ($scope, $filter, material
     $scope.toggleCommunicationEditMode = function (communication) {
         communication.editMode = !communication.editMode;
     };
-            
+
     $scope.toggleRemoteMachineAddMode = function () {
         $scope.remoteMachineAddMode = !$scope.remoteMachineAddMode;
     };
-           
+
     $scope.toggleRemoteMachineEditMode = function (remoteMachine) {
         remoteMachine.editMode = !remoteMachine.editMode;
     };
 
-    $scope.loadGenders = function() {
+    $scope.toggleCustomerEditMode = function () {
+        $scope.customerEditMode = !$scope.customerEditMode;
+    };
+
+
+
+
+    $scope.loadGenders = function () {
         sharedFactory.getSelectorGenders()
             .success(function (data) {
                 $scope.genders = data;
             })
             .error(baseControllerFactory.errorCallback);
     };
-    
+
     $scope.loadDepartments = function () {
         departmentFactory.getSelectorDepartments()
             .success(function (data) {
@@ -80,7 +95,7 @@ customerApp.controller('materialController', function ($scope, $filter, material
             })
             .error(baseControllerFactory.errorCallback);
     };
-    
+
     $scope.loadRemoteMachineConnectionTypes = function () {
         remoteMachineConnectionTypeFactory.getSelectorRemoteMachineConnectionTypes()
             .success(function (data) {
@@ -88,6 +103,8 @@ customerApp.controller('materialController', function ($scope, $filter, material
             })
             .error(baseControllerFactory.errorCallback);
     };
+
+
 
     $scope.addCommunication = function () {
         var customerId = $scope.selectedCustomer.Id;
@@ -101,14 +118,14 @@ customerApp.controller('materialController', function ($scope, $filter, material
             })
             .error(baseControllerFactory.errorCallback);
     };
-     
+
     $scope.updateCommunication = function (communication) {
         communicationFactory.updateCommunication(communication).success(function (data, status, headers, config) {
             $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
             notificationFactory.success();
         }).error(baseControllerFactory.errorCallback);
     };
-    
+
     $scope.deleteCommunication = function (communication) {
         var modalOptions = {
             closeButtonText: 'Cancel',
@@ -125,10 +142,12 @@ customerApp.controller('materialController', function ($scope, $filter, material
                 notificationFactory.success();
             }).error(baseControllerFactory.errorCallback);
         });
-           
-     
+
+
     };
-    
+
+
+
     $scope.addRemoteMachine = function () {
         var customerId = $scope.selectedCustomer.Id;
         $scope.remoteMachine.CustomerId = customerId;
@@ -148,7 +167,7 @@ customerApp.controller('materialController', function ($scope, $filter, material
             notificationFactory.success();
         }).error(baseControllerFactory.errorCallback);
     };
-    
+
     $scope.deleteRemoteMachine = function (remoteMachine) {
         var modalOptions = {
             closeButtonText: 'Cancel',
@@ -168,7 +187,45 @@ customerApp.controller('materialController', function ($scope, $filter, material
 
 
     };
+     
+    $scope.loadProducts = function () {
+        productFactory.getProducts()
+            .success(function (data) {
+                $scope.allProducts = data;
+            })
+            .error(baseControllerFactory.errorCallback);
+    };
 
+    $scope.filterCanAddProductToCustomer = function (product) {
+        
+        return product.ParentProductId != null && _.where($scope.selectedCustomer.Products, { Id: product.Id }).length==0;
+    };
+
+    $scope.addProductToCustomer = function () {
+        var customerId = $scope.selectedCustomer.Id;
+        var productId = $scope.newProduct.Id;
+        if (angular.isUndefined(productId)) {
+            notificationFactory.error('Ürün seçiniz');
+            return;
+        }
+        customerFactory.addProductToCustomer({ customerId: customerId, productId: productId })
+          .success(function (data, status, headers, config) {
+              $scope.newProduct = {};
+              notificationFactory.success();
+              return $scope.loadCustomer(customerId, $scope.selectedMaterialIndex);
+          })
+          .error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.removeProductFromCustomer = function (product) {
+        var customerId = $scope.selectedCustomer.Id;
+        var productId = product.Id;
+        customerFactory.removeProductFromCustomer({ customerId: customerId, productId: productId }).success(function (data, status, headers, config) {
+            $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
+            notificationFactory.success();
+        }).error(baseControllerFactory.errorCallback);
+
+    };
      
     $scope.init = function () {
         $scope.setActiveSearchType(1, "Customer");
@@ -178,6 +235,8 @@ customerApp.controller('materialController', function ($scope, $filter, material
         $scope.loadDepartments();
 
         $scope.loadRemoteMachineConnectionTypes();
+         
+
     };
 
     $scope.init();

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -108,6 +109,18 @@ namespace CustomerTracker.Web.Controllers.api
             return Request.CreateResponse(HttpStatusCode.OK, product);
         }
 
-      
+        public List<KeyValuePair<int, string>> GetSelectorSubProducts()
+        {
+            var products = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Product>()
+                .SelectAll()
+                .Include("SubProducts")
+                .AsEnumerable()
+                .Where(q => q.SubProducts == null || !q.SubProducts.Any())
+                .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
+                .ToList();
+
+            return products;
+
+        }
     }
 }

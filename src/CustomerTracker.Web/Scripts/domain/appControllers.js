@@ -56,7 +56,7 @@ var productApiUrl = {
     putproduct: '/ct/api/productapi/putproduct/',
     postproduct: '/ct/api/productapi/postproduct/',
     deleteproduct: '/ct/api/productapi/deleteproduct/', 
-
+    getselectorsubproducts: '/ct/api/productapi/getselectorsubproducts/',
 };
 
 
@@ -68,6 +68,10 @@ var customerApiUrl = {
     deletecustomer: '/ct/api/customerapi/deletecustomer/',
     getselectorcustomers: '/ct/api/customerapi/getselectorcustomers/',
     getcustomeradvanceddetail: '/ct/api/customerapi/getcustomeradvanceddetail/',
+    addproducttocustomer: '/ct/api/customerapi/addproducttocustomer/',
+    removeproductfromcustomer: '/ct/api/customerapi/removeproductfromcustomer/',
+    
+     
 };
 
 var communicationApiUrl = {

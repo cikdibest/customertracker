@@ -41,9 +41,15 @@ customerApp.factory('customerFactory', function ($http) {
             //});
             return $http.get(customerApiUrl.getselectorcustomers);
         },
-        
+
         getCustomerAdvancedDetail: function (customerId) {
             return $http.get(customerApiUrl.getcustomeradvanceddetail + customerId);
+        },
+        addProductToCustomer: function (data) {
+            return $http.post(customerApiUrl.addproducttocustomer, data);
+        },
+        removeProductFromCustomer: function (data) {
+            return $http.post(customerApiUrl.removeproductfromcustomer, data);
         }
 
     };
