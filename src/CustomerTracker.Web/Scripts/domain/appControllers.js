@@ -6,7 +6,7 @@ var notFoundImageUrl = '/ct/Content/images/404notfound.jpg';
 var internalErrorImageUrl = '../Content/images/clap.gif';
 
 var materialApiUrl = {
-    searchmaterials: '/ct/api/materialapi/searchmaterialss/',
+    searchmaterials: '/ct/api/materialapi/searchmaterials/',
 };
 
 var dataMasterApiUrl = {
