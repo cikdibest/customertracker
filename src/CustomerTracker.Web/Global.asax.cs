@@ -47,7 +47,7 @@ namespace CustomerTracker.Web
 
         private void OnEndRequest(HttpServerUtility server)
         {
-            if (ConfigurationHelper.UnitOfWorkInstance!=null)
+            if (ConfigurationHelper.UnitOfWorkInstance != null)
             {
                 ConfigurationHelper.UnitOfWorkInstance.Dispose();
                 return;
@@ -135,6 +135,6 @@ namespace CustomerTracker.Web
             //var principal = HttpContext.Current.User;
         }
 
-
+     
     }
 }

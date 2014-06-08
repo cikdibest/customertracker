@@ -69,9 +69,6 @@
     <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
       <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.2.2.13055\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
-    <Reference Include="EasySec">
-      <HintPath>..\packages\EasySec.1.0\lib\net40\EasySec.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -92,6 +89,9 @@
     </Reference>
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC4.3.2.1.0\lib\net40-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.0.0.0\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Ploeh.AutoFixture">
       <HintPath>..\packages\AutoFixture.3.18.8\lib\net40\Ploeh.AutoFixture.dll</HintPath>
@@ -259,6 +259,8 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
+    <Compile Include="Models\Attributes\ApiExceptionHandlingAttribute.cs" />
+    <Compile Include="Models\Attributes\CustomHandleErrorAttribute.cs" />
     <Compile Include="Models\Attributes\CustomHttpAuthorizeAttribute.cs" />
     <Compile Include="Models\Attributes\HiddenItemAttribute.cs" />
     <Compile Include="Models\CustomerDetailModel.cs" />
@@ -385,6 +387,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="NLog.config" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />

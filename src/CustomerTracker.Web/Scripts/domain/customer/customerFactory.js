@@ -2,13 +2,13 @@
 
 customerApp.factory('customerFactory', function ($http) {
     return {
-        getCustomers: function (pageNumber, pageSize, sortBy, sortDir) {
+        getCustomers: function (pageNumber, pageSize, sortBy, sortDir, customerName) {
             //return requestHandler({
             //    method: 'GET',
             //    url: customerApiUrl.getcustomers,
             //    params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir } 
             //});
-            return $http.get(customerApiUrl.getcustomers, { params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir } });
+            return $http.get(customerApiUrl.getcustomers, { params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir, customerName: customerName } });
         },
         addCustomer: function (customer) {
             //return requestHandler({

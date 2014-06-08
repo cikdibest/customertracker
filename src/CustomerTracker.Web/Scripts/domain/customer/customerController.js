@@ -56,7 +56,13 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.loadCustomers = function () {
-        return customerFactory.getCustomers($scope.pageNumber, $scope.pageSize, $scope.sortedBy, $scope.sortDir)
+
+        var criteriaCustomerName = '';
+        if (angular.isDefined($scope.criteriaCustomerName)) {
+            criteriaCustomerName = $scope.criteriaCustomerName;
+        }
+
+        return customerFactory.getCustomers($scope.pageNumber, $scope.pageSize, $scope.sortedBy, $scope.sortDir,criteriaCustomerName)
                          .success(function (data) {
                              $scope.customers = data.customers;
                              $scope.totalCount = data.totalCount;
@@ -68,6 +74,12 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
         sharedFactory.getSelectorCities()
                        .success(function (data) { $scope.cities = data; })
                        .error(baseControllerFactory.errorCallback);
+    };
+
+    $scope.criteriaChanged = function() {
+        $scope.pageNumber = 1;
+
+        $scope.loadCustomers();
     };
 
     $scope.init = function() {

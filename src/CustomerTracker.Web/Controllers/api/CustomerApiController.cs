@@ -17,22 +17,25 @@ namespace CustomerTracker.Web.Controllers.api
     [CustomAuthorize(Roles = "Admin,Personel")]
     public class CustomerApiController : ApiController
     {
-        public dynamic GetCustomers(int pageNumber, int pageSize, string sortBy, string sortDir)
-        {
+        public dynamic GetCustomers(int pageNumber, int pageSize, string sortBy, string sortDir, string customerName)
+        { 
             var skippedRow = (pageNumber - 1) * pageSize;
 
             var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
 
-            var customers = customerTrackerDataContext.Customers;
+            var customers = customerTrackerDataContext.Customers.AsQueryable();
 
-            var pageCustomers = customers
+            if (!string.IsNullOrWhiteSpace(customerName))
+                customers = customers.Where(q => q.Name.ToLower().Contains(customerName.ToLower()));
+
+            var pagingCustomers = customers
                 .Include("City")
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)
                 .ToList();
 
-            return new { customers = pageCustomers, totalCount = customers.Count() };
+            return new { customers = pagingCustomers, totalCount = customers.Count() };
 
         }
 
@@ -132,14 +135,14 @@ namespace CustomerTracker.Web.Controllers.api
             {
                 var save = ConfigurationHelper.UnitOfWorkInstance.Save();
                 if (save == -547)
-                    return  Request.CreateResponse(HttpStatusCode.MultipleChoices, new Exception("Silmek istediğiniz kaydın bağlantılı verileri var.Lütfen önce bu verileri siliniz"));
+                    return Request.CreateResponse(HttpStatusCode.MultipleChoices, new Exception("Silmek istediğiniz kaydın bağlantılı verileri var.Lütfen önce bu verileri siliniz"));
             }
 
             catch (DbUpdateConcurrencyException ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
-             
+
             return Request.CreateResponse(HttpStatusCode.OK, customer);
         }
 

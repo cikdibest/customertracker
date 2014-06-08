@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using CustomerTracker.Web.App_Start;
 
 namespace CustomerTracker.Web.Controllers
@@ -8,6 +9,7 @@ namespace CustomerTracker.Web.Controllers
     {
         public ActionResult Department()
         {
+            throw new Exception("das");
             return View();
         }
 

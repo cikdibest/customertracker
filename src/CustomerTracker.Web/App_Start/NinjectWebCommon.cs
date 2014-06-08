@@ -5,6 +5,9 @@ using CustomerTracker.Web.Business.UserBusiness;
 using CustomerTracker.Web.Controllers;
 using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Utilities;
+using Ninject.Activation;
+using Ninject.Modules;
+using NLog;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(CustomerTracker.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(CustomerTracker.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -38,7 +41,8 @@ namespace CustomerTracker.Web.App_Start
             kernel.Bind<IEncrypt>().To<AesEncryption>().InSingletonScope();
             kernel.Bind<IMailBuilder>().To<MailBuilder>().InSingletonScope();
             kernel.Bind<IMailSenderUtility>().To<MailSenderUtility>().InSingletonScope();
-            
+            kernel.Load(new LoggingModule());
+
             bootstrapper.Initialize(() => { return kernel; });
         }
         
@@ -91,5 +95,22 @@ namespace CustomerTracker.Web.App_Start
 
     }
 
-    
+    public class LoggingModule : NinjectModule
+    {
+        public override void Load()
+        {
+            Bind<Logger>().ToMethod(x => NLog.LogManager.GetLogger(GetParentTypeName(x))).InTransientScope();
+        }
+
+        private string GetParentTypeName(IContext context)
+        {
+            if (context.Request.ParentContext == null)
+                return "CustomerTracker.Web.App_Start.NinjectWebCommon";
+
+            if (context.Request.ParentContext.Request.ParentContext == null)
+                return context.Request.ParentContext.Request.Service.FullName;
+
+            return context.Request.ParentContext.Request.ParentContext.Request.Service.FullName;
+        }
+    }
 }
