@@ -4,6 +4,8 @@ customerApp.controller('dataMasterController', function ($scope, dataMasterFacto
     var successCallbackWhenFormEdit = function (data, status, headers, config) {
         notificationFactory.success();
 
+        $scope.activeDataMaster = null;
+
         return $scope.loadDataMasters();
     };
 

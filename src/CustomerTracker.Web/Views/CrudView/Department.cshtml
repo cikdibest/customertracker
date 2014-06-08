@@ -24,7 +24,7 @@
                     </div>
                 </td> 
                 <td>
-                    <input ng-model="department.Name" />
+                    <input  ng-model="department.Name" />
                 </td>
             </tr>
             <tr ng-repeat="department in departments | orderBy:'Id':false">
@@ -45,7 +45,7 @@
 
                 <td>
                     <span ng-show="department.editMode == null || department.editMode == false">{{department.Name}}</span>
-                    <input ng-model="department.Name" ng-show="department.editMode == true" />
+                    <input  ng-model="department.Name" ng-show="department.editMode == true" />
                 </td>
             </tr>
         </table>

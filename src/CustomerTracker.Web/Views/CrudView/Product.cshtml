@@ -74,9 +74,9 @@
             color: #000;
         }
 
-        .active {
-            background-color: green
-        }
+    .active {
+        background-color: green;
+    }
 </style>
 
 <script src="~/Scripts/domain/product/productFactory.js"></script>
@@ -104,7 +104,7 @@
 
     <script type="text/ng-template" id="ProductTreeViewTemplate.html">
      <li>
-         <span ng-show="(product.isEditMode==null || !product.isEditMode)" ng-class="{active: product.isSubProductCreateMode}"> {{product.Name}}</span>  
+        <span ng-show="(product.isEditMode==null || !product.isEditMode)" ng-class="{active: product.isSubProductCreateMode}"> {{product.Name}}</span>  
         <input ng-show="product.isEditMode" ng-model="product.Name" /> 
         <i class="glyphicon glyphicon-trash" ng-show="(product.isEditMode==null || !product.isEditMode) && (product.isSubProductCreateMode==null || !product.isSubProductCreateMode)" ng-click="deleteProduct(product)">Sil</i> 
         <i class="glyphicon glyphicon-edit" ng-show="(product.isEditMode==null || !product.isEditMode) &&  (product.isSubProductCreateMode==null || !product.isSubProductCreateMode)" ng-click="toggleProductEditMode(product)">Güncelle</i> 
@@ -117,9 +117,9 @@
       
      </li> 
     </script>
-    
-    <input ng-model="parentProduct.Name" ng-show="isSubProductCreateMode==null || !isSubProductCreateMode" />
-    <input ng-model="subProduct.Name" ng-show="isSubProductCreateMode" />
+
+    <input class="restrictedFormControl" ng-model="parentProduct.Name" ng-show="isSubProductCreateMode==null || !isSubProductCreateMode" />
+    <input class="restrictedFormControl" ng-model="subProduct.Name" ng-show="isSubProductCreateMode" />
     <i class="glyphicon glyphicon-plus" ng-click="addParentProduct()" ng-show="isSubProductCreateMode==null || !isSubProductCreateMode">Ekle</i>
     <hr />
     <ul ng-repeat="product in subProducts | filter: filterIsParentProduct" ng-include="'ProductTreeViewTemplate.html'">
@@ -127,4 +127,3 @@
 </div>
 
 
- 

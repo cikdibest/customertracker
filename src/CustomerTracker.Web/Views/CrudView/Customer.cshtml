@@ -7,7 +7,7 @@
 
 
 <div ng-controller="customerController" ng-cloak>
-      <div ng-controller="paginationController"> 
+    <div ng-controller="paginationController">
         <pagination total-items="totalCount" ng-model="pageNumber" max-size="pageSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged(pageNumber)"></pagination>
         <pre>Page: {{pageNumber}} / {{numPages}}</pre>
     </div>
@@ -34,22 +34,22 @@
                     </div>
                 </td>
                 <td>
-                    <input ng-model="customer.AvatarImageUrl"  />
+                    <input  ng-model="customer.AvatarImageUrl" />
                 </td>
                 <td>
-                    <input ng-model="customer.Name"  />
+                    <input  ng-model="customer.Name" />
                 </td>
                 <td>
-                    <input ng-model="customer.Abbreviation"  />
+                    <input  ng-model="customer.Abbreviation" />
                 </td>
                 <td>
-                    <select ng-model="customer.CityId" ng-options="city.Key as city.Value for city in cities"></select>
+                    <select  ng-model="customer.CityId" ng-options="city.Key as city.Value for city in cities"></select>
                 </td>
                 <td>
-                    <input ng-model="customer.Keywords"  />
+                    <input  ng-model="customer.Keywords" />
                 </td>
                 <td>
-                    <input ng-model="customer.Explanation"  />
+                    <textarea  ng-model="customer.Explanation"></textarea>
                 </td>
             </tr>
             <tr ng-repeat="customer in customers | orderBy:'Id':false">
@@ -69,28 +69,28 @@
                 </td>
                 <td>
                     <img ng-show="customer.editMode == null || customer.editMode == false" data-ng-src="{{customer.AvatarImageUrl}}" class="img-circle" width="25px" height="25px" style="margin-left: 33%">
-                    <input ng-model="customer.AvatarImageUrl" ng-show="customer.editMode == true"  />
+                    <input  ng-model="customer.AvatarImageUrl" ng-show="customer.editMode == true" />
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Name}}</span>
-                    <input ng-model="customer.Name" ng-show="customer.editMode == true"  />
+                    <input  ng-model="customer.Name" ng-show="customer.editMode == true" />
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Abbreviation}}</span>
-                    <input ng-model="customer.Abbreviation" ng-show="customer.editMode == true"  />
+                    <input  ng-model="customer.Abbreviation" ng-show="customer.editMode == true" />
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.City.Name}}</span>
-                    <select ng-model="customer.CityId" ng-options="city.Key as city.Value for city in cities" ng-show="customer.editMode == true"></select>
+                    <select  ng-model="customer.CityId" ng-options="city.Key as city.Value for city in cities" ng-show="customer.editMode == true"></select>
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Keywords}}</span>
-                    <input ng-model="customer.Keywords" ng-show="customer.editMode == true"  />
+                    <input  ng-model="customer.Keywords" ng-show="customer.editMode == true" />
 
                 </td>
                 <td>
                     <span ng-show="customer.editMode == null || customer.editMode == false">{{customer.Explanation}}</span>
-                    <textarea ng-model="customer.Explanation" ng-show="customer.editMode == true"  />
+                    <textarea  ng-model="customer.Explanation" ng-show="customer.editMode == true" ></textarea>
                 </td>
             </tr>
         </table>
@@ -98,5 +98,7 @@
     </div>
 </div>
 <script>
-    $('.tooltipicon').tooltip()
+    $('.tooltipicon').tooltip();
+
+
 </script>

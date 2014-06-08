@@ -60,16 +60,16 @@
                 </td>
                 <td>
                     <img ng-show="dataMaster.editMode == null || dataMaster.editMode == false" data-ng-src="{{dataMaster.AvatarImageUrl}}" class="img-circle" width="25px" height="25px" style="margin-left: 33%">
-                    <input ng-model="dataMaster.AvatarImageUrl" ng-show="dataMaster.editMode == true" />
+                    <input   ng-model="dataMaster.AvatarImageUrl" ng-show="dataMaster.editMode == true" />
                 </td>
 
                 <td>
                     <span ng-show="dataMaster.editMode == null || dataMaster.editMode == false">{{dataMaster.Name}}</span>
-                    <input ng-model="dataMaster.Name" ng-show="dataMaster.editMode == true" />
+                    <input  ng-model="dataMaster.Name" ng-show="dataMaster.editMode == true" />
                 </td>
                 <td>
                     <span ng-show="dataMaster.editMode == null || dataMaster.editMode == false">{{dataMaster.Customer.Name}}</span>
-                    <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="dataMaster.editMode == true" ></select>
+                    <select  ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="dataMaster.editMode == true" ></select>
                 </td>
 
 
