@@ -13,9 +13,10 @@ using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api
 {
-    [CustomAuthorize(Roles = "Admin")]
+    [CustomAuthorize(Roles = "Admin,Personel")]
     public class UserApiController : ApiController
-    { 
+    {
+        [CustomAuthorize(Roles = "Admin")]
         public dynamic GetUsers(int pageNumber, int pageSize, string sortBy, string sortDir)
         {
             var skippedRow = (pageNumber - 1) * pageSize;
@@ -33,7 +34,7 @@ namespace CustomerTracker.Web.Controllers.api
 
             return new { users = pageUsers, totalCount = users.Count() };
         }
-         
+
         //public User GetUser(int id)
         //{
         //    var userTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
@@ -47,7 +48,8 @@ namespace CustomerTracker.Web.Controllers.api
 
         //    return user;
         //}
-         
+
+        [CustomAuthorize(Roles = "Admin")]
         public HttpResponseMessage PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
@@ -73,7 +75,7 @@ namespace CustomerTracker.Web.Controllers.api
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
-         
+
         //public HttpResponseMessage PostUser(User user)
         //{
         //    if (ModelState.IsValid)
@@ -93,7 +95,8 @@ namespace CustomerTracker.Web.Controllers.api
         //        return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         //    }
         //}
-         
+
+        [CustomAuthorize(Roles = "Admin")]
         public HttpResponseMessage DeleteUser(int id)
         {
             var user = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().Find(id);
@@ -117,6 +120,7 @@ namespace CustomerTracker.Web.Controllers.api
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
+        [CustomAuthorize(Roles = "Admin,Personel")]
         public List<KeyValuePair<int, string>> GetSelectorUsers()
         {
             var users = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>()

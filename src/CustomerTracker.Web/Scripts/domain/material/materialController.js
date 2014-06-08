@@ -46,6 +46,7 @@ customerApp.controller('materialController', function ($scope, $filter, material
     $scope.loadCustomer = function (customerId, index) {
         customerFactory.getCustomerAdvancedDetail(customerId)
                              .success(function (data) {
+                                 $scope.selectedCustomer = {};//bu satırın sebebi; müşteri değiştrilidği halde eski müşterinin logusu kalıyordu.
                                  $scope.selectedCustomer = data;
                                  $scope.loadProducts();
                                  $scope.selectedMaterialIndex = index;

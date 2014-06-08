@@ -1,8 +1,12 @@
 ﻿
 //var materialSearchUrl = '/material/search/getMaterials';
 
+var forbiddenImageUrl = '../Content/images/forbidden.png';
+var notFoundImageUrl = '/ct/Content/images/404notfound.jpg';
+var internalErrorImageUrl = '../Content/images/clap.gif';
+
 var materialApiUrl = {
-    searchmaterials: '/ct/api/materialapi/searchmaterials/', 
+    searchmaterials: '/ct/api/materialapi/searchmaterialss/',
 };
 
 var dataMasterApiUrl = {
@@ -46,7 +50,7 @@ var departmentApiUrl = {
     postdepartment: '/ct/api/departmentapi/postdepartment/',
     deletedepartment: '/ct/api/departmentapi/deletedepartment/',
     getselectordepartments: '/ct/api/departmentapi/getselectordepartments/',
-    
+
 };
 
 var productApiUrl = {
@@ -54,7 +58,7 @@ var productApiUrl = {
     getproduct: '/ct/api/productapi/getproduct/',
     putproduct: '/ct/api/productapi/putproduct/',
     postproduct: '/ct/api/productapi/postproduct/',
-    deleteproduct: '/ct/api/productapi/deleteproduct/', 
+    deleteproduct: '/ct/api/productapi/deleteproduct/',
     getselectorsubproducts: '/ct/api/productapi/getselectorsubproducts/',
 };
 
@@ -69,8 +73,8 @@ var customerApiUrl = {
     getcustomeradvanceddetail: '/ct/api/customerapi/getcustomeradvanceddetail/',
     addproducttocustomer: '/ct/api/customerapi/addproducttocustomer/',
     removeproductfromcustomer: '/ct/api/customerapi/removeproductfromcustomer/',
-    
-     
+
+
 };
 
 var communicationApiUrl = {
@@ -87,8 +91,8 @@ var solutionApiUrl = {
     putsolution: '/ct/api/solutionapi/putsolution/',
     postsolution: '/ct/api/solutionapi/postsolution/',
     deletesolution: '/ct/api/solutionapi/deletesolution/',
-    
-    
+
+
 };
 
 var userApiUrl = {
@@ -145,10 +149,10 @@ var modalService = function ($modal) {
     };
 
     var modalOptions = {
-        closeButtonText: 'Close',
-        actionButtonText: 'OK',
-        headerText: 'Proceed?',
-        bodyText: 'Perform this action?'
+        closeButtonText: 'Kapat',
+        actionButtonText: 'Tamam',
+        headerText: 'Devam edilsin mi?',
+        bodyText: 'Bu işlemi onaylıyormusunuz?'
     };
 
     this.showModal = function (customModalDefaults, customModalOptions) {
@@ -169,12 +173,12 @@ var modalService = function ($modal) {
         angular.extend(tempModalOptions, modalOptions, customModalOptions);
 
         if (!tempModalDefaults.controller) {
-            tempModalDefaults.controller = function($scope, $modalInstance) {
+            tempModalDefaults.controller = function ($scope, $modalInstance) {
                 $scope.modalOptions = tempModalOptions;
-                $scope.modalOptions.ok = function(result) {
+                $scope.modalOptions.ok = function (result) {
                     $modalInstance.close('ok');
                 };
-                $scope.modalOptions.close = function(result) {
+                $scope.modalOptions.close = function (result) {
                     $modalInstance.close('cancel');
                 };
             };
@@ -186,7 +190,7 @@ var modalService = function ($modal) {
 };
 
 customerApp.filter('getById', function () {
-    return function(input, id) {
+    return function (input, id) {
         var i = 0, len = input.length;
         for (; i < len; i++) {
             if (+input[i].Id == +id) {
@@ -211,18 +215,66 @@ customerApp.factory('notificationFactory', function () {
     };
 });
 
-customerApp.factory('baseControllerFactory', function (notificationFactory) {
+customerApp.factory('baseControllerFactory', function (notificationFactory, modalService) {
     return {
         errorCallback: function (data, status, haders, config) {
 
-            if (status==403) {
-                notificationFactory.error(config.method + ' işlemi için yetkiniz yok.');
+            var modalDefaults = {
+                backdrop: true,
+                keyboard: true,
+                modalFade: true,
+                templateUrl: '/ct/errorpage.html'
+            };
+             
+            if (status == 403) {
+
+                modalService.showModal(modalDefaults, {
+                    closeButtonText: 'Kapat',
+                    headerText: 'Bu işlemi yapmak için yetkiniz bulunmamaktadır!',
+                    bodyText: 'Url=' + config.url,
+                    imageUrl: forbiddenImageUrl,
+                }).then(function () {
+
+
+                });
+
+
+                return;
+            }
+             
+            if (status == 404) {
+
+                modalService.showModal(modalDefaults, {
+                    closeButtonText: 'Kapat',
+                    headerText: 'İstekde bulunduğunuz sayfa yada link bulunamadı!',
+                    bodyText: 'Url=' + config.url,
+                    imageUrl: notFoundImageUrl,
+                }).then(function () {
+
+
+                });
+
+
+                return;
+            }
+           
+            if (status == 500) { 
+                modalService.showModal(modalDefaults,  {
+                    closeButtonText: 'Kapat',
+                    headerText: 'Sistemde beklenmedik bir hata oluşmasına neden oldunuz!',
+                    bodyText: '',
+                    imageUrl: internalErrorImageUrl, 
+                }).then(function () {
+ 
+
+                });
+
                 return;
             }
 
             notificationFactory.error(data.Message);
             notificationFactory.error(data.ExceptionMessage);
-            
+
         }
     };
 });
@@ -238,10 +290,10 @@ customerApp.factory('eventFactory', function ($rootScope) {
 });
 
 customerApp.controller('paginationController', function ($scope, eventFactory) {
-     
+
     $scope.pageChanged = function (currentPageNumber) {
         eventFactory.firePageChanged(currentPageNumber);
     };
-     
+
 });
 
