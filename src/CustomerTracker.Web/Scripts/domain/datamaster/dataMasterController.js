@@ -35,13 +35,7 @@ customerApp.controller('dataMasterController', function ($scope, dataMasterFacto
     };
 
     $scope.deleteDataMaster = function (dataMaster) {
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + dataMaster.Name + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+        var modalOptions = modalService.getStandartDeleteModal(dataMaster.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
             dataMasterFactory.deleteDataMaster(dataMaster).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);

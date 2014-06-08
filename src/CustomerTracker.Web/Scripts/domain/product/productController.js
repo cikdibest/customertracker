@@ -48,13 +48,8 @@ customerApp.controller('productController', function ($scope, productFactory, no
     };
 
     $scope.deleteProduct = function (product) {
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + product.Name + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+   
+        var modalOptions = modalService.getStandartDeleteModal(product.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
             productFactory.deleteProduct(product).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);

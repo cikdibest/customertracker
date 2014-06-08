@@ -42,13 +42,7 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.deleteCustomer = function (customer) {
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + customer.Title + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+        var modalOptions = modalService.getStandartDeleteModal(customer.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 

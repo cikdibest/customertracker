@@ -24,13 +24,8 @@ customerApp.controller('userController', function ($scope, userFactory, notifica
     };
      
     $scope.deleteUser = function (user) {
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + user.Name + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+       
+        var modalOptions = modalService.getStandartDeleteModal(user.FullName);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
             userFactory.deleteUser(user).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);

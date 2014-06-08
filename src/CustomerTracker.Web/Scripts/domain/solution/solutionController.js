@@ -47,14 +47,8 @@ customerApp.controller('solutionController', function ($scope, solutionFactory, 
     };
 
     $scope.deleteSolution = function (solution) {
-
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + solution.DecryptedName + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+ 
+        var modalOptions = modalService.getStandartDeleteModal(solution.Title);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 

@@ -29,13 +29,8 @@ customerApp.controller('communicationController', function ($scope, communicatio
     };
 
     $scope.deleteCommunication = function (communication) {
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + communication.Name + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+     
+        var modalOptions = modalService.getStandartDeleteModal(communication.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
             communicationFactory.deleteCommunication(communication).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);

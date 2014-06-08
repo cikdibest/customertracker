@@ -43,14 +43,8 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     };
 
     $scope.deleteRemoteMachine = function (remoteMachine) {
-
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + remoteMachine.DecryptedName + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+         
+        var modalOptions = modalService.getStandartDeleteModal(remoteMachine.DecryptedName);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 

@@ -155,6 +155,16 @@ var modalService = function ($modal) {
         bodyText: 'Bu işlemi onaylıyormusunuz?'
     };
 
+    this.getStandartDeleteModal = function (title) {
+        return {
+            closeButtonText: 'İptal',
+            actionButtonText: 'Sil',
+            headerText: 'Silme işlemi',
+            bodyText: '"' + title + '"' + ' ' + 'silinsin mi?',
+        };
+
+    };
+
     this.showModal = function (customModalDefaults, customModalOptions) {
         if (!customModalDefaults) customModalDefaults = {};
         customModalDefaults.backdrop = 'static';
@@ -189,18 +199,6 @@ var modalService = function ($modal) {
 
 };
 
-customerApp.filter('getById', function () {
-    return function (input, id) {
-        var i = 0, len = input.length;
-        for (; i < len; i++) {
-            if (+input[i].Id == +id) {
-                return input[i];
-            }
-        }
-        return null;
-    };
-});
-
 customerApp.service('modalService', ['$modal', modalService]);
 
 customerApp.factory('notificationFactory', function () {
@@ -225,7 +223,7 @@ customerApp.factory('baseControllerFactory', function (notificationFactory, moda
                 modalFade: true,
                 templateUrl: '/ct/errorpage.html'
             };
-             
+
             if (status == 403) {
 
                 modalService.showModal(modalDefaults, {
@@ -241,7 +239,7 @@ customerApp.factory('baseControllerFactory', function (notificationFactory, moda
 
                 return;
             }
-             
+
             if (status == 404) {
 
                 modalService.showModal(modalDefaults, {
@@ -257,15 +255,15 @@ customerApp.factory('baseControllerFactory', function (notificationFactory, moda
 
                 return;
             }
-           
-            if (status == 500) { 
-                modalService.showModal(modalDefaults,  {
+
+            if (status == 500) {
+                modalService.showModal(modalDefaults, {
                     closeButtonText: 'Kapat',
                     headerText: 'Sistemde beklenmedik bir hata oluşmasına neden oldunuz!',
                     bodyText: '',
-                    imageUrl: internalErrorImageUrl, 
+                    imageUrl: internalErrorImageUrl,
                 }).then(function () {
- 
+
 
                 });
 

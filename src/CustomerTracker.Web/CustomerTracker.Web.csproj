@@ -347,7 +347,6 @@
     <Content Include="Scripts\domain\user\userFactory.js" />
     <Content Include="Scripts\domain\solution\solutionController.js" />
     <Content Include="Scripts\domain\solution\solutionFactory.js" />
-    <Content Include="Scripts\domain\datadetail\dataDetailController.js" />
     <Content Include="Scripts\domain\datadetail\dataDetailFactory.js" />
     <Content Include="Scripts\domain\datamaster\dataMasterController.js" />
     <Content Include="Scripts\domain\datamaster\dataMasterFactory.js" />

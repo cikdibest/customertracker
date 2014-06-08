@@ -126,13 +126,8 @@ customerApp.controller('materialController', function ($scope, $filter, material
     };
 
     $scope.deleteCommunication = function (communication) {
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + communication.FullName + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+   
+        var modalOptions = modalService.getStandartDeleteModal(communication.FullName);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 
@@ -168,13 +163,8 @@ customerApp.controller('materialController', function ($scope, $filter, material
     };
 
     $scope.deleteRemoteMachine = function (remoteMachine) {
-        var modalOptions = {
-            closeButtonText: 'Cancel',
-            actionButtonText: 'Delete Row',
-            headerText: 'Delete ' + remoteMachine.DecryptedName + '?',
-            bodyText: 'Are you sure you want to delete this row?'
-        };
-
+   
+        var modalOptions = modalService.getStandartDeleteModal(remoteMachine.DecryptedName);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 
