@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -32,6 +33,7 @@ namespace CustomerTracker.Web.Controllers.api
                 .ToList();
 
             return new { customers = pageCustomers, totalCount = customers.Count() };
+
         }
 
         public Customer GetCustomer(int id)
@@ -122,21 +124,22 @@ namespace CustomerTracker.Web.Controllers.api
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Find(id);
 
             if (customer == null)
-            {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
 
             ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Delete(customer);
 
             try
             {
-                ConfigurationHelper.UnitOfWorkInstance.Save();
+                var save = ConfigurationHelper.UnitOfWorkInstance.Save();
+                if (save == -547)
+                    return  Request.CreateResponse(HttpStatusCode.MultipleChoices, new Exception("Silmek istediğiniz kaydın bağlantılı verileri var.Lütfen önce bu verileri siliniz"));
             }
+
             catch (DbUpdateConcurrencyException ex)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
-
+             
             return Request.CreateResponse(HttpStatusCode.OK, customer);
         }
 
@@ -169,14 +172,14 @@ namespace CustomerTracker.Web.Controllers.api
             var product = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Product>()
                 .SelectAll()
                 .SingleOrDefault(q => q.Id == productCustomerModel.productId);
-            
+
             if (product == null)
                 return Request.CreateResponse(HttpStatusCode.NotFound);
 
             if (customer.Products == null)
                 customer.Products = new List<Product>();
 
-            if (customer.Products.Any(q => q.Id == product.Id)) 
+            if (customer.Products.Any(q => q.Id == product.Id))
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, new DuplicateNameException("Ürün iki kere eklenemez!"));
 
 

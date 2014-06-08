@@ -92,14 +92,9 @@ namespace CustomerTracker.Web.Controllers.api
 
             ConfigurationHelper.UnitOfWorkInstance.GetRepository<Communication>().Delete(communication);
 
-            try
-            {
-                ConfigurationHelper.UnitOfWorkInstance.Save();
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
-            }
+            var save = ConfigurationHelper.UnitOfWorkInstance.Save();
+            if (save == -547)
+                return Request.CreateResponse(HttpStatusCode.MultipleChoices, new Exception("Silmek istediğiniz kaydın bağlantılı verileri var.Lütfen önce bu verileri siliniz"));
 
             return Request.CreateResponse(HttpStatusCode.OK, communication);
         }

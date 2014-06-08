@@ -205,10 +205,10 @@ customerApp.factory('notificationFactory', function () {
 
     return {
         success: function () {
-            toastr.success("Success");
+            toastr.success("Başarılı");
         },
         error: function (text) {
-            toastr.error(text, "Error!");
+            toastr.error(text, "Hata!");
         }
     };
 });
@@ -223,7 +223,7 @@ customerApp.factory('baseControllerFactory', function (notificationFactory, moda
                 modalFade: true,
                 templateUrl: '/ct/errorpage.html'
             };
-
+             
             if (status == 403) {
 
                 modalService.showModal(modalDefaults, {
@@ -271,7 +271,9 @@ customerApp.factory('baseControllerFactory', function (notificationFactory, moda
             }
 
             notificationFactory.error(data.Message);
-            notificationFactory.error(data.ExceptionMessage);
+            if (angular.isDefined(data.ExceptionMessage)) {
+                notificationFactory.error(data.ExceptionMessage);
+            }
 
         }
     };

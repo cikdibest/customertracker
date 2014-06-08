@@ -1,7 +1,9 @@
 using System;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.SqlClient;
 using System.Linq;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
@@ -47,32 +49,49 @@ namespace CustomerTracker.Web.Infrastructure.Repository
 
         public override int SaveChanges()
         {
-
-            var addedEntries = this.ChangeTracker.Entries().Where(q => q.State == EntityState.Added);
-
-            foreach (var baseEntity in addedEntries.Select(entry => (BaseEntity)entry.Entity))
+            try
             {
-                baseEntity.CreationDate = DateTime.Now;
+                var addedEntries = this.ChangeTracker.Entries().Where(q => q.State == EntityState.Added);
 
-                baseEntity.CreationPersonelId = ConfigurationHelper.CurrentUser != null
-                                                    ? ConfigurationHelper.CurrentUser.UserId
-                                                    : (int?)null;
+                foreach (var baseEntity in addedEntries.Select(entry => (BaseEntity)entry.Entity))
+                {
+                    baseEntity.CreationDate = DateTime.Now;
+
+                    baseEntity.CreationPersonelId = ConfigurationHelper.CurrentUser != null
+                                                        ? ConfigurationHelper.CurrentUser.UserId
+                                                        : (int?)null;
+                }
+
+                var modifiedEntries = this.ChangeTracker.Entries().Where(q => q.State == EntityState.Modified);
+
+                foreach (var baseEntity in modifiedEntries.Select(entry => (BaseEntity)entry.Entity))
+                {
+                    baseEntity.UpdatedDate = DateTime.Now;
+
+                    baseEntity.UpdatedPersonelId = ConfigurationHelper.CurrentUser != null
+                                                       ? ConfigurationHelper.CurrentUser.UserId
+                                                       : (int?)null;
+                }
+
+                var saveChanges = base.SaveChanges();
+
+                return saveChanges;
+
             }
-
-            var modifiedEntries = this.ChangeTracker.Entries().Where(q => q.State == EntityState.Modified);
-
-            foreach (var baseEntity in modifiedEntries.Select(entry => (BaseEntity)entry.Entity))
+            catch (DbUpdateException dbUpdateException)
             {
-                baseEntity.UpdatedDate = DateTime.Now;
+                if (dbUpdateException.InnerException != null && dbUpdateException.InnerException.InnerException != null && dbUpdateException.InnerException.InnerException is SqlException)
+                {
+                    var sqlException = dbUpdateException.InnerException.InnerException as SqlException;
+                    if (sqlException.Number == 547)
+                    {
+                        return -547;
+                    }
+                }
+                
 
-                baseEntity.UpdatedPersonelId = ConfigurationHelper.CurrentUser != null
-                                                   ? ConfigurationHelper.CurrentUser.UserId
-                                                   : (int?)null;
+                throw;
             }
-
-            return base.SaveChanges();
-
-
         }
 
     }

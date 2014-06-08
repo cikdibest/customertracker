@@ -102,15 +102,15 @@ namespace CustomerTracker.Web.Controllers.api
             var user = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().Find(id);
 
             if (user == null)
-            {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
-            }
 
             ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().Delete(user);
 
             try
             {
-                ConfigurationHelper.UnitOfWorkInstance.Save();
+                var save = ConfigurationHelper.UnitOfWorkInstance.Save();
+                if (save == -547)
+                    return Request.CreateResponse(HttpStatusCode.MultipleChoices, new Exception("Silmek istediğiniz kaydın bağlantılı verileri var.Lütfen önce bu verileri siliniz"));
             }
             catch (DbUpdateConcurrencyException ex)
             {

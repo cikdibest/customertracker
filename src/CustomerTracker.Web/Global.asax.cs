@@ -47,16 +47,21 @@ namespace CustomerTracker.Web
 
         private void OnEndRequest(HttpServerUtility server)
         {
-            using (var unitOfWork = ConfigurationHelper.UnitOfWorkInstance)
+            if (ConfigurationHelper.UnitOfWorkInstance!=null)
             {
-                if (unitOfWork == null)
-                    return;
-
-                if (server.GetLastError() != null)
-                    return;
-
-                unitOfWork.Save();
+                ConfigurationHelper.UnitOfWorkInstance.Dispose();
+                return;
             }
+            //using (var unitOfWork = ConfigurationHelper.UnitOfWorkInstance)
+            //{
+            //    if (unitOfWork == null)
+            //        return;
+
+            //    if (server.GetLastError() != null)
+            //        return;
+
+            //    //unitOfWork.Save();
+            //}
         }
 
         //protected override IKernel CreateKernel()
