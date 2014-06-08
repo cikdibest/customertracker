@@ -43,7 +43,7 @@
                         </ul>
                     </div>
 
-                    <input id="searchInput" type="text"  name="x" placeholder="Müşteri yada iletişim adı giriniz..." ng-model="searchCriteria">
+                    <input ng-change="searchMaterials()" id="searchInput" type="text"  name="x" placeholder="Müşteri yada iletişim adı giriniz..." ng-model="searchCriteria">
 
                     <span class="input-group-btn">
                         <button  type="button" ng-click="searchMaterials()" ng-disabled="!searchCriteria.length"><span class="glyphicon glyphicon-search"></span></button>
