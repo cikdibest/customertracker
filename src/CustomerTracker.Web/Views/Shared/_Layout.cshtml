@@ -54,7 +54,7 @@
 </head>
 <body>
     <div id="mydiv">
-        <img src="~/Content/images/loading.gif" class="ajax-loader" />
+      @*  <img src="~/Content/images/loading.gif" class="ajax-loader" />*@
     </div>
     @if (Request.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Personel")))
     {
