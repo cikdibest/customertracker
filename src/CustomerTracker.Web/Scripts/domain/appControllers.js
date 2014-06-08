@@ -29,6 +29,7 @@ var sharedDataApiUrl = {
     getselectorcities: '/ct/api/shareddataapi/getselectorcities/',
     getselectorgenders: '/ct/api/shareddataapi/getselectorgenders/',
     getselectortroubles: '/ct/api/shareddataapi/getselectortroubles/',
+    getselectorroles: '/ct/api/shareddataapi/getselectorroles/',
 };
 
 var remoteMachineConnectionTypeApiUrl = {
@@ -102,7 +103,8 @@ var userApiUrl = {
     postuser: '/ct/api/userapi/postuser/',
     deleteuser: '/ct/api/userapi/deleteuser/',
     getselectorusers: '/ct/api/userapi/getselectorusers/',
-
+    sendpasswordtouser: '/ct/api/userapi/sendpasswordtouser/',
+    
 };
 
 
@@ -137,7 +139,7 @@ angular.module('SharedServices', [])
         };
     });
 
-var customerApp = angular.module('customerApp', ['ui.bootstrap', 'SharedServices']);
+var customerApp = angular.module('customerApp', ['ui.bootstrap', 'SharedServices', 'multi-select']);
 
 var modalService = function ($modal) {
 
@@ -155,12 +157,16 @@ var modalService = function ($modal) {
         bodyText: 'Bu işlemi onaylıyormusunuz?'
     };
 
-    this.getStandartDeleteModal = function (title) {
+    this.getDeleteConfirmationModal = function (title) {
+        return this.getConfirmationModal('İptal', 'Sil', 'Silme işlemi', '"' + title + '"' + ' ' + 'silinsin mi?');
+    };
+    
+    this.getConfirmationModal = function (closeText,actionText,headerText,bodyText) {
         return {
-            closeButtonText: 'İptal',
-            actionButtonText: 'Sil',
-            headerText: 'Silme işlemi',
-            bodyText: '"' + title + '"' + ' ' + 'silinsin mi?',
+            closeButtonText: closeText,
+            actionButtonText: actionText,
+            headerText: headerText,
+            bodyText: bodyText,
         };
 
     };

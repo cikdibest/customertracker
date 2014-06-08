@@ -42,7 +42,7 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.deleteCustomer = function (customer) {
-        var modalOptions = modalService.getStandartDeleteModal(customer.Name);
+        var modalOptions = modalService.getDeleteConfirmationModal(customer.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 

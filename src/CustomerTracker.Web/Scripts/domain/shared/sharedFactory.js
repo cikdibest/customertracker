@@ -13,7 +13,10 @@ customerApp.factory('sharedFactory', function ($http) {
             return $http.get(sharedDataApiUrl.getselectortroubles);
         },
 
+        getSelectorRoles: function () {
+            return $http.get(sharedDataApiUrl.getselectorroles);
+        },
 
-         
+      
     };
 });

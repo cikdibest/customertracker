@@ -7,9 +7,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CustomerTracker.Web.App_Start;
+using CustomerTracker.Web.Infrastructure.Membership;
 using CustomerTracker.Web.Models.Attributes;
 using CustomerTracker.Web.Models.Entities;
+using CustomerTracker.Web.Models.ViewModels;
 using CustomerTracker.Web.Utilities;
+using Ninject;
 
 namespace CustomerTracker.Web.Controllers.api
 {
@@ -62,10 +66,32 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
+            //var dbUser=ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().SelectAll().Include(q=>q.Roles).SingleOrDefault(q=>q.Id==user.Id);
+
+            //if (user.RoleId==0)
+            //    return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            //if (dbUser.RoleId!=user.RoleId)//kullanıcının rolü değişmiştir
+            //{
+            //    user.Roles.Clear();
+
+            //    var role = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>().Find(user.RoleId);
+
+            //    user.Roles.Add(role);
+            //}
+
             ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().Update(user);
 
             try
             {
+                ConfigurationHelper.UnitOfWorkInstance.Save();
+
+                var selectedRoles = user.SelectedRoles;
+
+                var user1 = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().SelectAll().Include(q => q.Roles).SingleOrDefault(q => q.Id == user.Id);
+                user1.SelectedRoles = selectedRoles;
+                user1.ReConfigureRoles();
+
                 ConfigurationHelper.UnitOfWorkInstance.Save();
             }
             catch (DbUpdateConcurrencyException ex)
@@ -132,8 +158,52 @@ namespace CustomerTracker.Web.Controllers.api
             return users;
         }
 
+        [CustomAuthorize(Roles = "Admin")]
+        public HttpResponseMessage SendPasswordToUser(PasswordChangeModel passwordChangeModel)
+        {
+            
+            var user = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().SelectAll().Include(q=>q.Roles).SingleOrDefault(q=>q.Id==passwordChangeModel.userId);
 
+            var password = passwordChangeModel.password;
+
+            var registerModel = new RegisterModel()
+            {
+                Password = user.Username + "1",
+                ConfirmPassword = user.Username + "1",
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                UserName = user.Username
+            };
+
+            string hashedPassword = Crypto.HashPassword(registerModel.Password);
+
+            user.Password = hashedPassword;
+
+            user.LastPasswordChangedDate = DateTime.Now;
+
+            var sendToUserAfterRegistration = new SendToUserAfterRegistrationMailViewModel()
+            {
+                FullName = registerModel.FirstName + " " + registerModel.LastName,
+                UserMailAdress = registerModel.Email,
+                Password = registerModel.Password,
+                Username = registerModel.UserName,
+
+            };
+
+            var mailMessageForUser = NinjectWebCommon.GetKernel.Get<IMailBuilder>().BuildMailMessageForSendToUserAfterRegistration(sendToUserAfterRegistration);
+
+            NinjectWebCommon.GetKernel.Get<IMailSenderUtility>().SendEmailAsync(mailMessageForUser);
+
+            ConfigurationHelper.UnitOfWorkInstance.Save();
+
+            return Request.CreateResponse(HttpStatusCode.OK, user);
+        }
     }
 
-
+    public class PasswordChangeModel
+    {
+        public int userId;
+        public string password { get; set; }
+    }
 }

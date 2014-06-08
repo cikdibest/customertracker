@@ -2,7 +2,9 @@
     ViewBag.Title = "Kullanıcılar";
 
 }
-
+<link href="~/Scripts/components/angular-multi-select.css" rel="stylesheet" />
+<script src="~/Scripts/components/angular-multi-select.min.js"></script>
+<script src="~/Scripts/domain/shared/sharedFactory.js"></script>
 <script src="~/Scripts/domain/user/userFactory.js"></script>
 <script src="~/Scripts/domain/user/userController.js"></script>
 <div ng-controller="userController" ng-cloak>
@@ -13,21 +15,22 @@
     <div class="col-lg-12">
         <table class="table table-striped table-bordered table-condensed table-hover">
             <tr>
-                <th style="width: 5%;"></th>
-                <th>Yetki</th>
+                <th style="width: 15%;"></th>
+                <th  style="width: 15%;">Yetki</th>
                 <th>Ad</th>
                 <th>Soyad</th>
                 <th>Kullanıcı Adı</th>
                 <th>Mail</th>
 
             </tr>
-    
+
             <tr ng-repeat="user in users | orderBy:'Id':false">
                 <td>
                     <div class="btn-toolbar" ng-show="user.editMode == null || user.editMode == false">
                         <div class="btn-group">
                             <i class="btn glyphicon glyphicon-edit" ng-click="toggleEditMode(user)"></i>
                             <i class="btn glyphicon glyphicon-trash" ng-click="deleteUser(user)"></i>
+                                <i class="btn glyphicon glyphicon-send" ng-click="sendPasswordToUser(user.Id)"><span>Şifre Gönder</span></i>
                         </div>
                     </div>
                     <div class="btn-toolbar" ng-show="user.editMode == true">
@@ -38,26 +41,29 @@
                     </div>
                 </td>
 
-                <td>yetki
-                    
+                <td>
+                    <span ng-show="user.editMode == null || user.editMode == false">{{user.RoleNames}}</span>
+                    @*    <select  ng-model="user.RoleId" ng-options="role.Key as role.Value for role in roles" ng-show="user.editMode == true" multiple></select>*@
+                    <multi-select   tick-property="selected"  output-model="user.SelectedRoles" button-label="Name"  item-label="Name"  input-model="roles"  ng-show="user.editMode == true"></multi-select>
                 </td>
                 <td>
                     <span ng-show="user.editMode == null || user.editMode == false">{{user.FirstName}}</span>
-                    <input   ng-model="user.FirstName" ng-show="user.editMode == true"  />
+                    <input ng-model="user.FirstName" ng-show="user.editMode == true" />
                 </td>
                 <td>
                     <span ng-show="user.editMode == null || user.editMode == false">{{user.LastName}}</span>
-                    <input   ng-model="user.LastName" ng-show="user.editMode == true"  />
+                    <input ng-model="user.LastName" ng-show="user.editMode == true" />
                 </td>
                 <td>
                     <span ng-show="user.editMode == null || user.editMode == false">{{user.Username}}</span>
-                    <input   ng-model="user.Username" ng-show="user.editMode == true"  />
+                    <input ng-model="user.Username" ng-show="user.editMode == true" />
                 </td>
                 <td>
                     <span ng-show="user.editMode == null || user.editMode == false">{{user.Email}}</span>
-                    <input   ng-model="user.Email" ng-show="user.editMode == true" />
+                    <input ng-model="user.Email" ng-show="user.editMode == true" />
                 </td>
             </tr>
         </table>
     </div>
 </div>
+ 

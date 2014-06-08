@@ -49,7 +49,7 @@ customerApp.controller('productController', function ($scope, productFactory, no
 
     $scope.deleteProduct = function (product) {
    
-        var modalOptions = modalService.getStandartDeleteModal(product.Name);
+        var modalOptions = modalService.getDeleteConfirmationModal(product.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
             productFactory.deleteProduct(product).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);

@@ -53,7 +53,10 @@ namespace CustomerTracker.Web.Utilities
 
         public static string FromMailAddressForUserRegistration { get { return ConfigurationManager.AppSettings["FromMailAddressForUserRegistration"]; } }
 
-       
+        public static string SmtpHost { get { return ConfigurationManager.AppSettings["SmtpHost"]; } }
+        public static int SmtpPort { get { return int.Parse(ConfigurationManager.AppSettings["SmtpPort"]); } }
+        public static string SmtpUserName { get { return ConfigurationManager.AppSettings["SmtpUserName"]; } }
+        public static string SmtpPassword { get { return ConfigurationManager.AppSettings["SmtpPassword"]; } }
 
 
         public static string RoleAdmin = "Admin";
@@ -63,7 +66,7 @@ namespace CustomerTracker.Web.Utilities
         public static string RoleCustomer = "Customer";
 
         public static string RoleAnonymous = "Anonymous";
-         
-       
+
+
     }
 }

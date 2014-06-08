@@ -19,7 +19,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
 
         T Find(params object[] keys);
 
-        T Find(Expression<Func<T, bool>> wherePredicate);
+        T Find(Expression<Func<T, bool>> wherePredicate, params Expression<Func<T, object>>[] includeExpressions);
 
         T Create(T t);
 
@@ -58,7 +58,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
         {
             return DbSet.AsQueryable().Where(q => !q.IsDeleted);
         }
-         
+
         public virtual IQueryable<TObject> Filter(Expression<Func<TObject, bool>> predicate)
         {
             return SelectAll().Where(predicate).AsQueryable<TObject>();
@@ -85,9 +85,16 @@ namespace CustomerTracker.Web.Infrastructure.Repository
             return DbSet.Find(keys);
         }
 
-        public virtual TObject Find(Expression<Func<TObject, bool>> wherePredicate)
-        { 
-            return SelectAll().SingleOrDefault(wherePredicate);
+        public virtual TObject Find(Expression<Func<TObject, bool>> wherePredicate, params Expression<Func<TObject, object>>[] includeExpressions)
+        {
+            var selectAll = SelectAll();
+       
+            foreach (var includeExpression in includeExpressions)
+            {
+               selectAll.Include(includeExpression);
+            }
+
+            return selectAll.SingleOrDefault(wherePredicate);
         }
 
         public virtual TObject Create(TObject TObject)

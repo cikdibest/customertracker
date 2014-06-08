@@ -44,5 +44,17 @@ namespace CustomerTracker.Web.Controllers.api
             return troubles;
 
         }
+
+        public List<KeyValuePair<int, string>> GetSelectorRoles()
+        {
+            var roles = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>()
+               .SelectAll()
+               .AsEnumerable()
+               .Select(q => new KeyValuePair<int, string>(q.Id, q.RoleName))
+               .ToList();
+
+            return roles;
+
+        }
     }
 }

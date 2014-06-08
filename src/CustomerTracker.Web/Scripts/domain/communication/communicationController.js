@@ -30,7 +30,7 @@ customerApp.controller('communicationController', function ($scope, communicatio
 
     $scope.deleteCommunication = function (communication) {
      
-        var modalOptions = modalService.getStandartDeleteModal(communication.Name);
+        var modalOptions = modalService.getDeleteConfirmationModal(communication.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
             communicationFactory.deleteCommunication(communication).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);

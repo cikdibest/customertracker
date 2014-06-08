@@ -21,18 +21,18 @@ namespace CustomerTracker.Web.Utilities
         }
 
         public void SendEmail(MailMessage message)
-        {
-            //var smtpSetting = (SmtpSetting)Infrastructure.Services.DistributedCacheService.SingletonDistributedCacheService.DistributedCacheService.GetEntry("SmtpSetting");
-
-            //using (var smtpClient = new SmtpClient()
-            //{
-            //    Host = smtpSetting.Host,
-            //    Port = smtpSetting.Port,
-            //    Credentials = new NetworkCredential(smtpSetting.UserName, smtpSetting.Password)
-            //})
-            //{
-            //    smtpClient.Send(message);
-            //}
+        { 
+            using (var smtpClient = new SmtpClient()
+            {
+                Host =ConfigurationHelper.SmtpHost,
+                Port = ConfigurationHelper.SmtpPort,
+                Credentials = new NetworkCredential(ConfigurationHelper.SmtpUserName, ConfigurationHelper.SmtpPassword),
+                EnableSsl = true,
+                Timeout = 10000,
+            })
+            {
+                smtpClient.Send(message);
+            }
         }
     }
 

@@ -36,6 +36,8 @@ namespace CustomerTracker.Web.App_Start
             kernel.Bind<ISearchEngine>().To<SearchEngine>().InSingletonScope();
             kernel.Bind<IUserUtility>().To<UserUtility>().InSingletonScope();
             kernel.Bind<IEncrypt>().To<AesEncryption>().InSingletonScope();
+            kernel.Bind<IMailBuilder>().To<MailBuilder>().InSingletonScope();
+            kernel.Bind<IMailSenderUtility>().To<MailSenderUtility>().InSingletonScope();
             
             bootstrapper.Initialize(() => { return kernel; });
         }

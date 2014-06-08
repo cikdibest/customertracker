@@ -19,13 +19,22 @@ namespace CustomerTracker.Web.Controllers.api
     [CustomAuthorize(Roles = "Admin,Personel")]
     public class SolutionApiController : ApiController
     {
-        public dynamic GetSolutions(int pageNumber, int pageSize, string sortBy, string sortDir)
+        public dynamic GetSolutions(int pageNumber, int pageSize, string sortBy, string sortDir, int customerId, int productId, int troubleId)
         {
             var skippedRow = (pageNumber - 1) * pageSize;
 
             var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
 
-            var solutions = customerTrackerDataContext.Solutions;
+            var solutions = customerTrackerDataContext.Solutions.AsQueryable();
+
+            if (customerId>0)
+                solutions = solutions.Where(q => q.CustomerId == customerId);
+
+            if (productId>0)
+                solutions = solutions.Where(q => q.ProductId == productId);
+
+            if (troubleId > 0)
+                solutions = solutions.Where(q => q.TroubleId == troubleId);
 
             var pagingSolutions = solutions
                 .Include(q => q.Customer)
@@ -37,7 +46,7 @@ namespace CustomerTracker.Web.Controllers.api
                 .Take(pageSize)
                 .ToList();
 
-            return new { solutions = pagingSolutions, totalCount = solutions.Count() }; 
+            return new { solutions = pagingSolutions, totalCount = solutions.Count() };
         }
 
         public Solution GetSolution(int id)
@@ -125,6 +134,6 @@ namespace CustomerTracker.Web.Controllers.api
             return Request.CreateResponse(HttpStatusCode.OK, solution);
         }
 
-       
+
     }
 }

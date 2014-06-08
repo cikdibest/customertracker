@@ -6,10 +6,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.Serialization;
 using CustomerTracker.Web.Infrastructure.Membership;
+using CustomerTracker.Web.Utilities;
 using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.Models.Entities
-{ 
+{
     public class SocialAccount : BaseEntity
     {
         public int UserId { get; set; }
@@ -32,7 +33,7 @@ namespace CustomerTracker.Web.Models.Entities
             return false;
         }
     }
-     
+
     public class Role : BaseEntity
     {
         [Required]
@@ -44,7 +45,7 @@ namespace CustomerTracker.Web.Models.Entities
 
         public virtual ICollection<User> Users { get; set; }
     }
-     
+
     public class User : BaseEntity
     {
         [Required]
@@ -83,7 +84,7 @@ namespace CustomerTracker.Web.Models.Entities
 
         public virtual DateTime? LastPasswordChangedDate { get; set; }
 
-          [StringLength(100)]
+        [StringLength(100)]
         public virtual String PasswordVerificationToken { get; set; }
 
         public virtual DateTime? PasswordVerificationTokenExpirationDate { get; set; }
@@ -96,6 +97,51 @@ namespace CustomerTracker.Web.Models.Entities
         public string FullName
         {
             get { return this.FirstName + " " + this.LastName; }
+        }
+
+        [NotMapped]
+        public List<RoleId> SelectedRoles { get; set; }//client side da eitleme esnasında seçilen roller
+
+        [NotMapped]
+        public string RoleNames
+        {
+            get
+            {
+#warning bu kısmı kullanan userview.onun bunu kullanmaması sağlanırsa , bu property silenebilir.
+                if (this.Roles==null)
+                {
+                    return "LazyLoading;)";
+                }
+                return string.Join(",", this.Roles.Select(q => q.RoleName));
+            }
+        }
+
+        public void ReConfigureRoles()
+        {
+            //if (this.Roles == null)
+            //    this.Roles = new List<Role>();
+
+            var roleIds = this.SelectedRoles.Select(q => q.Id);
+
+            var deletedRoles = this.Roles.Where(q => !roleIds.Contains(q.Id)).ToList();
+
+            foreach (var deletedRole in deletedRoles)
+            {
+                this.Roles.Remove(deletedRole);
+            }
+
+            foreach (var roleId in roleIds)
+            {
+                if (this.Roles.Any(q => q.Id == roleId)) continue;
+
+                var repositoryRole = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>();
+
+                var role = repositoryRole.Find(q => q.Id == roleId);
+
+                this.Roles.Add(role);
+            }
+
+
         }
 
         public void AddSocialAccount(string provider, string providerUserId)
@@ -127,5 +173,10 @@ namespace CustomerTracker.Web.Models.Entities
 
             this.Roles.Add(role);
         }
+    }
+
+    public class RoleId
+    {
+        public int Id { get; set; }
     }
 }

@@ -339,6 +339,8 @@
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\components\angular-multi-select.css" />
+    <Content Include="Scripts\components\angular-multi-select.min.js" />
     <Content Include="Scripts\components\bootstrap-fileupload.min.css" />
     <Content Include="Scripts\components\bootstrap-fileupload.min.js" />
     <Content Include="Scripts\domain\appControllers.js" />
@@ -734,7 +736,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2956</DevelopmentServerPort>
+          <DevelopmentServerPort>42667</DevelopmentServerPort>
           <DevelopmentServerVPath>/ct/</DevelopmentServerVPath>
           <IISUrl>http://localhost:5752/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

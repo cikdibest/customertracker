@@ -127,7 +127,7 @@ customerApp.controller('materialController', function ($scope, $filter, material
 
     $scope.deleteCommunication = function (communication) {
    
-        var modalOptions = modalService.getStandartDeleteModal(communication.FullName);
+        var modalOptions = modalService.getDeleteConfirmationModal(communication.FullName);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 
@@ -164,7 +164,7 @@ customerApp.controller('materialController', function ($scope, $filter, material
 
     $scope.deleteRemoteMachine = function (remoteMachine) {
    
-        var modalOptions = modalService.getStandartDeleteModal(remoteMachine.DecryptedName);
+        var modalOptions = modalService.getDeleteConfirmationModal(remoteMachine.DecryptedName);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 

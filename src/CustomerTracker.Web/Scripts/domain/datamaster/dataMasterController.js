@@ -37,7 +37,7 @@ customerApp.controller('dataMasterController', function ($scope, dataMasterFacto
     };
 
     $scope.deleteDataMaster = function (dataMaster) {
-        var modalOptions = modalService.getStandartDeleteModal(dataMaster.Name);
+        var modalOptions = modalService.getDeleteConfirmationModal(dataMaster.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
             dataMasterFactory.deleteDataMaster(dataMaster).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);

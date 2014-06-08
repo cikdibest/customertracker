@@ -14,7 +14,10 @@
         },
         getSelectorUsers: function () {
             return $http.get(userApiUrl.getselectorusers);
+        },
+        sendPasswordToUser: function (data) {
+            return $http.post(userApiUrl.sendpasswordtouser, data);
         }
-
+          
     };
 });

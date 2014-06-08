@@ -29,7 +29,7 @@ customerApp.controller('departmentController', function ($scope, departmentFacto
     };
 
     $scope.deleteDepartment = function (department) {
-        var modalOptions = modalService.getStandartDeleteModal(department.Name);
+        var modalOptions = modalService.getDeleteConfirmationModal(department.Name);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
             departmentFactory.deleteDepartment(department).success(successCallbackWhenFormEdit).error(baseControllerFactory.errorCallback);

@@ -48,7 +48,7 @@ customerApp.controller('solutionController', function ($scope, solutionFactory, 
 
     $scope.deleteSolution = function (solution) {
  
-        var modalOptions = modalService.getStandartDeleteModal(solution.Title);
+        var modalOptions = modalService.getDeleteConfirmationModal(solution.Title);
         modalService.showModal({}, modalOptions).then(function (result) {
             if (result != 'ok') return;
 
@@ -62,11 +62,20 @@ customerApp.controller('solutionController', function ($scope, solutionFactory, 
     };
 
     $scope.loadSolutions = function () {
-        return solutionFactory.getSolutions($scope.pageNumber, $scope.pageSize, $scope.sortedBy, $scope.sortDir)
+        var criteriaCustomerId = 0;
+        var criteriaProductId = 0;
+        var criteriaTroubleId = 0;
+        if (angular.isDefined($scope.criteriaCustomerId))
+            criteriaCustomerId = $scope.criteriaCustomerId;
+        if (angular.isDefined($scope.criteriaProductId))
+            criteriaProductId = $scope.criteriaProductId;
+        if (angular.isDefined($scope.criteriaTroubleId))
+            criteriaTroubleId = $scope.criteriaTroubleId;
+         
+        return solutionFactory.getSolutions($scope.pageNumber, $scope.pageSize, $scope.sortedBy, $scope.sortDir, criteriaCustomerId, criteriaProductId, criteriaTroubleId)
                          .success(function (data, status) {
                              $scope.solutions = data.solutions;
-                             $scope.totalCount = data.totalCount;
-                             //eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
+                             $scope.totalCount = data.totalCount; 
                          })
                          .error(baseControllerFactory.errorCallback);
     };
@@ -104,6 +113,12 @@ customerApp.controller('solutionController', function ($scope, solutionFactory, 
     $scope.filterCanAddProduct = function (product) {
 
         return product.ParentProductId != null;
+    };
+      
+    $scope.criteriaChanged = function () {
+        $scope.pageNumber = 1;
+
+        $scope.loadSolutions();
     };
      
     $scope.init = function () { 
