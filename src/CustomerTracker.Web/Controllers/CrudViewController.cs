@@ -30,5 +30,10 @@ namespace CustomerTracker.Web.Controllers
         {
             return View();
         }
+
+        public ActionResult Solution()
+        {
+            return View();
+        }
     }
 }

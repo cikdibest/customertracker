@@ -4,12 +4,15 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
      
     $scope.customers = [];
 
-    $scope.filterCriteria = {
-        pageNumber: 1,
-        pageSize: 10,
-        sortedBy: 'id',
-        sortDir: 'asc',
-    };
+    $scope.totalCount = 0;
+    $scope.pageNumber = 1;
+    $scope.pageSize = 10;
+    $scope.sortedBy = 'id',
+    $scope.sortDir = 'asc'; 
+    $scope.$on('pageChangedEventHandler', function (instance, currentPageNumber) {
+        $scope.pageNumber = currentPageNumber;
+        $scope.loadCustomers();
+    });
 
     $scope.cities = [];
 
@@ -21,11 +24,7 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
         return $scope.loadCustomers();
     };
 
-    $scope.$on('pageChangedEventHandler', function () {
-        $scope.filterCriteria.pageNumber = eventFactory.pagingModel.currentPageNumber;
-
-        $scope.loadCustomers();
-    });
+   
      
     $scope.toggleAddMode = function () {
         $scope.addMode = !$scope.addMode;
@@ -65,11 +64,10 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.loadCustomers = function () {
-        return customerFactory.getCustomers($scope.filterCriteria.pageNumber, $scope.filterCriteria.pageSize, $scope.filterCriteria.sortedBy, $scope.filterCriteria.sortDir)
+        return customerFactory.getCustomers($scope.pageNumber, $scope.pageSize, $scope.sortedBy, $scope.sortDir)
                          .success(function (data) {
                              $scope.customers = data.customers;
-
-                             eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
+                             $scope.totalCount = data.totalCount;
                          })
                          .error(baseControllerFactory.errorCallback);
     };

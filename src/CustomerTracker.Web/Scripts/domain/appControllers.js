@@ -2,9 +2,7 @@
 //var materialSearchUrl = '/material/search/getMaterials';
 
 var materialApiUrl = {
-    searchmaterials: '/ct/api/materialapi/searchmaterials/',
- 
-
+    searchmaterials: '/ct/api/materialapi/searchmaterials/', 
 };
 
 var dataMasterApiUrl = {
@@ -26,6 +24,7 @@ var dataDetailApiUrl = {
 var sharedDataApiUrl = {
     getselectorcities: '/ct/api/shareddataapi/getselectorcities/',
     getselectorgenders: '/ct/api/shareddataapi/getselectorgenders/',
+    getselectortroubles: '/ct/api/shareddataapi/getselectortroubles/',
 };
 
 var remoteMachineConnectionTypeApiUrl = {
@@ -81,6 +80,17 @@ var communicationApiUrl = {
     postcommunication: '/ct/api/communicationapi/postcommunication/',
     deletecommunication: '/ct/api/communicationapi/deletecommunication/',
 };
+
+var solutionApiUrl = {
+    getsolutions: '/ct/api/solutionapi/getsolutions/',
+    getsolution: '/ct/api/solutionapi/getsolution/',
+    putsolution: '/ct/api/solutionapi/putsolution/',
+    postsolution: '/ct/api/solutionapi/postsolution/',
+    deletesolution: '/ct/api/solutionapi/deletesolution/',
+    
+    
+};
+
 
 angular.module('SharedServices', [])
     .config(function ($httpProvider) {
@@ -210,44 +220,18 @@ customerApp.factory('baseControllerFactory', function (notificationFactory) {
 customerApp.factory('eventFactory', function ($rootScope) {
     var eventFactory = {};
 
-    eventFactory.pagingModel = { currentPageNumber: null, totalCount: null, pageSize: null };
-
-    eventFactory.firePagingModelInitiliaze = function (pagingModel) {
-        this.pagingModel = pagingModel;
-
-        $rootScope.$broadcast('pagingModelInitiliazeEventHandler');
-    };
-
-    eventFactory.firePageChanged = function (pageChangedModel) {
-        this.pagingModel.currentPageNumber = pageChangedModel.currentPageNumber;
-
-        $rootScope.$broadcast('pageChangedEventHandler');
+    eventFactory.firePageChanged = function (currentPageNumber) {
+        $rootScope.$broadcast('pageChangedEventHandler', currentPageNumber);
     };
 
     return eventFactory;
 });
 
 customerApp.controller('paginationController', function ($scope, eventFactory) {
-
-    $scope.pageSize = null;
-
-    $scope.totalCount = null;
-
-    $scope.currentPageNumber = 1;
-
-    $scope.setPageNumber = function (pageNo) {
-        $scope.currentPageNumber = pageNo;
+     
+    $scope.pageChanged = function (currentPageNumber) {
+        eventFactory.firePageChanged(currentPageNumber);
     };
-
-    $scope.pageChanged = function () {
-        eventFactory.firePageChanged({ currentPageNumber: $scope.currentPageNumber });
-    };
-
-    $scope.$on('pagingModelInitiliazeEventHandler', function () {
-        $scope.totalCount = eventFactory.pagingModel.totalCount;
-
-        $scope.pageSize = eventFactory.pagingModel.pageSize;
-    });
-
+     
 });
 

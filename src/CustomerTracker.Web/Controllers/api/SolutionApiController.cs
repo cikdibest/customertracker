@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Helpers;
 using System.Web.Http;
+using System.Web.Mvc;
 using CustomerTracker.Web.Models.Attributes;
 using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
@@ -11,53 +17,54 @@ using CustomerTracker.Web.Utilities;
 namespace CustomerTracker.Web.Controllers.api
 {
     [CustomAuthorize(Roles = "Admin,Personel")]
-    public class RemoteMachineApiController : ApiController
-    { 
-        public dynamic GetRemoteMachines(int pageNumber, int pageSize, string sortBy, string sortDir)
+    public class SolutionApiController : ApiController
+    {
+        public dynamic GetSolutions(int pageNumber, int pageSize, string sortBy, string sortDir)
         {
             var skippedRow = (pageNumber - 1) * pageSize;
 
-            var remoteMachineTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
+            var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
 
-            var remoteMachines = remoteMachineTrackerDataContext.RemoteMachines;
+            var solutions = customerTrackerDataContext.Solutions;
 
-            var pageRemoteMachines = remoteMachines.Include("Customer").Include("RemoteMachineConnectionType")
+            var pagingSolutions = solutions
+                .Include(q => q.Customer)
+                .Include(q => q.Product)
+                .Include(q => q.Trouble)
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)
                 .ToList();
 
-            return new { remoteMachines = pageRemoteMachines, totalCount = remoteMachines.Count() };
+            return new { solutions = pagingSolutions, totalCount = solutions.Count() }; 
         }
 
-        public RemoteMachine GetRemoteMachine(int id)
+        public Solution GetSolution(int id)
         {
-            var remoteMachineTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
+            var solution = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Solution>().Find(id);
 
-            var remoteMachine = remoteMachineTrackerDataContext.RemoteMachines.Include("Customer").SingleOrDefault(q => q.Id == id);
-
-            if (remoteMachine == null)
+            if (solution == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
-            return remoteMachine;
+            return solution;
         }
 
         [CustomAuthorize(Roles = "Admin")]
-        public HttpResponseMessage PutRemoteMachine(int id, RemoteMachine remoteMachine)
+        public HttpResponseMessage PutSolution(int id, Solution solution)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            if (id != remoteMachine.Id)
+            if (id != solution.Id)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
-            ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Update(remoteMachine);
+            ConfigurationHelper.UnitOfWorkInstance.GetRepository<Solution>().Update(solution);
 
             try
             {
@@ -71,17 +78,17 @@ namespace CustomerTracker.Web.Controllers.api
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        public HttpResponseMessage PostRemoteMachine(RemoteMachine remoteMachine)
+        public HttpResponseMessage PostSolution(Solution solution)
         {
             if (ModelState.IsValid)
             {
-                ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Create(remoteMachine);
+                ConfigurationHelper.UnitOfWorkInstance.GetRepository<Solution>().Create(solution);
 
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, remoteMachine);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, solution);
 
-                response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = remoteMachine.Id }));
+                response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = solution.Id }));
 
                 return response;
             }
@@ -92,16 +99,16 @@ namespace CustomerTracker.Web.Controllers.api
         }
 
         [CustomAuthorize(Roles = "Admin")]
-        public HttpResponseMessage DeleteRemoteMachine(int id)
+        public HttpResponseMessage DeleteSolution(int id)
         {
-            var remoteMachine = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Find(id);
+            var solution = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Solution>().Find(id);
 
-            if (remoteMachine == null)
+            if (solution == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Delete(remoteMachine);
+            ConfigurationHelper.UnitOfWorkInstance.GetRepository<Solution>().Delete(solution);
 
             try
             {
@@ -112,7 +119,9 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
             }
 
-            return Request.CreateResponse(HttpStatusCode.OK, remoteMachine);
+            return Request.CreateResponse(HttpStatusCode.OK, solution);
         }
+
+       
     }
 }

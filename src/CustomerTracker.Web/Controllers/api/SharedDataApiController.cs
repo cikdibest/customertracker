@@ -33,6 +33,16 @@ namespace CustomerTracker.Web.Controllers.api
 
         }
 
-     
+        public List<KeyValuePair<int, string>> GetSelectorTroubles()
+        {
+            var troubles = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Trouble>()
+               .SelectAll()
+               .AsEnumerable()
+               .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))
+               .ToList();
+
+            return troubles;
+
+        }
     }
 }

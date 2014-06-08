@@ -210,6 +210,7 @@
     <Compile Include="Business\UserBusiness\UserUtility.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\api\CommunicationApiController.cs" />
+    <Compile Include="Controllers\api\SolutionApiController.cs" />
     <Compile Include="Controllers\api\ProductApiController.cs" />
     <Compile Include="Controllers\api\DataDetailApiController.cs" />
     <Compile Include="Controllers\api\DataMasterApiController.cs" />
@@ -250,6 +251,10 @@
     <Compile Include="Migrations\201405311202365_first_migration.cs" />
     <Compile Include="Migrations\201405311202365_first_migration.Designer.cs">
       <DependentUpon>201405311202365_first_migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406071600105_add_soluiton_and_trouble.cs" />
+    <Compile Include="Migrations\201406071600105_add_soluiton_and_trouble.Designer.cs">
+      <DependentUpon>201406071600105_add_soluiton_and_trouble.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
@@ -333,6 +338,8 @@
     <Content Include="Scripts\components\bootstrap-fileupload.min.js" />
     <Content Include="Scripts\domain\appControllers.js" />
     <Content Include="Scripts\domain\common\filters.js" />
+    <Content Include="Scripts\domain\solution\solutionController.js" />
+    <Content Include="Scripts\domain\solution\solutionFactory.js" />
     <Content Include="Scripts\domain\datadetail\dataDetailController.js" />
     <Content Include="Scripts\domain\datadetail\dataDetailFactory.js" />
     <Content Include="Scripts\domain\datamaster\dataMasterController.js" />
@@ -624,9 +631,6 @@
     <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\underscore-min.js" />
     <Content Include="Scripts\underscore.js" />
-    <Content Include="Scripts\ZeroClipboard.js" />
-    <Content Include="Scripts\ZeroClipboard.min.js" />
-    <Content Include="Scripts\ZeroClipboard.swf" />
     <Content Include="modal.html" />
     <Content Include="Views\FileUpload\Index.cshtml" />
     <Content Include="Views\FileUpload\_UploadedFilePreview.cshtml" />
@@ -641,6 +645,7 @@
     <Content Include="Views\CrudView\DataMaster.cshtml" />
     <Content Include="Views\CrudView\Product.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
+    <Content Include="Views\CrudView\Solution.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -701,6 +706,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201405311202365_first_migration.resx">
       <DependentUpon>201405311202365_first_migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406071600105_add_soluiton_and_trouble.resx">
+      <DependentUpon>201406071600105_add_soluiton_and_trouble.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

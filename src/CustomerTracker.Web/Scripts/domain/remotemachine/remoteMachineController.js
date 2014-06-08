@@ -9,25 +9,22 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
 
     $scope.addMode = false;
 
-    $scope.filterCriteria = {
-        pageNumber: 1,
-        pageSize: 10,
-        sortedBy: 'id',
-        sortDir: 'asc',
-    };
+    $scope.totalCount = 0;
+    $scope.pageNumber = 1;
+    $scope.pageSize = 10;
+    $scope.sortedBy = 'id',
+    $scope.sortDir = 'asc'; 
+    $scope.$on('pageChangedEventHandler', function (instance, currentPageNumber) {
+        $scope.pageNumber = currentPageNumber;
+        $scope.loadRemoteMachines();
+    });
       
     var successCallbackWhenFormEdit = function (data, status, headers, config) {
         notificationFactory.success();
 
         return $scope.loadRemoteMachines();
     };
-    
-    $scope.$on('pageChangedEventHandler', function () {
-        $scope.filterCriteria.pageNumber = eventFactory.pagingModel.currentPageNumber;
-
-        $scope.loadRemoteMachines();
-    });
-
+     
     $scope.toggleAddMode = function () {
         $scope.addMode = !$scope.addMode;
     };
@@ -67,11 +64,10 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     };
 
     $scope.loadRemoteMachines = function () {
-        return remoteMachineFactory.getRemoteMachines($scope.filterCriteria.pageNumber, $scope.filterCriteria.pageSize, $scope.filterCriteria.sortedBy, $scope.filterCriteria.sortDir)
+        return remoteMachineFactory.getRemoteMachines($scope.pageNumber, $scope.pageSize, $scope.sortedBy, $scope.sortDir)
                          .success(function (data, status) {
                              $scope.remoteMachines = data.remoteMachines;
-
-                             eventFactory.firePagingModelInitiliaze({ totalCount: data.totalCount, pageSize: $scope.filterCriteria.pageSize });
+                             $scope.totalCount = data.totalCount;
                          })
                          .error(baseControllerFactory.errorCallback);
     };

@@ -13,13 +13,14 @@ customerApp.factory('remoteMachineFactory', function ($http) {
         },
         updateRemoteMachine: function (remoteMachine) {
             return $http.put(remoteMachineApiUrl.putremotemachine + remoteMachine.Id, remoteMachine);
-        },
-        getCustomers: function (pageNumber, pageSize, sortBy, sortDir) {
-            return $http.get(customerApiUrl.getcustomers, { params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir } });
-        },
-        getRemoteConnectionTypes: function () {
-            return $http.get(sharedDataApiUrl.getremoteconnectiontypes);
         }
+        //,
+        //getCustomers: function (pageNumber, pageSize, sortBy, sortDir) {
+        //    return $http.get(customerApiUrl.getcustomers, { params: { pageNumber: pageNumber, pageSize: pageSize, sortBy: sortBy, sortDir: sortDir } });
+        //},
+        //getRemoteConnectionTypes: function () {
+        //    return $http.get(sharedDataApiUrl.getremoteconnectiontypes);
+        //}
 
     };
 });

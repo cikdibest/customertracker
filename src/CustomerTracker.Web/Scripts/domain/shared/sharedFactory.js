@@ -9,6 +9,9 @@ customerApp.factory('sharedFactory', function ($http) {
             return $http.get(sharedDataApiUrl.getselectorgenders);
         },
         
+        getSelectorTroubles: function () {
+            return $http.get(sharedDataApiUrl.getselectortroubles);
+        },
 
 
          

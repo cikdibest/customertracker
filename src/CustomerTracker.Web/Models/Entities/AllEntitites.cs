@@ -272,4 +272,29 @@ namespace CustomerTracker.Web.Models.Entities
     }
 
 
+    public class Solution : BaseEntity
+    {
+        public int CustomerId { get; set; }
+        public virtual Customer Customer { get; set; }
+
+        public int ProductId { get; set; }
+        public virtual Product Product { get; set; }
+
+        public int TroubleId { get; set; }
+        public virtual Trouble Trouble { get; set; }
+
+        public int SolutionUserId { get; set; }
+        public virtual User SolutionUser { get; set; }
+
+        [StringLength(250)]
+        public string Title { get; set; }
+
+        public string Description { get; set; }
+
+    }
+
+    public class Trouble : BaseEntity
+    {
+        public string Name { get; set; }
+    }
 }
