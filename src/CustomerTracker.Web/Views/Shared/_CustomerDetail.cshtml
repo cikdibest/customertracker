@@ -37,7 +37,7 @@
                 </div>
                 <div>
                     <div class="col-xs-12 col-sm-3">
-                        <img data-ng-src="{{selectedCustomer.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
+                        <img data-ng-src="{{selectedCustomer.AvatarImageUrl}}" alt="Resim yok..." class="img-responsive img-circle col-md-12" />
 
                     </div>
                     <div>
@@ -65,10 +65,10 @@
                                     <td>Ürünler</td>
                                     <td>
                                         <header ng-repeat="product in selectedCustomer.Products">
-                                            <button type="button" class="btn btn-danger">{{product.Name}}</button>
+                                            <button type="button">{{product.Name}}</button>
                                             <i ng-show="customerEditMode" class="glyphicon glyphicon-trash" ng-click="removeProductFromCustomer(product)">Sil</i>
-                                        </header> 
-                                        <select  ng-show="customerEditMode"  ng-model="newProduct.Id" ng-options="product.Id as product.Name group by product.ParentProduct.Name for product in allProducts | filter: filterCanAddProductToCustomer : product">
+                                        </header>
+                                        <select ng-show="customerEditMode" ng-model="newProduct.Id" ng-options="product.Id as product.Name group by product.ParentProduct.Name for product in allProducts | filter: filterCanAddProductToCustomer : product">
                                         </select>
                                         <i class="glyphicon glyphicon-plus" ng-show="customerEditMode" ng-click="addProductToCustomer()">Ekle</i>
                                     </td>
@@ -88,12 +88,12 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="input-group c-search">
-                            <input type="text" class="form-control" id="contact-list-search">
+                            <input type="text" id="contact-list-search">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                                <button type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
                             </span>
                             <span class="input-group-btn">
-                                <button class="btn btn-success" type="button" data-ng-click="toogleCommunicationAddMode()"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button type="button" data-ng-click="toogleCommunicationAddMode()"><span class="glyphicon glyphicon-plus"></span></button>
                             </span>
                         </div>
                         <div ng-show="communicationAddMode">
@@ -155,7 +155,7 @@
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
 
-                            <img ng-show="communication.editMode==null || !communication.editMode" data-ng-src="{{ (communication.AvatarImageUrl== '' ||communication.AvatarImageUrl==null) ?  (communication.GenderId==1 ? '\\ct\\Content\\images\\boy.jpg' : '\\ct\\Content\\images\\lady.jpg') : communication.AvatarImageUrl }}" alt="Resim yok" class="img-responsive img-circle" />
+                            <img ng-show="communication.editMode==null || !communication.editMode" data-ng-src="{{ (communication.AvatarImageUrl== '' ||communication.AvatarImageUrl==null) ?  (communication.GenderId==1 ? '\\ct\\Content\\images\\boy.jpg' : '\\ct\\Content\\images\\lady.jpg') : communication.AvatarImageUrl }}" alt="Resim yok" class="img-responsive img-circle col-md-12" />
                             <input ng-show="communication.editMode" ng-model="communication.AvatarImageUrl" />
                         </div>
                         <div class="col-xs-12 col-sm-9">
@@ -229,12 +229,12 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="input-group c-search">
-                            <input type="text" class="form-control" id="contact-list-search">
+                            <input type="text" id="contact-list-search">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                                <button type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
                             </span>
                             <span class="input-group-btn">
-                                <button class="btn btn-success" type="button" data-ng-click="toggleRemoteMachineAddMode()"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button type="button" data-ng-click="toggleRemoteMachineAddMode()"><span class="glyphicon glyphicon-plus"></span></button>
                             </span>
                         </div>
                         <div ng-show="remoteMachineAddMode">
@@ -291,7 +291,7 @@
 
                     <li class="list-group-item">
                         <div class="col-xs-12 col-sm-3">
-                            <img data-ng-src="{{remoteMachine.RemoteMachineConnectionType.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle" />
+                            <img data-ng-src="{{remoteMachine.RemoteMachineConnectionType.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle col-md-12" />
                         </div>
                         <div class="col-xs-12 col-sm-9">
                             <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" class="name">{{remoteMachine.DecryptedName}}</span><br />
@@ -362,9 +362,9 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="input-group c-search">
-                            <input type="text" class="form-control" id="contact-list-search">
+                            <input type="text" id="contact-list-search">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                                <button type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
                             </span>
                         </div>
                     </div>

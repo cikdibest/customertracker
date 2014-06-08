@@ -31,6 +31,7 @@ namespace CustomerTracker.Web.Controllers.api
                 .Include(q => q.Customer)
                 .Include(q => q.Product)
                 .Include(q => q.Trouble)
+                .Include(q => q.SolutionUser)
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)

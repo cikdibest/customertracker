@@ -32,13 +32,13 @@
                     </div>
                 </td>
                 <td>
-                    <input ng-model="dataMaster.AvatarImageUrl" />
+                    <input ng-model="dataMaster.AvatarImageUrl"  />
                 </td>
                 <td>
                     <input ng-model="dataMaster.Name" />
                 </td>
                 <td>
-                    <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers"></select>
+                    <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ></select>
                 </td>
             </tr>
             <tr ng-repeat="dataMaster in dataMasters | orderBy:'Id':false">
@@ -69,7 +69,7 @@
                 </td>
                 <td>
                     <span ng-show="dataMaster.editMode == null || dataMaster.editMode == false">{{dataMaster.Customer.Name}}</span>
-                    <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="dataMaster.editMode == true"></select>
+                    <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="dataMaster.editMode == true" ></select>
                 </td>
 
 

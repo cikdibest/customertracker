@@ -91,6 +91,16 @@ var solutionApiUrl = {
     
 };
 
+var userApiUrl = {
+    getusers: '/ct/api/userapi/getusers/',
+    getuser: '/ct/api/userapi/getuser/',
+    putuser: '/ct/api/userapi/putuser/',
+    postuser: '/ct/api/userapi/postuser/',
+    deleteuser: '/ct/api/userapi/deleteuser/',
+    getselectorusers: '/ct/api/userapi/getselectorusers/',
+
+};
+
 
 angular.module('SharedServices', [])
     .config(function ($httpProvider) {

@@ -1,5 +1,5 @@
 ﻿ 
-customerApp.controller('solutionController', function ($scope, solutionFactory, customerFactory, sharedFactory, productFactory, notificationFactory, baseControllerFactory, eventFactory, modalService) {
+customerApp.controller('solutionController', function ($scope, solutionFactory, customerFactory, sharedFactory, productFactory, userFactory, notificationFactory, baseControllerFactory, eventFactory, modalService) {
      
     $scope.solutions = [];
 
@@ -8,6 +8,8 @@ customerApp.controller('solutionController', function ($scope, solutionFactory, 
     $scope.troubles = [];
 
     $scope.allProducts = [];
+
+    $scope.users = [];
 
     $scope.addMode = false;
 
@@ -97,19 +99,29 @@ customerApp.controller('solutionController', function ($scope, solutionFactory, 
             .error(baseControllerFactory.errorCallback);
     };
     
+    $scope.loadUsers = function () {
+        userFactory.getSelectorUsers()
+            .success(function (data) {
+                $scope.users = data;
+            })
+            .error(baseControllerFactory.errorCallback);
+    };
+    
     $scope.filterCanAddProduct = function (product) {
 
         return product.ParentProductId != null;
     };
      
-    $scope.init = function () {
-        $scope.loadSolutions();
-
+    $scope.init = function () { 
         $scope.loadCustomers();
          
         $scope.loadProducts();
 
         $scope.loadTroubles();
+
+        $scope.loadUsers();
+
+        $scope.loadSolutions();
 
     };
 

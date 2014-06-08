@@ -30,14 +30,15 @@
                         <li>@Html.ActionLink("Özel veri", "DataMaster", "CrudView")</li>
                         <li class="divider"></li>
                         @*<li><a href="#">Sistem Kullanıcıları</a></li>*@
+                        <li>@Html.ActionLink("Kullanıcı", "Users", "CrudView")</li>
                         <li>@Html.ActionLink("Dosya Yükleme", "Index", "FileUpload")</li>
                     </ul>
                 </li>
                 <li>
-                        <li>@Html.ActionLink("Çözüm Merkezi", "Solution", "CrudView")</li>
+                    <li>@Html.ActionLink("Çözüm Merkezi", "Solution", "CrudView")</li>
                 </li>
             </ul>
-           
+
             <ul class="nav navbar-nav navbar-right">
                 @Html.Partial("_LoginPartial")
             </ul>

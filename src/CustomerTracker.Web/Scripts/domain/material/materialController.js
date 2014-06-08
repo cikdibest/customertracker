@@ -53,9 +53,8 @@ customerApp.controller('materialController', function ($scope, $filter, material
                              .error(baseControllerFactory.errorCallback);
 
     };
-
-
-
+     
+     
 
     $scope.toogleCommunicationAddMode = function () {
         $scope.communicationAddMode = !$scope.communicationAddMode;
@@ -76,7 +75,6 @@ customerApp.controller('materialController', function ($scope, $filter, material
     $scope.toggleCustomerEditMode = function () {
         $scope.customerEditMode = !$scope.customerEditMode;
     };
-
 
 
 
@@ -197,7 +195,10 @@ customerApp.controller('materialController', function ($scope, $filter, material
     };
 
     $scope.filterCanAddProductToCustomer = function (product) {
-        
+
+        if ($scope.selectedCustomer==null) {
+            return false;
+        }
         return product.ParentProductId != null && _.where($scope.selectedCustomer.Products, { Id: product.Id }).length==0;
     };
 

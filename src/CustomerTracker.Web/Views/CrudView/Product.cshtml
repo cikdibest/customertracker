@@ -89,7 +89,7 @@
       
      <li> 
         <span ng-show="(subProduct.isEditMode==null || !subProduct.isEditMode)" ng-class="{active: subProduct.isSubProductCreateMode}"> {{subProduct.Name}}</span>  
-        <input ng-show="subProduct.isEditMode" ng-model="subProduct.Name"/> 
+        <input ng-show="subProduct.isEditMode" ng-model="subProduct.Name" /> 
         <i class="glyphicon glyphicon-trash" ng-show="(subProduct.isEditMode==null || !subProduct.isEditMode) && (subProduct.isSubProductCreateMode==null || !subProduct.isSubProductCreateMode)" ng-click="deleteProduct(subProduct)">Sil</i> 
         <i class="glyphicon glyphicon-edit" ng-show="(subProduct.isEditMode==null || !subProduct.isEditMode) &&  (subProduct.isSubProductCreateMode==null || !subProduct.isSubProductCreateMode)" ng-click="toggleProductEditMode(subProduct)">Güncelle</i> 
         <i class="glyphicon glyphicon-save" ng-show="subProduct.isEditMode"  ng-click="updateProduct(subProduct)">Kaydet</i>
@@ -105,7 +105,7 @@
     <script type="text/ng-template" id="ProductTreeViewTemplate.html">
      <li>
          <span ng-show="(product.isEditMode==null || !product.isEditMode)" ng-class="{active: product.isSubProductCreateMode}"> {{product.Name}}</span>  
-        <input ng-show="product.isEditMode" ng-model="product.Name"/> 
+        <input ng-show="product.isEditMode" ng-model="product.Name" /> 
         <i class="glyphicon glyphicon-trash" ng-show="(product.isEditMode==null || !product.isEditMode) && (product.isSubProductCreateMode==null || !product.isSubProductCreateMode)" ng-click="deleteProduct(product)">Sil</i> 
         <i class="glyphicon glyphicon-edit" ng-show="(product.isEditMode==null || !product.isEditMode) &&  (product.isSubProductCreateMode==null || !product.isSubProductCreateMode)" ng-click="toggleProductEditMode(product)">Güncelle</i> 
         <i class="glyphicon glyphicon-save" ng-show="product.isEditMode"  ng-click="updateProduct(product)">Kaydet</i>

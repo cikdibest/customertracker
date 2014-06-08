@@ -23,8 +23,6 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
 
         return $scope.loadCustomers();
     };
-
-   
      
     $scope.toggleAddMode = function () {
         $scope.addMode = !$scope.addMode;
@@ -79,9 +77,11 @@ customerApp.controller('customerController', function ($scope, customerFactory, 
     };
 
     $scope.init = function() {
+       
+        $scope.loadCities();
+        
         $scope.loadCustomers();
 
-        $scope.loadCities();
     };
 
     $scope.init();

@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Uzak Bağlantı";
 }
+<script src="~/Scripts/domain/user/userFactory.js"></script>
 <script src="~/Scripts/domain/product/productFactory.js"></script>
 <script src="~/Scripts/domain/customer/customerFactory.js"></script>
 <script src="~/Scripts/domain/shared/sharedFactory.js"></script>
@@ -8,7 +9,7 @@
 <script src="~/Scripts/domain/solution/solutionController.js"></script>
 <div ng-controller="solutionController" ng-cloak>
 
-    <div ng-controller="paginationController"> 
+    <div ng-controller="paginationController">
         <pagination total-items="totalCount" ng-model="pageNumber" max-size="pageSize" class="pagination-sm" boundary-links="true" rotate="false" num-pages="numPages" ng-change="pageChanged(pageNumber)"></pagination>
         <pre>Page: {{pageNumber}} / {{numPages}}</pre>
     </div>
@@ -26,6 +27,8 @@
                 </th>
                 <th class="text-center" style="width: 7%">Sorun Tipi
                 </th>
+                <th class="text-center" style="width: 7%">İlgili
+                </th>
                 <th class="text-center" style="width: 20%">Tanım
                 </th>
                 <th class="text-center">Çözüm
@@ -36,29 +39,31 @@
                 <td>
                     <div class="btn-toolbar">
                         <div class="btn-group">
-                            <i class="btn glyphicon glyphicon-save" ng-click="addRemoteMachine()"></i>
+                            <i class="btn glyphicon glyphicon-save" ng-click="addSolution()"></i>
                             <i class="btn glyphicon glyphicon-remove" ng-click="toggleAddMode()"></i>
                         </div>
                     </div>
                 </td>
                 <td>
-                    <select ng-model="solution.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" class="form-control col-md-12"></select>
+                    <select ng-model="solution.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ></select>
+                </td>
+                <td>
+                    <select ng-model="solution.ProductId" ng-options="product.Id as product.Name group by product.ParentProduct.Name for product in allProducts | filter : filterCanAddProduct :product" ></select>
                 </td>
                 <td>
 
-                    <select ng-model="solution.ProductId" ng-options="product.Id as product.Name group by product.ParentProduct.Name for product in allProducts | filter : filterCanAddProduct :product" class="form-control col-md-12"></select>
+                    <select ng-model="solution.TroubleId" ng-options="trouble.Key as trouble.Value for trouble in troubles" ></select>
+                </td>
+                <td>
+                    <select ng-model="solution.SolutionUserId" ng-options="user.Key as user.Value for user in users" ></select>
                 </td>
                 <td>
 
-                    <select ng-model="solution.TroubleId" ng-options="trouble.Key as trouble.Value for trouble in troubles" class="form-control"></select>
-                </td>
-                <td>
-
-                    <input ng-model="solution.Title" type="text" placeholder='Kısa tanım...' class="form-control col-md-12" />
+                    <input ng-model="solution.Title" type="text" placeholder='Kısa tanım...'  />
 
                 </td>
                 <td>
-                    <textarea ng-model="solution.Description" type="text" placeholder='Nasıl çözüldü...' class="form-control col-md-12"></textarea>
+                    <textarea ng-model="solution.Description" type="text" placeholder='Nasıl çözüldü...' ></textarea>
 
                 </td>
             </tr>
@@ -76,28 +81,31 @@
                             <i class="btn glyphicon glyphicon-remove" ng-click="toggleEditMode(solution)"></i>
                         </div>
                     </div>
-                </td> 
+                </td>
                 <td>
                     <span ng-bind="solution.Customer.Name" ng-show="solution.editMode==null || solution.editMode==false"></span>
-                    <select ng-model="solution.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="solution.editMode" class="form-control col-md-12"></select>
+                    <select ng-model="solution.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="solution.editMode" ></select>
                 </td>
                 <td>
                     <span ng-bind="solution.Product.Name" ng-show="solution.editMode==null || solution.editMode==false"></span>
-                    <select ng-model="solution.ProductId" ng-options="product.Id as product.Name group by product.ParentProduct.Name for product in allProducts | filter : filterCanAddProduct :product" ng-show="solution.editMode" class="form-control col-md-12"></select>
+                    <select ng-model="solution.ProductId" ng-options="product.Id as product.Name group by product.ParentProduct.Name for product in allProducts | filter : filterCanAddProduct :product" ng-show="solution.editMode" ></select>
                 </td>
                 <td>
                     <span ng-bind="solution.Trouble.Name" ng-show="solution.editMode==null || solution.editMode==false"></span>
-                    <select ng-model="solution.TroubleId" ng-options="trouble.Key as trouble.Value for trouble in troubles" ng-show="solution.editMode" class="form-control col-md-12"></select>
+                    <select ng-model="solution.TroubleId" ng-options="trouble.Key as trouble.Value for trouble in troubles" ng-show="solution.editMode" ></select>
                 </td>
                 <td>
-                    <span ng-bind="solution.Title" ng-show="solution.editMode==null || solution.editMode==false"></span>
-
-                    <input ng-model="solution.Title" type="text" placeholder='Kısa tanım...' class="form-control col-md-12" ng-show="solution.editMode" />
+                    <span ng-bind="solution.SolutionUser.Username" ng-show="solution.editMode==null || solution.editMode==false"></span>
+                    <select ng-model="solution.SolutionUserId" ng-options="user.Key as user.Value for user in users" ng-show="solution.editMode" ></select>
+                </td>
+                <td>
+                    <span ng-bind="solution.Title" ng-show="solution.editMode==null || solution.editMode==false"></span> 
+                    <input ng-model="solution.Title" type="text" placeholder='Kısa tanım...'  ng-show="solution.editMode" />
 
                 </td>
                 <td>
                     <span ng-bind="solution.Description" ng-show="solution.editMode==null || solution.editMode==false"></span>
-                    <textarea ng-model="solution.Description" type="text" placeholder='Nasıl çözüldü...' class="form-control col-md-12" ng-show="solution.editMode"></textarea>
+                    <textarea ng-model="solution.Description" type="text" placeholder='Nasıl çözüldü...'  ng-show="solution.editMode"></textarea>
 
                 </td>
             </tr>

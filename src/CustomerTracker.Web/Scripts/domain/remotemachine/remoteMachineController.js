@@ -86,12 +86,12 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
                        .error(baseControllerFactory.errorCallback);
     };
 
-    $scope.init = function () {
-        $scope.loadRemoteMachines();
-
+    $scope.init = function () { 
         $scope.loadCustomers();
 
         $scope.loadRemoteMachineConnectionTypes();
+         
+        $scope.loadRemoteMachines();
     };
 
     $scope.init();

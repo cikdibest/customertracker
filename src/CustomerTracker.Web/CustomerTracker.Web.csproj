@@ -221,6 +221,7 @@
     <Compile Include="Controllers\api\CustomerApiController.cs" />
     <Compile Include="Controllers\api\DepartmentApiController.cs" />
     <Compile Include="Controllers\CrudViewController.cs" />
+    <Compile Include="Controllers\api\UserApiController.cs" />
     <Compile Include="Controllers\FileUploadController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
     <Compile Include="Global.asax.cs">
@@ -338,6 +339,8 @@
     <Content Include="Scripts\components\bootstrap-fileupload.min.js" />
     <Content Include="Scripts\domain\appControllers.js" />
     <Content Include="Scripts\domain\common\filters.js" />
+    <Content Include="Scripts\domain\user\userController.js" />
+    <Content Include="Scripts\domain\user\userFactory.js" />
     <Content Include="Scripts\domain\solution\solutionController.js" />
     <Content Include="Scripts\domain\solution\solutionFactory.js" />
     <Content Include="Scripts\domain\datadetail\dataDetailController.js" />
@@ -646,6 +649,7 @@
     <Content Include="Views\CrudView\Product.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
     <Content Include="Views\CrudView\Solution.cshtml" />
+    <Content Include="Views\CrudView\Users.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
