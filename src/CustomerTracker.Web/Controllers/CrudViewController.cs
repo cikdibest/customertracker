@@ -9,7 +9,6 @@ namespace CustomerTracker.Web.Controllers
     {
         public ActionResult Department()
         {
-            throw new Exception("das");
             return View();
         }
 

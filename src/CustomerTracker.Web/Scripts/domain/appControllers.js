@@ -1,9 +1,9 @@
 ﻿
 //var materialSearchUrl = '/material/search/getMaterials';
 
-var forbiddenImageUrl = '../Content/images/forbidden.png';
+var forbiddenImageUrl = '/ct/Content/images/forbidden.png';
 var notFoundImageUrl = '/ct/Content/images/404notfound.jpg';
-var internalErrorImageUrl = '../Content/images/clap.gif';
+var internalErrorImageUrl = '/ct/Content/images/clap.gif';
 
 var materialApiUrl = {
     searchmaterials: '/ct/api/materialapi/searchmaterials/',
@@ -104,7 +104,7 @@ var userApiUrl = {
     deleteuser: '/ct/api/userapi/deleteuser/',
     getselectorusers: '/ct/api/userapi/getselectorusers/',
     sendpasswordtouser: '/ct/api/userapi/sendpasswordtouser/',
-    
+
 };
 
 
@@ -160,8 +160,8 @@ var modalService = function ($modal) {
     this.getDeleteConfirmationModal = function (title) {
         return this.getConfirmationModal('İptal', 'Sil', 'Silme işlemi', '"' + title + '"' + ' ' + 'silinsin mi?');
     };
-    
-    this.getConfirmationModal = function (closeText,actionText,headerText,bodyText) {
+
+    this.getConfirmationModal = function (closeText, actionText, headerText, bodyText) {
         return {
             closeButtonText: closeText,
             actionButtonText: actionText,
@@ -229,7 +229,7 @@ customerApp.factory('baseControllerFactory', function (notificationFactory, moda
                 modalFade: true,
                 templateUrl: '/ct/errorpage.html'
             };
-             
+
             if (status == 403) {
 
                 modalService.showModal(modalDefaults, {

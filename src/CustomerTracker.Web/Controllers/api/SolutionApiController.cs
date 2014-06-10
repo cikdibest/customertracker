@@ -60,8 +60,7 @@ namespace CustomerTracker.Web.Controllers.api
 
             return solution;
         }
-
-        [CustomAuthorize(Roles = "Admin")]
+         
         public HttpResponseMessage PutSolution(int id, Solution solution)
         {
             if (!ModelState.IsValid)
@@ -107,8 +106,7 @@ namespace CustomerTracker.Web.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
-
-        [CustomAuthorize(Roles = "Admin")]
+         
         public HttpResponseMessage DeleteSolution(int id)
         {
             var solution = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Solution>().Find(id);
