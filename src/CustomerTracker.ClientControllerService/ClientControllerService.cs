@@ -73,17 +73,16 @@ namespace CustomerTracker.ClientControllerService
 
             foreach (var service in _serviceNameList)
             {
-                log.Debug("İstenen Servislerin sayısı : "+serviceConditionList.Count);
                 serviceConditionList.Add(_serviceController.GetServiceState(service));
             }
-
+            log.Debug("İstenen Servislerin sayısı : " + serviceConditionList.Count);
             var serverCondition = new ServerCondition
             {
                 HardwareControlMessages = hardwareConditionList,
                 ServiceControlMessages = serviceConditionList,
                 MachineCode = Settings.Default.MachineCode
             };
-            log.Debug("Servis durumu gönderiliyor. Alarm var mı : "+serverCondition.HardwareControlMessages.Where(c=>c.IsAlarm).Count()+serverCondition.ServiceControlMessages.Where(c=>c.IsAlarm).Count());
+            log.Debug("Servis durumu gönderiliyor. Alarm var mı : "+(serverCondition.HardwareControlMessages.Count(c => c.IsAlarm)+serverCondition.ServiceControlMessages.Count(c => c.IsAlarm)));
             var restRequest = CreatePostRestRequest(Settings.Default.StateReceiverApiAddress, serverCondition);
             var restClient = new RestClient();
             var response = restClient.Execute(restRequest);
