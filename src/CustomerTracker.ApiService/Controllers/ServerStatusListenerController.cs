@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -11,20 +12,25 @@ using Newtonsoft.Json;
 
 namespace CustomerTracker.ApiService.Controllers
 {
+
     public class ServerStatusListenerController : ApiController
     {
         public HttpResponseMessage GetApplicationServices(string machineCode)
         {
             try
             {
-                AddRequest(Request);
 
                 var trimmmedLowerMachineCode = machineCode.ToLower().Trim();
 
                 var httpResponseMessage = ValidateMachineCode(trimmmedLowerMachineCode);
 
                 if (httpResponseMessage.StatusCode != HttpStatusCode.OK)
+                {
+                    AddRequest(Request, httpResponseMessage);
+
                     return httpResponseMessage;
+                }
+
 
                 using (var customerTrackerDataContext = new CustomerTrackerDataContext())
                 {
@@ -35,35 +41,89 @@ namespace CustomerTracker.ApiService.Controllers
                         .SingleOrDefault(q => q.MachineCode.ToLower() == trimmmedLowerMachineCode);
 
                     if (remoteMachine == null)
-                        return Request.CreateErrorResponse(HttpStatusCode.NoContent, "Target machine is not found");
+                    {
+                        var responseMessage = Request.CreateErrorResponse(HttpStatusCode.NoContent, "Remote machine is not found");
+                        AddRequest(Request, responseMessage);
+                        return responseMessage;
+                    }
+
 
                     var targetServices = remoteMachine.ApplicationServices.Select(q => new TargetService() { ApplicationServiceId = q.Id, InstanceName = q.InstanceName, ApplicationServiceTypeId = q.ApplicationServiceTypeId }).ToList();
 
-                    return Request.CreateResponse(HttpStatusCode.OK, targetServices);
+                    var response = Request.CreateResponse(HttpStatusCode.OK, targetServices);
+                    AddRequest(Request, response);
+                    return response;
                 }
 
             }
             catch (Exception exc)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+                var httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+                AddRequest(Request, httpResponseMessage);
+                return httpResponseMessage;
             }
 
         }
 
-        public HttpResponseMessage PostServerCondition(ServerCondition serverCondition)
+        public HttpResponseMessage PostServerCondition(dynamic serverCondition)
         {
-            AddRequest(Request);
+            try
+            {
+                var machineCode = serverCondition.MachineCode.Value as string;
 
-            var trimmmedLowerMachineCode = serverCondition.MachineCode.ToLower().Trim();
+                var isAlarm = serverCondition.IsAlarm.Value == true;
 
-            var httpResponseMessage = ValidateMachineCode(trimmmedLowerMachineCode);
+                var trimmmedLowerMachineCode = machineCode.ToLower().Trim();
 
-            if (httpResponseMessage.StatusCode != HttpStatusCode.OK)
+                var httpResponseMessage = ValidateMachineCode(trimmmedLowerMachineCode);
+
+                if (httpResponseMessage.StatusCode != HttpStatusCode.OK)
+                {
+                    AddRequest(Request, httpResponseMessage);
+
+                    return httpResponseMessage;
+                }
+
+                using (var customerTrackerDataContext = new CustomerTrackerDataContext())
+                {
+                    var repositoryRemoteMachine = new RepositoryGeneric<RemoteMachine>(customerTrackerDataContext);
+
+                    var remoteMachine = repositoryRemoteMachine.Find(q => q.MachineCode.ToLower() == trimmmedLowerMachineCode);
+
+                    if (remoteMachine == null)
+                    {
+                        var responseMessage1 = Request.CreateErrorResponse(HttpStatusCode.NoContent, "Remote machine is not found");
+                        AddRequest(Request, responseMessage1);
+                        return responseMessage1;
+                    }
+
+                    var serializeObject = JsonConvert.SerializeObject(serverCondition);
+
+                    if (remoteMachine.MachineLogs == null)
+                        remoteMachine.MachineLogs = new Collection<MachineLog>();
+
+                    remoteMachine.MachineLogs.Add(new MachineLog() { MachineConditionJson = serializeObject, IsAlarm = isAlarm });
+
+                    customerTrackerDataContext.SaveChanges();
+                }
+
+
+                var responseMessage = Request.CreateResponse(HttpStatusCode.OK);
+
+                AddRequest(Request, responseMessage);
+
+                return responseMessage;
+            }
+
+            catch (Exception exc)
+            {
+                var httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+                AddRequest(Request, httpResponseMessage);
                 return httpResponseMessage;
+            }
 
-            var serializeObject = JsonConvert.SerializeObject(serverCondition);
 
-            return Request.CreateResponse(HttpStatusCode.OK);
+
         }
 
         public HttpResponseMessage GetActiveRequests()
@@ -71,8 +131,7 @@ namespace CustomerTracker.ApiService.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, CacheData.Instance.HttpRequestMessages);
         }
 
-
-
+        #region private methods
         private HttpResponseMessage ValidateMachineCode(string trimmmedLowerMachineCode)
         {
             if (string.IsNullOrWhiteSpace(trimmmedLowerMachineCode))
@@ -84,14 +143,21 @@ namespace CustomerTracker.ApiService.Controllers
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
-        private void AddRequest(HttpRequestMessage httpRequestMessage)
+        private void AddRequest(HttpRequestMessage httpRequestMessage, HttpResponseMessage responseMessage)
         {
             if (CacheData.Instance.HttpRequestMessages.Count > 50)
                 CacheData.Instance.HttpRequestMessages.RemoveAt(0);
 
-            CacheData.Instance.HttpRequestMessages.Add(new RequestModel() { RequestUrl = httpRequestMessage.RequestUri.AbsoluteUri, RequestDate = DateTime.Now.ToString("dd.MM.yyyy hh:mm") });
+            CacheData.Instance.HttpRequestMessages.Add(new RequestModel()
+            {
+                RequestUrl = httpRequestMessage.RequestUri.AbsoluteUri,
+                RequestDate = DateTime.Now.ToString("dd.MM.yyyy hh:mm"),
+                ResponseStatusCode = responseMessage.StatusCode.ToString(),
+
+            });
         }
 
-       
+        #endregion
+
     }
 }

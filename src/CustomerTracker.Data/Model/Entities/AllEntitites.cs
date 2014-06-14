@@ -116,6 +116,8 @@ namespace CustomerTracker.Data.Model.Entities
 
         public virtual ICollection<ApplicationService> ApplicationServices { get; set; }
 
+        public virtual ICollection<MachineLog> MachineLogs { get; set; }
+
         [StringLength(100)]
         [NotMapped]
         public string DecryptedName
@@ -321,6 +323,16 @@ namespace CustomerTracker.Data.Model.Entities
         }
 
         public virtual ICollection<RemoteMachine> RemoteMachines { get; set; }
+    }
+
+    public class MachineLog : BaseEntity
+    {
+        public string MachineConditionJson { get; set; }
+
+        public bool IsAlarm { get; set; }
+
+        public int RemoteMachineId { get; set; }
+        public virtual RemoteMachine RemoteMachine { get; set; }
     }
 
     public enum ApplicationServiceType

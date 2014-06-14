@@ -12,17 +12,17 @@
 
         $scope.requests = [];
 
-        $scope.load = function() {
+        $scope.load = function () {
             $http.get('./ServerStatusListener/getactiverequests')
-                .success(function(data) {
+                .success(function (data) {
                     $scope.requests = data;
-                }).error(function(data, status, haders, config) {
+                }).error(function (data, status, haders, config) {
                     console.log(data);
                 });
         };
 
 
-        $interval(function() {
+        $interval(function () {
             $scope.load();
         }, 3000);
 
@@ -32,20 +32,19 @@
 <div ng-controller="homeController">
     <table class="table table-bordered table-striped">
         <tr>
-            <td>
-                Url
+            <td>Url
             </td>
-            <td>
-                RequestDate
+            <td>RequestDate
+            </td>
+            <td>Response Status Code
             </td>
         </tr>
         <tr ng-repeat="request in requests">
-            <td>
-                {{request.RequestUrl}}
+            <td>{{request.RequestUrl}}
+            </td> 
+            <td>{{request.RequestDate}}
             </td>
-            
-               <td>
-                {{request.RequestDate}}
+            <td>{{request.ResponseStatusCode}}
             </td>
         </tr>
     </table>

@@ -37,5 +37,6 @@ namespace CustomerTracker.ClientController.Core.Models
         public List<HardwareControlMessage> HardwareControlMessages { get; set; }
         public List<ServiceControlMessage> ServiceControlMessages { get; set; }
         public string MachineCode { get; set; }
+        public bool IsAlarm { get; set; }
     }
 }

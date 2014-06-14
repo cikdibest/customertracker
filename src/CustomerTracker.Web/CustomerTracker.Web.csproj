@@ -278,6 +278,10 @@
     <Compile Include="Migrations\201406141313318_update_remotemachine_machincode.Designer.cs">
       <DependentUpon>201406141313318_update_remotemachine_machincode.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406142220398_add_machinelog.cs" />
+    <Compile Include="Migrations\201406142220398_add_machinelog.Designer.cs">
+      <DependentUpon>201406142220398_add_machinelog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
     <Compile Include="Models\Attributes\ApiExceptionHandlingAttribute.cs" />
@@ -742,6 +746,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406141313318_update_remotemachine_machincode.resx">
       <DependentUpon>201406141313318_update_remotemachine_machincode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406142220398_add_machinelog.resx">
+      <DependentUpon>201406142220398_add_machinelog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
