@@ -113,8 +113,10 @@ namespace CustomerTracker.ClientControllerService
             var restRequest = new RestRequest(Method.GET)
             {
                 Resource = path,
-                RequestFormat = DataFormat.Json
+                RequestFormat = DataFormat.Json,
             };
+
+            restRequest.AddParameter("machineCode", _machineCode);
 
             return restRequest;
         }
