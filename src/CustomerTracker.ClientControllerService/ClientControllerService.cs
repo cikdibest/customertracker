@@ -34,7 +34,7 @@ namespace CustomerTracker.ClientControllerService
             try
             {
                 _bootstrap = new Bootstrap(Settings.Default.MachineCode, Settings.Default.RamUsageAlarmLimit, Settings.Default.DiskUsageAlarmLimit,
-         Settings.Default.CpuUsageAlarmLimit, Settings.Default.ServiceThreadCountAlarmLimit, Settings.Default.StateReceiverApiAddress, Settings.Default.ServiceNamesApiAddress);
+         Settings.Default.CpuUsageAlarmLimit, Settings.Default.ServiceThreadCountAlarmLimit,  Settings.Default.ApiAddressetGetApplicationServices,Settings.Default.ApiAddressPostServerCondition);
 
                 _timer = new Timer(Settings.Default.TimerInMinutes * 60000) { Enabled = true };
                 _timer.Elapsed += _timer_Elapsed;

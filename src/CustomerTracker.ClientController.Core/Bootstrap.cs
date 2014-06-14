@@ -22,10 +22,11 @@ namespace CustomerTracker.ClientController.Core
         private readonly double _diskUsageAlarmLimit;
         private readonly double _cpuUsageAlarmLimit;
         private readonly double _serviceThreadCountAlarmLimit;
-        private readonly string _serverConditonPostApiAdress;
-        private readonly string _serverConditonGetApiAdress;
-
-        public Bootstrap(string machineCode, double ramUsageAlarmLimit, double diskUsageAlarmLimit, double cpuUsageAlarmLimit, double serviceThreadCountAlarmLimit, string serverConditonPostApiAdress, string serverConditonGetApiAdress)
+        private readonly string _apiAddressetGetApplicationServices;
+        private readonly string _apiAddressPostServerCondition;
+ 
+        public Bootstrap(string machineCode, double ramUsageAlarmLimit, double diskUsageAlarmLimit, double cpuUsageAlarmLimit, double serviceThreadCountAlarmLimit,
+            string apiAddressetGetApplicationServices, string apiAddressPostApiAddressPostServerCondition)
         {
             this._log = LogManager.GetCurrentClassLogger();
             this._machineCode = machineCode;
@@ -33,8 +34,8 @@ namespace CustomerTracker.ClientController.Core
             this._diskUsageAlarmLimit = diskUsageAlarmLimit;
             this._cpuUsageAlarmLimit = cpuUsageAlarmLimit;
             this._serviceThreadCountAlarmLimit = serviceThreadCountAlarmLimit;
-            this._serverConditonPostApiAdress = serverConditonPostApiAdress;
-            this._serverConditonGetApiAdress = serverConditonGetApiAdress;
+            this._apiAddressetGetApplicationServices = apiAddressetGetApplicationServices;
+            this._apiAddressPostServerCondition = apiAddressPostApiAddressPostServerCondition;
             this._ramController = new RamController();
             this._diskController = new DiskController();
             this._cpuController = new CpuController();
@@ -78,7 +79,7 @@ namespace CustomerTracker.ClientController.Core
             _log.Debug("Servis durumu gönderiliyor. Alarm var mı : " + (serverCondition.HardwareControlMessages.Count(c => c.IsAlarm) + serverCondition.ServiceControlMessages.Count(c => c.IsAlarm)));
 
 
-            var restRequest = CreatePostRestRequest(_serverConditonPostApiAdress, serverCondition);
+            var restRequest = CreatePostRestRequest(_apiAddressetGetApplicationServices, serverCondition);
             var restClient = new RestClient();
             var response = restClient.Execute(restRequest);
 
@@ -90,7 +91,7 @@ namespace CustomerTracker.ClientController.Core
             try
             {
                 _log.Warn("Servis listesi alınıyor");
-                RestRequest restRequest = CreateGetRestRequest(_serverConditonGetApiAdress);
+                RestRequest restRequest = CreateGetRestRequest(_apiAddressPostServerCondition);
                 var restClient = new RestClient();
                 var targetServices = restClient.Execute<List<TargetService>>(restRequest);
                 _serviceNameList = new List<TargetService>(targetServices.Data);

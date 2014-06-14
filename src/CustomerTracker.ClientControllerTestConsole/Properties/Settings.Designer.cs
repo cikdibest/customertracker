@@ -25,7 +25,7 @@ namespace CustomerTracker.ClientControllerTestConsole.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
         public double TimerInMinutes {
             get {
                 return ((double)(this["TimerInMinutes"]));
@@ -49,25 +49,25 @@ namespace CustomerTracker.ClientControllerTestConsole.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51243/serverstatuslistener")]
-        public string ServiceNamesApiAddress {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51243/ServerStatusListener/GetApplicationServices")]
+        public string ApiAddressetGetApplicationServices {
             get {
-                return ((string)(this["ServiceNamesApiAddress"]));
+                return ((string)(this["ApiAddressetGetApplicationServices"]));
             }
             set {
-                this["ServiceNamesApiAddress"] = value;
+                this["ApiAddressetGetApplicationServices"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51243/serverstatuslistener")]
-        public string StateReceiverApiAddress {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51243/ServerStatusListener/PostServerCondition")]
+        public string ApiAddressPostServerCondition {
             get {
-                return ((string)(this["StateReceiverApiAddress"]));
+                return ((string)(this["ApiAddressPostServerCondition"]));
             }
             set {
-                this["StateReceiverApiAddress"] = value;
+                this["ApiAddressPostServerCondition"] = value;
             }
         }
         

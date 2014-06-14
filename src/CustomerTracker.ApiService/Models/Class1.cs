@@ -1,33 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace TestServerApiApp.Models
+namespace CustomerTracker.ApiService.Models
 {
     public class ServerCondition
     {
+        public List<HardwareControlMessage> HardwareControlMessages { get; set; }
+        public List<ServiceControlMessage> ServiceControlMessages { get; set; }
         public string MachineCode { get; set; }
-
-        public ComputerCondition ComputerCondition { get; set; }
-
-        public List<ServiceCondition> ServiceConditions { get; set; }
     }
-
-    public class ServiceCondition
+    public class ServiceControlMessage
     {
-        public int TargetServiceId { get; set; }
+        public TargetService TargetService { get; set; }
 
-        //status,description
+        public bool IsAlarm { get; set; }
+
+        public int NumberOfThreads { get; set; }
+
+        public string State { get; set; }
+
+        public bool DoesExist { get; set; }
+
     }
 
-    public class ComputerCondition
+    public class HardwareControlMessage
     {
-        //public int Ram { get; set; }
-        //.
-        //.
-    }
+        public string Data { get; set; }
 
+        public bool IsAlarm { get; set; }
+    }
     public class TargetService
     {
         public int ApplicationServiceId { get; set; }

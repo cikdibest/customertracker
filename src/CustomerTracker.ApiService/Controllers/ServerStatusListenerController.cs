@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Helpers;
 using System.Web.Http;
+using CustomerTracker.ApiService.Models;
 using CustomerTracker.Data;
 using CustomerTracker.Data.Model.Entities;
 using Newtonsoft.Json;
-using TestServerApiApp.Models;
 
-namespace TestServerApiApp.Controllers
+namespace CustomerTracker.ApiService.Controllers
 {
     public class ServerStatusListenerController : ApiController
     {
-        public HttpResponseMessage GetTargetServices(string machineCode)
+        public HttpResponseMessage GetApplicationServices(string machineCode)
         {
-
             try
             {
+                AddRequest(Request);
+
                 var trimmmedLowerMachineCode = machineCode.ToLower().Trim();
 
                 var httpResponseMessage = ValidateMachineCode(trimmmedLowerMachineCode);
@@ -54,6 +52,8 @@ namespace TestServerApiApp.Controllers
 
         public HttpResponseMessage PostServerCondition(ServerCondition serverCondition)
         {
+            AddRequest(Request);
+
             var trimmmedLowerMachineCode = serverCondition.MachineCode.ToLower().Trim();
 
             var httpResponseMessage = ValidateMachineCode(trimmmedLowerMachineCode);
@@ -66,6 +66,13 @@ namespace TestServerApiApp.Controllers
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
+        public HttpResponseMessage GetActiveRequests()
+        {
+            return Request.CreateResponse(HttpStatusCode.OK, CacheData.Instance.HttpRequestMessages);
+        }
+
+
+
         private HttpResponseMessage ValidateMachineCode(string trimmmedLowerMachineCode)
         {
             if (string.IsNullOrWhiteSpace(trimmmedLowerMachineCode))
@@ -76,5 +83,15 @@ namespace TestServerApiApp.Controllers
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
+
+        private void AddRequest(HttpRequestMessage httpRequestMessage)
+        {
+            if (CacheData.Instance.HttpRequestMessages.Count > 50)
+                CacheData.Instance.HttpRequestMessages.RemoveAt(0);
+
+            CacheData.Instance.HttpRequestMessages.Add(new RequestModel() { RequestUrl = httpRequestMessage.RequestUri.AbsoluteUri, RequestDate = DateTime.Now.ToString("dd.MM.yyyy hh:mm") });
+        }
+
+       
     }
 }

@@ -68,11 +68,12 @@ namespace CustomerTracker.ClientController.Core.Controllers
 
         public ServiceControlMessage GetServiceState(TargetService targetService, double serviceThreadCountAlarmLimit)
         {
-            //_log.Warn("Servisin durumu sorgulandı Servisin adı : "+targetService.Name);
-            var sc = new ServiceController(targetService.Name);
-            var threadCount = Process.GetProcessById(getProcessIDByServiceName(targetService.Name)).Threads.Count;
+            //_log.Warn("Servisin durumu sorgulandı Servisin adı : "+targetService.InstanceName);
+          
             try
             {
+                var sc = new ServiceController(targetService.InstanceName);
+                var threadCount = Process.GetProcessById(getProcessIDByServiceName(targetService.InstanceName)).Threads.Count;
                 var isAlarm = (sc.Status != ServiceControllerStatus.Running);
                 return new ServiceControlMessage()
                 {
@@ -85,7 +86,7 @@ namespace CustomerTracker.ClientController.Core.Controllers
             }
             catch (Exception)
             {
-                //_log.Error("Servis bulunamadı : Adı : "+targetService.Name);
+                //_log.Error("Servis bulunamadı : Adı : "+targetService.InstanceName);
                 return new ServiceControlMessage()
                 {
                     DoesExist = false,

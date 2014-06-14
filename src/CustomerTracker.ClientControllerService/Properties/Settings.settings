@@ -8,11 +8,11 @@
     <Setting Name="MachineCode" Type="System.String" Scope="User">
       <Value Profile="(Default)">01</Value>
     </Setting>
-    <Setting Name="ServiceNamesApiAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://demo.ankaref.com/testapi/api/serverstatuslistener</Value>
+    <Setting Name="ApiAddressetGetApplicationServices" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:51243/ServerStatusListener/GetApplicationServices</Value>
     </Setting>
-    <Setting Name="StateReceiverApiAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+    <Setting Name="ApiAddressPostServerCondition" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://localhost:51243/ServerStatusListener/PostServerCondition</Value>
     </Setting>
     <Setting Name="CpuUsageAlarmLimit" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">50</Value>

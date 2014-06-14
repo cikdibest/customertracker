@@ -1,16 +1,21 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Routing;
 
-namespace TestServerApiApp.App_Start
+namespace CustomerTracker.ApiService.App_Start
 {
     public static class WebApiConfig
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+
+            config.Routes.MapHttpRoute("DefaultApiWithId", "{controller}/{action}/{id}", new { id = RouteParameter.Optional }, new { id = @"\d+" });
+            config.Routes.MapHttpRoute("DefaultApiWithAction", "{controller}/{action}");
+            config.Routes.MapHttpRoute("DefaultApiGet", "{controller}/{action}", new { action = "Get" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Get) });
+            config.Routes.MapHttpRoute("DefaultApiPost", "{controller}/{action}", new { action = "Post" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Post) });
+            config.Routes.MapHttpRoute("DefaultApiPut", "{controller}/{action}", new { action = "Put" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Put) });
+            config.Routes.MapHttpRoute("DefaultApiDelete", "{controller}/{action}", new { action = "Delete" }, new { httpMethod = new HttpMethodConstraint(HttpMethod.Delete) });
+
 
             // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.
             // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.

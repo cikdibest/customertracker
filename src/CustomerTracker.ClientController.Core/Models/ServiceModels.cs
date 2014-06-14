@@ -25,9 +25,11 @@ namespace CustomerTracker.ClientController.Core.Models
 
     public class TargetService
     {
-        public string Name { get; set; }
+        public string InstanceName { get; set; }
 
-        public int Id { get; set; }
+        public int ApplicationServiceId { get; set; }
+
+        public int ApplicationServiceTypeId { get; set; }
     }
 
     public class ServerCondition
