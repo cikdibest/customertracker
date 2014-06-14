@@ -9,7 +9,7 @@ namespace TestServerApiApp.Models
     {
         public string MachineCode { get; set; }
 
-        public MachineCondition MachineCondition { get; set; }
+        public ComputerCondition ComputerCondition { get; set; }
 
         public List<ServiceCondition> ServiceConditions { get; set; }
     }
@@ -21,7 +21,7 @@ namespace TestServerApiApp.Models
         //status,description
     }
 
-    public class MachineCondition
+    public class ComputerCondition
     {
         //public int Ram { get; set; }
         //.
@@ -30,8 +30,10 @@ namespace TestServerApiApp.Models
 
     public class TargetService
     {
-        public int Id { get; set; }
+        public int ApplicationServiceId { get; set; }
 
-        public string Name { get; set; }
+        public string InstanceName { get; set; }
+
+        public int ApplicationServiceTypeId { get; set; }
     }
 }

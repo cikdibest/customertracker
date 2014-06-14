@@ -258,6 +258,30 @@
     <Compile Include="Migrations\201406140926302_added_applicationservice.Designer.cs">
       <DependentUpon>201406140926302_added_applicationservice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406141245346_update_applicationservice.cs" />
+    <Compile Include="Migrations\201406141245346_update_applicationservice.Designer.cs">
+      <DependentUpon>201406141245346_update_applicationservice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406141248326_update_applicationservice_name.cs" />
+    <Compile Include="Migrations\201406141248326_update_applicationservice_name.Designer.cs">
+      <DependentUpon>201406141248326_update_applicationservice_name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406141250536_update_applicationservice_length.cs" />
+    <Compile Include="Migrations\201406141250536_update_applicationservice_length.Designer.cs">
+      <DependentUpon>201406141250536_update_applicationservice_length.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406141254175_create_index_on_remotemachine.cs" />
+    <Compile Include="Migrations\201406141254175_create_index_on_remotemachine.Designer.cs">
+      <DependentUpon>201406141254175_create_index_on_remotemachine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406141313318_update_remotemachine_machincode.cs" />
+    <Compile Include="Migrations\201406141313318_update_remotemachine_machincode.Designer.cs">
+      <DependentUpon>201406141313318_update_remotemachine_machincode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406141316539_update_remotemachine_machincode1.cs" />
+    <Compile Include="Migrations\201406141316539_update_remotemachine_machincode1.Designer.cs">
+      <DependentUpon>201406141316539_update_remotemachine_machincode1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
     <Compile Include="Models\Attributes\ApiExceptionHandlingAttribute.cs" />
@@ -707,6 +731,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406140926302_added_applicationservice.resx">
       <DependentUpon>201406140926302_added_applicationservice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406141245346_update_applicationservice.resx">
+      <DependentUpon>201406141245346_update_applicationservice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406141248326_update_applicationservice_name.resx">
+      <DependentUpon>201406141248326_update_applicationservice_name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406141250536_update_applicationservice_length.resx">
+      <DependentUpon>201406141250536_update_applicationservice_length.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406141254175_create_index_on_remotemachine.resx">
+      <DependentUpon>201406141254175_create_index_on_remotemachine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406141313318_update_remotemachine_machincode.resx">
+      <DependentUpon>201406141313318_update_remotemachine_machincode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406141316539_update_remotemachine_machincode1.resx">
+      <DependentUpon>201406141316539_update_remotemachine_machincode1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -88,6 +88,9 @@ namespace CustomerTracker.Data.Model.Entities
 
     public class RemoteMachine : BaseEntity
     {
+        [StringLength(15)]
+        public string MachineCode { get; set; }
+
         [StringLength(100)]
         public string Name { get; set; }
 
@@ -110,6 +113,8 @@ namespace CustomerTracker.Data.Model.Entities
         public virtual RemoteMachineConnectionType RemoteMachineConnectionType { get; set; }
 
         public virtual List<Product> Products { get; set; }
+
+        public virtual ICollection<ApplicationService> ApplicationServices { get; set; }
 
         [StringLength(100)]
         [NotMapped]
@@ -214,14 +219,13 @@ namespace CustomerTracker.Data.Model.Entities
 
         public int? ParentProductId { get; set; }
         public virtual Product ParentProduct { get; set; }
-          
+
         public virtual ICollection<Product> SubProducts { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
 
         public virtual ICollection<RemoteMachine> RemoteMachines { get; set; }
 
-        public virtual ICollection<ApplicationService> ApplicationServices { get; set; }
 
     }
 
@@ -246,10 +250,10 @@ namespace CustomerTracker.Data.Model.Entities
 
         [StringLength(4000)]
         public string Value { get; set; }
-          
+
         public int DataMasterId { get; set; }
         public virtual DataMaster DataMaster { get; set; }
-         
+
         [StringLength(4000)]
         [NotMapped]
         public string DecryptedValue
@@ -265,7 +269,7 @@ namespace CustomerTracker.Data.Model.Entities
         }
 
     }
-     
+
     public class Solution : BaseEntity
     {
         public int CustomerId { get; set; }
@@ -294,10 +298,35 @@ namespace CustomerTracker.Data.Model.Entities
 
     public class ApplicationService : BaseEntity
     {
-        public string Name { get; set; }
+        [StringLength(50)]
+        public string InstanceName { get; set; }
 
+        [StringLength(1000)]
         public string Description { get; set; }
+         
+        public int ApplicationServiceTypeId { get; set; }
+        public ApplicationServiceType ApplicationServiceType
+        {
+            get
+            {
+                return (ApplicationServiceType)ApplicationServiceTypeId;
+            }
+        } 
+        public string ApplicationServiceTypeName
+        {
+            get
+            {
+                return ApplicationServiceType.GetDescription();
+            }
+        }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<RemoteMachine> RemoteMachines { get; set; }
+    }
+
+    public enum ApplicationServiceType
+    { 
+        WindowsService = 1,
+
+        SqlServer = 2,
     }
 }

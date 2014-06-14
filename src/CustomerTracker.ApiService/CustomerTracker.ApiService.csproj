@@ -157,6 +157,7 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\iis_ctapiservice.pubxml" />
     <None Include="Properties\PublishProfiles\testsilsonra.pubxml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -166,7 +167,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\CustomerTracker.Data\CustomerTracker.Data.csproj">
+      <Project>{75916de7-4c22-45d9-8c40-0a7daa0a2fc4}</Project>
+      <Name>CustomerTracker.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
