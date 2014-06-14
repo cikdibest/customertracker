@@ -13,8 +13,6 @@ namespace CustomerTracker.ClientControllerService
         public ClientControllerService()
         {
             InitializeComponent();
-
-          
         }
 
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -34,7 +32,7 @@ namespace CustomerTracker.ClientControllerService
         protected override void OnStop()
         {
             //_log.Error("Stop çağırıldı.");
-            //_timer.Dispose();
+            _timer.Dispose();
         }
 
    

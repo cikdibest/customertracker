@@ -11,17 +11,14 @@ namespace CustomerTracker.ClientController.Core
 {
     public class Bootstrap
     {
-        private Logger _log;
-    
-        private string _machineCode;
-
-        private List<TargetService> _serviceNameList = new List<TargetService>();
-
-        private RamController _ramController;
-        private DiskController _diskController;
-        private CpuController _cpuController;
-        private ServiceStateController _serviceController;
-        private double _ramUsageAlarmLimit;
+        private Logger _log; 
+        private string _machineCode; 
+        private List<TargetService> _serviceNameList = new List<TargetService>(); 
+        private readonly RamController _ramController;
+        private readonly DiskController _diskController;
+        private readonly CpuController _cpuController;
+        private readonly ServiceStateController _serviceController;
+        private readonly double _ramUsageAlarmLimit;
         private readonly double _diskUsageAlarmLimit;
         private readonly double _cpuUsageAlarmLimit;
         private readonly double _serviceThreadCountAlarmLimit;
@@ -47,7 +44,7 @@ namespace CustomerTracker.ClientController.Core
         public void Start()
         {
             _log.Debug("Verilen süre geldi.");
-            if (!fillServiceNameList())
+            if (!FillServiceNameList())
             {
                 return;
             }
@@ -85,9 +82,9 @@ namespace CustomerTracker.ClientController.Core
             var response = restClient.Execute(restRequest);
         }
 
-       
 
-        private bool fillServiceNameList()
+        #region private methods
+        private bool FillServiceNameList()
         {
             try
             {
@@ -106,7 +103,7 @@ namespace CustomerTracker.ClientController.Core
             }
         }
 
-        public RestRequest CreateGetRestRequest(string path)
+        private RestRequest CreateGetRestRequest(string path)
         {
             var restRequest = new RestRequest(Method.GET)
             {
@@ -132,5 +129,7 @@ namespace CustomerTracker.ClientController.Core
 
             return restRequest;
         }
+        #endregion
+
     }
 }
