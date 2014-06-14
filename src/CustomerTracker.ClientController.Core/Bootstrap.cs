@@ -24,7 +24,7 @@ namespace CustomerTracker.ClientController.Core
         private readonly double _serviceThreadCountAlarmLimit;
         private readonly string _apiAddressetGetApplicationServices;
         private readonly string _apiAddressPostServerCondition;
- 
+
         public Bootstrap(string machineCode, double ramUsageAlarmLimit, double diskUsageAlarmLimit, double cpuUsageAlarmLimit, double serviceThreadCountAlarmLimit,
             string apiAddressetGetApplicationServices, string apiAddressPostApiAddressPostServerCondition)
         {
@@ -74,7 +74,8 @@ namespace CustomerTracker.ClientController.Core
             {
                 HardwareControlMessages = hardwareConditionList,
                 ServiceControlMessages = serviceConditionList,
-                MachineCode = _machineCode
+                MachineCode = _machineCode,
+                IsAlarm = hardwareConditionList.Any(q => q.IsAlarm) || serviceConditionList.Any(q => q.IsAlarm)
             };
             _log.Debug("Servis durumu gönderiliyor. Alarm var mı : " + (serverCondition.HardwareControlMessages.Count(c => c.IsAlarm) + serverCondition.ServiceControlMessages.Count(c => c.IsAlarm)));
 
