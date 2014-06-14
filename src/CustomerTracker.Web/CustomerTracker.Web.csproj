@@ -264,12 +264,7 @@
     <Compile Include="Models\Attributes\CustomHandleErrorAttribute.cs" />
     <Compile Include="Models\Attributes\CustomHttpAuthorizeAttribute.cs" />
     <Compile Include="Models\Attributes\HiddenItemAttribute.cs" />
-    <Compile Include="Models\CustomerDetailModel.cs" />
     <Compile Include="Models\Enums\SearchType.cs" />
-    <Compile Include="Models\Enums\SubjectType.cs" />
-    <Compile Include="Models\SliderViewModel.cs" />
-    <Compile Include="Models\ViewModels\ContactMailViewModel.cs" />
-    <Compile Include="Models\ViewModels\ContactViewModel.cs" />
     <Compile Include="Models\ViewModels\MailViewModel.cs" />
     <Compile Include="Models\Validations\UniqueUserNameAttribute.cs" />
     <Compile Include="Models\ViewModels\AccountModels.cs" />
