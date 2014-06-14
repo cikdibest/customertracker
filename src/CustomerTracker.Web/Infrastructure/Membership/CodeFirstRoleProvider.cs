@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web.Security;
+using CustomerTracker.Data.Model.Entities;
 using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business.UserBusiness;
 using CustomerTracker.Web.Infrastructure.Repository;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 using Ninject;
 

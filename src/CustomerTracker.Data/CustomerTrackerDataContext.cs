@@ -1,14 +1,10 @@
-using System;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Data.SqlClient;
-using System.Linq;
-using CustomerTracker.Web.Models.Entities;
-using CustomerTracker.Web.Utilities;
+using CustomerTracker.Data.Model.Entities;
 
-namespace CustomerTracker.Web.Infrastructure.Repository
+namespace CustomerTracker.Data
 {
     public class CustomerTrackerDataContext : DbContext
     {
@@ -51,31 +47,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
         {
             try
             {
-                var addedEntries = this.ChangeTracker.Entries().Where(q => q.State == EntityState.Added);
-
-                foreach (var baseEntity in addedEntries.Select(entry => (BaseEntity)entry.Entity))
-                {
-                    baseEntity.CreationDate = DateTime.Now;
-
-                    baseEntity.CreationPersonelId = ConfigurationHelper.CurrentUser != null
-                                                        ? ConfigurationHelper.CurrentUser.UserId
-                                                        : (int?)null;
-                }
-
-                var modifiedEntries = this.ChangeTracker.Entries().Where(q => q.State == EntityState.Modified);
-
-                foreach (var baseEntity in modifiedEntries.Select(entry => (BaseEntity)entry.Entity))
-                {
-                    baseEntity.UpdatedDate = DateTime.Now;
-
-                    baseEntity.UpdatedPersonelId = ConfigurationHelper.CurrentUser != null
-                                                       ? ConfigurationHelper.CurrentUser.UserId
-                                                       : (int?)null;
-                }
-
-                var saveChanges = base.SaveChanges();
-
-                return saveChanges;
+                return base.SaveChanges();
 
             }
             catch (DbUpdateException dbUpdateException)
@@ -88,7 +60,7 @@ namespace CustomerTracker.Web.Infrastructure.Repository
                         return -547;
                     }
                 }
-                
+
 
                 throw;
             }

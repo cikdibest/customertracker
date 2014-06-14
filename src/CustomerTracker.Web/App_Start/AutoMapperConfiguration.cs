@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using CustomerTracker.Web.Controllers;
 using CustomerTracker.Web.Models;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
-using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.App_Start
 {

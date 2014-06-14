@@ -11,7 +11,6 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Security;
 using CustomerTracker.Web.Infrastructure.Membership;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Models.Attributes

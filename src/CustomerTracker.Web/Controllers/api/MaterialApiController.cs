@@ -3,7 +3,6 @@ using System.Web.Http;
 using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business.SearchBusiness;
 using CustomerTracker.Web.Models.Attributes;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.Enums;
 using MvcPaging;
 using Ninject;

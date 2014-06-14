@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Web.DynamicData;
 using System.Web.Mvc;
 using System.Web.Routing;
+using CustomerTracker.Common.Helpers;
 using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business;
 using CustomerTracker.Web.Business.SearchBusiness;
 using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models.Enums;
 using CustomerTracker.Web.Utilities;
-using CustomerTracker.Web.Utilities.Helpers;
 using MvcPaging;
 using Ninject;
 

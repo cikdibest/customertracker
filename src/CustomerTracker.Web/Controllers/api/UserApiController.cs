@@ -7,10 +7,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CustomerTracker.Common;
+using CustomerTracker.Data.Model.Entities;
 using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Infrastructure.Membership;
 using CustomerTracker.Web.Models.Attributes;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.ViewModels;
 using CustomerTracker.Web.Utilities;
 using Ninject;
@@ -90,7 +91,7 @@ namespace CustomerTracker.Web.Controllers.api
 
                 var user1 = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().SelectAll().Include(q => q.Roles).SingleOrDefault(q => q.Id == user.Id);
                 user1.SelectedRoles = selectedRoles;
-                user1.ReConfigureRoles();
+                WebSecurity.ReConfigureRoles(user1,user1.SelectedRoles.Select(q=>q.Id).ToList());
 
                 ConfigurationHelper.UnitOfWorkInstance.Save();
             }

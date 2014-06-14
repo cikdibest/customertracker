@@ -1,3 +1,5 @@
+using CustomerTracker.Data;
+
 namespace CustomerTracker.Web.Migrations
 {
     using System;
@@ -5,14 +7,14 @@ namespace CustomerTracker.Web.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<CustomerTracker.Web.Infrastructure.Repository.CustomerTrackerDataContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<CustomerTrackerDataContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(CustomerTracker.Web.Infrastructure.Repository.CustomerTrackerDataContext context)
+        protected override void Seed(CustomerTrackerDataContext context)
         {
             //  This method will be called after migrating to the latest version.
 

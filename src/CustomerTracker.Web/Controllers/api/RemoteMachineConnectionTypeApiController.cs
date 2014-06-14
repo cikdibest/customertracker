@@ -9,8 +9,8 @@ using System.Net.Http;
 using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Mvc;
+using CustomerTracker.Data.Model.Entities;
 using CustomerTracker.Web.Models.Attributes;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api

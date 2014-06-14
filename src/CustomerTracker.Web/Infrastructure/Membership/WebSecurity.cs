@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using CustomerTracker.Data.Model.Entities;
 using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Business.UserBusiness;
 using CustomerTracker.Web.Infrastructure.Repository;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.ViewModels;
 using CustomerTracker.Web.Utilities;
 using Ninject;
@@ -104,7 +104,7 @@ namespace CustomerTracker.Web.Infrastructure.Membership
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     UserName = user.Username,
-                    Roles = user.Roles.Select(q=>q.RoleName).ToArray()               
+                    Roles = user.Roles.Select(q => q.RoleName).ToArray()
                 };
 
             var serializer = new JavaScriptSerializer();
@@ -179,10 +179,10 @@ namespace CustomerTracker.Web.Infrastructure.Membership
             var repository = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>();
 
             var role = repository.Filter(q => q.RoleName == roleName).SingleOrDefault();
-           
+
             user.AddRole(role);
 
-            return userUtility.CreateUser(user); 
+            return userUtility.CreateUser(user);
         }
 
         public static List<MembershipUser> FindUsersByEmail(string email, int pageIndex, int pageSize)
@@ -211,6 +211,32 @@ namespace CustomerTracker.Web.Infrastructure.Membership
 
         public static void InitializeDatabaseConnection(string connectionString, string providerName, string userTableName, string userIdColumn, string userNameColumn, bool autoCreateTables)
         {
+
+        }
+
+        public static void ReConfigureRoles(User user, List<int> roleIdList)
+        {
+            //if (this.Roles == null)
+            //    this.Roles = new List<Role>();
+
+            var deletedRoles = user.Roles.Where(q => !roleIdList.Contains(q.Id)).ToList();
+
+            foreach (var deletedRole in deletedRoles)
+            {
+                user.Roles.Remove(deletedRole);
+            }
+
+            foreach (var roleId in roleIdList)
+            {
+                if (user.Roles.Any(q => q.Id == roleId)) continue;
+
+                var repositoryRole = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>();
+
+                var role = repositoryRole.Find(q => q.Id == roleId);
+
+                user.Roles.Add(role);
+            }
+
 
         }
     }

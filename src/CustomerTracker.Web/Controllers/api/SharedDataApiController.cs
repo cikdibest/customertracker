@@ -2,11 +2,12 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Http;
+using CustomerTracker.Common.Helpers;
+using CustomerTracker.Data.Model.Entities;
+using CustomerTracker.Data.Model.Enums;
 using CustomerTracker.Web.Models.Attributes;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.Enums;
 using CustomerTracker.Web.Utilities;
-using CustomerTracker.Web.Utilities.Helpers;
 
 namespace CustomerTracker.Web.Controllers.api
 {

@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using CustomerTracker.Web.Infrastructure.Membership;
 using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models;
-using CustomerTracker.Web.Models.Entities;
 
 namespace CustomerTracker.Web.Utilities
 {

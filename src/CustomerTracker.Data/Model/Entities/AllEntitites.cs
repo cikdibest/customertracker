@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Runtime.Serialization;
-using CustomerTracker.Web.App_Start;
-using CustomerTracker.Web.Models.Enums;
-using CustomerTracker.Web.Utilities;
-using CustomerTracker.Web.Utilities.Helpers;
-using Ninject;
+using CustomerTracker.Common.Helpers;
+using CustomerTracker.Data.Model.Enums;
 
-namespace CustomerTracker.Web.Models.Entities
+namespace CustomerTracker.Data.Model.Entities
 {
     public class Customer : BaseEntity
     {
@@ -124,11 +117,11 @@ namespace CustomerTracker.Web.Models.Entities
         {
             get
             {
-                return this.Name.Decrypt();
+                return Decrypt(this.Name);
             }
             set
             {
-                this.Name = value.Encrypt();
+                this.Name = Encrypt(value);
             }
         }
 
@@ -138,11 +131,11 @@ namespace CustomerTracker.Web.Models.Entities
         {
             get
             {
-                return this.Username.Decrypt();
+                return Decrypt(this.Username);
             }
             set
             {
-                this.Username = value.Encrypt();
+                this.Username = Encrypt(value);
             }
         }
 
@@ -152,11 +145,11 @@ namespace CustomerTracker.Web.Models.Entities
         {
             get
             {
-                return this.Password.Decrypt();
+                return Decrypt(this.Password);
             }
             set
             {
-                this.Password = value.Encrypt();
+                this.Password = Encrypt(value);
             }
         }
 
@@ -166,11 +159,11 @@ namespace CustomerTracker.Web.Models.Entities
         {
             get
             {
-                return this.RemoteAddress.Decrypt();
+                return Decrypt(this.RemoteAddress);
             }
             set
             {
-                this.RemoteAddress = value.Encrypt();
+                this.RemoteAddress = Encrypt(value);
             }
         }
 
@@ -263,11 +256,11 @@ namespace CustomerTracker.Web.Models.Entities
         {
             get
             {
-                return this.Value.Decrypt();
+                return Decrypt(this.Value);
             }
             set
             {
-                this.Value = value.Encrypt();
+                this.Value = Encrypt(value);
             }
         }
 

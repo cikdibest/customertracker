@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using CustomerTracker.Web.Models.Entities;
+using CustomerTracker.Data.Model.Entities;
 using MvcPaging;
 
 namespace CustomerTracker.Web.Business.SearchBusiness

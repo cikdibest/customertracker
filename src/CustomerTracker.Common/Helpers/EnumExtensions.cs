@@ -1,7 +1,6 @@
 using System;
-using System.Linq;
 
-namespace CustomerTracker.Web.Utilities.Helpers
+namespace CustomerTracker.Common.Helpers
 {
     public static class EnumExtensions
     { 
@@ -25,9 +24,6 @@ namespace CustomerTracker.Web.Utilities.Helpers
             return EnumHelper.GetDescription(value);
         }
 
-        public static string GetDisplayDescription(this Enum value)
-        {
-            return EnumHelper.GetDisplayDescription(value);
-        }
+        
     }
 }

@@ -2,6 +2,7 @@
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Migrations.Infrastructure;
+using CustomerTracker.Data;
 using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Migrations;
 

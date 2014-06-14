@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.Enums;
 
 namespace CustomerTracker.Web.Models

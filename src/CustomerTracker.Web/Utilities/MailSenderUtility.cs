@@ -1,6 +1,5 @@
 ﻿using System.Net.Mail;
 using CustomerTracker.Web.Infrastructure.Tasks;
-using CustomerTracker.Web.Models.Entities;
 using System.Linq;
 using System.Net;
 

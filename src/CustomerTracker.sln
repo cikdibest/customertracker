@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerTracker.ApiService"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{C497428F-138A-4681-99F5-57E29C4EE99F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerTracker.Data", "CustomerTracker.Data\CustomerTracker.Data.csproj", "{75916DE7-4C22-45D9-8C40-0A7DAA0A2FC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerTracker.Common", "CustomerTracker.Common\CustomerTracker.Common.csproj", "{AAD227F2-E19E-47DC-9B1B-1D9007D3ED4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{68E129C3-7270-46B5-BA3E-8F11B8F6DE51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68E129C3-7270-46B5-BA3E-8F11B8F6DE51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68E129C3-7270-46B5-BA3E-8F11B8F6DE51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75916DE7-4C22-45D9-8C40-0A7DAA0A2FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75916DE7-4C22-45D9-8C40-0A7DAA0A2FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75916DE7-4C22-45D9-8C40-0A7DAA0A2FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75916DE7-4C22-45D9-8C40-0A7DAA0A2FC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAD227F2-E19E-47DC-9B1B-1D9007D3ED4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAD227F2-E19E-47DC-9B1B-1D9007D3ED4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAD227F2-E19E-47DC-9B1B-1D9007D3ED4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD227F2-E19E-47DC-9B1B-1D9007D3ED4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

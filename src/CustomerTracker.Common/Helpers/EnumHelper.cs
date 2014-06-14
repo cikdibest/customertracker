@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace CustomerTracker.Web.Utilities.Helpers
+namespace CustomerTracker.Common.Helpers
 {
     public class EnumHelper
     { 
@@ -42,16 +41,7 @@ namespace CustomerTracker.Web.Utilities.Helpers
             return attribute == null ? value.ToString() : attribute.Description;
         }
 
-        public static string GetDisplayDescription(Enum value)
-        {
-            FieldInfo field = value.GetType().GetField(value.ToString());
-
-            DisplayAttribute attribute
-                    = Attribute.GetCustomAttribute(field, typeof(DisplayAttribute))
-                        as DisplayAttribute;
-
-            return attribute == null ? value.ToString() : attribute.Description;
-        }
+       
 
         
     }

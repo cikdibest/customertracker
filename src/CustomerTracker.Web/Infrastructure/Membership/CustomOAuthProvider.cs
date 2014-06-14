@@ -9,7 +9,6 @@ using System.Web.Security;
 using CustomerTracker.Web.App_Start;
 using DotNetOpenAuth.AspNet;
 using CustomerTracker.Web.Business.UserBusiness;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 using Microsoft.Web.WebPages.OAuth;
 using Ninject;

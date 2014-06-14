@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using CustomerTracker.Data.Model.Entities;
 using CustomerTracker.Web.Models.Attributes;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Controllers.api

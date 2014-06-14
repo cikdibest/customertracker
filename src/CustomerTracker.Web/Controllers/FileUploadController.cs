@@ -7,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CustomerTracker.Web.Utilities.Helpers;
+using CustomerTracker.Common.Helpers;
 
 namespace CustomerTracker.Web.Controllers
 {

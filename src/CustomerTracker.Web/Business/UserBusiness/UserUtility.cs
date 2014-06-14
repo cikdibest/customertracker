@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Security;
+using CustomerTracker.Common;
+using CustomerTracker.Data;
+using CustomerTracker.Data.Model.Entities;
 using CustomerTracker.Web.Infrastructure.Membership;
 using CustomerTracker.Web.Infrastructure.Repository;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.ViewModels;
 using CustomerTracker.Web.Utilities;
 

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CustomerTracker.Web.Infrastructure.Membership
+namespace CustomerTracker.Common
 {
     public static class Crypto
     {

@@ -4,7 +4,6 @@ using System.Web;
 using System.Web.Security;
 using CustomerTracker.Web.App_Start;
 using CustomerTracker.Web.Infrastructure.Repository;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 using Ninject;
 

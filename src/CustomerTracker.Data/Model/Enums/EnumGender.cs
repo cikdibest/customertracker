@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace CustomerTracker.Web.Models.Enums
+namespace CustomerTracker.Data.Model.Enums
 {
     public enum EnumGender
     {

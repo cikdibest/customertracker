@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using CustomerTracker.Data.Model.Entities;
 using CustomerTracker.Web.Infrastructure.Repository;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Models.Enums;
 using CustomerTracker.Web.Utilities;
 using MvcPaging;

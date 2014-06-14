@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using CustomerTracker.Web.Models;
-using CustomerTracker.Web.Models.Entities;
 using CustomerTracker.Web.Utilities;
 
 namespace CustomerTracker.Web.Infrastructure.Services.DistributedCacheService

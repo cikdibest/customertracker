@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using System.Runtime.Serialization;
-using CustomerTracker.Web.Infrastructure.Membership;
-using CustomerTracker.Web.Utilities;
-using CustomerTracker.Web.Utilities.Helpers;
 
-namespace CustomerTracker.Web.Models.Entities
+namespace CustomerTracker.Data.Model.Entities
 {
     public class SocialAccount : BaseEntity
     {
@@ -115,35 +110,7 @@ namespace CustomerTracker.Web.Models.Entities
                 return string.Join(",", this.Roles.Select(q => q.RoleName));
             }
         }
-
-        public void ReConfigureRoles()
-        {
-            //if (this.Roles == null)
-            //    this.Roles = new List<Role>();
-
-            var roleIds = this.SelectedRoles.Select(q => q.Id);
-
-            var deletedRoles = this.Roles.Where(q => !roleIds.Contains(q.Id)).ToList();
-
-            foreach (var deletedRole in deletedRoles)
-            {
-                this.Roles.Remove(deletedRole);
-            }
-
-            foreach (var roleId in roleIds)
-            {
-                if (this.Roles.Any(q => q.Id == roleId)) continue;
-
-                var repositoryRole = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Role>();
-
-                var role = repositoryRole.Find(q => q.Id == roleId);
-
-                this.Roles.Add(role);
-            }
-
-
-        }
-
+         
         public void AddSocialAccount(string provider, string providerUserId)
         {
             var socialAccount = new SocialAccount() { ProviderUserId = providerUserId, Provider = provider };

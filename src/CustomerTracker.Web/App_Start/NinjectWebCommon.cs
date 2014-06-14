@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using CustomerTracker.Common;
 using CustomerTracker.Web.Business;
 using CustomerTracker.Web.Business.SearchBusiness;
 using CustomerTracker.Web.Business.UserBusiness;
@@ -38,7 +39,7 @@ namespace CustomerTracker.Web.App_Start
            // kernel.Bind<IUnitOfWork>().To<UnitOfWork>().InRequestScope();
             kernel.Bind<ISearchEngine>().To<SearchEngine>().InSingletonScope();
             kernel.Bind<IUserUtility>().To<UserUtility>().InSingletonScope();
-            kernel.Bind<IEncrypt>().To<AesEncryption>().InSingletonScope();
+            //kernel.Bind<IEncrypt>().To<AesEncryption>().InSingletonScope();
             kernel.Bind<IMailBuilder>().To<MailBuilder>().InSingletonScope();
             kernel.Bind<IMailSenderUtility>().To<MailSenderUtility>().InSingletonScope();
             kernel.Load(new LoggingModule());

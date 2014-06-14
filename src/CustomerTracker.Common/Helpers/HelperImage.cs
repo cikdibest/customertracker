@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace CustomerTracker.Web.Utilities.Helpers
+namespace CustomerTracker.Common.Helpers
 {
     public static class HelperImage
     {
