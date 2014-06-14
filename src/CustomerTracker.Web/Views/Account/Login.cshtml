@@ -105,14 +105,14 @@ else
         <div class="row">
 
 
-            @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
+          @*  @using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
             { <h3 class="heading-desc">Ankaref Müşteri Takip Platformu</h3>
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
                 <div class="social-box">
                     @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
                 </div>
-            }
+            }*@
 
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin mg-btm" }))
             {      @Html.AntiForgeryToken()
