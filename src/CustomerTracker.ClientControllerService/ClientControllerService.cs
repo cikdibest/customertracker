@@ -6,14 +6,14 @@ using System.Timers;
 using CustomerTracker.ClientControllerService.Controllers;
 using CustomerTracker.ClientControllerService.Models;
 using CustomerTracker.ClientControllerService.Properties;
+using NLog;
 using RestSharp;
 
 namespace CustomerTracker.ClientControllerService
 {
     public partial class ClientControllerService : ServiceBase
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger
-    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        readonly Logger _log = LogManager.GetCurrentClassLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private static Timer _timer;
         private static string _machineCode;
@@ -31,7 +31,7 @@ namespace CustomerTracker.ClientControllerService
 
         protected override void OnStart(string[] args)
         {
-            log.Debug("Start çağırıldı.");
+            _log.Debug("Start çağırıldı.");
             _timer = new Timer(Settings.Default.TimerInMinutes * 60000) {Enabled = true};
             _timer.Elapsed += _timer_Elapsed;
             _machineCode = Settings.Default.MachineCode;
@@ -43,28 +43,28 @@ namespace CustomerTracker.ClientControllerService
 
         protected override void OnStop()
         {
-            log.Error("Stop çağırıldı.");
+            _log.Error("Stop çağırıldı.");
             _timer.Dispose();
         }
 
         void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            log.Debug("Verilen süre geldi.");
+            _log.Debug("Verilen süre geldi.");
             if (!fillServiceNameList())
             {
                 return;
             }
             var hardwareConditionList = new List<HardwareControlMessage>();
             var ramState = _ramController.GetRamState();
-            log.Debug("Ram State : " + ramState.Data + " Alarm mı :" + ramState.IsAlarm);
+            _log.Debug("Ram State : " + ramState.Data + " Alarm mı :" + ramState.IsAlarm);
             hardwareConditionList.Add(ramState);
             var diskState = _diskController.GetDiskState();
-            log.Debug("Disk State : " + diskState.Data + " Alarm mı :" + diskState.IsAlarm);
+            _log.Debug("Disk State : " + diskState.Data + " Alarm mı :" + diskState.IsAlarm);
 
             hardwareConditionList.Add(diskState);
 
             var cpuState = _cpuController.GetCpuState();
-            log.Debug("CPU State : " + cpuState.Data + " Alarm mı :" + cpuState.IsAlarm);
+            _log.Debug("CPU State : " + cpuState.Data + " Alarm mı :" + cpuState.IsAlarm);
 
             hardwareConditionList.Add(cpuState);
             
@@ -75,14 +75,14 @@ namespace CustomerTracker.ClientControllerService
             {
                 serviceConditionList.Add(_serviceController.GetServiceState(service));
             }
-            log.Debug("İstenen Servislerin sayısı : " + serviceConditionList.Count);
+            _log.Debug("İstenen Servislerin sayısı : " + serviceConditionList.Count);
             var serverCondition = new ServerCondition
             {
                 HardwareControlMessages = hardwareConditionList,
                 ServiceControlMessages = serviceConditionList,
                 MachineCode = Settings.Default.MachineCode
             };
-            log.Debug("Servis durumu gönderiliyor. Alarm var mı : "+(serverCondition.HardwareControlMessages.Count(c => c.IsAlarm)+serverCondition.ServiceControlMessages.Count(c => c.IsAlarm)));
+            _log.Debug("Servis durumu gönderiliyor. Alarm var mı : "+(serverCondition.HardwareControlMessages.Count(c => c.IsAlarm)+serverCondition.ServiceControlMessages.Count(c => c.IsAlarm)));
             var restRequest = CreatePostRestRequest(Settings.Default.StateReceiverApiAddress, serverCondition);
             var restClient = new RestClient();
             var response = restClient.Execute(restRequest);
@@ -93,17 +93,17 @@ namespace CustomerTracker.ClientControllerService
         {
             try
             {
-                log.Warn("Servis listesi alınıyor");
+                _log.Warn("Servis listesi alınıyor");
                 RestRequest restRequest = CreateGetRestRequest(Settings.Default.ServiceNamesApiAddress);
                 var restClient = new RestClient();
                 var targetServices = restClient.Execute<List<TargetService>>(restRequest);
                 _serviceNameList = new List<TargetService>(targetServices.Data);
-                log.Warn("Servis listesi alındı.");
+                _log.Warn("Servis listesi alındı.");
                 return true;
             }
             catch (Exception ex)
             {
-                log.Error("Servis bilgileri alınırken hata oluştu : "+ex);
+                _log.Error("Servis bilgileri alınırken hata oluştu : "+ex);
                 return false;
             }
         }

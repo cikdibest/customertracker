@@ -5,6 +5,7 @@ using System.Linq;
 using System.ServiceProcess;
 using CustomerTracker.ClientControllerService.Models;
 using CustomerTracker.ClientControllerService.Properties;
+using NLog;
 
 namespace CustomerTracker.ClientControllerService.Controllers
 {
@@ -65,12 +66,11 @@ namespace CustomerTracker.ClientControllerService.Controllers
 
     public class ServiceStateController
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger
-    (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        readonly Logger _log = LogManager.GetCurrentClassLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public ServiceControlMessage GetServiceState(TargetService targetService)
         {
-            log.Warn("Servisin durumu sorgulandı Servisin adı : "+targetService.Name);
+            _log.Warn("Servisin durumu sorgulandı Servisin adı : "+targetService.Name);
             var sc = new ServiceController(targetService.Name);
             var threadCount = Process.GetProcessById(getProcessIDByServiceName(targetService.Name)).Threads.Count;
             try
@@ -87,7 +87,7 @@ namespace CustomerTracker.ClientControllerService.Controllers
             }
             catch (Exception)
             {
-                log.Error("Servis bulunamadı : Adı : "+targetService.Name);
+                _log.Error("Servis bulunamadı : Adı : "+targetService.Name);
                 return new ServiceControlMessage()
                 {
                     DoesExist = false,
