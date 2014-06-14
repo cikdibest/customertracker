@@ -257,6 +257,10 @@
     <Compile Include="Migrations\201406071600105_add_soluiton_and_trouble.Designer.cs">
       <DependentUpon>201406071600105_add_soluiton_and_trouble.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406140926302_added_applicationservice.cs" />
+    <Compile Include="Migrations\201406140926302_added_applicationservice.Designer.cs">
+      <DependentUpon>201406140926302_added_applicationservice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
     <Compile Include="Models\Attributes\ApiExceptionHandlingAttribute.cs" />
@@ -724,6 +728,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406071600105_add_soluiton_and_trouble.resx">
       <DependentUpon>201406071600105_add_soluiton_and_trouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406140926302_added_applicationservice.resx">
+      <DependentUpon>201406140926302_added_applicationservice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

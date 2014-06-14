@@ -228,6 +228,8 @@ namespace CustomerTracker.Web.Models.Entities
 
         public virtual ICollection<RemoteMachine> RemoteMachines { get; set; }
 
+        public virtual ICollection<ApplicationService> ApplicationServices { get; set; }
+
     }
 
     public class DataMaster : BaseEntity
@@ -270,8 +272,7 @@ namespace CustomerTracker.Web.Models.Entities
         }
 
     }
-
-
+     
     public class Solution : BaseEntity
     {
         public int CustomerId { get; set; }
@@ -296,5 +297,14 @@ namespace CustomerTracker.Web.Models.Entities
     public class Trouble : BaseEntity
     {
         public string Name { get; set; }
+    }
+
+    public class ApplicationService : BaseEntity
+    {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
