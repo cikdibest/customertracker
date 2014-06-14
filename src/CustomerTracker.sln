@@ -5,13 +5,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerTracker.Web", "Cust
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BB73DE9-B316-4C82-AE89-6FD12D674CD9}"
 	ProjectSection(SolutionItems) = preProject
-		dummydata.txt = dummydata.txt
 		notes.txt = notes.txt
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerTracker.ClientControllerService", "CustomerTracker.ClientControllerService\CustomerTracker.ClientControllerService.csproj", "{2A6B6254-12A7-4F5C-9F26-764A41EC25A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CustomerTracker.ApiService", "CustomerTracker.ApiService\CustomerTracker.ApiService.csproj", "{68E129C3-7270-46B5-BA3E-8F11B8F6DE51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{C497428F-138A-4681-99F5-57E29C4EE99F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +35,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2A6B6254-12A7-4F5C-9F26-764A41EC25A4} = {C497428F-138A-4681-99F5-57E29C4EE99F}
+		{68E129C3-7270-46B5-BA3E-8F11B8F6DE51} = {C497428F-138A-4681-99F5-57E29C4EE99F}
 	EndGlobalSection
 EndGlobal
