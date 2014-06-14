@@ -3,15 +3,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.ServiceProcess;
-using CustomerTracker.ClientControllerService.Models;
-using CustomerTracker.ClientControllerService.Properties;
-using NLog;
+using CustomerTracker.ClientController.Core.Models;
 
-namespace CustomerTracker.ClientControllerService.Controllers
+namespace CustomerTracker.ClientController.Core.Controllers
 {
     public class RamController
     {
-        public HardwareControlMessage GetRamState()
+        public HardwareControlMessage GetRamState(double ramUsageAlarmLimit)
         {
             var cpuCounter = new PerformanceCounter
             {
@@ -25,14 +23,14 @@ namespace CustomerTracker.ClientControllerService.Controllers
             return new HardwareControlMessage()
             {
                 Data = ramCounter.NextValue() + "MB",
-                IsAlarm = value < Settings.Default.RamUsageAlarmLimit
+                IsAlarm = value < ramUsageAlarmLimit
             };
         }
     }
 
     public class CpuController
     {
-        public HardwareControlMessage GetCpuState()
+        public HardwareControlMessage GetCpuState(double cpuUsageAlarmLimit)
         {
            var cpuCounter = new PerformanceCounter
            {
@@ -45,32 +43,32 @@ namespace CustomerTracker.ClientControllerService.Controllers
             return new HardwareControlMessage()
             {
                 Data = value + "%",
-                IsAlarm = value > Settings.Default.CpuUsageAlarmLimit
+                IsAlarm = value > cpuUsageAlarmLimit
             };
         }
     }
 
     public class DiskController
     {
-        public HardwareControlMessage GetDiskState()
+        public HardwareControlMessage GetDiskState(double diskUsageAlarmLimit)
         {
             var value = DriveInfo.GetDrives().First(p => p.Name == "C:\\").TotalFreeSpace/(1024*1024);
 
             return new HardwareControlMessage()
             {
                 Data = value + "MB",
-                IsAlarm = value < Settings.Default.DiskUsageAlarmLimit
+                IsAlarm = value < diskUsageAlarmLimit
             };
         }
     }
 
     public class ServiceStateController
     {
-        readonly Logger _log = LogManager.GetCurrentClassLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //readonly Logger _log = LogManager.GetCurrentClassLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ServiceControlMessage GetServiceState(TargetService targetService)
+        public ServiceControlMessage GetServiceState(TargetService targetService, double serviceThreadCountAlarmLimit)
         {
-            _log.Warn("Servisin durumu sorgulandı Servisin adı : "+targetService.Name);
+            //_log.Warn("Servisin durumu sorgulandı Servisin adı : "+targetService.Name);
             var sc = new ServiceController(targetService.Name);
             var threadCount = Process.GetProcessById(getProcessIDByServiceName(targetService.Name)).Threads.Count;
             try
@@ -79,7 +77,7 @@ namespace CustomerTracker.ClientControllerService.Controllers
                 return new ServiceControlMessage()
                 {
                     NumberOfThreads = threadCount,
-                    IsAlarm = threadCount > Settings.Default.ServiceThreadCountAlarmLimit || isAlarm,
+                    IsAlarm = threadCount > serviceThreadCountAlarmLimit || isAlarm,
                     TargetService = targetService,
                     State = sc.Status.ToString(),
                     DoesExist = true
@@ -87,7 +85,7 @@ namespace CustomerTracker.ClientControllerService.Controllers
             }
             catch (Exception)
             {
-                _log.Error("Servis bulunamadı : Adı : "+targetService.Name);
+                //_log.Error("Servis bulunamadı : Adı : "+targetService.Name);
                 return new ServiceControlMessage()
                 {
                     DoesExist = false,

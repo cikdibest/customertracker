@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CustomerTracker.ClientControllerService.Models
+namespace CustomerTracker.ClientController.Core.Models
 {
     public class ServiceControlMessage
     {
