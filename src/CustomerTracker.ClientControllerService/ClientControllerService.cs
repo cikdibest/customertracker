@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceProcess;
+﻿using System.ServiceProcess;
 using System.Timers;
 using CustomerTracker.ClientController.Core;
-using CustomerTracker.ClientController.Core.Controllers;
-using CustomerTracker.ClientController.Core.Models;
 using CustomerTracker.ClientControllerService.Properties;
-using NLog;
-using RestSharp;
 
 namespace CustomerTracker.ClientControllerService
 {
