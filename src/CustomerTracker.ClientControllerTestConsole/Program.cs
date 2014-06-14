@@ -22,10 +22,12 @@ namespace CustomerTracker.ClientControllerTestConsole
 
                 _timer = new Timer(Settings.Default.TimerInMinutes * 60000) { Enabled = true };
                 _timer.Elapsed += _timer_Elapsed;
+                Console.ReadKey();
             }
             catch (Exception exc)
             {
-                _bootstrap.AddLog(exc);
+                if (_bootstrap != null)
+                    _bootstrap.AddLog(exc);
             }
         }
 

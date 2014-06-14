@@ -25,7 +25,7 @@ namespace CustomerTracker.ClientControllerTestConsole.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public double TimerInMinutes {
             get {
                 return ((double)(this["TimerInMinutes"]));
@@ -37,7 +37,7 @@ namespace CustomerTracker.ClientControllerTestConsole.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C146R10T36")]
         public string MachineCode {
             get {
                 return ((string)(this["MachineCode"]));
@@ -49,7 +49,7 @@ namespace CustomerTracker.ClientControllerTestConsole.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://demo.ankaref.com/testapi/api/serverstatuslistener")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51243/serverstatuslistener")]
         public string ServiceNamesApiAddress {
             get {
                 return ((string)(this["ServiceNamesApiAddress"]));
@@ -61,7 +61,7 @@ namespace CustomerTracker.ClientControllerTestConsole.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://demo.ankaref.com/testapi/api/serverstatuslistener")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:51243/serverstatuslistener")]
         public string StateReceiverApiAddress {
             get {
                 return ((string)(this["StateReceiverApiAddress"]));

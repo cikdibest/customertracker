@@ -27,7 +27,7 @@ namespace CustomerTracker.ClientController.Core
 
         public Bootstrap(string machineCode, double ramUsageAlarmLimit, double diskUsageAlarmLimit, double cpuUsageAlarmLimit, double serviceThreadCountAlarmLimit, string serverConditonPostApiAdress, string serverConditonGetApiAdress)
         {
-            this._log = LogManager.GetCurrentClassLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            this._log = LogManager.GetCurrentClassLogger();
             this._machineCode = machineCode;
             this._ramUsageAlarmLimit = ramUsageAlarmLimit;
             this._diskUsageAlarmLimit = diskUsageAlarmLimit;

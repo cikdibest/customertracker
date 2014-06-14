@@ -71,7 +71,7 @@ namespace TestServerApiApp.Controllers
             if (string.IsNullOrWhiteSpace(trimmmedLowerMachineCode))
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "machineCode can not be null");
 
-            if (trimmmedLowerMachineCode.Trim().Length != 15 || !trimmmedLowerMachineCode.Contains("c") || !trimmmedLowerMachineCode.Contains("r") || !trimmmedLowerMachineCode.Contains("t"))
+            if (!trimmmedLowerMachineCode.Contains("c") || !trimmmedLowerMachineCode.Contains("r") || !trimmmedLowerMachineCode.Contains("t"))
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "machineCode has wrong format");
 
             return new HttpResponseMessage(HttpStatusCode.OK);

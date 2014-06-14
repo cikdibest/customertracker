@@ -88,7 +88,7 @@ namespace CustomerTracker.Data.Model.Entities
 
     public class RemoteMachine : BaseEntity
     {
-        [StringLength(15)]
+        [StringLength(50)]
         public string MachineCode { get; set; }
 
         [StringLength(100)]

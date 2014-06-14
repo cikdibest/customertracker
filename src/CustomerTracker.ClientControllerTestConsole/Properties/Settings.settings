@@ -3,16 +3,16 @@
   <Profiles />
   <Settings>
     <Setting Name="TimerInMinutes" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">15</Value>
-    </Setting>
-    <Setting Name="MachineCode" Type="System.String" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="MachineCode" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C146R10T36</Value>
+    </Setting>
     <Setting Name="ServiceNamesApiAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://demo.ankaref.com/testapi/api/serverstatuslistener</Value>
+      <Value Profile="(Default)">http://localhost:51243/serverstatuslistener</Value>
     </Setting>
     <Setting Name="StateReceiverApiAddress" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://demo.ankaref.com/testapi/api/serverstatuslistener</Value>
+      <Value Profile="(Default)">http://localhost:51243/serverstatuslistener</Value>
     </Setting>
     <Setting Name="CpuUsageAlarmLimit" Type="System.Double" Scope="User">
       <Value Profile="(Default)">50</Value>
