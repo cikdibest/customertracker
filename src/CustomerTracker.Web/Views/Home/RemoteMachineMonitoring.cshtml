@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Server Durumu";
+}
+<style>
+    .red {
+        color: red;
+    }
+
+    .green {
+        color: green;
+    }
+</style>
+
+<script src="~/Scripts/domain/remoteMachine/remoteMachineFactory.js"></script>
+<script src="~/Scripts/domain/remoteMachine/remoteMachineMonitoringController.js"></script>
+<div class="container" style="margin-left: 0" ng-controller="remoteMachineMonitoringController">
+    <div class="row">
+        <input/>
+        <hr/>
+    </div>
+    <div class="row">
+        <ul class="  list-unstyled" ng-repeat="remoteMachineState in remoteMachineStates">
+            <li class="col-md-5">
+                <div class="thumbnail" style="padding: 0">
+                    <div class="text-center">
+                        <strong>{{remoteMachineState.Customer.Name}}</strong>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p>{{remoteMachineState.DecryptedName}}</p>
+                            <p>{{remoteMachineState.MachineCode}}</p>
+                            <p>{{remoteMachineState.DecryptedRemoteAddress}}</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <strong>Bilgisayar Durumu</strong>
+                            <ul ng-repeat="machineStatus in  remoteMachineState.MachineCondition.MachineStatusList">
+                                <li ng-class="{true : 'red' ,false :'green'}[machineStatus.IsAlarm]">{{machineStatus.Data}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="text-align: left" ng-repeat="serviceStatus in remoteMachineState.MachineCondition.ServiceStatusList">
+                        <div class="col-lg-5" ng-class="{true : 'red' ,false :'green'}[serviceStatus.IsAlarm]">
+                            <p>{{serviceStatus.TargetService.InstanceName}}</p>
+                        </div>
+                        <div class="col-lg-7">
+                            <p>NumberOfThreads:  {{serviceStatus.NumberOfThreads}}</p>
+                            <p>State:   {{serviceStatus.State}}</p>
+                            <p>DoesExist: {{serviceStatus.DoesExist}}</p>
+                        </div>
+
+
+
+                    </div>
+    </div>
+    </li>
+        </ul>
+</div>
+</div>

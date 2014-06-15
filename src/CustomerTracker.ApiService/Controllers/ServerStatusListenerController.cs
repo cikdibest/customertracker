@@ -102,7 +102,7 @@ namespace CustomerTracker.ApiService.Controllers
                     if (remoteMachine.MachineLogs == null)
                         remoteMachine.MachineLogs = new Collection<MachineLog>();
 
-                    remoteMachine.MachineLogs.Add(new MachineLog() { MachineConditionJson = serializeObject, IsAlarm = isAlarm });
+                    remoteMachine.MachineLogs.Add(new MachineLog() { MachineConditionJson = serializeObject, IsAlarm = isAlarm,CreationDate = DateTime.Now,IsActive = true});
 
                     customerTrackerDataContext.SaveChanges();
                 }

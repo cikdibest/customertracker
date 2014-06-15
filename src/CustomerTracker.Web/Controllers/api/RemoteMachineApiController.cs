@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
@@ -7,12 +8,13 @@ using System.Web.Http;
 using CustomerTracker.Data.Model.Entities;
 using CustomerTracker.Web.Models.Attributes;
 using CustomerTracker.Web.Utilities;
+using Newtonsoft.Json;
 
 namespace CustomerTracker.Web.Controllers.api
 {
     [CustomAuthorize(Roles = "Admin,Personel")]
     public class RemoteMachineApiController : ApiController
-    { 
+    {
         public dynamic GetRemoteMachines(int pageNumber, int pageSize, string sortBy, string sortDir)
         {
             var skippedRow = (pageNumber - 1) * pageSize;
@@ -115,6 +117,51 @@ namespace CustomerTracker.Web.Controllers.api
             }
 
             return Request.CreateResponse(HttpStatusCode.OK, remoteMachine);
+        }
+
+        public dynamic GetRemoteMachineStates()
+        {
+            var remoteMachines = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>()
+                .SelectAll()
+                .Where(q => q.ApplicationServices.Any())
+                .Include(q => q.Customer)
+                .Include(q => q.RemoteMachineConnectionType)
+                .Include(q => q.ApplicationServices)
+                .Include(q => q.MachineLogs);
+
+            var pageRemoteMachines = remoteMachines
+                .OrderBy(q => q.Id)
+                //.Skip(skippedRow)
+                //.Take(pageSize)
+                .ToList();
+
+            var enumerable = pageRemoteMachines.Select(t => new
+            {
+                MachineCode = t.MachineCode,
+                DecryptedName = t.DecryptedName,
+                DecryptedRemoteAddress = t.DecryptedRemoteAddress,
+                ApplicationServices = t.ApplicationServices.Select(aps => new { Id = aps.Id, InstanceName = aps.InstanceName }),
+                Customer = new { Id = t.CustomerId, Name = t.Customer.Name },
+                RemoteMachineConnectionType = new { Id = t.RemoteMachineConnectionTypeId, Name = t.RemoteMachineConnectionType.Name },
+                MachineCondition = ParseMachineStatus(t.MachineLogs.OrderByDescending(q => q.Id).FirstOrDefault()),
+            }).ToList();
+
+            return enumerable;
+        }
+
+        private dynamic ParseMachineStatus(MachineLog machineLog)
+        {
+            if (machineLog == null)
+                return new { };
+
+            var machineConditionJson = JsonConvert.DeserializeObject<dynamic>(machineLog.MachineConditionJson);
+
+            return new
+            {
+                MachineStatusList = machineConditionJson.HardwareControlMessages,
+                ServiceStatusList = machineConditionJson.ServiceControlMessages,
+            };
+
         }
     }
 }

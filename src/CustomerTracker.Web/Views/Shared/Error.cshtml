@@ -5,10 +5,10 @@
 }
 
 <div class="alert alert-info">
-    <span class="label label-important large">Sistemde beklenmeyen bir hata meydana geldi</span>
+    <span class="label label-danger">Sistemde beklenmeyen bir hata meydana geldi</span>
     <br />
     <br />
-    @Html.ActionLink("Anasayfaya Dön", "Index", "Material", null, new { @class = "btn" })
+    @Html.ActionLink("Anasayfaya Dön", "Index", "Home", null, new { @class = "btn" })
     <a href="#" id="button" class = "btn">Hata Detayını Gör</a>
 
 </div>
@@ -23,7 +23,7 @@
 </div>
 
 
-@*@section CustomScripts
+@section CustomScripts
 {
     <script>
 
@@ -41,5 +41,5 @@
 
 
     </script>
-}*@
+}
 

@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.DynamicData;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Routing;
 using CustomerTracker.Common.Helpers;
-using CustomerTracker.Web.App_Start;
-using CustomerTracker.Web.Business;
-using CustomerTracker.Web.Business.SearchBusiness;
-using CustomerTracker.Web.Infrastructure.Repository;
 using CustomerTracker.Web.Models.Enums;
-using CustomerTracker.Web.Utilities;
-using MvcPaging;
-using Ninject;
 
 namespace CustomerTracker.Web.Controllers
 {
     [Authorize(Roles = "Admin,Personel")]
-    public class MaterialController : Controller
+    public class HomeController : Controller
     { 
          
 
@@ -49,6 +39,10 @@ namespace CustomerTracker.Web.Controllers
 
         //    return Json(resultModels, JsonRequestBehavior.AllowGet);
         //}
+        public ActionResult RemoteMachineMonitoring()
+        {
+            return View();
+        }
     }
 
     //public class NinjectControllerFactory : DefaultControllerFactory

@@ -6,7 +6,7 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
     $scope.customers = [];
 
     $scope.remoteConnectionTypes = [];
-
+     
     $scope.addMode = false;
 
     $scope.totalCount = 0;
@@ -80,6 +80,7 @@ customerApp.controller('remoteMachineController', function ($scope, remoteMachin
                        .error(baseControllerFactory.errorCallback);
     };
 
+   
     $scope.init = function () { 
         $scope.loadCustomers();
 

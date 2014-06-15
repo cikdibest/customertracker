@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink("Anasayfa", "Index", "Material", null, new { @class = "navbar-brand" })
+            @Html.ActionLink("Anasayfa", "Index", "Home", null, new { @class = "navbar-brand" })
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -21,21 +21,20 @@
                     <a href="#" class="dropdown dropdown-toggle" data-toggle="dropdown">Genel Tanımlamalar <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Müşteri", "Customer", "CrudView")</li>
-                        <li>@Html.ActionLink("Uzak Bağlantı", "RemoteMachine", "CrudView")</li>
-                        @*   <li><a href="#">Uzak Bağlantı Tipi</a></li>
-                        <li><a href="#">İletişim(Bağlantı)</a></li>*@
+                        <li>@Html.ActionLink("Uzak Bağlantı", "RemoteMachine", "CrudView")</li> 
                         <li>@Html.ActionLink("Departman", "Department", "CrudView")</li>
-                        <li>@Html.ActionLink("Ürün", "Product", "CrudView")</li>
-                        @*<li><a href="#">Ürün</a></li>*@
+                        <li>@Html.ActionLink("Ürün", "Product", "CrudView")</li> 
                         <li>@Html.ActionLink("Özel veri", "DataMaster", "CrudView")</li>
-                        <li class="divider"></li>
-                        @*<li><a href="#">Sistem Kullanıcıları</a></li>*@
+                        <li class="divider"></li> 
                         <li>@Html.ActionLink("Kullanıcı", "Users", "CrudView")</li>
                         <li>@Html.ActionLink("Dosya Yükleme", "Index", "FileUpload")</li>
                     </ul>
                 </li>
                 <li>
                     <li>@Html.ActionLink("Çözüm Merkezi", "Solution", "CrudView")</li>
+                </li>
+                 <li>
+                    <li>@Html.ActionLink("Server İzleme", "RemoteMachineMonitoring", "Home")</li>
                 </li>
             </ul>
 

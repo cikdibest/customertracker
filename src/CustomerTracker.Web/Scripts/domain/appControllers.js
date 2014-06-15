@@ -42,6 +42,8 @@ var remoteMachineApiUrl = {
     putremotemachine: '/ct/api/remotemachineapi/putremotemachine/',
     postremotemachine: '/ct/api/remotemachineapi/postremotemachine/',
     deleteremotemachine: '/ct/api/remotemachineapi/deleteremotemachine/',
+    getremotemachinestates: '/ct/api/remotemachineapi/getremotemachinestates/',
+    
 };
 
 var departmentApiUrl = {
@@ -106,6 +108,8 @@ var userApiUrl = {
     sendpasswordtouser: '/ct/api/userapi/sendpasswordtouser/',
 
 };
+
+ 
 
 
 angular.module('SharedServices', [])
