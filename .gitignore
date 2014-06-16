@@ -277,3 +277,7 @@ src/Gtud.Web/App_Data/GtudData.sdf
 src/CustomerTracker.v11.suo
 /src/CustomerTracker.Web/Properties/PublishProfiles/*.pubxml
 /src/CustomerTracker.Web/Uploads
+src/CustomerTracker.ApiService/Properties/PublishProfiles/testsilsonra.pubxml
+src/CustomerTracker.ApiService/Properties/PublishProfiles/testsilsonra.pubxml
+src/CustomerTracker.ApiService/Properties/PublishProfiles/testsilsonra.pubxml
+*.pubxml
