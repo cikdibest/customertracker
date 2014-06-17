@@ -18,6 +18,7 @@ namespace CustomerTracker.ClientController.Core.Models
 
     public class HardwareControlMessage
     {
+        public string Name { get; set; }
         public string Data { get; set; }
 
         public bool IsAlarm { get; set; }

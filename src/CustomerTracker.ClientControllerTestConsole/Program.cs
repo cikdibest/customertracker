@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Threading;
 using System.Timers;
 using CustomerTracker.ClientController.Core;
 using CustomerTracker.ClientControllerTestConsole.Properties;
+using Timer = System.Timers.Timer;
 
 namespace CustomerTracker.ClientControllerTestConsole
 {
@@ -13,7 +16,7 @@ namespace CustomerTracker.ClientControllerTestConsole
         static void Main(string[] args)
         {
             try
-            {
+            { 
                 Console.WriteLine("started");
                 
                 _bootstrap = new Bootstrap(Settings.Default.MachineCode, Settings.Default.RamUsageAlarmLimit, Settings.Default.DiskUsageAlarmLimit,
@@ -22,7 +25,9 @@ namespace CustomerTracker.ClientControllerTestConsole
                 _timer = new Timer(Settings.Default.TimerInMinutes * 60000) { Enabled = true };
                 
                 _timer.Elapsed += _timer_Elapsed;
-                
+
+                _timer_Elapsed(null, null);
+
                 Console.WriteLine("press key for stop");
                 
                 Console.ReadKey();

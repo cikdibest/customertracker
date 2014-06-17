@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Timers;
 using CustomerTracker.ClientController.Core.Controllers;
 using CustomerTracker.ClientController.Core.Models;
@@ -45,21 +46,21 @@ namespace CustomerTracker.ClientController.Core
         public void Start()
         {
 
-            _log.Debug("Verilen süre geldi.");
+            _log.Trace("Verilen süre geldi.");
             if (!FillServiceNameList()) return;
             var hardwareConditionList = new List<HardwareControlMessage>();
 
             var ramState = _ramController.GetRamState(_ramUsageAlarmLimit);
-            _log.Debug("Ram State : " + ramState.Data + " Alarm mı :" + ramState.IsAlarm);
+            _log.Trace("Ram State : " + ramState.Data + " Alarm mı :" + ramState.IsAlarm);
             hardwareConditionList.Add(ramState);
 
 
             var diskState = _diskController.GetDiskState(_diskUsageAlarmLimit);
-            _log.Debug("Disk State : " + diskState.Data + " Alarm mı :" + diskState.IsAlarm);
+            _log.Trace("Disk State : " + diskState.Data + " Alarm mı :" + diskState.IsAlarm);
             hardwareConditionList.Add(diskState);
 
             var cpuState = _cpuController.GetCpuState(_cpuUsageAlarmLimit);
-            _log.Debug("CPU State : " + cpuState.Data + " Alarm mı :" + cpuState.IsAlarm);
+            _log.Trace("CPU State : " + cpuState.Data + " Alarm mı :" + cpuState.IsAlarm);
             hardwareConditionList.Add(cpuState);
 
 
@@ -67,7 +68,7 @@ namespace CustomerTracker.ClientController.Core
 
             foreach (var service in _serviceNameList)
                 serviceConditionList.Add(_serviceController.GetServiceState(service, _serviceThreadCountAlarmLimit));
-            _log.Debug("İstenen Servislerin sayısı : " + serviceConditionList.Count);
+            _log.Trace("İstenen Servislerin sayısı : " + serviceConditionList.Count);
 
 
             var serverCondition = new ServerCondition
@@ -77,13 +78,16 @@ namespace CustomerTracker.ClientController.Core
                 MachineCode = _machineCode,
                 IsAlarm = hardwareConditionList.Any(q => q.IsAlarm) || serviceConditionList.Any(q => q.IsAlarm)
             };
-            _log.Debug("Servis durumu gönderiliyor. Alarm var mı : " + (serverCondition.HardwareControlMessages.Count(c => c.IsAlarm) + serverCondition.ServiceControlMessages.Count(c => c.IsAlarm)));
+            _log.Trace("Servis durumu gönderiliyor. Alarm var mı : " + (serverCondition.HardwareControlMessages.Count(c => c.IsAlarm) + serverCondition.ServiceControlMessages.Count(c => c.IsAlarm)));
 
 
             var restRequest = CreatePostRestRequest(_apiAddressetGetApplicationServices, serverCondition);
             var restClient = new RestClient();
             var response = restClient.Execute(restRequest);
-
+            if (response.StatusCode==HttpStatusCode.OK)
+                _log.Trace("Donanım bilgileri gönderildi");
+            else
+                _log.Trace("Hata!.Donanım bilgileri gönderilemedi");
         }
 
         #region private methods
@@ -91,12 +95,12 @@ namespace CustomerTracker.ClientController.Core
         {
             try
             {
-                _log.Warn("Servis listesi alınıyor");
+                _log.Trace("Servis listesi alınıyor");
                 RestRequest restRequest = CreateGetRestRequest(_apiAddressPostServerCondition);
                 var restClient = new RestClient();
                 var targetServices = restClient.Execute<List<TargetService>>(restRequest);
                 _serviceNameList = new List<TargetService>(targetServices.Data);
-                _log.Warn("Servis listesi alındı.");
+                _log.Trace("Servis listesi alındı.");
                 return true;
             }
             catch (Exception ex)

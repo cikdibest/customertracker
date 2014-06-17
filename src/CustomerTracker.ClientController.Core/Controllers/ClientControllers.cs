@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.ServiceProcess;
+using System.Threading;
 using CustomerTracker.ClientController.Core.Models;
+using NLog;
 
 namespace CustomerTracker.ClientController.Core.Controllers
 {
@@ -22,7 +26,8 @@ namespace CustomerTracker.ClientController.Core.Controllers
             var value = ramCounter.NextValue();
             return new HardwareControlMessage()
             {
-                Data = ramCounter.NextValue() + "MB",
+                Name = "Ram(Available)",
+                Data = ramCounter.NextValue() + " Mb",
                 IsAlarm = value < ramUsageAlarmLimit
             };
         }
@@ -32,16 +37,26 @@ namespace CustomerTracker.ClientController.Core.Controllers
     {
         public HardwareControlMessage GetCpuState(double cpuUsageAlarmLimit)
         {
-           var cpuCounter = new PerformanceCounter
-           {
-               CategoryName = "Processor",
-               CounterName = "% Processor Time",
-               InstanceName = "_Total"
-           };
-            var valueFirst = cpuCounter.NextValue();
-            var value = cpuCounter.NextValue();
+            var cpuCounter = new PerformanceCounter
+            {
+                CategoryName = "Processor",
+                CounterName = "% Processor Time",
+                InstanceName = "_Total"
+            };
+
+            HashSet<float> floats = new HashSet<float>();
+            for (int i = 0; i < 10; i++)
+            {
+                Thread.Sleep(500);
+                var nextValue = cpuCounter.NextValue();
+                floats.Add(nextValue);
+            }
+
+            var value = floats.Average();
+
             return new HardwareControlMessage()
             {
+                Name = "Cpu",
                 Data = value + "%",
                 IsAlarm = value > cpuUsageAlarmLimit
             };
@@ -52,10 +67,11 @@ namespace CustomerTracker.ClientController.Core.Controllers
     {
         public HardwareControlMessage GetDiskState(double diskUsageAlarmLimit)
         {
-            var value = DriveInfo.GetDrives().First(p => p.Name == "C:\\").TotalFreeSpace/(1024*1024);
+            var value = DriveInfo.GetDrives().First(p => p.Name == "C:\\").TotalFreeSpace / (1024 * 1024);
 
             return new HardwareControlMessage()
             {
+                Name = "Disk(Free)",
                 Data = value + "MB",
                 IsAlarm = value < diskUsageAlarmLimit
             };
@@ -64,17 +80,37 @@ namespace CustomerTracker.ClientController.Core.Controllers
 
     public class ServiceStateController
     {
-        //readonly Logger _log = LogManager.GetCurrentClassLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        readonly Logger _log = LogManager.GetCurrentClassLogger();
 
         public ServiceControlMessage GetServiceState(TargetService targetService, double serviceThreadCountAlarmLimit)
         {
-            //_log.Warn("Servisin durumu sorgulandı Servisin adı : "+targetService.InstanceName);
-          
+            _log.Trace("Servisin durumu sorgulandı Servisin adı : " + targetService.InstanceName);
+
             try
             {
+                var serviceManagementBaseObject = GetServiceManagementBaseObject(targetService.InstanceName);
+                if (serviceManagementBaseObject == null)
+                {
+                    return new ServiceControlMessage()
+                    {
+                        DoesExist = false,
+                        IsAlarm = false,
+                        TargetService = targetService,
+                        NumberOfThreads = 0,
+                        State = ""
+                    };
+                }
+
+                var uint32Val = UInt32.Parse(serviceManagementBaseObject["PROCESSID"].ToString());
+
+                var serviceProcessId = int.Parse(uint32Val.ToString());
+
+                var threadCount = Process.GetProcessById(serviceProcessId).Threads.Count;
+
                 var sc = new ServiceController(targetService.InstanceName);
-                var threadCount = Process.GetProcessById(getProcessIDByServiceName(targetService.InstanceName)).Threads.Count;
+
                 var isAlarm = (sc.Status != ServiceControllerStatus.Running);
+
                 return new ServiceControlMessage()
                 {
                     NumberOfThreads = threadCount,
@@ -84,9 +120,10 @@ namespace CustomerTracker.ClientController.Core.Controllers
                     DoesExist = true
                 };
             }
-            catch (Exception)
+            catch (Exception exc)
             {
-                //_log.Error("Servis bulunamadı : Adı : "+targetService.InstanceName);
+                _log.Error(exc);
+
                 return new ServiceControlMessage()
                 {
                     DoesExist = false,
@@ -95,22 +132,20 @@ namespace CustomerTracker.ClientController.Core.Controllers
                     NumberOfThreads = 0,
                     State = ""
                 };
-               
             }
         }
 
-        private int getProcessIDByServiceName(string serviceName)
+        private ManagementBaseObject GetServiceManagementBaseObject(string instanceName)
         {
-            int processId = 0;
-            string qry = "SELECT PROCESSID FROM WIN32_SERVICE WHERE NAME = '" + serviceName + "'";
+            string qry = "SELECT PROCESSID FROM WIN32_SERVICE WHERE NAME = '" + instanceName + "'";
+
             var searcher = new System.Management.ManagementObjectSearcher(qry);
-            foreach (System.Management.ManagementObject mngntObj in searcher.Get())
-            {
-                processId = (int)mngntObj["PROCESSID"];
-            }
-            return processId;
+
+            return searcher.Get().Cast<ManagementBaseObject>().SingleOrDefault();
         }
+
+
     }
 
-    
+
 }
