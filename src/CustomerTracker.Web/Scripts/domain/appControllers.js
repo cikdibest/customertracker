@@ -43,7 +43,9 @@ var remoteMachineApiUrl = {
     postremotemachine: '/ct/api/remotemachineapi/postremotemachine/',
     deleteremotemachine: '/ct/api/remotemachineapi/deleteremotemachine/',
     getremotemachinestates: '/ct/api/remotemachineapi/getremotemachinestates/',
-    
+    postapplicationservice: '/ct/api/remotemachineapi/postapplicationservice/',
+    deleteapplicationservice: '/ct/api/remotemachineapi/deleteapplicationservice/',
+    putapplicationService: '/ct/api/remotemachineapi/putapplicationService/',
 };
 
 var departmentApiUrl = {
@@ -109,7 +111,7 @@ var userApiUrl = {
 
 };
 
- 
+
 
 
 angular.module('SharedServices', [])
@@ -172,8 +174,24 @@ var modalService = function ($modal) {
             headerText: headerText,
             bodyText: bodyText,
         };
-
     };
+     
+    this.getManageApplicationServiceModalConfig = {
+        backdrop: true,
+        keyboard: true,
+        modalFade: true,
+        templateUrl: '/ct/ApplicationServices.html'
+    };
+    //this.getShowManageApplicationServicesModal = function () {
+    //    return {
+    //        closeButtonText: "Kapat",
+    //        actionButtonText: "Action",
+    //        headerText: "Application Services",
+    //        bodyText: "bodyText",
+    //    };
+    //};
+
+
 
     this.showModal = function (customModalDefaults, customModalOptions) {
         if (!customModalDefaults) customModalDefaults = {};

@@ -13,7 +13,7 @@
         $scope.requests = [];
 
         $scope.load = function () {
-            $http.get('./ServerStatusListener/getactiverequests')
+            $http.get('/ctapiservice/ServerStatusListener/getactiverequests')
                 .success(function (data) {
                     $scope.requests = data;
                 }).error(function (data, status, haders, config) {

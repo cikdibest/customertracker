@@ -23,7 +23,10 @@ namespace CustomerTracker.Web.Controllers.api
 
             var remoteMachines = remoteMachineTrackerDataContext.RemoteMachines;
 
-            var pageRemoteMachines = remoteMachines.Include("Customer").Include("RemoteMachineConnectionType")
+            var pageRemoteMachines = remoteMachines
+                .Include(q=>q.Customer)
+                .Include(q=>q.RemoteMachineConnectionType)
+                .Include(q=>q.ApplicationServices)
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)
@@ -121,6 +124,7 @@ namespace CustomerTracker.Web.Controllers.api
 
         public dynamic GetRemoteMachineStates()
         {
+
             var remoteMachines = ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>()
                 .SelectAll()
                 .Where(q => q.ApplicationServices.Any())
@@ -147,6 +151,79 @@ namespace CustomerTracker.Web.Controllers.api
             }).ToList();
 
             return enumerable;
+        }
+
+        public HttpResponseMessage PostApplicationService(ApplicationService applicationService)
+        {
+            if (ModelState.IsValid)
+            {
+                ConfigurationHelper.UnitOfWorkInstance.GetRepository<ApplicationService>().Create(applicationService);
+
+                ConfigurationHelper.UnitOfWorkInstance.Save();
+
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, applicationService);
+
+                response.Headers.Location = new Uri(Url.Link("DefaultApiWithId", new { id = applicationService.Id }));
+
+                return response;
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+        }
+
+        [CustomAuthorize(Roles = "Admin")]
+        public HttpResponseMessage DeleteApplicationService(int id)
+        {
+            var applicationService = ConfigurationHelper.UnitOfWorkInstance.GetRepository<ApplicationService>().Find(id);
+
+            if (applicationService == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound);
+            }
+
+            ConfigurationHelper.UnitOfWorkInstance.GetRepository<ApplicationService>().Delete(applicationService);
+
+            try
+            {
+                var save = ConfigurationHelper.UnitOfWorkInstance.Save();
+                if (save == -547)
+                    return Request.CreateResponse(HttpStatusCode.MultipleChoices, new Exception("Silmek istediğiniz kaydın bağlantılı verileri var.Lütfen önce bu verileri siliniz"));
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, applicationService);
+        }
+
+        [CustomAuthorize(Roles = "Admin")]
+        public HttpResponseMessage PutApplicationService(int id, ApplicationService applicationService)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+
+            if (id != applicationService.Id)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            ConfigurationHelper.UnitOfWorkInstance.GetRepository<ApplicationService>().Update(applicationService);
+
+            try
+            {
+                ConfigurationHelper.UnitOfWorkInstance.Save();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
         private dynamic ParseMachineStatus(MachineLog machineLog)

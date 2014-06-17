@@ -18,9 +18,16 @@ customerApp.factory('remoteMachineFactory', function ($http) {
         getRemoteMachineStates: function () {
             return $http.get(remoteMachineApiUrl.getremotemachinestates);
         },
-        //getRemoteConnectionTypes: function () {
-        //    return $http.get(sharedDataApiUrl.getremoteconnectiontypes);
-        //}
-
+        addApplicationService: function (applicationService) {
+            return $http.post(remoteMachineApiUrl.postapplicationservice, applicationService);
+        } ,
+        deleteApplicationService: function (applicationService) {
+            return $http.delete(remoteMachineApiUrl.deleteapplicationservice + applicationService.Id);
+        },
+        updateApplicationService: function (applicationService) {
+            return $http.put(remoteMachineApiUrl.putapplicationService + applicationService.Id, applicationService);
+        }
+      
+        
     };
 });

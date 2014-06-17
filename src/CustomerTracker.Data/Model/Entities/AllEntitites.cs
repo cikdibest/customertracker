@@ -305,7 +305,7 @@ namespace CustomerTracker.Data.Model.Entities
 
         [StringLength(1000)]
         public string Description { get; set; }
-         
+
         public int ApplicationServiceTypeId { get; set; }
         public ApplicationServiceType ApplicationServiceType
         {
@@ -313,7 +313,7 @@ namespace CustomerTracker.Data.Model.Entities
             {
                 return (ApplicationServiceType)ApplicationServiceTypeId;
             }
-        } 
+        }
         public string ApplicationServiceTypeName
         {
             get
@@ -322,7 +322,8 @@ namespace CustomerTracker.Data.Model.Entities
             }
         }
 
-        public virtual ICollection<RemoteMachine> RemoteMachines { get; set; }
+        public int RemoteMachineId { get; set; }
+        public virtual RemoteMachine RemoteMachine { get; set; }
     }
 
     public class MachineLog : BaseEntity
@@ -336,7 +337,7 @@ namespace CustomerTracker.Data.Model.Entities
     }
 
     public enum ApplicationServiceType
-    { 
+    {
         WindowsService = 1,
 
         SqlServer = 2,

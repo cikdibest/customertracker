@@ -63,6 +63,7 @@
                         <div class="btn-group">
                             <i class="btn glyphicon glyphicon-edit" ng-click="toggleEditMode(remoteMachine)"></i>
                             <i class="btn glyphicon glyphicon-trash" ng-click="deleteRemoteMachine(remoteMachine)"></i>
+                              <i class="btn glyphicon glyphicon-transfer" ng-click="showManageApplicationServices(remoteMachine)"></i>
                         </div>
                     </div>
                     <div class="btn-toolbar" ng-show="remoteMachine.editMode == true">
@@ -100,7 +101,7 @@
                     <input ng-model="remoteMachine.DecryptedPassword" ng-show="remoteMachine.editMode == true" />
                 </td>
                 <td>
-                    <span ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false">{{remoteMachine.Explanation}}</span>
+                    <input ng-show="remoteMachine.editMode == null || remoteMachine.editMode == false" readonly="readonly" ng-model="remoteMachine.Explanation"/>
                     <textarea ng-model="remoteMachine.Explanation" ng-show="remoteMachine.editMode == true"></textarea>
                 </td>
             </tr>
