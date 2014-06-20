@@ -24,9 +24,9 @@ namespace CustomerTracker.Web.Controllers.api
             var remoteMachines = remoteMachineTrackerDataContext.RemoteMachines;
 
             var pageRemoteMachines = remoteMachines
-                .Include(q=>q.Customer)
-                .Include(q=>q.RemoteMachineConnectionType)
-                .Include(q=>q.ApplicationServices)
+                .Include(q => q.Customer)
+                .Include(q => q.RemoteMachineConnectionType)
+                .Include(q => q.ApplicationServices)
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)
@@ -80,7 +80,15 @@ namespace CustomerTracker.Web.Controllers.api
         {
             if (ModelState.IsValid)
             {
+                remoteMachine.MachineCode = Guid.NewGuid().ToString();
+
                 ConfigurationHelper.UnitOfWorkInstance.GetRepository<RemoteMachine>().Create(remoteMachine);
+
+                ConfigurationHelper.UnitOfWorkInstance.Save();
+
+                var machineCode = string.Format("C{0}R{1}", remoteMachine.CustomerId, remoteMachine.Id);
+
+                remoteMachine.MachineCode = machineCode;
 
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 

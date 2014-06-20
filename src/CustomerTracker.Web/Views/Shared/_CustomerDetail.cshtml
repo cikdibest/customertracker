@@ -140,6 +140,11 @@
                                         <td>
                                             <input ng-model="communication.AvatarImageUrl" /></td>
                                     </tr>
+                                     <tr>
+                                        <td>Açıklama</td>
+                                        <td>
+                                            <textarea ng-model="communication.Explanation" ></textarea></td>
+                                    </tr>
                                     <tr>
                                         <td></td>
                                         <td>
@@ -197,6 +202,13 @@
                                         <td>
                                             <span ng-show="communication.editMode==null || !communication.editMode">{{communication.Email}}</span>
                                             <input ng-show="communication.editMode" ng-model="communication.Email" />
+                                        </td>
+                                    </tr>
+                                      <tr>
+                                        <td>Açıklama</td>
+                                        <td>
+                                            <span ng-show="communication.editMode==null || !communication.editMode">{{communication.Explanation}}</span>
+                                            <textarea ng-show="communication.editMode" ng-model="communication.Explanation" ></textarea>
                                         </td>
                                     </tr>
                                     <tr>

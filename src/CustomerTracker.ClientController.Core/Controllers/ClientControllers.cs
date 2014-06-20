@@ -139,7 +139,7 @@ namespace CustomerTracker.ClientController.Core.Controllers
         {
             string qry = "SELECT PROCESSID FROM WIN32_SERVICE WHERE NAME = '" + instanceName + "'";
 
-            var searcher = new System.Management.ManagementObjectSearcher(qry);
+            var searcher = new ManagementObjectSearcher(qry);
 
             return searcher.Get().Cast<ManagementBaseObject>().SingleOrDefault();
         }

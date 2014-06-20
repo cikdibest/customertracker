@@ -290,6 +290,10 @@
     <Compile Include="Migrations\201406161941522_add_applicationservice.Designer.cs">
       <DependentUpon>201406161941522_add_applicationservice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406201206358_add_explanationcolumn.cs" />
+    <Compile Include="Migrations\201406201206358_add_explanationcolumn.Designer.cs">
+      <DependentUpon>201406201206358_add_explanationcolumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
     <Compile Include="Models\Attributes\ApiExceptionHandlingAttribute.cs" />
@@ -766,6 +770,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406161941522_add_applicationservice.resx">
       <DependentUpon>201406161941522_add_applicationservice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406201206358_add_explanationcolumn.resx">
+      <DependentUpon>201406201206358_add_explanationcolumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

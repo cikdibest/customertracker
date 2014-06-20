@@ -27,15 +27,15 @@
                     </div>
                     <hr />
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <p>{{remoteMachineState.DecryptedName}}</p>
                             <p>{{remoteMachineState.MachineCode}}</p>
                             <p>{{remoteMachineState.DecryptedRemoteAddress}}</p>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-7">
                             <strong>Bilgisayar Durumu</strong>
                             <ul ng-repeat="machineStatus in  remoteMachineState.MachineCondition.MachineStatusList">
-                                <li ng-class="{true : 'red' ,false :'green'}[machineStatus.IsAlarm]">{{machineStatus.Data}}</li>
+                                <li ng-class="{true : 'red' ,false :'green'}[machineStatus.IsAlarm]">{{machineStatus.Name}}/{{machineStatus.Data}}</li>
                             </ul>
                         </div>
                     </div>

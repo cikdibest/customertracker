@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Filters;
 using CustomerTracker.Web.App_Start;
+using CustomerTracker.Web.Utilities;
 using Ninject;
 using NLog;
 
@@ -30,8 +31,13 @@ namespace CustomerTracker.Web.Models.Attributes
             //}
 
             //Log Critical errors
-            _logger.Error(context.Exception);
 
+            var userName = ConfigurationHelper.CurrentUser != null ? ConfigurationHelper.CurrentUser.UserName : string.Empty;
+
+            string errorMessage = string.Format("Username={0}.ExceptionMessage={1}", userName, context.Exception.Message);
+
+            _logger.Error(errorMessage, context.Exception);
+              
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {
                 Content = new StringContent("An error occurred, please try again or contact the administrator."),

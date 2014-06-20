@@ -52,6 +52,9 @@ namespace CustomerTracker.Data.Model.Entities
         [StringLength(100)]
         public string MobilePhoneNumber { get; set; }
 
+        [StringLength(4000)]
+        public string Explanation { get; set; }
+         
         [StringLength(250)]
         public string AvatarImageUrl { get; set; }
 

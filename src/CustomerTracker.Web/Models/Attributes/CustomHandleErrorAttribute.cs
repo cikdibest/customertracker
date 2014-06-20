@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 using CustomerTracker.Web.App_Start;
+using CustomerTracker.Web.Utilities;
 using Ninject;
 using NLog;
 
@@ -61,8 +62,11 @@ namespace CustomerTracker.Web.Models.Attributes
                 };
             }
 
-            // log the error using log4net.
-            _logger.Error(filterContext.Exception.Message, filterContext.Exception);
+            var userName=ConfigurationHelper.CurrentUser != null ? ConfigurationHelper.CurrentUser.UserName : string.Empty;
+
+            string errorMessage = string.Format("Username={0}.ExceptionMessage={1}", userName, filterContext.Exception.Message);
+
+            _logger.Error(errorMessage, filterContext.Exception);
 
             filterContext.ExceptionHandled = true;
             filterContext.HttpContext.Response.Clear();
