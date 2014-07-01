@@ -9,17 +9,19 @@ using CustomerTracker.ApiService.Models;
 using CustomerTracker.Data;
 using CustomerTracker.Data.Model.Entities;
 using Newtonsoft.Json;
+using NLog;
 
 namespace CustomerTracker.ApiService.Controllers
 {
 
     public class ServerStatusListenerController : ApiController
     {
+        private Logger _logger = LogManager.GetCurrentClassLogger();
+
         public HttpResponseMessage GetApplicationServices(string machineCode)
         {
             try
             {
-
                 var trimmmedLowerMachineCode = machineCode.ToLower().Trim();
 
                 var httpResponseMessage = ValidateMachineCode(trimmmedLowerMachineCode);
@@ -58,8 +60,12 @@ namespace CustomerTracker.ApiService.Controllers
             }
             catch (Exception exc)
             {
+                _logger.Error(exc);
+
                 var httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+                
                 AddRequest(Request, httpResponseMessage);
+                
                 return httpResponseMessage;
             }
 
@@ -117,8 +123,12 @@ namespace CustomerTracker.ApiService.Controllers
 
             catch (Exception exc)
             {
+                _logger.Error(exc);
+
                 var httpResponseMessage = Request.CreateErrorResponse(HttpStatusCode.InternalServerError, exc);
+                
                 AddRequest(Request, httpResponseMessage);
+                
                 return httpResponseMessage;
             }
 

@@ -15,13 +15,7 @@ namespace CustomerTracker.ClientController.Core.Controllers
     {
         public HardwareControlMessage GetRamState(double ramUsageAlarmLimit)
         {
-            var cpuCounter = new PerformanceCounter
-            {
-                CategoryName = "Processor",
-                CounterName = "% Processor Time",
-                InstanceName = "_Total"
-            };
-
+          
             var ramCounter = new PerformanceCounter("Memory", "Available MBytes");
             var value = ramCounter.NextValue();
             return new HardwareControlMessage()

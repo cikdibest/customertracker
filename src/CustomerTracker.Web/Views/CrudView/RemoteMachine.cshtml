@@ -22,6 +22,7 @@
                 <th>İp(url)</th>
                 <th>Kullanıcı adı</th>
                 <th>Şifre</th>
+                <th>Makine Kodu</th>
                 <th style="width: 350px">Açıklama</th>
             </tr>
             <tr ng-show="addMode">
@@ -52,6 +53,9 @@
                 </td>
                 <td>
                     <input ng-model="remoteMachine.DecryptedPassword" />
+                </td>
+                  <td>
+                    <input ng-model="remoteMachine.MachineCode" />
                 </td>
                 <td>
                     <textarea ng-model="remoteMachine.Explanation"></textarea>

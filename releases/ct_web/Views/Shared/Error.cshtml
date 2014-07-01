@@ -1,0 +1,45 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error"; 
+}
+
+<div class="alert alert-info">
+    <span class="label label-danger">Sistemde beklenmeyen bir hata meydana geldi</span>
+    <br />
+    <br />
+    @Html.ActionLink("Anasayfaya Dön", "Index", "Home", null, new { @class = "btn" })
+    <a href="#" id="button" class = "btn">Hata Detayını Gör</a>
+
+</div>
+<div>
+    <div id="effect"> 
+        <p>
+            @Model.ControllerName / @Model.ActionName
+            <br />
+            @Model.Exception.Message
+        </p>
+    </div>
+</div>
+
+
+@section CustomScripts
+{
+    <script>
+
+        $(function () {
+
+            $("#effect").hide();
+
+            $("#button").click(function () {
+
+                $("#effect").toggle();
+
+            });
+
+        });
+
+
+    </script>
+}
+

@@ -1,0 +1,139 @@
+﻿@model IPagedList<CustomerTracker.Web.Business.SearchBusiness.SearchResultModel>
+
+@{
+    ViewBag.Title = "title"; 
+}
+<script src="~/Scripts/domain/product/productFactory.js"></script>
+<script src="~/Scripts/domain/remotemachineconnectiontype/remoteMachineConnectionTypeFactory.js"></script>
+<script src="~/Scripts/domain/remotemachine/remoteMachineFactory.js"></script>
+<script src="~/Scripts/domain/department/departmentFactory.js"></script>
+<script src="~/Scripts/domain/shared/sharedFactory.js"></script>
+<script src="~/Scripts/domain/customer/customerFactory.js"></script>
+<script src="~/Scripts/domain/material/materialFactory.js"></script>
+<script src="~/Scripts/domain/communication/communicationFactory.js"></script>
+<script src="~/Scripts/domain/material/materialController.js"></script>
+<style>
+    .sel {
+        background-color: #87ceeb;
+    }
+
+    .odd {
+        background-color: aliceblue;
+    }
+
+    .even {
+        background-color: floralwhite;
+    }
+</style>
+<div id="divMain" ng-controller="materialController">
+     
+        <div class="row">
+            <div class="col-xs-5">
+                <div class="input-group">
+                    <div class="input-group-btn search-panel">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span>{{activeSearchType.Value}}</span>
+                        </button>
+
+                        <ul class="dropdown-menu" role="menu">
+                            @foreach (KeyValuePair<int, string> item in ViewBag.SearchTypes)
+                            {
+                                <li><a href="#" ng-click="setActiveSearchType(@item.Key,'@item.Value')">@item.Value</a></li>    
+                            }
+                        </ul>
+                    </div>
+
+                    <input ng-change="searchMaterials()" id="searchInput" type="text"  name="x" placeholder="Müşteri yada iletişim adı giriniz..." ng-model="searchCriteria">
+
+                    <span class="input-group-btn">
+                        <button  type="button" ng-click="searchMaterials()" ng-disabled="!searchCriteria.length"><span class="glyphicon glyphicon-search"></span></button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-3" >
+                <div class="list-group panel panel-default" ng-repeat="customer in searchResult.materials" ng-if="searchResult.searchTypeId=='1'" ng-class="{sel: $index == selectedMaterialIndex}">
+                    <div class="panel-heading panel-danger">
+                        <h3 class="panel-title">{{customer.Name}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-condensed table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td>Şehir</td>
+                                    <td>{{customer.City.Name}}</td>
+                                    <td colspan="2" align="right">
+                                        <a href="#" ng-click="loadCustomer(customer.Id,$index)" >Müşteri'ye git</a>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="list-group panel panel-default" ng-repeat="communication in searchResult.materials" ng-if="searchResult.searchTypeId=='2'" ng-class="{sel: $index == selectedMaterialIndex}">
+                    <div class="panel-heading panel-danger">
+                        <h3 class="panel-title">{{communication.FullName}}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-condensed table-responsive">
+                            <tbody>
+                                <tr>
+                                    <td>Görev</td>
+                                    <td>{{communication.Department.Name}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cep Tel</td>
+                                    <td>{{communication.MobilePhoneNumber}}</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Mail</td>
+                                    <td>{{communication.Email}}</td>
+                                </tr>
+                                  <tr>
+                                    <td>Açıklama</td>
+                                    <td>{{communication.Explanation}}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" align="right">
+                                        <a href="#" ng-click="loadCustomer(communication.CustomerId,$index)" >Müşteri'ye git</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-7 col-lg-offset-1" data-ng-show="selectedCustomer!=null">
+                @{Html.RenderPartial("_CustomerDetail");}
+            </div>
+
+        </div>
+     
+
+</div>
+
+
+
+<script>
+
+    $("#searchInput").focus();
+
+    $(document).keypress(function (e) {
+
+        if (e.which == 13) {
+            var scope = angular.element(document.getElementById("divMain")).scope();
+
+            scope.searchMaterials();
+        }
+
+
+    });
+
+
+</script>

@@ -148,14 +148,14 @@ namespace CustomerTracker.Web.Controllers.api
                 .ToList();
 
             var enumerable = pageRemoteMachines.Select(t => new
-            {
+            { 
                 MachineCode = t.MachineCode,
                 DecryptedName = t.DecryptedName,
                 DecryptedRemoteAddress = t.DecryptedRemoteAddress,
                 ApplicationServices = t.ApplicationServices.Select(aps => new { Id = aps.Id, InstanceName = aps.InstanceName }),
                 Customer = new { Id = t.CustomerId, Name = t.Customer.Name },
                 RemoteMachineConnectionType = new { Id = t.RemoteMachineConnectionTypeId, Name = t.RemoteMachineConnectionType.Name },
-                MachineCondition = ParseMachineStatus(t.MachineLogs.OrderByDescending(q => q.Id).FirstOrDefault()),
+                MachineCondition = ParseMachineStatus(t),
             }).ToList();
 
             return enumerable;
@@ -234,15 +234,18 @@ namespace CustomerTracker.Web.Controllers.api
             return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        private dynamic ParseMachineStatus(MachineLog machineLog)
+        private dynamic ParseMachineStatus(RemoteMachine remnoteMachine)
         {
-            if (machineLog == null)
+            var lastMachineLog = remnoteMachine.MachineLogs.OrderByDescending(q => q.Id).FirstOrDefault();
+
+            if (lastMachineLog == null)
                 return new { };
 
-            var machineConditionJson = JsonConvert.DeserializeObject<dynamic>(machineLog.MachineConditionJson);
+            var machineConditionJson = JsonConvert.DeserializeObject<dynamic>(lastMachineLog.MachineConditionJson);
 
             return new
             {
+                LogDate = lastMachineLog.CreationDate.HasValue ? lastMachineLog.CreationDate.Value.ToString("dd.MM.yyyy HH:mm") :null, 
                 MachineStatusList = machineConditionJson.HardwareControlMessages,
                 ServiceStatusList = machineConditionJson.ServiceControlMessages,
             };

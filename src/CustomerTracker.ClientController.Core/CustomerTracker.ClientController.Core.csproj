@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="Controllers\ClientControllers.cs" />
+    <Compile Include="IMessageNotifier.cs" />
     <Compile Include="Models\ServiceModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
