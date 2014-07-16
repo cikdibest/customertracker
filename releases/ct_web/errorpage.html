@@ -1,0 +1,11 @@
+﻿<div class="modal-header">
+    <h4>{{modalOptions.headerText}}</h4>
+</div>
+<div class="modal-body text-center"> 
+    {{modalOptions.bodyText}}
+    <hr/>
+    <img ng-src="{{modalOptions.imageUrl}}" style="width: 100%" />
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText}}</button>
+</div>

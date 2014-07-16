@@ -1,0 +1,79 @@
+﻿ 
+@using CustomerTracker.Web.Controllers
+@model List<CustomerTracker.Web.Controllers.UploadFileListViewModel>
+
+@functions {
+    private decimal _imageCountOnLine = 1;
+}
+
+<div class="row">
+
+    @foreach (var uploadFileListViewModel in Model)
+    {
+        if (_imageCountOnLine == 1)
+        {
+        @Html.Raw("<div class='row'>")
+        }
+      
+        <div class="col-lg-1">
+           
+          @*  <a href="#" class="copy-button" data-clipboard-text="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~/Uploads/" + uploadFileListViewModel.FilePath))" title="Resim adresini kopyala">Kopyala</a>*@
+            <input value="@string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~/Uploads/" + uploadFileListViewModel.FilePath))"  class="span12" disabled="disabled"/>
+            @*<a href="@Url.Action("DeleteImage", "FileUpload", new { @imageName = imageName })" class="pull-right"><i class="icon-remove"></i></a>*@
+            @if (uploadFileListViewModel.UploadFileType == UploadFileType.Image)
+            {
+                <img src="@Url.Content("~/Uploads/" + uploadFileListViewModel.FilePath)" width="80" height="80"/>
+            }
+            else
+            {<img src="~/Content/images/document-management-software.png" width="80" height="80" />
+                 
+            }
+        </div>
+
+            _imageCountOnLine++;
+
+            if (_imageCountOnLine == 12)
+            { 
+        @Html.Raw("</div> <hr/>")
+                _imageCountOnLine = 1;
+            }
+    }
+
+
+
+</div>
+
+
+@*<script src="@Url.Content("~/Scripts/ZeroClipboard.min.js")"></script>*@
+<script>
+    //$(function () {
+    //    var clip = new ZeroClipboard(document.getElementsByClassName("copy-button"), {
+    //        moviePath: "/ct/Scripts/ZeroClipboard.swf"
+    //    });
+
+    //    clip.on('load', function (client) {
+    //        // alert("movie is loaded" );
+    //    });
+
+    //    clip.on('complete', function (client, args) {
+    //        //alert("Resim adresi kopyalandı");
+    //    });
+
+    //    clip.on('mouseover', function (client) {
+    //        // alert("mouse over");
+    //    });
+
+    //    clip.on('mouseout', function (client) {
+    //        // alert("mouse out");
+    //    });
+
+    //    clip.on('mousedown', function (client) {
+
+    //        // alert("mouse down");
+    //    });
+
+    //    clip.on('mouseup', function (client) {
+    //        // alert("mouse up");
+    //    });
+    //});
+</script>

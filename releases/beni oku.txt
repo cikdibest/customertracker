@@ -1,0 +1,12 @@
+1.
+ct_web ve ctapiservice hostin server da bulanacaktýr.Aslýnda  ctapiservice projesi ayrý bir poje olmayabilir ct_Web içinde basit bir api (rest service) olabilirdi.
+Ama ct_web günvelik açýsýndan intanret olarak kullanýldðýndan ctapiservice ayrýldý ve public olarak kullanýldý.Public lmalý çünkü müþterideki client lar bunun bilgi gönderip, alacak.
+clientcontrollerservice müþeriye kurulacaktýr
+
+
+2.ct_web ve ctapiservice de config file da connectionstring ve nglo dosyasý kontrol edilmeli
+
+
+3.clientcontrollerservice  de config dosyasýnda parametreler kontrol edilmeli.MachineCode kritiktir.
+
+

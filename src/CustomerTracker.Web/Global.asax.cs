@@ -135,7 +135,13 @@ namespace CustomerTracker.Web
             //var principal = HttpContext.Current.User;
         }
 
-       
-     
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            // your code here, it will be executed upon session start
+        }
+        protected void Session_End(object sender, EventArgs e)
+        {
+            // your code here, it will be executed upon session start
+        }
     }
 }
