@@ -78,13 +78,17 @@ customerApp.controller('userController', function ($scope, userFactory, sharedFa
     };
 
     $scope.sendPasswordToUser = function(userId) {
-        var modalOptions = modalService.getConfirmationModal('Hayır','Evet,Şifreyi sıfırla ve mail gönder','Şifre değiştirme','Kullanıcı şifresi sıfırlanacak ve yeni şifre mail gönderilecektir.');
+
+        var modalOptions = modalService.getConfirmationModal('Hayır', 'Evet,Şifreyi sıfırla ve mail gönder', 'Şifre değiştirme', 'Kullanıcı şifresi sıfırlanacak ve yeni şifre mail gönderilecektir.');
+        
         modalService.showModal({}, modalOptions).then(function (result) {
+
             if (result != 'ok') return;
           
             userFactory.sendPasswordToUser({ userId: userId, password: '' }).success(function (data, status) {
                 notificationFactory.success('Mail gönderildi!');
             }).error(baseControllerFactory.errorCallback);
+            
         });
 
         
