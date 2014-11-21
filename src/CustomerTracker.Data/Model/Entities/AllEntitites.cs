@@ -242,8 +242,11 @@ namespace CustomerTracker.Data.Model.Entities
         [StringLength(100)]
         public string AvatarImageUrl { get; set; }
 
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
+
+        public int? UserId { get; set; }
+        public virtual User User { get; set; }
 
         public ICollection<DataDetail> DataDetails { get; set; }
     }

@@ -1,0 +1,74 @@
+﻿@model CustomerTracker.Web.Angular.Models.ViewModels.RegisterModel
+@{
+    ViewBag.Title = "Register";
+}
+<br />
+<br />
+<br />
+<br />
+
+<div class="row">
+     
+    <div class="well span4 offset4">
+        @* <form accept-charset="UTF-8" action="/users" class="new_user" id="new_user" method="post">*@
+        @using (Html.BeginForm("Register", "Account", null, FormMethod.Post, new { @class = "new_user" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+            
+            <fieldset>
+                
+                <div class="control-group">
+                    @Html.LabelFor(m => m.FirstName, new { @class = "control-label txt-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "span4 input-big"})
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.LastName, new { @class = "control-label txt-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "span4 input-big"})
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "control-label txt-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "span4 input-big", size = "30" })
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Email, new { @class = "control-label txt-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "span4 input-big", type = "email" })
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "control-label txt-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Password, new { @class = "span4 input-big", size = "30", type = "password" })
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "control-label txt-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "span4 input-big", size = "30", type = "password" })
+                        <p class="help-block"></p>
+                    </div>
+                    <input class="btn span4 btn-large" name="commit" type="submit" value="Kayıt Ol" />
+                </div>
+                
+            </fieldset>
+          
+        }
+    </div>
+</div>
+
+
+@*@section CustomScripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}*@
