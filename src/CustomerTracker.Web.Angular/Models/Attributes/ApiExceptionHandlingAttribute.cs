@@ -39,7 +39,7 @@ namespace CustomerTracker.Web.Angular.Models.Attributes
               
             throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.InternalServerError)
             {
-                Content = new StringContent("An error occurred, please try again or contact the administrator."),
+                Content = new StringContent(errorMessage),
                 ReasonPhrase = "Critical Exception"
             });
         }

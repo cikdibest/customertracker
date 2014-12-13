@@ -13,6 +13,8 @@ customerApp.controller('dataMasterController', function ($scope, dataMasterFacto
 
     $scope.activeDataMaster = null;
 
+    $scope.selectedCustomerId = null;
+
     $scope.addMode = false;
 
     $scope.toggleAddMode = function () {
@@ -28,6 +30,7 @@ customerApp.controller('dataMasterController', function ($scope, dataMasterFacto
     };
 
     $scope.addDataMaster = function () {
+        $scope.dataMaster.TempCustomerId = $scope.selectedCustomerId;
         dataMasterFactory.addDataMaster($scope.dataMaster).success(function (data, status, headers, config) {
             successCallbackWhenFormEdit(data, status, headers, config).success(function () {
                 $scope.toggleAddMode();
@@ -51,7 +54,7 @@ customerApp.controller('dataMasterController', function ($scope, dataMasterFacto
     };
 
     $scope.loadDataMasters = function () {
-        return dataMasterFactory.getDataMasters().success(function (data, status) {
+        return dataMasterFactory.getDataMastersByCustomerId($scope.selectedCustomerId).success(function (data, status) {
             $scope.dataMasters = data;
         }).error(baseControllerFactory.errorCallback);
     };
@@ -89,14 +92,29 @@ customerApp.controller('dataMasterController', function ($scope, dataMasterFacto
         }).error(baseControllerFactory.errorCallback);
     };
 
+
+    $scope.customerChanged = function () {
+     
+        if ($scope.selectedCustomerId == '' || $scope.selectedCustomerId == null) {
+            $scope.dataMasters = [];
+            $scope.activeDataMaster = null;
+            return;
+        } 
+        $scope.loadDataMasters();
+    }
+
     $scope.init = function () {
 
         $scope.loadCustomers();
 
-        $scope.loadDataMasters();
+    //    $scope.loadDataMasters();
 
 
     };
+
+   
+
+
 
     $scope.init();
 });

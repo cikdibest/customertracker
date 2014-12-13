@@ -11,7 +11,7 @@ namespace CustomerTracker.Data
         public CustomerTrackerDataContext()
             : base("CustomerTrackerDataContext")
         {
-            Configuration.LazyLoadingEnabled = false;
+            Configuration.LazyLoadingEnabled = true;
         }
 
         //public JewelryDataContext(string connectionString)

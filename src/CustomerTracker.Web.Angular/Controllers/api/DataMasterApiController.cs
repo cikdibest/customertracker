@@ -19,12 +19,30 @@ namespace CustomerTracker.Web.Angular.Controllers.api
     [CustomAuthorize(Roles = "Admin,Personel")]
     public class DataMasterApiController : ApiController
     {
-        public IEnumerable<DataMaster> GetDataMasters()
+        public IEnumerable<DataMaster> GetDataMastersByCustomerId(int customerId)
         {
-            var dataMasters = ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>().SelectAll().Include(q => q.Customer).Include(q => q.DataDetails).ToList();
+            var dataMasters = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>()
+                .Find(customerId)
+                .DataMasters
+                .ToList();
+                //.Include(q => q.Customer)
+                //.Include(q => q.DataDetails).ToList();
 
             return dataMasters;
         }
+
+        public IEnumerable<DataMaster> GetDataMastersByUserId(int userId)
+        {
+            var dataMasters = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>()
+                .Find(userId)
+                .DataMasters
+                .ToList();
+            //.Include(q => q.Customer)
+            //.Include(q => q.DataDetails).ToList();
+
+            return dataMasters;
+        }
+
 
         public DataMaster GetDataMaster(int id)
         {
@@ -69,7 +87,12 @@ namespace CustomerTracker.Web.Angular.Controllers.api
         {
             if (ModelState.IsValid)
             {
+                
                 ConfigurationHelper.UnitOfWorkInstance.GetRepository<DataMaster>().Create(dataMaster);
+
+                var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().Find(dataMaster.TempCustomerId);
+
+                customer.DataMasters.Add(dataMaster);
 
                 ConfigurationHelper.UnitOfWorkInstance.Save();
 

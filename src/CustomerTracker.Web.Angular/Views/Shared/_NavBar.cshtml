@@ -22,6 +22,7 @@
                     <a href="#" class="dropdown dropdown-toggle" data-toggle="dropdown">Genel Tanımlamalar <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Müşteri", "Customer", "CrudView")</li>
+                        <li>@Html.ActionLink("Müşteri Dataları", "DataMaster", "CrudView")</li>
                         @{
                             if (ConfigurationManager.AppSettings["IsVisibleRemoteConnection"]=="1")
                             {
@@ -31,7 +32,6 @@
                         
                         <li>@Html.ActionLink("Departman", "Department", "CrudView")</li>
                         <li>@Html.ActionLink("Ürün", "Product", "CrudView")</li> 
-                        <li>@Html.ActionLink("Özel veri", "DataMaster", "CrudView")</li>
                         <li class="divider"></li> 
                         <li>@Html.ActionLink("Kullanıcı", "Users", "CrudView")</li>
                         <li>@Html.ActionLink("Dosya Yükleme", "Index", "FileUpload")</li>

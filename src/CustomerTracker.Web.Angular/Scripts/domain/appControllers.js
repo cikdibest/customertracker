@@ -10,7 +10,7 @@ var materialApiUrl = {
 };
 
 var dataMasterApiUrl = {
-    getdatamasters: '/ct/api/datamasterapi/getdatamasters/',
+    getdatamastersbycustomerid: '/ct/api/datamasterapi/getdatamastersbycustomerid/',
     getdatamaster: '/ct/api/datamasterapi/getdatamaster/',
     putdatamaster: '/ct/api/datamasterapi/putdatamaster/',
     postdatamaster: '/ct/api/datamasterapi/postdatamaster/',

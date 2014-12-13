@@ -140,6 +140,10 @@ namespace CustomerTracker.Data.Model.Entities
 
             this.Roles.Add(role);
         }
+
+        public virtual List<DataMaster> DataMasters { get; set; }
+
+        
     }
 
     public class RoleId

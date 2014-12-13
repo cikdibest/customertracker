@@ -9,7 +9,7 @@
 <div ng-controller="dataMasterController" ng-cloak>
 
     <div class="col-lg-6">
-        <select ng-model="selectedCustomerId" ng-options="customer.Key as customer.Value for customer in customers">
+        <select ng-model="selectedCustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-change="customerChanged();">
                    <option value="">--Müşteri Seçiniz--</option>
         </select>
 
@@ -18,12 +18,12 @@
             <tr>
                 <th style="width:15%">
                     <div class="btn-toolbar">
-                        <i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()"></i>
+                        <i class="btn glyphicon glyphicon-plus" ng-click="toggleAddMode()" ng-show="selectedCustomerId!=null"></i>
                     </div>
                 </th>
                 <th style="width: 5%;">Logo</th>
                 <th>Name</th>
-                <th>Müşteri</th>
+               @* <th>Müşteri</th>*@
 
 
             </tr>
@@ -42,11 +42,11 @@
                 <td>
                     <input ng-model="dataMaster.Name" />
                 </td>
-                <td>
+               @* <td>
                     <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers"></select>
-                </td>
+                </td>*@
             </tr>
-            <tr ng-repeat="dataMaster in dataMasters | filter:{ CustomerId: selectedCustomerId } | orderBy:'Id':false">
+            <tr ng-repeat="dataMaster in dataMasters | orderBy:'Id':false">
 
                 <td>
                     <div class="btn-toolbar" ng-show="dataMaster.editMode == null || dataMaster.editMode == false">
@@ -72,10 +72,10 @@
                     <span ng-show="dataMaster.editMode == null || dataMaster.editMode == false">{{dataMaster.Name}}</span>
                     <input ng-model="dataMaster.Name" ng-show="dataMaster.editMode == true" />
                 </td>
-                <td>
+             @*   <td>
                     <span ng-show="dataMaster.editMode == null || dataMaster.editMode == false">{{dataMaster.Customer.Name}}</span>
                     <select ng-model="dataMaster.CustomerId" ng-options="customer.Key as customer.Value for customer in customers" ng-show="dataMaster.editMode == true"></select>
-                </td>
+                </td>*@
 
 
             </tr>

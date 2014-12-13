@@ -33,6 +33,8 @@ namespace CustomerTracker.Data.Model.Entities
         public virtual List<Product> Products { get; set; }
 
         public virtual List<DataMaster> DataMasters { get; set; }
+
+
     }
 
     public class Communication : BaseEntity
@@ -54,7 +56,7 @@ namespace CustomerTracker.Data.Model.Entities
 
         [StringLength(4000)]
         public string Explanation { get; set; }
-         
+
         [StringLength(250)]
         public string AvatarImageUrl { get; set; }
 
@@ -242,13 +244,20 @@ namespace CustomerTracker.Data.Model.Entities
         [StringLength(100)]
         public string AvatarImageUrl { get; set; }
 
-        public int? CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
-
-        public int? UserId { get; set; }
-        public virtual User User { get; set; }
+        //public int? CustomerId { get; set; }
+        //public virtual Customer Customer { get; set; }
 
         public ICollection<DataDetail> DataDetails { get; set; }
+
+        public ICollection<User> Users { get; set; }
+
+        public ICollection<Customer> Customers { get; set; }
+
+        [NotMapped]
+        public virtual int? TempCustomerId { get; set; }
+
+        [NotMapped]
+        public virtual int? TempUserId { get; set; }
     }
 
     public class DataDetail : BaseEntity

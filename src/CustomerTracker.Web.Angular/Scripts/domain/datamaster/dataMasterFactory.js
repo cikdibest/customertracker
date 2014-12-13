@@ -1,12 +1,12 @@
 ﻿customerApp.factory('dataMasterFactory', function($http) {
     //return {        
     //  getDataMasters: function() {
-    //    return   $http.get(dataMasterApiUrl.getdatamasters);
+    //    return   $http.get(dataMasterApiUrl.getdatamastersbycustomerid);
     //  }  
     //};
     return {
-        getDataMasters: function () {
-            return $http.get(dataMasterApiUrl.getdatamasters);
+        getDataMastersByCustomerId: function (customerId) {
+            return $http.get(dataMasterApiUrl.getdatamastersbycustomerid, {params:{customerId:customerId}});
         },
         addDataMaster: function (dataMaster) {
             return $http.post(dataMasterApiUrl.postdatamaster, dataMaster);

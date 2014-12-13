@@ -251,6 +251,10 @@
     <Compile Include="Migrations\201411070931258_create_index.Designer.cs">
       <DependentUpon>201411070931258_create_index.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411211221533_update_datamaster.cs" />
+    <Compile Include="Migrations\201411211221533_update_datamaster.Designer.cs">
+      <DependentUpon>201411211221533_update_datamaster.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Attributes\AjaxOnlyAttribute.cs" />
     <Compile Include="Models\Attributes\ApiExceptionHandlingAttribute.cs" />
@@ -710,6 +714,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411070931258_create_index.resx">
       <DependentUpon>201411070931258_create_index.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411211221533_update_datamaster.resx">
+      <DependentUpon>201411211221533_update_datamaster.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
