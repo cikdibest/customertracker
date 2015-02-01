@@ -31,22 +31,7 @@ var sharedDataApiUrl = {
     getselectortroubles: '/ct/api/shareddataapi/getselectortroubles/',
     getselectorroles: '/ct/api/shareddataapi/getselectorroles/',
 };
-
-var remoteMachineConnectionTypeApiUrl = {
-    getselectorremotemachineconnectiontypes: '/ct/api/remotemachineconnectiontypeapi/getselectorremotemachineconnectiontypes/',
-};
-
-var remoteMachineApiUrl = {
-    getremotemachines: '/ct/api/remotemachineapi/getremotemachines/',
-    getremotemachine: '/ct/api/remotemachineapi/getremotemachine/',
-    putremotemachine: '/ct/api/remotemachineapi/putremotemachine/',
-    postremotemachine: '/ct/api/remotemachineapi/postremotemachine/',
-    deleteremotemachine: '/ct/api/remotemachineapi/deleteremotemachine/',
-    getremotemachinestates: '/ct/api/remotemachineapi/getremotemachinestates/',
-    postapplicationservice: '/ct/api/remotemachineapi/postapplicationservice/',
-    deleteapplicationservice: '/ct/api/remotemachineapi/deleteapplicationservice/',
-    putapplicationService: '/ct/api/remotemachineapi/putapplicationService/',
-};
+ 
 
 var departmentApiUrl = {
     getdepartments: '/ct/api/departmentapi/getdepartments/',

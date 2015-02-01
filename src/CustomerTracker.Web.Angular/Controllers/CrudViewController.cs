@@ -15,12 +15,7 @@ namespace CustomerTracker.Web.Angular.Controllers
         {
             return View();
         }
-
-        public ActionResult RemoteMachine()
-        {
-            return View();
-        }
-
+         
         public ActionResult DataMaster()
         {
             return View();

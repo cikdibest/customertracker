@@ -27,9 +27,7 @@ namespace CustomerTracker.Data.Model.Entities
         public City City { get; set; }
 
         public virtual List<Communication> Communications { get; set; }
-
-        public virtual List<RemoteMachine> RemoteMachines { get; set; }
-
+         
         public virtual List<Product> Products { get; set; }
 
         public virtual List<DataMaster> DataMasters { get; set; }
@@ -90,107 +88,7 @@ namespace CustomerTracker.Data.Model.Entities
             }
         }
     }
-
-    public class RemoteMachine : BaseEntity
-    {
-        [StringLength(50)]
-        public string MachineCode { get; set; }
-
-        [StringLength(100)]
-        public string Name { get; set; }
-
-        [StringLength(100)]
-        public string Username { get; set; }
-
-        [StringLength(500)]
-        public string Password { get; set; }
-
-        [StringLength(100)]
-        public string RemoteAddress { get; set; }
-
-        [StringLength(4000)]
-        public string Explanation { get; set; }
-
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
-
-        public int RemoteMachineConnectionTypeId { get; set; }
-        public virtual RemoteMachineConnectionType RemoteMachineConnectionType { get; set; }
-
-        public virtual List<Product> Products { get; set; }
-
-        public virtual ICollection<ApplicationService> ApplicationServices { get; set; }
-
-        public virtual ICollection<MachineLog> MachineLogs { get; set; }
-
-        [StringLength(100)]
-        [NotMapped]
-        public string DecryptedName
-        {
-            get
-            {
-                return Decrypt(this.Name);
-            }
-            set
-            {
-                this.Name = Encrypt(value);
-            }
-        }
-
-        [StringLength(100)]
-        [NotMapped]
-        public string DecryptedUsername
-        {
-            get
-            {
-                return Decrypt(this.Username);
-            }
-            set
-            {
-                this.Username = Encrypt(value);
-            }
-        }
-
-        [StringLength(500)]
-        [NotMapped]
-        public string DecryptedPassword
-        {
-            get
-            {
-                return Decrypt(this.Password);
-            }
-            set
-            {
-                this.Password = Encrypt(value);
-            }
-        }
-
-        [StringLength(100)]
-        [NotMapped]
-        public string DecryptedRemoteAddress
-        {
-            get
-            {
-                return Decrypt(this.RemoteAddress);
-            }
-            set
-            {
-                this.RemoteAddress = Encrypt(value);
-            }
-        }
-
-    }
-
-    public class RemoteMachineConnectionType : BaseEntity
-    {
-        [StringLength(100)]
-        public string Name { get; set; }
-
-        [StringLength(250)]
-        public string AvatarImageUrl { get; set; }
-
-    }
-
+     
     public class City : BaseEntity
     {
         [StringLength(50)]
@@ -230,8 +128,7 @@ namespace CustomerTracker.Data.Model.Entities
         public virtual ICollection<Product> SubProducts { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
-
-        public virtual ICollection<RemoteMachine> RemoteMachines { get; set; }
+         
 
 
     }
@@ -312,49 +209,5 @@ namespace CustomerTracker.Data.Model.Entities
     {
         public string Name { get; set; }
     }
-
-    public class ApplicationService : BaseEntity
-    {
-        [StringLength(50)]
-        public string InstanceName { get; set; }
-
-        [StringLength(1000)]
-        public string Description { get; set; }
-
-        public int ApplicationServiceTypeId { get; set; }
-        public ApplicationServiceType ApplicationServiceType
-        {
-            get
-            {
-                return (ApplicationServiceType)ApplicationServiceTypeId;
-            }
-        }
-        public string ApplicationServiceTypeName
-        {
-            get
-            {
-                return ApplicationServiceType.GetDescription();
-            }
-        }
-
-        public int RemoteMachineId { get; set; }
-        public virtual RemoteMachine RemoteMachine { get; set; }
-    }
-
-    public class MachineLog : BaseEntity
-    {
-        public string MachineConditionJson { get; set; }
-
-        public bool IsAlarm { get; set; }
-
-        public int RemoteMachineId { get; set; }
-        public virtual RemoteMachine RemoteMachine { get; set; }
-    }
-
-    public enum ApplicationServiceType
-    {
-        WindowsService = 1,
-
-        SqlServer = 2,
-    }
+     
 }

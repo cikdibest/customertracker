@@ -15,8 +15,7 @@ namespace CustomerTracker.Web.Angular.Business.SearchBusiness
         public IPagedList<Customer> SearchCustomers(string criteria, int currentPageIndex, string sorting, bool isAscending)
         {
             var customers = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>()
-                .SelectAll()
-                .Include(cu => cu.City) 
+                .SelectAll() 
                 .Where(c => c.Name.Contains(criteria))
                 .OrderBy(q=>q.Name)
                 .AsEnumerable();
@@ -30,8 +29,7 @@ namespace CustomerTracker.Web.Angular.Business.SearchBusiness
         public IPagedList<Communication> SearchCommunications(string criteria, int currentPageIndex, string sorting, bool isAscending)
         {
             var communications = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Communication>()
-                .SelectAll().Include(co => co.Customer)
-                .Include(cu => cu.Department) 
+                .SelectAll() 
                 .Where(c => c.FirstName.Contains(criteria) || c.LastName.Contains(criteria) || (c.FirstName + " " + c.LastName).Contains(criteria))
                 .OrderBy(q=>q.FirstName)
                 .AsEnumerable();

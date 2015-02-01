@@ -6,29 +6,7 @@ using System.Linq;
 
 namespace CustomerTracker.Data.Model.Entities
 {
-    public class SocialAccount : BaseEntity
-    {
-        public int UserId { get; set; }
-
-        [StringLength(100)]
-        public string Provider { get; set; }
-
-        [StringLength(500)]
-        public string ProviderUserId { get; set; }
-
-        public override bool Equals(object objcToCompare)
-        {
-            var toCompare = objcToCompare as SocialAccount;
-
-            if (toCompare != null)
-            {
-                return toCompare.Provider == Provider && toCompare.ProviderUserId == ProviderUserId;
-            }
-
-            return false;
-        }
-    }
-
+    
     public class Role : BaseEntity
     {
         [Required]
@@ -86,7 +64,7 @@ namespace CustomerTracker.Data.Model.Entities
 
         public virtual List<Role> Roles { get; set; }
 
-        public virtual List<SocialAccount> SocialAccounts { get; set; }
+       
 
         [NotMapped]
         public string FullName
@@ -111,26 +89,7 @@ namespace CustomerTracker.Data.Model.Entities
             }
         }
          
-        public void AddSocialAccount(string provider, string providerUserId)
-        {
-            var socialAccount = new SocialAccount() { ProviderUserId = providerUserId, Provider = provider };
-
-            if (SocialAccounts == null)
-                SocialAccounts = new List<SocialAccount>();
-
-            if (!SocialAccounts.Contains(socialAccount))
-            {
-                SocialAccounts.Add(socialAccount);
-            }
-            else
-            {
-                var itemIndex = SocialAccounts.IndexOf(socialAccount);
-
-                SocialAccounts[itemIndex] = socialAccount;
-            }
-
-        }
-
+      
         public void AddRole(Role role)
         {
             if (this.Roles == null)

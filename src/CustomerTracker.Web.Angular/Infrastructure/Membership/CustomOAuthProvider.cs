@@ -14,7 +14,7 @@ using Ninject;
 
 namespace CustomerTracker.Web.Angular.Infrastructure.Membership
 {
-    public class CustomOAuthProvider : IOpenAuthDataProvider, ICustomOAuthProvider
+    public class CustomOAuthProvider : IOpenAuthDataProvider
     {
         private IUserUtility _userUtility;
 
@@ -47,29 +47,14 @@ namespace CustomerTracker.Web.Angular.Infrastructure.Membership
             return _applicationEnvironment.VerifyAuthentication(client.AuthenticationClient, this, returnUrl);
         }
 
-        public bool OAuthLogin(string provider, string providerUserId, bool persistCookie)
-        { 
-            var user = _userUtility.FindUserBySocialAccount(provider, providerUserId);
-
-            if (user==null) return false;
-            
-            WebSecurity.CreateCookieWithUser(user);
-
-            return true; 
-              
-        }
+       
 
         public AuthenticationClientData GetOAuthClientData(string providerName)
         {
             return _authenticationClients[providerName];
         }
 
-        public string GetUserNameFromOpenAuth(string provider, string providerUserId)
-        {
-            var user = _userUtility.FindUserBySocialAccount(provider, providerUserId);
-
-            return user != null ? user.Username : String.Empty;
-        }
+       
 
         public void RequestOAuthAuthentication(string provider, string returnUrl)
         {
@@ -91,23 +76,14 @@ namespace CustomerTracker.Web.Angular.Infrastructure.Membership
         {
             _authenticationClients.Clear();
         }
+
+        public string GetUserNameFromOpenAuth(string openAuthProvider, string openAuthId)
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    public interface ICustomOAuthProvider
-    {
-        ICollection<AuthenticationClientData> RegisteredClientData { get; }
-
-        AuthenticationResult VerifyOAuthAuthentication(string returnUrl);
-
-        bool OAuthLogin(string provider, string providerUserId, bool persistCookie);
-
-        AuthenticationClientData GetOAuthClientData(string providerName);
-
-        string GetUserNameFromOpenAuth(string provider, string providerUserId);
-
-        void RequestOAuthAuthentication(string provider, string returnUrl);
-    }
-
+  
     public class AspnetEnvironment : IApplicationEnvironment
     {
         public void IssueAuthTicket(string username, bool persist)

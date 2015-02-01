@@ -30,7 +30,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
             var users = dataContext.Users;
 
             var pageUsers = users
-                .Include(q => q.Roles)
+             
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)
@@ -88,7 +88,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
 
                 var selectedRoles = user.SelectedRoles;
 
-                var user1 = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().SelectAll().Include(q => q.Roles).SingleOrDefault(q => q.Id == user.Id);
+                var user1 = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().SelectAll() .SingleOrDefault(q => q.Id == user.Id);
                 user1.SelectedRoles = selectedRoles;
                 WebSecurity.ReConfigureRoles(user1,user1.SelectedRoles.Select(q=>q.Id).ToList());
 
@@ -162,7 +162,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
         public HttpResponseMessage SendPasswordToUser(PasswordChangeModel passwordChangeModel)
         {
             
-            var user = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().SelectAll().Include(q=>q.Roles).SingleOrDefault(q=>q.Id==passwordChangeModel.userId);
+            var user = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>().SelectAll() .SingleOrDefault(q=>q.Id==passwordChangeModel.userId);
 
             var password = passwordChangeModel.password;
 

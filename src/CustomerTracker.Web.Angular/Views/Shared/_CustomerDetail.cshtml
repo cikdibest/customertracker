@@ -23,7 +23,7 @@
     <ul class="nav nav-pills nav-stacked col-md-2">
         <li class="active"><a href="#tabSummary" data-toggle="pill">Ön Bilgi</a></li>
         <li><a href="#tabCommunication" data-toggle="pill">İletişim</a></li>
-        <li><a href="#tabRemoteMachines" data-toggle="pill" ng-show="isVisibleRemoteMachineSection">Uzak Bağlantı</a></li>
+       
         <li><a href="#tabDataMaster" data-toggle="pill">Diğer Bilgiler</a></li>
     </ul>
     <div class="tab-content col-md-10 well">
@@ -233,138 +233,7 @@
                 </ul>
             </div>
         </div>
-        <div class="tab-pane" id="tabRemoteMachines" >
-            <div class="panel panel-primary">
-                <div class="panel-heading c-list">
-                    <span class="title">Uzak bağlantı bilgileri</span>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="input-group c-search">
-                            <input type="text" id="contact-list-search">
-                            <span class="input-group-btn">
-                                <button type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
-                            </span>
-                            <span class="input-group-btn">
-                                <button type="button" data-ng-click="toggleRemoteMachineAddMode()"><span class="glyphicon glyphicon-plus"></span></button>
-                            </span>
-                        </div>
-                        <div ng-show="remoteMachineAddMode">
-                            <table class="table table-condensed table-responsive">
-                                <tbody>
-                                    @*must set customerId from selectedCustomer*@
-                                    <tr>
-                                        <td>Bağlantı Tipi</td>
-                                        <td>
-                                            <select ng-model="remoteMachine.RemoteMachineConnectionTypeId"
-                                                ng-options="remoteMachineConnectionType.Key as remoteMachineConnectionType.Value for remoteMachineConnectionType in remoteMachineConnectionTypes">
-                                            </select></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Ad</td>
-                                        <td>
-                                            <input ng-model="remoteMachine.DecryptedName" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Adress(İp)</td>
-                                        <td>
-                                            <input ng-model="remoteMachine.DecryptedRemoteAddress" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kullanıcı Adı</td>
-                                        <td>
-                                            <input ng-model="remoteMachine.DecryptedUsername" /></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Şifre</td>
-                                        <td>
-                                            <input ng-model="remoteMachine.DecryptedPassword" /></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Açıklama</td>
-                                        <td>
-                                            <input ng-model="remoteMachine.Explanation" /></td>
-                                    </tr>
-
-
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <button ng-click="addRemoteMachine()">Ekle</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <ul class="list-group" id="contact-list" ng-repeat="remoteMachine in selectedCustomer.RemoteMachines">
-
-                    <li class="list-group-item">
-                        <div class="col-xs-12 col-sm-3">
-                            <img data-ng-src="{{remoteMachine.RemoteMachineConnectionType.AvatarImageUrl}}" alt="Resim yok" class="img-responsive img-circle col-md-12" />
-                        </div>
-                        <div class="col-xs-12 col-sm-9">
-                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" class="name">{{remoteMachine.DecryptedName}}</span><br />
-                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.DecryptedName" />
-                            <table class="table table-condensed table-responsive">
-                                <tbody>
-                                    <tr>
-                                        <td>Bağlantı Tipi</td>
-                                        <td>
-                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.RemoteMachineConnectionType.Name}}</span>
-                                            <select ng-show="remoteMachine.editMode" ng-model="remoteMachine.RemoteMachineConnectionTypeId" ng-options="remoteMachineConnectionType.Key as remoteMachineConnectionType.Value for remoteMachineConnectionType in remoteMachineConnectionTypes"></select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Adres(ip/url)</td>
-                                        <td>
-                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.DecryptedRemoteAddress}}</span>
-                                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.DecryptedRemoteAddress" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kullanıcı Adı</td>
-                                        <td>
-                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.DecryptedUsername}}</span>
-                                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.DecryptedUsername" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Şifre</td>
-                                        <td>
-                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.DecryptedPassword}}</span>
-                                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.DecryptedPassword" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Açıklama</td>
-                                        <td>
-                                            <span ng-show="remoteMachine.editMode==null || !remoteMachine.editMode">{{remoteMachine.Explanation}}</span>
-                                            <input ng-show="remoteMachine.editMode" ng-model="remoteMachine.Explanation" />
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td>
-                                            <i class="glyphicon glyphicon-edit" ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" ng-click="toggleRemoteMachineEditMode(remoteMachine)">Edit</i>
-                                            &nbsp;&nbsp;&nbsp; 
-                                                  <i class="glyphicon glyphicon-trash" ng-show="remoteMachine.editMode==null || !remoteMachine.editMode" ng-click="deleteRemoteMachine(remoteMachine)">Sil</i>
-                                            &nbsp;&nbsp;&nbsp; 
-                                            <i ng-show="remoteMachine.editMode" class="glyphicon glyphicon-save" ng-click="updateRemoteMachine(remoteMachine)">Save</i>
-                                            &nbsp;&nbsp;&nbsp; 
-                                             <i ng-show="remoteMachine.editMode" class="glyphicon glyphicon-remove" ng-click="toggleRemoteMachineEditMode(remoteMachine)">Cancel</i>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="clearfix"></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    
         <div class="tab-pane" id="tabDataMaster">
             <div class="panel panel-primary">
                 <div class="panel-heading c-list">

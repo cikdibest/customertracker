@@ -211,9 +211,7 @@
     <Compile Include="Controllers\api\ProductApiController.cs" />
     <Compile Include="Controllers\api\DataDetailApiController.cs" />
     <Compile Include="Controllers\api\DataMasterApiController.cs" />
-    <Compile Include="Controllers\api\RemoteMachineConnectionTypeApiController.cs" />
     <Compile Include="Controllers\api\MaterialApiController.cs" />
-    <Compile Include="Controllers\api\RemoteMachineApiController.cs" />
     <Compile Include="Controllers\api\SharedDataApiController.cs" />
     <Compile Include="Controllers\api\CustomerApiController.cs" />
     <Compile Include="Controllers\api\DepartmentApiController.cs" />
@@ -326,7 +324,6 @@
     <Content Include="Scripts\components\bootstrap-fileupload.min.js" />
     <Content Include="Scripts\domain\appControllers.js" />
     <Content Include="Scripts\domain\common\filters.js" />
-    <Content Include="Scripts\domain\remotemachine\remoteMachineMonitoringController.js" />
     <Content Include="Scripts\domain\user\userController.js" />
     <Content Include="Scripts\domain\user\userFactory.js" />
     <Content Include="Scripts\domain\solution\solutionController.js" />
@@ -341,9 +338,6 @@
     <Content Include="Scripts\domain\common\modules\__requestHandler.js" />
     <Content Include="Scripts\domain\communication\communicationController.js" />
     <Content Include="Scripts\domain\communication\communicationFactory.js" />
-    <Content Include="Scripts\domain\remotemachineconnectiontype\remoteMachineConnectionTypeFactory.js" />
-    <Content Include="Scripts\domain\remotemachine\remoteMachineController.js" />
-    <Content Include="Scripts\domain\remotemachine\remoteMachineFactory.js" />
     <Content Include="Scripts\domain\customer\customerController.js" />
     <Content Include="Scripts\domain\customer\customerFactory.js" />
     <Content Include="Scripts\domain\department\departmentFactory.js" />
@@ -635,14 +629,11 @@
     <Content Include="Scripts\toastr.min.js.map" />
     <Content Include="Views\CrudView\Department.cshtml" />
     <Content Include="Views\CrudView\Customer.cshtml" />
-    <Content Include="Views\CrudView\RemoteMachine.cshtml" />
     <Content Include="Views\CrudView\DataMaster.cshtml" />
     <Content Include="Views\CrudView\Product.cshtml" />
     <Content Include="Scripts\underscore-min.map" />
     <Content Include="Views\CrudView\Solution.cshtml" />
     <Content Include="Views\CrudView\Users.cshtml" />
-    <Content Include="Views\Home\RemoteMachineMonitoring.cshtml" />
-    <Content Include="ApplicationServices.html" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />

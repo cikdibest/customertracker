@@ -115,7 +115,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
         {
             var products = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Product>()
                 .SelectAll()
-                .Include("SubProducts")
+             
                 .AsEnumerable()
                 .Where(q => q.SubProducts == null || !q.SubProducts.Any())
                 .Select(q => new KeyValuePair<int, string>(q.Id, q.Name))

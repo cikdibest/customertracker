@@ -22,13 +22,11 @@ namespace CustomerTracker.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Communication> Communications { get; set; }
-        public DbSet<RemoteMachine> RemoteMachines { get; set; }
+        public DbSet<Communication> Communications { get; set; } 
         public DbSet<Product> Products { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Department> Titles { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<SocialAccount> SocialAccounts { get; set; }
+        public DbSet<Role> Roles { get; set; } 
         public DbSet<DataMaster> DataMasters { get; set; }
         public DbSet<DataDetail> DataDetails { get; set; }
         public DbSet<Solution> Solutions { get; set; }

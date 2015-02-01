@@ -15,51 +15,16 @@ namespace CustomerTracker.Web.Angular.Business.UserBusiness
 {
     public class UserUtility : IUserUtility
     {  
-        public void AddSocialAccountToUser(string provider, string providerUserId, string userName)
-        {
-            var repositoryUser = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>();
+        
 
-            var user = repositoryUser.Filter(q => q.Username == userName).SingleOrDefault();
+        
 
-            if (user.SocialAccounts == null)
-                user.SocialAccounts = new List<SocialAccount>();
-
-            user.AddSocialAccount(provider, providerUserId);
-        }
-
-        public User CreateUserWithSocialAccount(SocialUserRegisterModel socialUserRegisterModel)
-        { 
-            var user = WebSecurity.CreateUser(new RegisterModel()
-                  {
-                      Password = socialUserRegisterModel.Password,
-                      ConfirmPassword = socialUserRegisterModel.Password,
-                      Email = socialUserRegisterModel.Email,
-                      UserName = socialUserRegisterModel.UserName,
-                      FirstName = socialUserRegisterModel.FirstName,
-                      LastName = socialUserRegisterModel.LastName,
-                  },ConfigurationHelper.RolePersonel);
-             
-            user.AddSocialAccount(socialUserRegisterModel.Provider, socialUserRegisterModel.ProviderUserId);
-
-            ConfigurationHelper.UnitOfWorkInstance.Save();
-
-            return user;
-        }
-
-        public User FindUserBySocialAccount(string provider, string providerUserId)
-        {
-            var repositoryUser = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>();
-
-            var user = repositoryUser.Filter(q => q.SocialAccounts.Any(t => t.Provider == provider && t.ProviderUserId == providerUserId)).SingleOrDefault();
-
-            return user;
-        }
-
+       
         public User FindUserByUserName(string username)
         {
             var repositoryUser = ConfigurationHelper.UnitOfWorkInstance.GetRepository<User>();
 
-            User user = repositoryUser.SelectAll().Include("Roles").FirstOrDefault(usr => usr.Username == username);
+            User user = repositoryUser.SelectAll().FirstOrDefault(usr => usr.Username == username);
 
             return user;
         }
@@ -154,12 +119,7 @@ namespace CustomerTracker.Web.Angular.Business.UserBusiness
 
     public interface IUserUtility
     {
-        void AddSocialAccountToUser(string provider, string providerUserId, string userName);
-
-        User CreateUserWithSocialAccount(SocialUserRegisterModel socialUserRegisterModel);
-
-        User FindUserBySocialAccount(string provider, string providerUserId);
-
+       
         User FindUserByUserName(string username);
 
         List<User> FindUsersByUserName(string[] usernames);

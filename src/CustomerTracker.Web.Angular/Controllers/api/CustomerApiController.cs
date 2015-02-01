@@ -29,7 +29,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
                 customers = customers.Where(q => q.Name.ToLower().Contains(customerName.ToLower()));
 
             var pagingCustomers = customers
-                .Include("City")
+               
                 .OrderBy(q => q.Id)
                 .Skip(skippedRow)
                 .Take(pageSize)
@@ -43,7 +43,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
         {
             var customerTrackerDataContext = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext();
 
-            var customer = customerTrackerDataContext.Customers.Include("City").SingleOrDefault(q => q.Id == id);
+            var customer = customerTrackerDataContext.Customers .SingleOrDefault(q => q.Id == id);
 
             if (customer == null)
             {
@@ -57,13 +57,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
         {
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetCurrentDataContext()
                  .Set<Customer>()
-                 .Include("City")
-                 .Include("Communications.Department")
-                 .Include("RemoteMachines")
-                 .Include("RemoteMachines.RemoteMachineConnectionType")
-                 .Include("DataMasters")
-                 .Include("DataMasters.DataDetails")
-                 .Include("Products")
+               
                  .SingleOrDefault(q => q.Id == id);
 
             if (customer == null)
@@ -165,8 +159,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
             }
 
             var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>()
-                .SelectAll()
-                .Include("Products")
+                .SelectAll() 
                 .SingleOrDefault(q => q.Id == productCustomerModel.customerId);
 
             if (customer == null)
@@ -205,7 +198,7 @@ namespace CustomerTracker.Web.Angular.Controllers.api
 
         public HttpResponseMessage RemoveProductFromCustomer(ProductCustomerModel productCustomerModel)
         {
-            var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().SelectAll().Include("Products").SingleOrDefault(q => q.Id == productCustomerModel.customerId);
+            var customer = ConfigurationHelper.UnitOfWorkInstance.GetRepository<Customer>().SelectAll() .SingleOrDefault(q => q.Id == productCustomerModel.customerId);
 
             if (customer == null)
                 return Request.CreateResponse(HttpStatusCode.NotFound);

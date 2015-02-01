@@ -1,9 +1,7 @@
 ﻿
 
-customerApp.controller('materialController', function ($scope, $filter, materialFactory, customerFactory, remoteMachineFactory, communicationFactory, modalService, productFactory, remoteMachineConnectionTypeFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
-
-    $scope.isVisibleRemoteMachineSection = false;
-
+customerApp.controller('materialController', function ($scope, $filter, materialFactory, customerFactory, communicationFactory, modalService, productFactory, sharedFactory, departmentFactory, notificationFactory, baseControllerFactory) {
+     
     $scope.searchResult = {};
 
     $scope.searchCriteria = '';
@@ -16,8 +14,6 @@ customerApp.controller('materialController', function ($scope, $filter, material
 
     $scope.communicationAddMode = false;
 
-    $scope.remoteMachineAddMode = false;
-
     $scope.customerEditMode = false;
 
     $scope.genders = {};
@@ -25,8 +21,6 @@ customerApp.controller('materialController', function ($scope, $filter, material
     $scope.departments = {};
 
     $scope.allProducts = {};
-
-    $scope.remoteMachineConnectionTypes = {};
 
     $scope.setActiveSearchType = function (key, value) {
         $scope.activeSearchType = { Key: key, Value: value };
@@ -66,14 +60,7 @@ customerApp.controller('materialController', function ($scope, $filter, material
     $scope.toggleCommunicationEditMode = function (communication) {
         communication.editMode = !communication.editMode;
     };
-
-    $scope.toggleRemoteMachineAddMode = function () {
-        $scope.remoteMachineAddMode = !$scope.remoteMachineAddMode;
-    };
-
-    $scope.toggleRemoteMachineEditMode = function (remoteMachine) {
-        remoteMachine.editMode = !remoteMachine.editMode;
-    };
+ 
 
     $scope.toggleCustomerEditMode = function () {
         $scope.customerEditMode = !$scope.customerEditMode;
@@ -96,17 +83,7 @@ customerApp.controller('materialController', function ($scope, $filter, material
             })
             .error(baseControllerFactory.errorCallback);
     };
-
-    $scope.loadRemoteMachineConnectionTypes = function () {
-        remoteMachineConnectionTypeFactory.getSelectorRemoteMachineConnectionTypes()
-            .success(function (data) {
-                $scope.remoteMachineConnectionTypes = data;
-            })
-            .error(baseControllerFactory.errorCallback);
-    };
-
-
-
+     
     $scope.addCommunication = function () {
         var customerId = $scope.selectedCustomer.Id;
         $scope.communication.CustomerId = customerId;
@@ -134,43 +111,6 @@ customerApp.controller('materialController', function ($scope, $filter, material
             if (result != 'ok') return;
 
             communicationFactory.deleteCommunication(communication).success(function (data, status, headers, config) {
-                $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
-                notificationFactory.success();
-            }).error(baseControllerFactory.errorCallback);
-        });
-
-
-    };
-
-
-
-    $scope.addRemoteMachine = function () {
-        var customerId = $scope.selectedCustomer.Id;
-        $scope.remoteMachine.CustomerId = customerId;
-        remoteMachineFactory.addRemoteMachine($scope.remoteMachine)
-            .success(function (data, status, headers, config) {
-                $scope.toggleRemoteMachineAddMode();
-                $scope.remoteMachine = {};
-                notificationFactory.success();
-                return $scope.loadCustomer(customerId, $scope.selectedMaterialIndex);
-            })
-            .error(baseControllerFactory.errorCallback);
-    };
-
-    $scope.updateRemoteMachine = function (remoteMachine) {
-        remoteMachineFactory.updateRemoteMachine(remoteMachine).success(function (data, status, headers, config) {
-            $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
-            notificationFactory.success();
-        }).error(baseControllerFactory.errorCallback);
-    };
-
-    $scope.deleteRemoteMachine = function (remoteMachine) {
-   
-        var modalOptions = modalService.getDeleteConfirmationModal(remoteMachine.DecryptedName);
-        modalService.showModal({}, modalOptions).then(function (result) {
-            if (result != 'ok') return;
-
-            remoteMachineFactory.deleteRemoteMachine(remoteMachine).success(function (data, status, headers, config) {
                 $scope.loadCustomer($scope.selectedCustomer.Id, $scope.selectedMaterialIndex);
                 notificationFactory.success();
             }).error(baseControllerFactory.errorCallback);
@@ -228,7 +168,7 @@ customerApp.controller('materialController', function ($scope, $filter, material
 
         $scope.loadDepartments();
 
-        $scope.loadRemoteMachineConnectionTypes();
+      
          
 
     };

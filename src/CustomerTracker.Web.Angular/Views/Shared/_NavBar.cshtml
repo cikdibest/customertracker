@@ -22,14 +22,7 @@
                     <a href="#" class="dropdown dropdown-toggle" data-toggle="dropdown">Genel Tanımlamalar <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>@Html.ActionLink("Müşteri", "Customer", "CrudView")</li>
-                        <li>@Html.ActionLink("Müşteri Dataları", "DataMaster", "CrudView")</li>
-                        @{
-                            if (ConfigurationManager.AppSettings["IsVisibleRemoteConnection"]=="1")
-                            {
-                                <li>@Html.ActionLink("Uzak Bağlantı", "RemoteMachine", "CrudView")</li> 
-                            }
-                        }
-                        
+                        <li>@Html.ActionLink("Müşteri Dataları", "DataMaster", "CrudView")</li> 
                         <li>@Html.ActionLink("Departman", "Department", "CrudView")</li>
                         <li>@Html.ActionLink("Ürün", "Product", "CrudView")</li> 
                         <li class="divider"></li> 
@@ -40,9 +33,7 @@
                 <li>
                     <li>@Html.ActionLink("Çözüm Merkezi", "Solution", "CrudView")</li>
                 </li>
-                 <li>
-                    <li>@Html.ActionLink("Server İzleme", "RemoteMachineMonitoring", "Home")</li>
-                </li>
+                
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
